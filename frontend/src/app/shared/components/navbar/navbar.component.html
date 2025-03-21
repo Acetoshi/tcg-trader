@@ -1,4 +1,6 @@
-<nav class="navbar">
-    <h1 class="title">My Website</h1>
-    <button class="login-btn" (click)="login()">Login</button>
-  </nav>
+<mat-toolbar color="primary">
+  <span class="app-title">TCG Trader</span>
+  <span class="spacer"></span>
+  <button mat-button color="accent" routerLink="/login">Login</button>
+  <button mat-button color="accent" routerLink="/register">Register</button>
+</mat-toolbar>
