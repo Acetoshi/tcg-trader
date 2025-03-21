@@ -1,32 +1,44 @@
 <div class="login-container">
-    <mat-card class="login-card">
-      <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Username (Pseudo)</mat-label>
-            <input matInput formControlName="username" placeholder="Enter your username" />
-            <mat-error *ngIf="formControls.username.invalid && formControls.username.touched">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Username (Pseudo)</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            placeholder="Enter your username"
+          />
+          <!-- <mat-error *ngIf="loginForm.username.invalid && loginForm.username.touched">
               Username is required and should be at least 3 characters long.
-            </mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Enter your password" />
-            <mat-error *ngIf="formControls.password.invalid && formControls.password.touched">
+            </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          <!-- <mat-error *ngIf="loginForm.password.invalid && loginForm.password.touched">
               Password is required and should be at least 6 characters long.
-            </mat-error>
-          </mat-form-field>
-  
-          <div class="login-btn-container">
-            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
-              Login
-            </button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
+            </mat-error> -->
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

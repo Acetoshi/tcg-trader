@@ -5,33 +5,18 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatCard } from '@angular/material/card';
-import { MatCardHeader } from '@angular/material/card';
-import { MatCardTitle } from '@angular/material/card';
-import { MatCardContent } from '@angular/material/card';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { MatError } from '@angular/material/form-field';
-import { MatLabel } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [
-    MatCard,
-    MatLabel,
-    MatCardHeader,
-    MatCardTitle,
-    MatCardContent,
-    MatFormField,
-    MatInput,
-    MatButton,
-    MatError,
-    ReactiveFormsModule,
-  ],
+  imports: [MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
 })
+
 export class LoginComponent {
   loginForm!: FormGroup;
 
