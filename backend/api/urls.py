@@ -1,17 +1,20 @@
 from django.urls import include, path
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from api.auth.views.login import CookieTokenObtainPairView
+from api.auth.views.refresh import CookieTokenRefreshView
 
-from tutorial.quickstart import views
+from api.auth.views.users import UserViewSet, GroupViewSet
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r"users", UserViewSet)
+router.register(r"groups", GroupViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path("api/token", TokenObtainPairView.as_view(), name="token_obtain_pair"),  # Get JWT
-    path("api/token/refresh", TokenRefreshView.as_view(), name="token_refresh"),  # Refresh JWT
+    path("api/", include(router.urls)),
+    path(
+        "api/auth/login", CookieTokenObtainPairView.as_view(), name="token_obtain_pair"
+    ),
+    path("api/auth/refresh", CookieTokenRefreshView.as_view(), name="token_refresh"),
 ]
