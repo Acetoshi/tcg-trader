@@ -1,0 +1,63 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+env/
+bin/
+lib/
+include/
+pyvenv.cfg
+
+# Django specific
+db.sqlite3
+*.sqlite3
+/media/
+staticfiles/
+*.log
+
+# Migrations
+**/migrations/*.py
+**/migrations/*.pyc
+
+# Environment variables
+.env
+.env.local
+.env.*.bkp
+*.secrets
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.iml
+
+# MacOS / Windows
+.DS_Store
+Thumbs.db
+
+# Pipenv / Poetry
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Pytest / Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Docker
+docker-compose.override.yml
+.env.docker
+
+# Logs & Debugging
+logs/
+*.log
