@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +122,7 @@ STATIC_URL = "files/"
 
 # Redirect to the URL with a trailing slash
 # https://docs.djangoproject.com/en/5.1/ref/settings/#append-slash
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -132,6 +134,15 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Short-lived access tokens
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
+    "ROTATE_REFRESH_TOKENS": True,  # Security best practice
+    "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
+    "SIGNING_KEY": "your-secret-key",  # Change this to a strong secret key
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
 }
