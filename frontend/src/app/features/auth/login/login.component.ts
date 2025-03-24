@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +28,12 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     // Initialize the form group with form controls
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]], // Username field with validations
+      email: ['', [Validators.required, Validators.minLength(3)]],
       password: [
         '',
         [
@@ -46,15 +47,8 @@ export class LoginComponent {
 
   onLogin(): void {
     if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
-      console.log(formData);
-      fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const { email, password } = this.loginForm.value;
+      this.authService.login(email, password);
     }
   }
 }

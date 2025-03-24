@@ -2,7 +2,12 @@
   <h2 class="app-title" routerLink="">TCG Trader</h2>
   <menu>
     <button mat-button class="app-title" routerLink="">Home</button>
+    @if(!isAuthenticated()) {
     <button mat-button routerLink="register">Register</button>
     <button mat-stroked-button routerLink="login">Login</button>
+    }
+    @if(isAuthenticated()) {
+    <button mat-stroked-button routerLink="login">Logout</button>
+    }
   </menu>
 </mat-toolbar>

@@ -5,11 +5,11 @@
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Username (Pseudo)</mat-label>
+        <mat-label>Email</mat-label>
         <input
           matInput
-          formControlName="username"
-          placeholder="Enter your username"
+          formControlName="email"
+          placeholder="Enter your email"
         />
         <!-- <mat-error *ngIf="loginForm.username.invalid && loginForm.username.touched">
               Username is required and should be at least 3 characters long.

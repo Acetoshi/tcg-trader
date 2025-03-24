@@ -29,7 +29,7 @@ class RegisterView(APIView):
 
                     # Generate confirmation link
                     current_site = 'localhost:5000'  # Change this for production
-                    relative_link = reverse('verify_email', kwargs={'uidb64': uid, 'token': token})
+                    relative_link = f"/verify-email?id={uid}&token={token}"
                     verification_link = f"http://{current_site}{relative_link}"
 
                     # Prepare email
@@ -39,6 +39,8 @@ class RegisterView(APIView):
                         'verification_link': verification_link,
                     })
                     plain_text_message = f"Hi {user.username},\n\nClick the link below to verify your email:\n{verification_link}"
+
+                    print(verification_link)
 
                     email = EmailMultiAlternatives(
                         subject,

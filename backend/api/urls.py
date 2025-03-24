@@ -19,5 +19,5 @@ urlpatterns = [
     ),
     path("api/auth/refresh", CookieTokenRefreshView.as_view(), name="token_refresh"),
     path("api/auth/register", RegisterView.as_view(), name="register"),
-    path("api/auth/verify-email/<uidb64>/<token>/", VerifyEmailView.as_view(), name="verify_email"),
+    path("api/auth/verify-email/<uidb64>/<token>", VerifyEmailView.as_view(), name="verify_email"),
 ]
