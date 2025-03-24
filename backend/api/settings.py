@@ -57,7 +57,7 @@ ROOT_URLCONF = "api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'api/auth/templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -146,3 +146,12 @@ SIMPLE_JWT = {
     "SIGNING_KEY": "your-secret-key",  # Change this to a strong secret key
     "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
 }
+
+# Email settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Brevo SMTP email
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # Brevo SMTP password
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv("EMAIL_FROM")

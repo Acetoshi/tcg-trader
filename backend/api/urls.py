@@ -5,13 +5,13 @@ from api.auth.views.refresh import CookieTokenRefreshView
 
 from api.auth.views.users import UserViewSet, GroupViewSet
 from api.auth.views.register import RegisterView
+from api.auth.views.verify_email import VerifyEmailView
 
 router = routers.DefaultRouter()
 router.register(r"users", UserViewSet)
 router.register(r"groups", GroupViewSet)
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+
 urlpatterns = [
     path("api/", include(router.urls)),
     path(
@@ -19,4 +19,5 @@ urlpatterns = [
     ),
     path("api/auth/refresh", CookieTokenRefreshView.as_view(), name="token_refresh"),
     path("api/auth/register", RegisterView.as_view(), name="register"),
+    path("api/auth/verify-email/<uidb64>/<token>/", VerifyEmailView.as_view(), name="verify_email"),
 ]
