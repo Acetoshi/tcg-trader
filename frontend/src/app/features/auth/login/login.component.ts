@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class LoginComponent {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private toastService:ToastService) {}
 
   ngOnInit(): void {
     // Initialize the form group with form controls
@@ -45,10 +46,15 @@ export class LoginComponent {
     });
   }
 
-  onLogin(): void {
+  async onLogin(): Promise<void> {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      this.authService.login(email, password);
+      const success = await this.authService.login(email, password);
+      if (success) {
+        this.toastService.showSuccess('Logged in successfully');
+      } else {
+        this.toastService.showError('Login error, check credentials');
+      }
     }
   }
 }

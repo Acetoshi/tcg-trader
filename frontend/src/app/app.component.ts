@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,12 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'tcg-trader';
+
+  constructor(
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.authService.getUserDetails();
+  }
 }
