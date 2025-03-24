@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -10,10 +11,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [CommonModule, MatProgressSpinnerModule],
 })
 export class VerifyEmailComponent implements OnInit {
-  verificationStatus: string = 'Verifying...';
+  verificationStatus: boolean = false;
   waitingForResponse: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -23,27 +24,14 @@ export class VerifyEmailComponent implements OnInit {
       console.log('token: ', token);
       if (id && token) {
         this.verifyEmail(id, token);
-      } else {
-        this.verificationStatus = 'Invalid verification link!';
-      }
+      } 
     });
   }
 
   async verifyEmail(id: string, token: string) {
     this.waitingForResponse = true;
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/auth/verify-email/${id}/${token}`
-      );
-      this.waitingForResponse = false;
-      if (response.ok) {
-        this.verificationStatus = 'Email verified!';
-      } else {
-        this.verificationStatus = 'Invalid verification link!';
-      }
-
-    } catch (e) {
-      this.verificationStatus = 'Invalid verification link!';
-    }
+    const success = await this.authService.verifyEmail(id, token);
+    this.verificationStatus = success
+    this.waitingForResponse = false;
   }
 }

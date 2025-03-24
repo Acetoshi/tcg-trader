@@ -19,14 +19,11 @@ class VerifyEmailView(APIView):
                 user.is_active = True  # Activate user account
                 user.save()
 
-                # Step 3: Generate JWT tokens
+                # Step 3: Generate JWT token
                 refresh = RefreshToken.for_user(user)
                 access_token = str(refresh.access_token)
-                refresh_token = str(refresh)
-                print(access_token)
-                print(refresh_token)
 
-                # Step 4: Create the response and set JWT tokens in cookies
+                # Step 4: Create the response and set JWT token in cookies
                 response = Response({"message": "Email verified and logged in successfully!"}, status=status.HTTP_200_OK)
 
                 # Set the access token in HttpOnly cookies
@@ -34,18 +31,7 @@ class VerifyEmailView(APIView):
                     key="access_token",
                     value=access_token,
                     httponly=True,
-                    secure=False,  # Set to True in production
-                    samesite="Strict",
-                    max_age=60 * 30,  # 30 minutes
-                )
-
-                # Set the refresh token in HttpOnly cookies
-                response.set_cookie(
-                    key="refresh_token",
-                    value=refresh_token,
-                    httponly=True,
                     secure=True,  # Set to True in production
-                    path="/api/auth",
                     samesite="Strict",
                     max_age=60 * 60 * 24 * 7,  # 7 days
                 )

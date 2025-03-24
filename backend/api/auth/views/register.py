@@ -40,8 +40,6 @@ class RegisterView(APIView):
                     })
                     plain_text_message = f"Hi {user.username},\n\nClick the link below to verify your email:\n{verification_link}"
 
-                    print(verification_link)
-
                     email = EmailMultiAlternatives(
                         subject,
                         plain_text_message,

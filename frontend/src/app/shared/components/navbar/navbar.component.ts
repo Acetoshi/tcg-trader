@@ -17,4 +17,9 @@ export class NavbarComponent {
   get isAuthenticated() {
     return this.authService.isAuthenticated;
   }
+
+  logout(): void {
+    this.authService.logout();
+    // You can add more logic here like redirecting the user or showing a confirmation message
+  }
 }
