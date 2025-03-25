@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,12 +13,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   imports: [
+    MatProgressSpinner,
     CommonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -32,10 +34,10 @@ import { RouterLink } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
-  waitingForResponse: boolean = false;
-  accountCreated: boolean = false;
-  accountcreationFailed: boolean = false;
   message: string = '';
+  registerFail = signal(false);
+  registerSuccess = signal(false);
+  loading = signal(false);
 
   constructor(private fb: FormBuilder) {}
 
@@ -68,7 +70,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
       try {
-        this.waitingForResponse = true;
+        this.loading.set(true);
         const response = await fetch(
           'http://localhost:5000/api/auth/register',
           {
@@ -79,21 +81,21 @@ export class RegisterComponent {
             body: JSON.stringify(formData),
           }
         );
-        this.waitingForResponse = false;
+        this.loading.set(false);
         const data = await response.json();
 
-        console.log('response status:',response.ok)
+        console.log('response status:', response.ok);
 
         console.log(data);
 
         if (response.ok) {
-          this.accountCreated = true;
-          this.accountcreationFailed = false;
+          this.registerSuccess.set(true);
+          this.registerFail.set(false);
           this.message =
             'Account successfully created, check your email for activation link.';
         } else {
-          this.accountcreationFailed = true;
-          this.accountCreated = false;
+          this.registerFail.set(true);
+          this.registerSuccess.set(false);
           if (data.password) {
             this.message = `Registration failed : ${data.password}`;
           } else if (data.email) {

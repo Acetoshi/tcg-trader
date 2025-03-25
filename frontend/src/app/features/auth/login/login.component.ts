@@ -70,7 +70,7 @@ export class LoginComponent {
         this.loading.set(false);
         this.toastService.showSuccess('Logged in successfully');
       } else {
-        await new Promise((r) => setTimeout(r, 20000)); // Simulate a delay to prevent bruteforce attacks on the frontend
+        await new Promise((r) => setTimeout(r, 2000)); // Simulate a delay to prevent bruteforce attacks on the frontend
         this.loginFailed.set(true);
         this.loading.set(false);
         this.toastService.showError('Login error, check credentials');

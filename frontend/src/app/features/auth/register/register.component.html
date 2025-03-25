@@ -8,6 +8,9 @@
       (ngSubmit)="onRegister()"
       class="register-form"
     >
+      @if(loading()){
+      <div class="centered-spinner-container"><mat-spinner /></div>
+      } @if(!loading() && !registerSuccess()) {
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input
@@ -59,31 +62,34 @@
           "
         >
           Passwords do not match.
-        </mat-error>
-      </mat-form-field>
+        </mat-error> </mat-form-field
+      >} @if(registerSuccess() ){
+      <div class="centered-container">
+        <mat-icon class="icon-l success-color">outgoing_mail</mat-icon>
+        <p>
+          Account successfully created,<br />
+          check your email for activation link.
+        </p>
+      </div>
+      }
 
       <button
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="
-          registerForm.invalid || waitingForResponse || accountCreated
-        "
+        [disabled]="registerForm.invalid || loading() || registerSuccess()"
       >
-        <span>register<mat-spinner *ngIf="waitingForResponse" /></span>
+        register
       </button>
       <a mat-button routerLink="/login"
         >I already have an account, log me in
       </a>
     </form>
   </mat-card-content>
-  @if(accountCreated || accountcreationFailed) {
+
+  @if(registerFail()) {
   <mat-card-footer class="register-card-footer">
-    @if(accountCreated ){<mat-icon class="icon-l success-color"
-      >outgoing_mail</mat-icon
-    >} @if(accountcreationFailed ){<mat-icon class="icon-l error-color"
-      >cancel</mat-icon
-    >}
+    <mat-icon class="icon-l error-color">cancel</mat-icon>
     {{ message }}
   </mat-card-footer>
   }
