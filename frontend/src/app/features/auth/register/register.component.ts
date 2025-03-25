@@ -34,6 +34,7 @@ export class RegisterComponent {
   registerForm!: FormGroup;
   waitingForResponse: boolean = false;
   accountCreated: boolean = false;
+  accountcreationFailed: boolean = false;
   message: string = '';
 
   constructor(private fb: FormBuilder) {}
@@ -81,18 +82,22 @@ export class RegisterComponent {
         this.waitingForResponse = false;
         const data = await response.json();
 
+        console.log('response status:',response.ok)
+
         console.log(data);
 
         if (response.ok) {
           this.accountCreated = true;
+          this.accountcreationFailed = false;
           this.message =
             'Account successfully created, check your email for activation link.';
         } else {
-          console.log(response.body);
+          this.accountcreationFailed = true;
+          this.accountCreated = false;
           if (data.password) {
-            this.message = `Registration failed : ${data.password} Please try again.`;
+            this.message = `Registration failed : ${data.password}`;
           } else if (data.email) {
-            this.message = `Registration failed : ${data.email} Please try again.`;
+            this.message = `Registration failed : ${data.email}`;
           }
         }
       } catch (error) {

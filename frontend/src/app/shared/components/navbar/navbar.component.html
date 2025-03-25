@@ -5,8 +5,8 @@
     @if(!isAuthenticated()) {
     <button mat-button routerLink="register">Register</button>
     <button mat-stroked-button routerLink="login">Login</button>
-    } 
-    @if(isAuthenticated()) {
+    } @if(isAuthenticated()) {
+    <button mat-button routerLink="dashboard">Dashboard</button>
     <button mat-stroked-button (click)="logout()">Logout</button>
     }
   </menu>

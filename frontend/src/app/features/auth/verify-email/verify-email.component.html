@@ -1,15 +1,20 @@
-@if(waitingForResponse) {
-<mat-spinner />
-<p>Verifying</p>
-} 
-
-@if(!waitingForResponse && verificationStatus) {
-<mat-icon color="success" class="icon-xl">check</mat-icon>
-<p>Your email has been successfully verified!</p>
-<button mat-button color="primary" routerLink="/login">Go to Login</button>
-} 
-
-@if(!waitingForResponse && !verificationStatus) {
-<mat-icon color="warn" class="icon-xl">cross</mat-icon>
-<p>Your email couldn't be verified, check your link.</p>
-}
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Email verification</mat-card-title>
+    </mat-card-header>
+  <mat-card-content class="verify-email-content">
+    @if(waitingForResponse) {
+    <mat-spinner />
+    <p>Verifying your email ...</p>
+    } @if(!waitingForResponse && verificationStatus) {
+    <mat-icon class="icon-xl success-color">check_circle</mat-icon>
+    <p>Your email has been successfully verified, you are logged in !</p>
+    <button mat-flat-button color="primary" routerLink="/dashboard">
+        <mat-icon>chevron_right</mat-icon> Go to my dashboard 
+    </button>
+    } @if(!waitingForResponse && !verificationStatus) {
+    <mat-icon color="warn" class="icon-xl error-color">cancel</mat-icon>
+    <p>Your email couldn't be verified, check your link.</p>
+    }
+  </mat-card-content>
+</mat-card>

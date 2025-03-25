@@ -72,8 +72,19 @@
       >
         <span>register<mat-spinner *ngIf="waitingForResponse" /></span>
       </button>
-      <a mat-button routerLink="/login">I already have an account, log me in </a>
+      <a mat-button routerLink="/login"
+        >I already have an account, log me in
+      </a>
     </form>
-    <p *ngIf="message"><mat-icon *ngIf="accountCreated">done</mat-icon> {{message}}</p>
   </mat-card-content>
+  @if(accountCreated || accountcreationFailed) {
+  <mat-card-footer class="register-card-footer">
+    @if(accountCreated ){<mat-icon class="icon-l success-color"
+      >outgoing_mail</mat-icon
+    >} @if(accountcreationFailed ){<mat-icon class="icon-l error-color"
+      >cancel</mat-icon
+    >}
+    {{ message }}
+  </mat-card-footer>
+  }
 </mat-card>
