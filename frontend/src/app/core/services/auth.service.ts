@@ -1,4 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   isAuthenticated = computed(() => this._isAuthenticated());
   user = computed(() => this._user());
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   async login(email: string, password: string): Promise<boolean> {
     if (!email || !password) return false;
@@ -28,6 +29,7 @@ export class AuthService {
       if (response.ok) {
         this._isAuthenticated.set(true);
         this._user.set(email);
+        this.router.navigate(['/dashboard']);
         return true;
       } else {
         return false;
@@ -42,6 +44,7 @@ export class AuthService {
     if (response.ok) {
       this._isAuthenticated.set(false);
       this._user.set(null);
+      this.router.navigate(['/login']);
       return true;
     } else {
       return false;

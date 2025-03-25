@@ -1,3 +1,15 @@
-<mat-spinner *ngIf="waitingForResponse" />
-<h2>Email Verification</h2>
-<p>{{ verificationStatus }}</p>
+@if(waitingForResponse) {
+<mat-spinner />
+<p>Verifying</p>
+} 
+
+@if(!waitingForResponse && verificationStatus) {
+<mat-icon color="success" class="icon-xl">check</mat-icon>
+<p>Your email has been successfully verified!</p>
+<button mat-button color="primary" routerLink="/login">Go to Login</button>
+} 
+
+@if(!waitingForResponse && !verificationStatus) {
+<mat-icon color="warn" class="icon-xl">cross</mat-icon>
+<p>Your email couldn't be verified, check your link.</p>
+}
