@@ -1,13 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from api.auth.views.users import UserViewSet, GroupViewSet
-from api.auth.views.register import RegisterView
-from api.auth.views.verify_email import VerifyEmailView
-from api.auth.views.login import CookieTokenObtainPairView
-from api.auth.views.user_details import UserDetailsView
-from api.auth.views.refresh import CookieTokenRefreshView
-from api.auth.views.logout import LogoutView
+from auth.views.users import UserViewSet, GroupViewSet
+from auth.views.register import RegisterView
+from auth.views.verify_email import VerifyEmailView
+from auth.views.login import CookieTokenObtainPairView
+from auth.views.user_details import UserDetailsView
+from auth.views.refresh import CookieTokenRefreshView
+from auth.views.logout import LogoutView
 
 
 router = routers.DefaultRouter()
