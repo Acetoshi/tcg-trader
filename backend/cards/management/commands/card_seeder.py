@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from cards.models import Language, Rarity, Type, TypeTranslation, Set, SetTranslation, Card, RarityTranslation
+from cards.models import Language, Rarity, RarityTranslation, Type, TypeTranslation, Set, SetTranslation, Card, CardImage, Illustrator
 
 DATASET_PATH = "/home/acetone/12-WildCodeSchool/tcg-trader/backend/dataset/game-data.json"
 
@@ -66,10 +66,39 @@ class Command(BaseCommand):
             set_obj, created = Set.objects.get_or_create(
                 code=set["expansionId"],
             )
-            print(set_obj, created)
 
             SetTranslation.objects.get_or_create(
                 set=set_obj,
                 language=Language.objects.get(code="EN"),
                 name=set["name"]  # Assuming you have translations in the dataset
             )
+
+        # Then insert all cards and their english translation
+        # print(cards[0])
+
+        for card in cards:
+            if card["pokemon"]:
+                # Get or create the Illustrator first
+                illustrator, created = Illustrator.objects.get_or_create(
+                    name=card["illustratorNames"][0]  # Assuming card contains the illustrator's name
+                )
+
+                card_obj, created = Card.objects.get_or_create(
+                    set = Set.objects.get(code = card["expansionCollectionNumbers"][0]["expansionId"]),
+                    number = card["collectionNumber"],
+                    rarity = Rarity.objects.get(code = card["rarity"]),
+                    hp = card["pokemon"]["hp"],
+                    illustrator=illustrator
+                )
+
+                CardImage.objects.update_or_create(
+                    card=card_obj,
+                    language=Language.objects.get(code="EN"),
+                    image_url = f"/images/cards/en/{card["expansionCollectionNumbers"][0]["expansionId"]}/{card["expansionCollectionNumbers"][0]["expansionId"]}-{card["collectionNumber"]:03d}.webp"
+                )
+
+        #     SetTranslation.objects.get_or_create(
+        #         set=set_obj,
+        #         language=Language.objects.get(code="EN"),
+        #         name=set["name"]  # Assuming you have translations in the dataset
+        #     )
