@@ -3,7 +3,7 @@ import requests
 from django.core.management.base import BaseCommand
 
 sets = [
-    {"code": "A1", "count": 248},
+    {"code": "A1", "count": 286},
     {"code": "A1a", "count": 86},
     {"code": "A2", "count": 207},
     {"code": "A2a", "count": 96},

@@ -9,3 +9,6 @@ migrations:
 
 migrate: 
 	@venv/bin/python manage.py migrate
+
+download-cards: 
+	@venv/bin/python manage.py download_cards_images

@@ -1,0 +1,32 @@
+.tcg-card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+
+.tcg-card {
+  width: 19rem;
+  transition: transform 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+.tcg-card:hover {
+  transform: scale(1.05);
+}
+
+ // Make the image 'obey' the size of its parent
+.tcg-card figure {
+  margin: 0;
+  width: 100%;
+  & img {
+    width: 100%;
+  }
+}

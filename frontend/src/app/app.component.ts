@@ -12,9 +12,7 @@ import { AuthService } from './core/services/auth.service';
 export class AppComponent {
   title = 'tcg-trader';
 
-  constructor(
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.getUserDetails();

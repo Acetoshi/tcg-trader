@@ -94,7 +94,7 @@ class Command(BaseCommand):
                 CardImage.objects.update_or_create(
                     card=card_obj,
                     language=Language.objects.get(code="EN"),
-                    image_url = f"/images/cards/en/{card["expansionCollectionNumbers"][0]["expansionId"]}/{card["expansionCollectionNumbers"][0]["expansionId"]}-{card["collectionNumber"]:03d}.webp"
+                    image_url = f"/files/images/cards/en/{card["expansionCollectionNumbers"][0]["expansionId"]}/{card["expansionCollectionNumbers"][0]["expansionId"]}-{card["collectionNumber"]:03d}.webp"
                 )
 
         #     SetTranslation.objects.get_or_create(
