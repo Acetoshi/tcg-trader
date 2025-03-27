@@ -10,23 +10,20 @@ class CardListView(ListAPIView):
     def get_queryset(self):
         # Get the language code from the URL
         language_code = self.kwargs['language_code']
+        set_codes = self.request.query_params.get('set')
+        rarity_codes = self.request.query_params.get('rarity')
 
-        return Card.objects.all().select_related('illustrator').prefetch_related('image')
+        #Base query with no filters applied    
+        cards_queryset= Card.objects.all().select_related('illustrator').prefetch_related('image').order_by('set__code', 'number')
+
+        if set_codes:
+            set_filter=set_codes.split(',')
+            cards_queryset = cards_queryset.filter(set__code__in=set_filter)
+
+        if rarity_codes:
+            rarity_filter=rarity_codes.split(',')
+            cards_queryset = cards_queryset.filter(rarity__code__in=rarity_filter)
+
+        return cards_queryset
     
-        # Define the language you want to filter by
-        target_language = Language.objects.get(code=language_code.upper())
 
-        # Subquery to select the image URL for the 'en' language
-        image_subquery = CardImage.objects.filter(
-            card=OuterRef('pk'),  # Match the 'card' foreign key
-            language=target_language  # Filter by English language
-        ).values('url')  # Select only the URL field
-
-        #print(image_subquery)
-
-        # Now query the Card model, annotating each card with its associated 'image_url'
-        cards = Card.objects.all().select_related('illustrator').annotate(
-            image_url=Subquery(image_subquery[:1])  # Take the first image URL (if available)
-        )
-
-        return cards
