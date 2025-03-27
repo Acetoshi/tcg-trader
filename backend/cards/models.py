@@ -148,8 +148,8 @@ class CardType(models.Model):
         return f"{self.card.reference}"
     
 class PokemonCardDetails(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='pokemon')
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='pokemon_card_details')
     hp = models.IntegerField()
     weakness_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE, null=True, blank=True,related_name='weakness_type')
     retreat = models.CharField(max_length=100)
