@@ -14,21 +14,16 @@ class UserDetailsView(APIView):
         access_token = request.COOKIES.get("access_token")
         if not access_token:
             return Response({"error": "Access token missing"}, status=401)
-        
-        print(access_token)
 
         # Set the Authorization header to the JWT token
         request.META['HTTP_AUTHORIZATION'] = f'Bearer {access_token}'
 
         user = JWTAuthentication().authenticate(request)
-        print(user)
 
         try:
             # This will check the validity of the token and populate request.user
             user, auth = JWTAuthentication().authenticate(request)
 
-            print(user)
-            print(auth)
             if not user:
                 return Response({"error": "Invalid token"}, status=401)
         except Exception as e:

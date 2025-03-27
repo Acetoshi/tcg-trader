@@ -22,7 +22,7 @@ export class CardsListComponent {
 
   async fetchCards() {
     this.loading.set(true);
-    const response = await fetch(`${this.apiUrl}/cards`);
+    const response = await fetch(`${this.apiUrl}/en/cards`);
     const data = await response.json();
     this.cards.set(data.results);
     this.loading.set(false);
