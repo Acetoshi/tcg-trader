@@ -83,6 +83,9 @@ class Command(BaseCommand):
 
         for card in cards:
             if card["pokemon"]:
+
+                print(f'Inserting {card["pokemon"]["name"]} ...')
+
                 # Get or create the Illustrator first
                 illustrator, created = Illustrator.objects.get_or_create(
                     name=card["illustratorNames"][0]  # Assuming card contains the illustrator's name
@@ -102,29 +105,33 @@ class Command(BaseCommand):
                 )
                 print('Added CardImage')
 
-                print(card["pokemon"]["name"])
-
                 # find pokemon in pokedex
-                pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].replace(" ex", "")).first()
-                pokemon_obj = pokemon_trans_obj.pokemon
+                try: 
+                    pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].replace(" ex", "")).first()
+                    pokemon_obj = pokemon_trans_obj.pokemon
+                    print(f'pokemon was found : {pokemon_obj}')
+                except: # if a pokemon has a composed name, try and search for every keyword in its name
+                    try:
+                        pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].split()[1]).first()
+                        pokemon_obj = pokemon_trans_obj.pokemon
+                    except:
+                        try:
+                            pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].split()[2]).first()
+                            pokemon_obj = pokemon_trans_obj.pokemon
+                        except:
+                            print(f'couldnt find {print(card["pokemon"]["name"])} in db')
+                
 
-                print(pokemon_obj)
-
-
-                print(card["pokemon"]["pokemonTypes"][0])
                 # find pokemon type in db
                 pokemon_type_trans_obj=PokemonTypeTranslation.objects.get(name__icontains=card["pokemon"]["pokemonTypes"][0])
                 pokemon_type_obj = pokemon_type_trans_obj.pokemon_type
                 
-                print(card["pokemon"]["weaknessType"])  
                 # find pokemon weakness type in db
                 try:
                     pokemon_weakness_type_trans_obj=PokemonTypeTranslation.objects.get(name__icontains=card["pokemon"]["weaknessType"])
                     pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.pokemon_type
                 except PokemonTypeTranslation.DoesNotExist:
                     pokemon_weakness_type_obj = None  # or set a default value
-
-                print(pokemon_weakness_type_obj)
 
                 pokemon_card_details_obj, created = PokemonCardDetails.objects.update_or_create(
                     card=card_obj,
@@ -134,7 +141,7 @@ class Command(BaseCommand):
                     retreat=card["pokemon"]["retreatAmount"],
                     pokemon_type=pokemon_type_obj
                 )
-                print('Added Card details for card["pokemon"]["name"]')
+                print(f'Finished adding Card details for {card["pokemon"]["name"]}')
 
                 PokemonCardDetailsTranslation.objects.get_or_create(
                 pokemon_card_details=pokemon_card_details_obj,
