@@ -11,13 +11,7 @@ class CardListView(ListAPIView):
         # Get the language code from the URL
         language_code = self.kwargs['language_code']
 
-        # print(language_code)
-        
-        # Fetch the language object based on the language code (default to English if not found)
-        #language = Language.objects.get(code=language_code)
-
-        # Filter the cards based on the language (including translations and images)
-        #return Card.objects.all().select_related('illustrator').prefetch_related('image')
+        return Card.objects.all().select_related('illustrator').prefetch_related('image')
     
         # Define the language you want to filter by
         target_language = Language.objects.get(code=language_code.upper())
