@@ -2,7 +2,7 @@ import json
 from django.core.management.base import BaseCommand
 from cards.models import Language, Rarity, RarityTranslation, Type, TypeTranslation, Set, SetTranslation, Card, CardImage, Illustrator
 
-DATASET_PATH = "/home/acetone/12-WildCodeSchool/tcg-trader/backend/dataset/game-data.json"
+DATASET_PATH = "/app/dataset/game-data.json"
 
 class Command(BaseCommand):
     help = "Seed the database with Pokémon card data"
@@ -47,6 +47,7 @@ class Command(BaseCommand):
                 language=Language.objects.get(code="EN"),
                 name=rarity["name"]  # Assuming you have translations in the dataset
             )
+        print('Added rarities')
 
         # Then insert all types and their english translation
         for type in types:
@@ -60,6 +61,7 @@ class Command(BaseCommand):
                 language=Language.objects.get(code="EN"),
                 name=type["id"]  # Assuming you have translations in the dataset
             )
+        print('Added types')
 
         # Then insert all sets and their english translation
         for set in sets:
@@ -72,6 +74,7 @@ class Command(BaseCommand):
                 language=Language.objects.get(code="EN"),
                 name=set["name"]  # Assuming you have translations in the dataset
             )
+        print('Added Sets')
 
         # Then insert all cards and their english translation
         # print(cards[0])
@@ -94,7 +97,7 @@ class Command(BaseCommand):
                 CardImage.objects.update_or_create(
                     card=card_obj,
                     language=Language.objects.get(code="EN"),
-                    image_url = f"/files/images/cards/en/{card["expansionCollectionNumbers"][0]["expansionId"]}/{card["expansionCollectionNumbers"][0]["expansionId"]}-{card["collectionNumber"]:03d}.webp"
+                    url = f"/files/images/cards/en/{card['expansionCollectionNumbers'][0]['expansionId']}/{card['expansionCollectionNumbers'][0]['expansionId']}-{card['collectionNumber']:03d}.webp"
                 )
 
         #     SetTranslation.objects.get_or_create(

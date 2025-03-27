@@ -12,8 +12,10 @@ WORKDIR /app
 # Step 4: Copy the requirements.txt file into the container
 COPY requirements.txt /app/
 
-# Step 5: Install Python dependencies
+# Install Python dependencies 
 RUN pip install --no-cache-dir -r requirements.txt
+# Install Postgresql Client
+RUN apt update && apt install -y postgresql-client
 
 # Step 6: Copy the entire Django project to the container's working directory
 COPY . /app/
