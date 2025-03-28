@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class CardsListComponent {
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
-  cards = signal([{ id: 0, image: [{ url: 'gino' }] }]);
+  cards = signal([{ id: 0, imageUrl:'jim' }]);
   loading = signal(true);
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class CardsListComponent {
 
   async fetchCards() {
     this.loading.set(true);
-    const response = await fetch(`${this.apiUrl}/en/cards`);
+    const response = await fetch(`${this.apiUrl}/en/cards?page=12`);
     const data = await response.json();
     this.cards.set(data.results);
     this.loading.set(false);
