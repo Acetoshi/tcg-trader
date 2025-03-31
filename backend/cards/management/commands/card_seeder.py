@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from cards.models import Language, Rarity, RarityTranslation, PokemonType, PokemonTypeTranslation, Set, SetTranslation, Card, CardImage, Illustrator,PokemonCardDetails,PokemonCardDetailsTranslation, Pokemon, PokemonTranslation
+from cards.models import Language, Rarity, RarityTranslation, PokemonType, PokemonTypeTranslation, Set, SetTranslation, Card, CardImage, Illustrator,PokemonCardDetails,PokemonCardDetailsTranslation, PokemonTranslation, CardNameTranslation
 
 DATASET_PATH = "/app/dataset/game-data.json"
 
@@ -104,6 +104,12 @@ class Command(BaseCommand):
                     url = f"/images/cards/en/{card['expansionCollectionNumbers'][0]['expansionId']}/{card['expansionCollectionNumbers'][0]['expansionId']}-{card['collectionNumber']:03d}.webp"
                 )
                 print('Added CardImage')
+
+                CardNameTranslation.objects.update_or_create(
+                    card=card_obj,
+                    language=lang_en,
+                    name=card["pokemon"]["name"]
+                )
 
                 # find pokemon in pokedex
                 try: 

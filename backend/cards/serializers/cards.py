@@ -3,19 +3,19 @@ from cards.models import Card
 from cards.serializers.pokemon_card_details import PokemonCardDetailsSerializer
 
 class CardSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(read_only=True) 
     illustratorName = serializers.CharField(source="illustrator.name") 
     rarityCode = serializers.CharField(source="rarity.code")
-    rarityImgUrl = serializers.CharField(source="rarity.image_url")
+    rarityImageUrl = serializers.CharField(source="rarity.image_url")
+    rarityName = serializers.CharField(read_only=True)
+    setNumber = serializers.CharField(source="number")
     setCode = serializers.CharField(source="set.code")
-    imageUrl = serializers.SerializerMethodField()
-    pokemon_card_details=PokemonCardDetailsSerializer(many=True)
     setName = serializers.CharField(read_only=True) 
+    imageUrl = serializers.CharField(read_only=True) 
+    pokemon_card_details=PokemonCardDetailsSerializer(many=True)
+    
 
     class Meta:
         model = Card
-        fields = '__all__'  # Include all fields from the Card model
-
-    def get_imageUrl(self, obj):
-        language_code = self.context.get("language_code", "en")  # Default to 'en'
-        image = obj.image.filter(language__code__iexact=language_code).first()  # Adjust filtering based on language_code if needed
-        return image.url if image else None
+        fields = ['id','name','reference','imageUrl','rarityCode','rarityName','rarityImageUrl','setNumber','setCode','setName','pokemon_card_details','illustratorName']
+        #'__all__'  # Include all fields from the Card model

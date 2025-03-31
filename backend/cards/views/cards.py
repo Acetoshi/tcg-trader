@@ -2,7 +2,7 @@ from django.db.models import F, Subquery, OuterRef
 from rest_framework.generics import ListAPIView
 from cards.models import Card
 from cards.serializers.cards import CardSerializer
-from cards.models import SetTranslation, CardImage
+from cards.models import SetTranslation, CardImage, RarityTranslation, CardNameTranslation
 
 class CardListView(ListAPIView):
     serializer_class = CardSerializer
@@ -36,8 +36,33 @@ class CardListView(ListAPIView):
             language__code__iexact=language_code  # Filter by language
         ).values('name')[:1]  # Get only the first match
 
-        # Query all cards and annotate them with the translated set name
         cards_queryset = cards_queryset.annotate(setName=Subquery(set_name_subquery))
+
+
+        # Accessing the image url based on the language parameters
+        image_url_subquery = CardImage.objects.filter(
+            card_id=OuterRef('id'), 
+            language__code__iexact=language_code
+        ).values('url')[:1]
+
+        cards_queryset = cards_queryset.annotate(imageUrl=Subquery(image_url_subquery ))
+
+
+        # Accessing the rarity name based on the language parameters
+        rarity_name_subquery = RarityTranslation.objects.filter(
+            rarity_id=OuterRef('rarity_id'), 
+            language__code__iexact=language_code
+        ).values('name')[:1]
+
+        cards_queryset = cards_queryset.annotate(rarityName=Subquery(rarity_name_subquery ))
+
+        # Accessing the card name based on the language parameters
+        card_name_subquery = CardNameTranslation.objects.filter(
+            card_id=OuterRef('id'), 
+            language__code__iexact=language_code
+        ).values('name')[:1]
+
+        cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery ))
 
 
         

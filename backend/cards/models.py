@@ -154,6 +154,7 @@ class PokemonCardDetails(models.Model):
     weakness_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE, null=True, blank=True,related_name='weakness_type')
     retreat = models.CharField(max_length=100)
     pokemon_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE, related_name='pokemon_type')
+    is_ex = models.BooleanField(default=False)
 
     def __str__(self):
         return f"PokemonCardDetails for {self.pokemon.name} with {self.card.name}"
