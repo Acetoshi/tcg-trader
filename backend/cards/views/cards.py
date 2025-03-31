@@ -64,39 +64,6 @@ class CardListView(ListAPIView):
 
         cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery ))
 
-
-        
-
-        print(cards_queryset.query) 
-        print(cards_queryset.first().setName) 
-        #print(cards_queryset.first().illustratorName)
-
         return cards_queryset
-    
-    #TODO : subquerying seems to be the scalable way to do things. 
-    # def get_queryset(self):
-    #     language_code = self.kwargs.get("language_code", "en")  # Get language from URL params
-
-    #     # Subquery to fetch the correct image URL for each card
-    #     image_subquery = CardImage.objects.filter(
-    #         card=OuterRef("pk"), language__code=language_code
-    #     ).values("url")[:1]  # Select only the first matching image
-
-    #     return Card.objects.annotate(image_url=Subquery(image_subquery))
-
-    #TODO : it seems this SQL query 'flattens' the tables in quite a good way :
-    # SELECT 
-    # cards_settranslation.name,                    
-    # cards_language.code AS language_code,
-    # cards_set.code AS set_code
-    # FROM cards_settranslation 
-    # JOIN cards_language ON cards_language.id = cards_settranslation.language_id
-    # JOIN cards_set ON cards_set.id = cards_settranslation.set_id
-    # WHERE cards_set.code = 'A1' AND cards_language.code = 'EN';
-
-    #     name     | language_code | set_code 
-    # --------------+---------------+----------
-    # Genetic Apex | EN            | A1
-    # (1 row)
     
 
