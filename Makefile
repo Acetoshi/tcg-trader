@@ -9,7 +9,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 
 dev:
-	docker compose up -d
+	docker compose up
 
 download-assets:
 	@docker exec -it tcg-trader-backend python manage.py download_cards_images 
@@ -29,3 +29,6 @@ db-reset:
 	@echo "Starting the backend container..."
 	@docker compose start backend
 	@docker exec -it tcg-trader-backend python manage.py migrate
+
+db-sql:
+	@docker exec -it tcg-trader-db psql -U postgres -d postgres

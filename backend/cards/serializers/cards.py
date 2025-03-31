@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from cards.models import Card
-from cards.serializers.card_images import CardImageSerializer
 from cards.serializers.pokemon_card_details import PokemonCardDetailsSerializer
 
 class CardSerializer(serializers.ModelSerializer):
@@ -10,6 +9,7 @@ class CardSerializer(serializers.ModelSerializer):
     setCode = serializers.CharField(source="set.code")
     imageUrl = serializers.SerializerMethodField()
     pokemon_card_details=PokemonCardDetailsSerializer(many=True)
+    setName = serializers.CharField(read_only=True) 
 
     class Meta:
         model = Card
