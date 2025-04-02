@@ -24,17 +24,16 @@ export class CardFilterBarComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   async fetchSets() {
-    if (isPlatformBrowser(this.platformId)) {
-      try {
-        this.loading.set(true);
-        const response = await fetch(`${this.apiUrl}/en/sets`);
-        const data = await response.json();
-        this.sets.set(data.results);
-      } catch (error) {
-        console.error('Error fetching Sets');
-      } finally {
-        this.loading.set(false);
-      }
+    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR 
+    try {
+      this.loading.set(true);
+      const response = await fetch(`${this.apiUrl}/en/sets`);
+      const data = await response.json();
+      this.sets.set(data.results);
+    } catch (error) {
+      console.error('Error fetching Sets');
+    } finally {
+      this.loading.set(false);
     }
   }
 

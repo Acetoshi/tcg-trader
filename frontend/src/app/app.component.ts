@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { AuthService } from './core/services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -12,9 +14,14 @@ import { AuthService } from './core/services/auth.service';
 export class AppComponent {
   title = 'tcg-trader';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
-    this.authService.getUserDetails();
+    if (isPlatformBrowser(this.platformId)) { // Only check User Auth on browser
+      this.authService.getUserDetails();
+    }
   }
 }
