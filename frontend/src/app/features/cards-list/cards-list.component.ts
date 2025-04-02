@@ -10,17 +10,19 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CardFilterBarComponent } from '../../shared/components/card-filter-bar/card-filter-bar.component'
 
 @Component({
   selector: 'app-cards-list',
-  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, CardFilterBarComponent],
   templateUrl: './cards-list.component.html',
   styleUrl: './cards-list.component.scss',
 })
-export class CardsListComponent implements OnInit {
+export class CardsListComponent implements OnInit, AfterViewInit {
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
   cards = signal<any[]>([]);
+  sets = signal<any[]>([]);
   loading = signal(false);
   currentPage = signal(1);
   totalPages = signal(Infinity);
@@ -51,14 +53,13 @@ export class CardsListComponent implements OnInit {
     }
   }
 
+
   setupScrollListener() {
     if (!this.scrollAnchor) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        console.log('Intersection observed:', entries[0]);
         if (entries[0].isIntersecting) {
-          console.log('refetch needed');
           this.fetchCards();
         }
       },

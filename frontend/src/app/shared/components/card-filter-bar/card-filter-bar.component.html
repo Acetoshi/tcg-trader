@@ -1,0 +1,11 @@
+<div class="cards-list-filterbar">
+    <mat-form-field>
+      <mat-label>Set</mat-label>
+      <mat-select multiple (selectionChange)="onSetSelectionChange($event)">
+        <mat-option>Any</mat-option>
+        @for (set of sets(); track set) {
+          <mat-option [value]="set.code">{{set.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>

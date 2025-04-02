@@ -1,3 +1,4 @@
+<app-card-filter-bar />
 <ul class="tcg-card-list">
   @for (card of cards(); track card.id) {
   <li>
@@ -11,9 +12,11 @@
   }
 </ul>
 
-<div #scrollAnchor class="centered-spinner-container">
-  @if(loading()){
-  <mat-spinner />
-  <p>Loading card data</p>
-  }
+<div #scrollAnchor>
+  <div>
+    @if(loading()){
+    <mat-spinner />
+    <p>Loading card data</p>
+    }
+  </div>
 </div>
