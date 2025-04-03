@@ -5,7 +5,6 @@ import {
   ElementRef,
   ViewChild,
   signal,
-  computed,
   PLATFORM_ID,
   Inject,
   effect,
@@ -43,7 +42,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   filters = signal<CardFilters>({ setCodes: [], search: '' });
   lastFetchedFilters: CardFilters = { setCodes: [], search: '' };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
     effect(() => {
       const currentFilters = this.filters();
       console.log('Current filters:', currentFilters);
@@ -101,7 +100,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
         const nextPage = new URL(nextPageUrl).searchParams.get('page');
         this.nextPage = parseInt(nextPage as string);
       }
-    } catch (error) {
+    } catch {
       console.error('Cards fetch error:');
     } finally {
       this.loading.set(false);

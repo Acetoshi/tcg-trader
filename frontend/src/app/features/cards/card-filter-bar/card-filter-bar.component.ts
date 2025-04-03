@@ -59,7 +59,7 @@ export class CardFilterBarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   async fetchSets() {
@@ -69,7 +69,7 @@ export class CardFilterBarComponent implements OnInit {
       const response = await fetch(`${this.apiUrl}/en/sets`);
       const data = await response.json();
       this.sets.set(data.results);
-    } catch (error) {
+    } catch {
       console.error('Error fetching Sets');
     } finally {
       this.loading.set(false);

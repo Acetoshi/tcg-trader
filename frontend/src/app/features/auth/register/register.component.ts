@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -32,9 +32,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     RouterLink,
   ],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  message: string = '';
+  message = '';
   registerFail = signal(false);
   registerSuccess = signal(false);
   loading = signal(false);
@@ -102,7 +102,7 @@ export class RegisterComponent {
             this.message = `Registration failed : ${data.email}`;
           }
         }
-      } catch (error) {
+      } catch {
         this.message = 'An error occurred. Please try again later.';
       }
     }

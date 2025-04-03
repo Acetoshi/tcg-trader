@@ -11,11 +11,11 @@ import {
 export class ToastService {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  defaultDuration: number = 3000;
+  defaultDuration = 3000;
 
   constructor(private snackBar: MatSnackBar) {}
 
-  showSuccess(message: string, action: string = 'Close'): void {
+  showSuccess(message: string, action = 'Close'): void {
     this.snackBar.open(message, action, {
       duration: this.defaultDuration,
       panelClass: ['success-toast'],
@@ -24,7 +24,7 @@ export class ToastService {
     });
   }
 
-  showError(message: string, action: string = 'Close'): void {
+  showError(message: string, action = 'Close'): void {
     this.snackBar.open(message, action, {
       duration: this.defaultDuration,
       panelClass: ['error-toast'],
@@ -33,7 +33,7 @@ export class ToastService {
     });
   }
 
-  showInfo(message: string, action: string = 'Close'): void {
+  showInfo(message: string, action = 'Close'): void {
     this.snackBar.open(message, action, {
       duration: this.defaultDuration,
       panelClass: ['info-toast'],
@@ -42,7 +42,7 @@ export class ToastService {
     });
   }
 
-  showWarning(message: string, action: string = 'Close'): void {
+  showWarning(message: string, action = 'Close'): void {
     this.snackBar.open(message, action, {
       duration: this.defaultDuration,
       panelClass: ['warning-toast'],

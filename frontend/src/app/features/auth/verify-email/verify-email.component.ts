@@ -22,8 +22,8 @@ import { MatCardModule } from '@angular/material/card';
   ],
 })
 export class VerifyEmailComponent implements OnInit {
-  verificationStatus: boolean = false;
-  waitingForResponse: boolean = true;
+  verificationStatus = false;
+  waitingForResponse = true;
 
   constructor(
     private route: ActivatedRoute,

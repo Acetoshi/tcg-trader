@@ -34,7 +34,7 @@ export class AuthService {
       } else {
         return false;
       }
-    } catch (e) {
+    } catch {
       return false;
     }
   }
@@ -64,7 +64,7 @@ export class AuthService {
       } else {
         return false;
       }
-    } catch (e) {
+    } catch {
       return false;
     }
   }
