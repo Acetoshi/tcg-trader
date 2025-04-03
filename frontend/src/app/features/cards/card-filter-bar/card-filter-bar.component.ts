@@ -7,26 +7,41 @@ import {
   Inject,
   Input,
   Output,
-  Signal,
   EventEmitter,
 } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInput } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 import { Set } from '../../../core/models/set.model';
 import { CardFilters } from '../../../core/models/cards-filters.model';
+import { MatCardModule } from '@angular/material/card';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-card-filter-bar',
-  imports: [CommonModule, MatSelectModule, MatOptionModule],
+  imports: [
+    CommonModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatExpansionModule,
+    MatIcon,
+    MatInput,
+    MatCardModule,
+    MatSlideToggleModule
+  ],
   templateUrl: './card-filter-bar.component.html',
+  styleUrl: './card-filter-bar.component.scss',
 })
 export class CardFilterBarComponent implements OnInit {
   @Input({ required: true }) filters!: CardFilters;
   @Output() setSelectionChange = new EventEmitter<string[]>();
   private apiUrl = environment.apiUrl;
   sets = signal<Set[]>([]);
+  showMoreFilters = signal(false);
 
   loading = signal(false);
 

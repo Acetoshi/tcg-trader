@@ -1,10 +1,38 @@
-<div class="cards-list-filterbar">
-    <mat-form-field>
-      <mat-label>Set</mat-label>
-      <mat-select multiple (selectionChange)="onSetSelectionChange($event)">
-        @for (set of sets(); track set) {
-          <mat-option [value]="set.code">{{set.name}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
+<mat-card class="cards-list-filterbar">
+  <mat-card-content class="high-density">
+    <form onsubmit="(event) => event.preventDefault()">
+      <fieldset>
+        <!-- <legend>Card Filters</legend> -->
+        <mat-form-field appearance="outline" class="search-input" class="high-density" subscriptSizing="dynamic">
+          <mat-label>Search for a card</mat-label>
+          <input matInput placeholder="Ex. Pikachu, Red ..." />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="high-density" subscriptSizing="dynamic">
+          <mat-label>Filter by Set</mat-label>
+          <mat-select multiple (selectionChange)="onSetSelectionChange($event)" >
+            @for (set of sets(); track set) {
+            <mat-option [value]="set.code">{{ set.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="high-density" subscriptSizing="dynamic">
+          <mat-label>Filter by Type</mat-label>
+          <mat-select multiple (selectionChange)="onSetSelectionChange($event)" >
+            @for (set of sets(); track set) {
+            <mat-option [value]="set.code">{{ set.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <span>
+          <mat-slide-toggle labelPosition="before"
+            >More filters</mat-slide-toggle
+          >
+        </span>
+      </fieldset>
+    </form>
+  </mat-card-content>
+</mat-card>

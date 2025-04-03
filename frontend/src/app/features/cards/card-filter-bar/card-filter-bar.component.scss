@@ -1,0 +1,45 @@
+@use "@angular/material" as mat;
+
+.high-density {
+  @include mat.theme(
+    (
+      density: -4,
+    )
+  );
+}
+.cards-list-filterbar {
+  position: sticky;
+  align-self: flex-start;
+  top: 72px;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+.cards-list-filterbar form fieldset {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // flex-wrap: wrap;
+  gap: 16px;
+
+  //  Override default styling
+  border: none;
+  padding: 0px;
+  padding-block: 0px;
+  padding-inline: 0px;
+  margin-inline: 0px;
+  min-inline-size: 0px;
+  margin: 0px;
+
+  & span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.cards-list-filterbar .search-input {
+  flex-grow: 1;
+  min-width: 100px;
+}
