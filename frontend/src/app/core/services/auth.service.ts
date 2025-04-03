@@ -1,8 +1,8 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, signal, computed } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
   private _isAuthenticated = signal<boolean>(false);
@@ -18,18 +18,18 @@ export class AuthService {
     if (!email || !password) return false;
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username:email, password }),
+        body: JSON.stringify({ username: email, password }),
       });
 
       if (response.ok) {
         this._isAuthenticated.set(true);
         this._user.set(email);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(["/dashboard"]);
         return true;
       } else {
         return false;
@@ -40,11 +40,11 @@ export class AuthService {
   }
 
   async logout(): Promise<boolean> {
-    const response = await fetch('http://localhost:5000/api/auth/logout');
+    const response = await fetch("http://localhost:5000/api/auth/logout");
     if (response.ok) {
       this._isAuthenticated.set(false);
       this._user.set(null);
-      this.router.navigate(['/login']);
+      this.router.navigate(["/login"]);
       return true;
     } else {
       return false;
@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   async getUserDetails(): Promise<boolean> {
-    const response = await fetch('http://localhost:5000/api/auth/user');
+    const response = await fetch("http://localhost:5000/api/auth/user");
     if (response.ok) {
       const data = await response.json();
       this._user.set(data.email);

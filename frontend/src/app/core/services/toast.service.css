@@ -1,25 +1,29 @@
-.success-toast div,.success-toast div button {
+.success-toast div,
+.success-toast div button {
   background-color: #4caf50 !important; /* Material Green */
   color: white !important;
   font-weight: bold;
   border-radius: 4px;
 }
 
-.error-toast div,.error-toast div button {
+.error-toast div,
+.error-toast div button {
   background-color: #f44336 !important; /* Material Red */
   color: white !important;
   font-weight: bold;
   border-radius: 4px;
 }
 
-.warning-toast div,.warning-toast div button {
+.warning-toast div,
+.warning-toast div button {
   background-color: #ff9800 !important; /* Material Amber */
   color: white !important;
   font-weight: bold;
   border-radius: 4px;
 }
 
-.info-toast div,.info-toast div button {
+.info-toast div,
+.info-toast div button {
   background-color: #2196f3 !important; /* Material Blue */
   color: white !important;
   font-weight: bold;

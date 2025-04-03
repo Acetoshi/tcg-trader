@@ -1,18 +1,17 @@
-import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { AuthService } from './core/services/auth.service';
-
+import { Component, Inject, PLATFORM_ID, OnInit } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { RouterOutlet } from "@angular/router";
+import { NavbarComponent } from "./shared/components/navbar/navbar.component";
+import { AuthService } from "./core/services/auth.service";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   imports: [RouterOutlet, NavbarComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
 })
 export class AppComponent implements OnInit {
-  title = 'tcg-trader';
+  title = "tcg-trader";
 
   constructor(
     private authService: AuthService,
@@ -20,7 +19,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) { // Only check User Auth on browser
+    if (isPlatformBrowser(this.platformId)) {
+      // Only check User Auth on browser
       this.authService.getUserDetails();
     }
   }

@@ -1,24 +1,24 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
-} from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+} from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { CommonModule } from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.css"],
   imports: [
     MatProgressSpinner,
     CommonModule,
@@ -34,7 +34,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  message = '';
+  message = "";
   registerFail = signal(false);
   registerSuccess = signal(false);
   loading = signal(false);
@@ -44,24 +44,24 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group(
       {
-        email: ['', [Validators.required, Validators.email]],
+        email: ["", [Validators.required, Validators.email]],
         password: [
-          '',
+          "",
           [
             Validators.required,
             Validators.minLength(8),
             Validators.maxLength(64),
           ],
         ],
-        passwordConfirmation: ['', [Validators.required]],
+        passwordConfirmation: ["", [Validators.required]],
       },
       { validator: this.passwordMatchValidator }
     );
   }
 
   passwordMatchValidator(form: FormGroup): null | { mismatch: boolean } {
-    const password = form.get('password')?.value;
-    const passwordConfirmation = form.get('passwordConfirmation')?.value;
+    const password = form.get("password")?.value;
+    const passwordConfirmation = form.get("passwordConfirmation")?.value;
 
     return password === passwordConfirmation ? null : { mismatch: true };
   }
@@ -72,11 +72,11 @@ export class RegisterComponent implements OnInit {
       try {
         this.loading.set(true);
         const response = await fetch(
-          'http://localhost:5000/api/auth/register',
+          "http://localhost:5000/api/auth/register",
           {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
           }
@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
         this.loading.set(false);
         const data = await response.json();
 
-        console.log('response status:', response.ok);
+        console.log("response status:", response.ok);
 
         console.log(data);
 
@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
           this.registerSuccess.set(true);
           this.registerFail.set(false);
           this.message =
-            'Account successfully created, check your email for activation link.';
+            "Account successfully created, check your email for activation link.";
         } else {
           this.registerFail.set(true);
           this.registerSuccess.set(false);
@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit {
           }
         }
       } catch {
-        this.message = 'An error occurred. Please try again later.';
+        this.message = "An error occurred. Please try again later.";
       }
     }
   }

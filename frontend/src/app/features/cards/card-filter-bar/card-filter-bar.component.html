@@ -7,26 +7,23 @@
           appearance="outline"
           class="search-input"
           class="high-density"
-          subscriptSizing="dynamic"
-        >
+          subscriptSizing="dynamic">
           <mat-label>Search for a card</mat-label>
           <input
             matInput
             placeholder="Ex. Pikachu, Red ..."
-            formControlName="search"
-          />
+            formControlName="search" />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
         <mat-form-field
           appearance="outline"
           class="high-density"
-          subscriptSizing="dynamic"
-        >
+          subscriptSizing="dynamic">
           <mat-label>Filter by Set</mat-label>
           <mat-select multiple formControlName="setCodes">
             @for (set of sets(); track set) {
-            <mat-option [value]="set.code">{{ set.name }}</mat-option>
+              <mat-option [value]="set.code">{{ set.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -34,17 +31,14 @@
         <mat-form-field
           appearance="outline"
           class="high-density"
-          subscriptSizing="dynamic"
-        >
+          subscriptSizing="dynamic">
           <mat-label>Filter by Type</mat-label>
-          <mat-select multiple >
+          <mat-select multiple>
             @for (set of sets(); track set) {
-            <mat-option [value]="set.code">{{ set.name }}</mat-option>
+              <mat-option [value]="set.code">{{ set.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
-
-        
 
         <span>
           <mat-slide-toggle labelPosition="before"
@@ -52,14 +46,15 @@
           >
         </span>
 
-        <button mat-flat-button type="button" color="warn" (click)="resetFilters()">
+        <button
+          mat-flat-button
+          type="button"
+          color="warn"
+          (click)="resetFilters()">
           Reset
           <mat-icon>clear</mat-icon>
         </button>
-
       </fieldset>
-
-      
     </form>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
 export interface Set {
-    code: string;
-    name: string;
-  }
+  code: string;
+  name: string;
+}

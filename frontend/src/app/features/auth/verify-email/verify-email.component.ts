@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../../../core/services/auth.service";
+import { CommonModule } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { RouterLink } from "@angular/router";
+import { MatCardModule } from "@angular/material/card";
 
 @Component({
-  selector: 'app-verify-email',
-  templateUrl: './verify-email.component.html',
-  styleUrls: ['./verify-email.component.css'],
+  selector: "app-verify-email",
+  templateUrl: "./verify-email.component.html",
+  styleUrls: ["./verify-email.component.css"],
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
@@ -31,11 +31,11 @@ export class VerifyEmailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      const id = params['id'];
-      const token = params['token'];
-      console.log('id: ', id);
-      console.log('token: ', token);
+    this.route.queryParams.subscribe(params => {
+      const id = params["id"];
+      const token = params["token"];
+      console.log("id: ", id);
+      console.log("token: ", token);
       if (id && token) {
         this.verifyEmail(id, token);
       }

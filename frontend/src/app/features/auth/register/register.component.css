@@ -1,7 +1,7 @@
 .register-form {
   padding: 32px 16px 0px 16px;
   padding-top: 32px;
-  gap:8px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
   min-width: min(50vw, 400px);
@@ -15,7 +15,7 @@
   padding: 0px 0px 32px 0px;
 }
 
-.centered-container{
+.centered-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +24,7 @@
   padding: 0px 0px 16px 0px;
 }
 
-.register-card-footer{
+.register-card-footer {
   display: flex;
   gap: 8px;
   justify-content: center;

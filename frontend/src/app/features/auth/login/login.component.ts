@@ -1,25 +1,25 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
-} from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { ToastService } from '../../../core/services/toast.service';
-import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+} from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
+import { RouterLink } from "@angular/router";
+import { AuthService } from "../../../core/services/auth.service";
+import { ToastService } from "../../../core/services/toast.service";
+import { CommonModule } from "@angular/common";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
   imports: [
     MatProgressSpinnerModule,
     CommonModule,
@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the form group with form controls
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.minLength(3)]],
+      email: ["", [Validators.required, Validators.minLength(3)]],
       password: [
-        '',
+        "",
         [
           Validators.required,
           Validators.minLength(8),
@@ -68,12 +68,12 @@ export class LoginComponent implements OnInit {
       if (success) {
         this.loginFailed = signal(false);
         this.loading.set(false);
-        this.toastService.showSuccess('Logged in successfully');
+        this.toastService.showSuccess("Logged in successfully");
       } else {
-        await new Promise((r) => setTimeout(r, 2000)); // Simulate a delay to prevent bruteforce attacks on the frontend
+        await new Promise(r => setTimeout(r, 2000)); // Simulate a delay to prevent bruteforce attacks on the frontend
         this.loginFailed.set(true);
         this.loading.set(false);
-        this.toastService.showError('Login error, check credentials');
+        this.toastService.showError("Login error, check credentials");
       }
     }
   }

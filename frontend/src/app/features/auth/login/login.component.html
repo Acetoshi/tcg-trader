@@ -1,49 +1,48 @@
 <main>
-<mat-card class="login-card">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
-      @if(loading()){
-      <div class="centered-spinner-container"><mat-spinner /></div>
-      } @if(!loading()){
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          formControlName="email"
-          placeholder="Enter your email"
-        />
-      </mat-form-field>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+        @if (loading()) {
+          <div class="centered-spinner-container"><mat-spinner /></div>
+        }
+        @if (!loading()) {
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              placeholder="Enter your email" />
+          </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-      </mat-form-field>
-      }
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password" />
+          </mat-form-field>
+        }
 
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="loginForm.invalid || loading()"
-      >
-        Login
-      </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid || loading()">
+          Login
+        </button>
 
-      <a mat-button routerLink="/register">Create an account</a>
-    </form>
-  </mat-card-content>
-  @if(loginFailed()) {
-  <mat-card-footer class="login-card-footer">
-    <mat-icon class="icon-l error-color">cancel</mat-icon>
-    Check your credentials and try again </mat-card-footer
-  >}
-</mat-card>
+        <a mat-button routerLink="/register">Create an account</a>
+      </form>
+    </mat-card-content>
+    @if (loginFailed()) {
+      <mat-card-footer class="login-card-footer">
+        <mat-icon class="icon-l error-color">cancel</mat-icon>
+        Check your credentials and try again
+      </mat-card-footer>
+    }
+  </mat-card>
 </main>

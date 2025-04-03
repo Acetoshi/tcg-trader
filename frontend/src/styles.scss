@@ -2,10 +2,10 @@
 @import "./app/core/services/toast.service.css";
 
 // Custom colors
-$success-color : #4CAF50;
-$error-color : #F44336;
-$warning-color : #FFC107;
-$info-color : #2196F3;
+$success-color: #4caf50;
+$error-color: #f44336;
+$warning-color: #ffc107;
+$info-color: #2196f3;
 
 html {
   color-scheme: light dark;
@@ -41,12 +41,11 @@ main {
   margin: auto;
 }
 
-main.justify-start{
+main.justify-start {
   justify-content: flex-start;
 }
 
-
-// icon sizes 
+// icon sizes
 .icon-l {
   font-size: 48px !important;
   height: 48px !important;
@@ -65,20 +64,19 @@ main.justify-start{
   width: 80px !important;
 }
 
-
 //color overrides
-.success-color{
+.success-color {
   color: $success-color !important;
 }
 
-.error-color{
+.error-color {
   color: $error-color !important;
 }
 
-.warning-color{
+.warning-color {
   color: $warning-color !important;
 }
 
-.info-color{
+.info-color {
   color: $info-color !important;
 }

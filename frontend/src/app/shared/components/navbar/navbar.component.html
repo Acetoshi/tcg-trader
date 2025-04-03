@@ -3,12 +3,13 @@
   <menu>
     <button mat-button routerLink="">Home</button>
     <button mat-button routerLink="cards">Cards</button>
-    @if(!isAuthenticated()) {
-    <button mat-button routerLink="register">Register</button>
-    <button mat-stroked-button routerLink="login">Login</button>
-    } @if(isAuthenticated()) {
-    <button mat-button routerLink="dashboard">Dashboard</button>
-    <button mat-stroked-button (click)="logout()">Logout</button>
+    @if (!isAuthenticated()) {
+      <button mat-button routerLink="register">Register</button>
+      <button mat-stroked-button routerLink="login">Login</button>
+    }
+    @if (isAuthenticated()) {
+      <button mat-button routerLink="dashboard">Dashboard</button>
+      <button mat-stroked-button (click)="logout()">Logout</button>
     }
   </menu>
 </mat-toolbar>

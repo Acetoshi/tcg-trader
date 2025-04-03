@@ -8,17 +8,17 @@ import {
   PLATFORM_ID,
   Inject,
   effect,
-} from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { environment } from '../../../../environments/environment';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CardFilterBarComponent } from '../card-filter-bar/card-filter-bar.component';
-import { CardFilters } from '../../../core/models/cards-filters.model';
-import { MatIcon } from '@angular/material/icon';
+} from "@angular/core";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
+import { environment } from "../../../../environments/environment";
+import { MatCardModule } from "@angular/material/card";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
+import { CardFilters } from "../../../core/models/cards-filters.model";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
-  selector: 'app-cards-list',
+  selector: "app-cards-list",
   imports: [
     CommonModule,
     MatCardModule,
@@ -26,8 +26,8 @@ import { MatIcon } from '@angular/material/icon';
     CardFilterBarComponent,
     MatIcon,
   ],
-  templateUrl: './cards-list.component.html',
-  styleUrl: './cards-list.component.scss',
+  templateUrl: "./cards-list.component.html",
+  styleUrl: "./cards-list.component.scss",
 })
 export class CardsListComponent implements OnInit, AfterViewInit {
   private apiUrl = environment.apiUrl;
@@ -39,13 +39,13 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   noResults = signal(false);
 
   // These are used for filtering
-  filters = signal<CardFilters>({ setCodes: [], search: '' });
-  lastFetchedFilters: CardFilters = { setCodes: [], search: '' };
+  filters = signal<CardFilters>({ setCodes: [], search: "" });
+  lastFetchedFilters: CardFilters = { setCodes: [], search: "" };
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     effect(() => {
       const currentFilters = this.filters();
-      console.log('Current filters:', currentFilters);
+      console.log("Current filters:", currentFilters);
       if (
         this.lastFetchedFilters.setCodes.toString() !==
           currentFilters.setCodes.toString() ||
@@ -60,7 +60,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  @ViewChild('scrollAnchor', { static: false }) scrollAnchor!: ElementRef;
+  @ViewChild("scrollAnchor", { static: false }) scrollAnchor!: ElementRef;
 
   ngOnInit() {
     this.fetchCards(1);
@@ -81,10 +81,8 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       this.noResults.set(false);
       const response = await fetch(
         `${this.apiUrl}/en/cards?page=${
-          targetPage || ''
-        }&set=${this.filters().setCodes.join(',')}&search=${
-          this.filters().search
-        }` //
+          targetPage || ""
+        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}` //
       );
       const data = await response.json();
 
@@ -97,11 +95,11 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       if (nextPageUrl === null) {
         this.nextPage = null;
       } else {
-        const nextPage = new URL(nextPageUrl).searchParams.get('page');
+        const nextPage = new URL(nextPageUrl).searchParams.get("page");
         this.nextPage = parseInt(nextPage as string);
       }
     } catch {
-      console.error('Cards fetch error:');
+      console.error("Cards fetch error:");
     } finally {
       this.loading.set(false);
     }
@@ -112,12 +110,12 @@ export class CardsListComponent implements OnInit, AfterViewInit {
     if (!this.scrollAnchor) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting) {
           this.fetchCards(this.nextPage);
         }
       },
-      { root: null, rootMargin: '100px', threshold: 0.1 }
+      { root: null, rootMargin: "100px", threshold: 0.1 }
     );
 
     observer.observe(this.scrollAnchor.nativeElement);

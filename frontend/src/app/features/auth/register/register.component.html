@@ -1,98 +1,93 @@
 <main>
-<mat-card class="register-card">
-  <mat-card-header>
-    <mat-card-title>Create an account</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form
-      [formGroup]="registerForm"
-      (ngSubmit)="onRegister()"
-      class="register-form"
-    >
-      @if(loading()){
-      <div class="centered-spinner-container"><mat-spinner /></div>
-      } @if(!loading() && !registerSuccess()) {
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
-        <mat-error
-          *ngIf="
-            registerForm.get('email')?.invalid &&
-            registerForm.get('email')?.touched
-          "
-        >
-          Please enter a valid email.
-        </mat-error>
-      </mat-form-field>
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>Create an account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onRegister()"
+        class="register-form">
+        @if (loading()) {
+          <div class="centered-spinner-container"><mat-spinner /></div>
+        }
+        @if (!loading() && !registerSuccess()) {
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="Enter your email" />
+            <mat-error
+              *ngIf="
+                registerForm.get('email')?.invalid &&
+                registerForm.get('email')?.touched
+              ">
+              Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="password"
-          placeholder="Enter your password"
-        />
-        <mat-error
-          *ngIf="
-            registerForm.get('password')?.invalid &&
-            registerForm.get('password')?.touched
-          "
-        >
-          Password must be 12 characters minimum.
-        </mat-error>
-      </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password" />
+            <mat-error
+              *ngIf="
+                registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched
+              ">
+              Password must be 12 characters minimum.
+            </mat-error>
+          </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password confirmation</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="passwordConfirmation"
-          placeholder="Repeat your password"
-        />
-        <mat-error
-          *ngIf="
-            registerForm.hasError('mismatch') &&
-            registerForm.get('passwordConfirmation')?.touched
-          "
-        >
-          Passwords do not match.
-        </mat-error> </mat-form-field
-      >} @if(registerSuccess() ){
-      <div class="centered-container">
-        <mat-icon class="icon-l success-color">outgoing_mail</mat-icon>
-        <p>
-          Account successfully created,<br />
-          check your email for activation link.
-        </p>
-      </div>
-      }
+          <mat-form-field appearance="outline">
+            <mat-label>Password confirmation</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="passwordConfirmation"
+              placeholder="Repeat your password" />
+            <mat-error
+              *ngIf="
+                registerForm.hasError('mismatch') &&
+                registerForm.get('passwordConfirmation')?.touched
+              ">
+              Passwords do not match.
+            </mat-error>
+          </mat-form-field>
+        }
+        @if (registerSuccess()) {
+          <div class="centered-container">
+            <mat-icon class="icon-l success-color">outgoing_mail</mat-icon>
+            <p>
+              Account successfully created,<br />
+              check your email for activation link.
+            </p>
+          </div>
+        }
 
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="registerForm.invalid || loading() || registerSuccess()"
-      >
-        register
-      </button>
-      <a mat-button routerLink="/login"
-        >I already have an account, log me in
-      </a>
-    </form>
-  </mat-card-content>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="registerForm.invalid || loading() || registerSuccess()">
+          register
+        </button>
+        <a mat-button routerLink="/login"
+          >I already have an account, log me in
+        </a>
+      </form>
+    </mat-card-content>
 
-  @if(registerFail()) {
-  <mat-card-footer class="register-card-footer">
-    <mat-icon class="icon-l error-color">cancel</mat-icon>
-    {{ message }}
-  </mat-card-footer>
-  }
-</mat-card>
+    @if (registerFail()) {
+      <mat-card-footer class="register-card-footer">
+        <mat-icon class="icon-l error-color">cancel</mat-icon>
+        {{ message }}
+      </mat-card-footer>
+    }
+  </mat-card>
 </main>

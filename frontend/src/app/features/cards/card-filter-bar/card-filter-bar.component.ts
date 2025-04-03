@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from "@angular/common";
 import {
   Component,
   OnInit,
@@ -8,24 +8,24 @@ import {
   Input,
   Output,
   EventEmitter,
-} from '@angular/core';
-import { debounceTime } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { CommonModule } from '@angular/common';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatInput } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatIcon } from '@angular/material/icon';
-import { Set } from '../../../core/models/set.model';
-import { CardFilters } from '../../../core/models/cards-filters.model';
-import { MatCardModule } from '@angular/material/card';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+} from "@angular/core";
+import { debounceTime } from "rxjs";
+import { environment } from "../../../../environments/environment";
+import { CommonModule } from "@angular/common";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatInput } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatOptionModule } from "@angular/material/core";
+import { MatIcon } from "@angular/material/icon";
+import { Set } from "../../../core/models/set.model";
+import { CardFilters } from "../../../core/models/cards-filters.model";
+import { MatCardModule } from "@angular/material/card";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-  selector: 'app-card-filter-bar',
+  selector: "app-card-filter-bar",
   imports: [
     CommonModule,
     MatSelectModule,
@@ -38,8 +38,8 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatButtonModule,
   ],
-  templateUrl: './card-filter-bar.component.html',
-  styleUrl: './card-filter-bar.component.scss',
+  templateUrl: "./card-filter-bar.component.html",
+  styleUrl: "./card-filter-bar.component.scss",
 })
 export class CardFilterBarComponent implements OnInit {
   @Input({ required: true }) filters!: CardFilters;
@@ -49,7 +49,7 @@ export class CardFilterBarComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
   private defaultFilters = {
-    search: '',
+    search: "",
     setCodes: [],
   };
   sets = signal<Set[]>([]);
@@ -70,7 +70,7 @@ export class CardFilterBarComponent implements OnInit {
       const data = await response.json();
       this.sets.set(data.results);
     } catch {
-      console.error('Error fetching Sets');
+      console.error("Error fetching Sets");
     } finally {
       this.loading.set(false);
     }
@@ -82,14 +82,14 @@ export class CardFilterBarComponent implements OnInit {
 
     // Debounce the search input
     this.filtersForm
-      .get('search')
+      .get("search")
       ?.valueChanges.pipe(debounceTime(600))
       .subscribe(() => {
         this.emitFilters(); // Emit the updated filters object
       });
 
     this.filtersForm
-      .get('setCodes')
+      .get("setCodes")
       ?.valueChanges.pipe(debounceTime(600))
       .subscribe(() => {
         this.emitFilters(); // Emit the updated filters object
@@ -111,10 +111,10 @@ export class CardFilterBarComponent implements OnInit {
 
   private emitFilters() {
     const updatedFilters: CardFilters = {
-      search: this.filtersForm.get('search')?.value || '',
-      setCodes: this.filtersForm.get('setCodes')?.value || [],
+      search: this.filtersForm.get("search")?.value || "",
+      setCodes: this.filtersForm.get("setCodes")?.value || [],
     };
-    console.log('Emitting filters:', updatedFilters);
+    console.log("Emitting filters:", updatedFilters);
     this.filterChange.emit(updatedFilters); // Emit the entire filter object
   }
 }

@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { MatCard } from '@angular/material/card';
-import { MatCardHeader } from '@angular/material/card';
-import { MatCardTitle } from '@angular/material/card';
-import { MatCardSubtitle } from '@angular/material/card';
-import { MatCardContent } from '@angular/material/card';
-import { MatCardActions } from '@angular/material/card';
+import { Component } from "@angular/core";
+import { MatCard } from "@angular/material/card";
+import { MatCardHeader } from "@angular/material/card";
+import { MatCardTitle } from "@angular/material/card";
+import { MatCardSubtitle } from "@angular/material/card";
+import { MatCardContent } from "@angular/material/card";
+import { MatCardActions } from "@angular/material/card";
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css'],
+  selector: "app-homepage",
+  templateUrl: "./homepage.component.html",
+  styleUrls: ["./homepage.component.css"],
   imports: [
     MatCard,
     MatCardTitle,
@@ -19,5 +19,4 @@ import { MatCardActions } from '@angular/material/card';
     MatCardActions,
   ],
 })
-export class HomepageComponent {
-}
+export class HomepageComponent {}
