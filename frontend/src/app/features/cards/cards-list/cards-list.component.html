@@ -1,6 +1,9 @@
-<app-card-filter-bar />
+<app-card-filter-bar
+  [filters]="filters()"
+  (setSelectionChange)="updateSelectedSetCodes($event)"
+/>
 <ul class="tcg-card-list">
-  @for (card of cards(); track card.id) {
+  @for (card of filteredCards(); track card.id) {
   <li>
     <mat-card class="tcg-card">
       <figure>

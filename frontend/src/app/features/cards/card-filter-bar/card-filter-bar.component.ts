@@ -1,14 +1,21 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, signal, PLATFORM_ID, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  signal,
+  PLATFORM_ID,
+  Inject,
+  Input,
+  Output,
+  Signal,
+  EventEmitter,
+} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-
-export interface Set {
-  code: string;
-  name: string;
-}
+import { Set } from '../../../core/models/set.model';
+import { CardFilters } from '../../../core/models/cards-filters.model';
 
 @Component({
   selector: 'app-card-filter-bar',
@@ -16,15 +23,17 @@ export interface Set {
   templateUrl: './card-filter-bar.component.html',
 })
 export class CardFilterBarComponent implements OnInit {
+  @Input({ required: true }) filters!: CardFilters;
+  @Output() setSelectionChange = new EventEmitter<string[]>();
   private apiUrl = environment.apiUrl;
   sets = signal<Set[]>([]);
-  selectedSetCodes = signal<string[]>([]);
+
   loading = signal(false);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   async fetchSets() {
-    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR 
+    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
       this.loading.set(true);
       const response = await fetch(`${this.apiUrl}/en/sets`);
@@ -38,8 +47,7 @@ export class CardFilterBarComponent implements OnInit {
   }
 
   onSetSelectionChange(event: any) {
-    this.selectedSetCodes.set(event.value); // Update the signal
-    console.log('Selected sets:', this.selectedSetCodes());
+    this.setSelectionChange.emit(event.value);
   }
 
   ngOnInit() {
