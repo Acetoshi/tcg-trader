@@ -16,10 +16,15 @@
     }
   </ul>
 
+  @if(noResults()){
+    <mat-icon>search_off</mat-icon>
+    <p>No results found. Try adjusting your filters.</p>
+    }
+
   <div #scrollAnchor class="scroll-anchor">
     @if(loading()){
     <mat-spinner />
-    <p>Loading card data</p>
+    <p>Loading card data ...</p>
     }
   </div>
 </main>

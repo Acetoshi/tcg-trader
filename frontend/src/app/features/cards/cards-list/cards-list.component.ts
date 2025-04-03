@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CardFilterBarComponent } from '../card-filter-bar/card-filter-bar.component';
 import { CardFilters } from '../../../core/models/cards-filters.model';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cards-list',
@@ -24,6 +25,7 @@ import { CardFilters } from '../../../core/models/cards-filters.model';
     MatCardModule,
     MatProgressSpinnerModule,
     CardFilterBarComponent,
+    MatIcon,
   ],
   templateUrl: './cards-list.component.html',
   styleUrl: './cards-list.component.scss',
@@ -35,6 +37,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   loading = signal(false);
   currentPage: number | null = null;
   nextPage: number | null = 1;
+  noResults = signal(false);
 
   // These are used for filtering
   filters = signal<CardFilters>({ setCodes: [], search: '' });
@@ -76,14 +79,19 @@ export class CardsListComponent implements OnInit, AfterViewInit {
     if (this.loading()) return;
     try {
       this.loading.set(true);
+      this.noResults.set(false);
       const response = await fetch(
         `${this.apiUrl}/en/cards?page=${
           targetPage || ''
-        }&set=${this.filters().setCodes.join(',')}&search=${this.filters().search}` //
+        }&set=${this.filters().setCodes.join(',')}&search=${
+          this.filters().search
+        }` //
       );
       const data = await response.json();
 
       this.cards.set([...this.cards(), ...data.results]);
+
+      if (data.count === 0) this.noResults.set(true);
 
       this.lastFetchedFilters = this.filters();
       const nextPageUrl = data.next;

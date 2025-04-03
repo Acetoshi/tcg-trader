@@ -111,8 +111,8 @@ export class CardFilterBarComponent implements OnInit {
 
   private emitFilters() {
     const updatedFilters: CardFilters = {
-      search: this.filtersForm.get('search')?.value,
-      setCodes: this.filtersForm.get('setCodes')?.value,
+      search: this.filtersForm.get('search')?.value || '',
+      setCodes: this.filtersForm.get('setCodes')?.value || [],
     };
     console.log('Emitting filters:', updatedFilters);
     this.filterChange.emit(updatedFilters); // Emit the entire filter object
