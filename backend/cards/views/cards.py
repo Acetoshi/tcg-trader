@@ -1,23 +1,19 @@
-from django.db.models import F, Subquery, OuterRef
+from django.db.models import Q, Subquery, OuterRef
 from rest_framework.generics import ListAPIView
 from cards.models import Card
 from cards.serializers.cards import CardSerializer
 from cards.models import SetTranslation, CardImage, RarityTranslation, CardNameTranslation
+from cards.utils import sanitize_input
 
 class CardListView(ListAPIView):
     serializer_class = CardSerializer
 
-    # Add language_code from URL params to the serializer context
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context["language_code"] = self.kwargs.get("language_code", "en")  # Default to 'en'
-        return context
-    
     def get_queryset(self):
-        # Get the language code from the URL
-        language_code = self.kwargs['language_code']
-        set_codes = self.request.query_params.get('set')
-        rarity_codes = self.request.query_params.get('rarity')
+        # Get all parameters from URL, and sanitize them
+        language_code = sanitize_input(self.kwargs['language_code'])
+        search = sanitize_input(self.request.query_params.get('search'))
+        set_codes = sanitize_input(self.request.query_params.get('set'))
+        rarity_codes = sanitize_input(self.request.query_params.get('rarity'))
 
         #Base query with no filters applied    
         cards_queryset= Card.objects.all().select_related('illustrator').prefetch_related('image').prefetch_related('pokemon_card_details').order_by('set__code', 'number')
@@ -63,6 +59,11 @@ class CardListView(ListAPIView):
         ).values('name')[:1]
 
         cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery ))
+
+        # Filtering by search term
+        if search:
+            search_condition = Q(illustrator__name__icontains=search) | Q(name__icontains=search)
+            cards_queryset = cards_queryset.filter(search_condition).distinct()
 
         return cards_queryset
     
