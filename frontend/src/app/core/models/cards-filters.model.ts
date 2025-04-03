@@ -1,3 +1,4 @@
 export interface CardFilters {
-    setCodes: string[];
-  }
+  search: string;
+  setCodes: string[];
+}

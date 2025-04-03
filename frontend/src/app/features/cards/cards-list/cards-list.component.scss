@@ -23,6 +23,7 @@
 }
 
 // Make the image 'obey' the size of its parent
+//TODO : check doc, it seems material can take care of it
 .tcg-card figure {
   margin: 0;
   width: 100%;
@@ -31,10 +32,11 @@
   }
 }
 
-#scrollAnchor > div {
+.scroll-anchor {
   width: 100%;
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 32px;
 }

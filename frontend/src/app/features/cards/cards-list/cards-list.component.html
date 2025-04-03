@@ -1,25 +1,25 @@
-<app-card-filter-bar
-  [filters]="filters()"
-  (setSelectionChange)="updateSelectedSetCodes($event)"
-/>
-<ul class="tcg-card-list">
-  @for (card of filteredCards(); track card.id) {
-  <li>
-    <mat-card class="tcg-card">
-      <figure>
-        <img [src]="fileServerBaseUrl + card.imageUrl" />
-        <figcaption>{{ card.name }} - {{ card.setNumber }}</figcaption>
-      </figure>
-    </mat-card>
-  </li>
-  }
-</ul>
+<main class="justify-start">
+  <app-card-filter-bar
+    [filters]="filters()"
+    (filterChange)="updateFilters($event)"
+  />
+  <ul class="tcg-card-list">
+    @for (card of cards(); track card.id) {
+    <li>
+      <mat-card class="tcg-card">
+        <figure>
+          <img [src]="fileServerBaseUrl + card.imageUrl" />
+          <figcaption>{{ card.name }} - {{ card.setNumber }}</figcaption>
+        </figure>
+      </mat-card>
+    </li>
+    }
+  </ul>
 
-<div #scrollAnchor>
-  <div>
+  <div #scrollAnchor class="scroll-anchor">
     @if(loading()){
     <mat-spinner />
     <p>Loading card data</p>
     }
   </div>
-</div>
+</main>
