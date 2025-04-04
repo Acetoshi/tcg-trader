@@ -17,8 +17,8 @@ import { MatInput } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatOptionModule } from "@angular/material/core";
 import { MatIcon } from "@angular/material/icon";
-import { Set } from "../../../core/models/set.model";
-import { CardFilters } from "../../../core/models/cards-filters.model";
+import { Set } from "../models/set.model";
+import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatCardModule } from "@angular/material/card";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
@@ -48,11 +48,8 @@ export class CardFilterBarComponent implements OnInit {
   filtersForm!: FormGroup;
 
   private apiUrl = environment.apiUrl;
-  private defaultFilters = {
-    search: "",
-    setCodes: [],
-  };
   sets = signal<Set[]>([]);
+  rarities = signal<Set[]>([]);
   showMoreFilters = signal(false);
 
   loading = signal(false);
@@ -61,6 +58,17 @@ export class CardFilterBarComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
+
+  ngOnInit() {
+    this.createForm();
+    // Debounce input
+    Object.keys(defaultFilters).forEach(controlName => {
+      this.debounceFormControl(controlName);
+    });
+    // Fetch filters data
+    this.fetchSets();
+    this.fetchRarities();
+  }
 
   async fetchSets() {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
@@ -76,24 +84,18 @@ export class CardFilterBarComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.createForm();
-    this.fetchSets();
-
-    // Debounce the search input
-    this.filtersForm
-      .get("search")
-      ?.valueChanges.pipe(debounceTime(600))
-      .subscribe(() => {
-        this.emitFilters(); // Emit the updated filters object
-      });
-
-    this.filtersForm
-      .get("setCodes")
-      ?.valueChanges.pipe(debounceTime(600))
-      .subscribe(() => {
-        this.emitFilters(); // Emit the updated filters object
-      });
+  async fetchRarities() {
+    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
+    try {
+      //this.loading.set(true);
+      const response = await fetch(`${this.apiUrl}/en/rarities`);
+      const data = await response.json();
+      this.rarities.set(data.results);
+    } catch {
+      console.error("Error fetching Sets");
+    } finally {
+      // this.loading.set(false);
+    }
   }
 
   onSubmit(event: Event) {
@@ -101,20 +103,29 @@ export class CardFilterBarComponent implements OnInit {
   }
 
   createForm() {
-    this.filtersForm = this.fb.group(this.defaultFilters);
+    this.filtersForm = this.fb.group(defaultFilters);
   }
 
   resetFilters() {
-    this.filtersForm.reset(this.defaultFilters);
+    this.filtersForm.reset(defaultFilters);
     this.emitFilters();
+  }
+
+  private debounceFormControl(controlName: string): void {
+    this.filtersForm
+      .get(controlName)
+      ?.valueChanges.pipe(debounceTime(600))
+      .subscribe(() => {
+        this.emitFilters(); // Emit the updated filters object
+      });
   }
 
   private emitFilters() {
     const updatedFilters: CardFilters = {
       search: this.filtersForm.get("search")?.value || "",
       setCodes: this.filtersForm.get("setCodes")?.value || [],
+      rarityCodes: this.filtersForm.get("rarityCodes")?.value || [],
     };
-    console.log("Emitting filters:", updatedFilters);
-    this.filterChange.emit(updatedFilters); // Emit the entire filter object
+    this.filterChange.emit(updatedFilters);
   }
 }

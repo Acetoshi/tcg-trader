@@ -14,7 +14,7 @@ import { environment } from "../../../../environments/environment";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
-import { CardFilters } from "../../../core/models/cards-filters.model";
+import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatIcon } from "@angular/material/icon";
 
 @Component({
@@ -30,33 +30,36 @@ import { MatIcon } from "@angular/material/icon";
   styleUrl: "./cards-list.component.scss",
 })
 export class CardsListComponent implements OnInit, AfterViewInit {
+  // Backend config
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
   cards = signal<any[]>([]);
-  loading = signal(false);
   currentPage: number | null = null;
   nextPage: number | null = 1;
+
+  // user Feedback
+  loading = signal(false);
   noResults = signal(false);
 
-  // These are used for filtering
-  filters = signal<CardFilters>({ setCodes: [], search: "" });
-  lastFetchedFilters: CardFilters = { setCodes: [], search: "" };
+  // Filter logic
+  filters = signal<CardFilters>(defaultFilters);
+  lastFetchedFilters: CardFilters = defaultFilters;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     effect(() => {
       const currentFilters = this.filters();
-      console.log("Current filters:", currentFilters);
+      console.log("Filters changed:", this.lastFetchedFilters,'  ',currentFilters);
       if (
         this.lastFetchedFilters.setCodes.toString() !==
           currentFilters.setCodes.toString() ||
-        this.lastFetchedFilters.search !== currentFilters.search
+        this.lastFetchedFilters.search !== currentFilters.search ||
+        this.lastFetchedFilters.rarityCodes.toString() !==
+          currentFilters.rarityCodes.toString()
       ) {
         this.cards.set([]);
         this.nextPage = 1;
         this.fetchCards(this.nextPage);
       }
-
-      // if no new filter was applied, do nothing.
     });
   }
 
@@ -82,7 +85,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       const response = await fetch(
         `${this.apiUrl}/en/cards?page=${
           targetPage || ""
-        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}` //
+        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}&rarity=${this.filters().rarityCodes.join(",")}` //
       );
       const data = await response.json();
 

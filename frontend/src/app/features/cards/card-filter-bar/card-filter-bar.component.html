@@ -32,10 +32,10 @@
           appearance="outline"
           class="high-density"
           subscriptSizing="dynamic">
-          <mat-label>Filter by Type</mat-label>
-          <mat-select multiple>
-            @for (set of sets(); track set) {
-              <mat-option [value]="set.code">{{ set.name }}</mat-option>
+          <mat-label>Filter by Rarity</mat-label>
+          <mat-select multiple formControlName="rarityCodes">
+            @for (rarity of rarities(); track rarity) {
+              <mat-option [value]="rarity.code">{{ rarity.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
