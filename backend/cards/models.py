@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Language Model
 class Language(models.Model):
     code = models.CharField(max_length=5, unique=True)  # ISO Code
@@ -7,6 +8,7 @@ class Language(models.Model):
 
     def __str__(self):
         return self.code
+
 
 # Pokemon list (ie the official pokedex)
 class Pokemon(models.Model):
@@ -16,10 +18,11 @@ class Pokemon(models.Model):
     def __str__(self):
         return f"Pokémon #{self.pokedex_number}"
 
+
 # Pokemon list localisation
 class PokemonTranslation(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name="translations")
-    language = models.ForeignKey("Language", on_delete=models.CASCADE) 
+    language = models.ForeignKey("Language", on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=False)
 
@@ -28,7 +31,6 @@ class PokemonTranslation(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
-
 
 
 # Card Set Model
@@ -47,7 +49,7 @@ class SetTranslation(models.Model):
     description = models.TextField()
 
     class Meta:
-        unique_together = ('set', 'language')
+        unique_together = ("set", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
@@ -69,7 +71,7 @@ class PokemonTypeTranslation(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        unique_together = ('pokemon_type', 'language')
+        unique_together = ("pokemon_type", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
@@ -91,10 +93,11 @@ class RarityTranslation(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        unique_together = ('rarity', 'language')
+        unique_together = ("rarity", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
+
 
 # Illustrators
 class Illustrator(models.Model):
@@ -102,6 +105,7 @@ class Illustrator(models.Model):
 
     def __str__(self):
         return self.name
+
 
 # Card Model
 class Card(models.Model):
@@ -117,7 +121,7 @@ class Card(models.Model):
 
 # Card Image
 class CardImage(models.Model):
-    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='image')
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="image")
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     url = models.URLField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -133,7 +137,7 @@ class CardNameTranslation(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        unique_together = ('card', 'language')
+        unique_together = ("card", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
@@ -146,23 +150,33 @@ class CardType(models.Model):
 
     def __str__(self):
         return f"{self.card.reference}"
-    
+
+
 class PokemonCardDetails(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='pokemon')
-    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='pokemon_card_details')
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name="pokemon")
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="pokemon_card_details")
     hp = models.IntegerField()
-    weakness_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE, null=True, blank=True,related_name='weakness_type')
+    weakness_type = models.ForeignKey(
+        PokemonType, on_delete=models.CASCADE, null=True, blank=True, related_name="weakness_type"
+    )
     retreat = models.CharField(max_length=100)
-    pokemon_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE, related_name='pokemon_type')
+    pokemon_type = models.ForeignKey(
+        PokemonType, on_delete=models.CASCADE, related_name="pokemon_type"
+    )
     is_ex = models.BooleanField(default=False)
 
     def __str__(self):
         return f"PokemonCardDetails for {self.pokemon.name} with {self.card.name}"
-    
+
+
 class PokemonCardDetailsTranslation(models.Model):
-    pokemon_card_details = models.ForeignKey('PokemonCardDetails', on_delete=models.CASCADE, related_name='translations')
-    language = models.ForeignKey('Language', on_delete=models.CASCADE)
-    description = models.CharField(max_length=255,null=True)  # Assuming `varchar` with a max length of 255, adjust if needed.
+    pokemon_card_details = models.ForeignKey(
+        "PokemonCardDetails", on_delete=models.CASCADE, related_name="translations"
+    )
+    language = models.ForeignKey("Language", on_delete=models.CASCADE)
+    description = models.CharField(
+        max_length=255, null=True
+    )  # Assuming `varchar` with a max length of 255, adjust if needed.
 
     def __str__(self):
         return f"Translation for {self.pokemon_card_details.pokemon.name} ({self.language.code})"

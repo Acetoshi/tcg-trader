@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
+
 class VerifyEmailView(APIView):
     def get(self, request, uidb64, token):
         try:
@@ -24,7 +25,10 @@ class VerifyEmailView(APIView):
                 access_token = str(refresh.access_token)
 
                 # Step 4: Create the response and set JWT token in cookies
-                response = Response({"message": "Email verified and logged in successfully!"}, status=status.HTTP_200_OK)
+                response = Response(
+                    {"message": "Email verified and logged in successfully!"},
+                    status=status.HTTP_200_OK,
+                )
 
                 # Set the access token in HttpOnly cookies
                 response.set_cookie(

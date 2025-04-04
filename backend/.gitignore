@@ -62,5 +62,5 @@ docker-compose.override.yml
 logs/
 *.log
 
-#data 
+#data
 dataset/*

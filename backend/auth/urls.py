@@ -1,7 +1,5 @@
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import path
 
-from auth.views.users import UserViewSet, GroupViewSet
 from auth.views.register import RegisterView
 from auth.views.verify_email import VerifyEmailView
 from auth.views.login import CookieTokenObtainPairView

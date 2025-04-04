@@ -12,8 +12,8 @@ dev:
 	docker compose up
 
 download-assets:
-	@docker exec -it tcg-trader-backend python manage.py download_cards_images 
-	@docker exec -it tcg-trader-backend python manage.py download_types_images 
+	@docker exec -it tcg-trader-backend python manage.py download_cards_images
+	@docker exec -it tcg-trader-backend python manage.py download_types_images
 	@docker exec -it tcg-trader-backend python manage.py download_rarity_images
 
 api-admin:
@@ -32,3 +32,6 @@ db-reset:
 
 db-sql:
 	@docker exec -it tcg-trader-db psql -U postgres -d postgres
+
+lint:
+	@make -f backend/Makefile lint

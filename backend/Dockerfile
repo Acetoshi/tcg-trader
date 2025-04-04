@@ -12,7 +12,7 @@ WORKDIR /app
 # Step 4: Copy the requirements.txt file into the container
 COPY requirements.txt /app/
 
-# Install Python dependencies 
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 # Install Postgresql Client
 RUN apt update && apt install -y postgresql-client

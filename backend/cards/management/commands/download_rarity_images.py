@@ -3,26 +3,27 @@ import requests
 from django.core.management.base import BaseCommand
 
 rarities = [
-    {'url': 'Common', 'filename': 'common'},
-    {'url': 'Uncommon', 'filename': 'uncommon'},
-    {'url': 'Rare', 'filename': 'rare'},
-    {'url': 'DoubleRare', 'filename': 'double-rare'},
-    {'url': 'ArtRare', 'filename': 'art-rare'},
-    {'url': 'SuperRare', 'filename': 'super-rare'},
-    {'url': 'ImmersiveRare', 'filename': 'immersive-rare'},
-    {'url': 'CrownRare', 'filename': 'crown-rare'},
-    {'url': 'SpecialArtRare', 'filename': 'special-art-rare'}
+    {"url": "Common", "filename": "common"},
+    {"url": "Uncommon", "filename": "uncommon"},
+    {"url": "Rare", "filename": "rare"},
+    {"url": "DoubleRare", "filename": "double-rare"},
+    {"url": "ArtRare", "filename": "art-rare"},
+    {"url": "SuperRare", "filename": "super-rare"},
+    {"url": "ImmersiveRare", "filename": "immersive-rare"},
+    {"url": "CrownRare", "filename": "crown-rare"},
+    {"url": "SpecialArtRare", "filename": "special-art-rare"},
 ]
 
-#directory where images will be saved
-SAVE_DIR = '/app/static/images/rarities'
+# directory where images will be saved
+SAVE_DIR = "/app/static/images/rarities"
 
 # Ensure the directory exists
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 # Base URL for the Pokémon card images
 BASE_URL = "{image_source_url}/icons/{rarity}.png"
-IMAGE_SOURCE_URL = os.getenv('IMAGE_SOURCE_URL')
+IMAGE_SOURCE_URL = os.getenv("IMAGE_SOURCE_URL")
+
 
 class Command(BaseCommand):
     help = "Download Pokémon card images"
@@ -31,8 +32,7 @@ class Command(BaseCommand):
 
         for rarity in rarities:
 
-
-            url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL,rarity=rarity['url'])
+            url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL, rarity=rarity["url"])
             filename = os.path.join(SAVE_DIR, f"{rarity['filename']}.webp")
 
             if os.path.exists(filename):

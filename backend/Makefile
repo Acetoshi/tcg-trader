@@ -1,17 +1,20 @@
 env:
-	@bash -c "source venv/bin/activate && exec bash"
+	source venv/bin/activate
 
 update-env:
-	@venv/bin/python pip freeze > requirements.txt
+	@venv/bin/python -m pip freeze > requirements.txt
 
-seed: 
+seed:
 	@venv/bin/python manage.py card_seeder
 
-migrations: 
+migrations:
 	@venv/bin/python manage.py makemigrations
 
-migrate: 
+migrate:
 	@venv/bin/python manage.py migrate
 
-download-cards: 
+download-cards:
 	@venv/bin/python manage.py download_cards_images
+
+lint:
+	@venv/bin/pre-commit run --all-files

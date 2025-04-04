@@ -1,5 +1,6 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+
 # Custom Login View that sets JWT tokens in HttpOnly cookies.
 class CookieTokenObtainPairView(TokenObtainPairView):
 

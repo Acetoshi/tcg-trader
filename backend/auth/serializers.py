@@ -27,18 +27,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("This email is already in use.")
         return value
-    
+
     def validate_password(self, value):
         if len(value) < 12:
             raise serializers.ValidationError("Password must be at least 12 characters long.")
         if not any(char.islower() for char in value):
-            raise serializers.ValidationError("Password must contain at least one lowercase letter.")
+            raise serializers.ValidationError(
+                "Password must contain at least one lowercase letter."
+            )
         if not any(char.isupper() for char in value):
-            raise serializers.ValidationError("Password must contain at least one uppercase letter.")
+            raise serializers.ValidationError(
+                "Password must contain at least one uppercase letter."
+            )
         if not any(char.isdigit() for char in value):
             raise serializers.ValidationError("Password must contain at least one digit.")
         if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", value):  # Special character check
-            raise serializers.ValidationError("Password must contain at least one special character.")
+            raise serializers.ValidationError(
+                "Password must contain at least one special character."
+            )
         return value
 
     def create(self, validated_data):

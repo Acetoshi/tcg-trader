@@ -11,7 +11,7 @@ services:
     volumes:
       - ./backend:/app
       - static_files:/app/static
-    env_file: .env 
+    env_file: .env
     networks:
       app-network:
         ipv4_address: "172.20.0.2"
@@ -47,12 +47,12 @@ services:
       - backend
 
   db:
-    image: postgres:13 
+    image: postgres:13
     container_name: tcg-trader-db
-    env_file: .env 
+    env_file: .env
     volumes:
       - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
-      - postgres_data:/var/lib/postgresql/data 
+      - postgres_data:/var/lib/postgresql/data
     networks:
       app-network:
         ipv4_address: "172.20.0.5"

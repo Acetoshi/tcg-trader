@@ -25,5 +25,5 @@ class CookieTokenRefreshView(TokenRefreshView):
                 max_age=60 * 5,
             )
             return response
-        except Exception as e:
+        except Exception:
             return Response({"error": "Invalid refresh token"}, status=401)

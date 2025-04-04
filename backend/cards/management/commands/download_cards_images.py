@@ -10,20 +10,20 @@ sets = [
 ]
 
 # Directory where images will be saved
-BASE_SAVE_DIR = '/app/static/images/cards/en'
+BASE_SAVE_DIR = "/app/static/images/cards/en"
 
 # Ensure the directory exists
 os.makedirs(BASE_SAVE_DIR, exist_ok=True)
 
 # Base URL for the Pokémon card images
 BASE_URL = "{image_source_url}/card/{code}-{number:03d}.webp"
-IMAGE_SOURCE_URL = os.getenv('IMAGE_SOURCE_URL')
+IMAGE_SOURCE_URL = os.getenv("IMAGE_SOURCE_URL")
+
 
 class Command(BaseCommand):
     help = "Download Pokémon card images"
 
     def handle(self, *args, **kwargs):
-
 
         for set in sets:
             code = set["code"]
@@ -31,11 +31,11 @@ class Command(BaseCommand):
             # Ensure the directory exists
             os.makedirs(set_save_dir, exist_ok=True)
 
-            start = 1   # First card number
-            end = set["count"]   # Last card number (adjust as needed)
+            start = 1  # First card number
+            end = set["count"]  # Last card number (adjust as needed)
 
             for number in range(start, end + 1):
-                url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL,code=code,number=number)
+                url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL, code=code, number=number)
                 filename = os.path.join(set_save_dir, f"{code}-{number:03d}.webp")
 
                 if os.path.exists(filename):

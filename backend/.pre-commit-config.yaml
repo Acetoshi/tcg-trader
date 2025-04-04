@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.3.0  # Use latest stable version
+    hooks:
+      - id: black
+        args: ["--line-length=100"]
+        files: ^backend/
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.3.5  # Use latest stable version
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+        files: ^backend/
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0  # Use latest stable version
+    hooks:
+      - id: mypy
+        args: ["--config-file=backend/mypy.ini"]
+        files: ^backend/
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

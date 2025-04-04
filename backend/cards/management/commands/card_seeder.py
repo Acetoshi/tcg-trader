@@ -1,8 +1,25 @@
 import json
 from django.core.management.base import BaseCommand
-from cards.models import Language, Rarity, RarityTranslation, PokemonType, PokemonTypeTranslation, Set, SetTranslation, Card, CardImage, Illustrator,PokemonCardDetails,PokemonCardDetailsTranslation, PokemonTranslation, CardNameTranslation
+from django.core.exceptions import ObjectDoesNotExist
+from cards.models import (
+    Language,
+    Rarity,
+    RarityTranslation,
+    PokemonType,
+    PokemonTypeTranslation,
+    Set,
+    SetTranslation,
+    Card,
+    CardImage,
+    Illustrator,
+    PokemonCardDetails,
+    PokemonCardDetailsTranslation,
+    PokemonTranslation,
+    CardNameTranslation,
+)
 
 DATASET_PATH = "/app/dataset/game-data.json"
+
 
 class Command(BaseCommand):
     help = "Seed the database with Pokémon card data"
@@ -13,7 +30,13 @@ class Command(BaseCommand):
         with open(DATASET_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        languages = [{'code':'FR','name':'français'},{'code':'EN','name':'english'},{'code':'DE','name':'deutsch'},{'code':'ES','name':'español'},{'code':'IT','name':'italiano'}]
+        languages = [
+            {"code": "FR", "name": "français"},
+            {"code": "EN", "name": "english"},
+            {"code": "DE", "name": "deutsch"},
+            {"code": "ES", "name": "español"},
+            {"code": "IT", "name": "italiano"},
+        ]
         sets = data["data"]["expansions"]
         rarities = data["data"]["rarities"]
         types = data["data"]["pokemonTypes"]
@@ -24,20 +47,18 @@ class Command(BaseCommand):
         self.stdout.write(f"Found {len(sets)} sets.")
         self.stdout.write(f"Found {len(cards)} cards.")
 
-
         # First set up all languages
         for language in languages:
             language_obj, created = Language.objects.get_or_create(
-                code=language["code"],
-                defaults={"name": language["name"]}
+                code=language["code"], defaults={"name": language["name"]}
             )
             if created:
                 self.stdout.write(f"Added language: {language['name']} ({language['code']})")
             else:
                 self.stdout.write(f"Language already exists: {language_obj}")
 
-        lang_en=Language.objects.get(code="EN")
-       
+        lang_en = Language.objects.get(code="EN")
+
         # Then insert all rarities and their english translation
         for rarity in rarities:
             rarity_obj, created = Rarity.objects.get_or_create(
@@ -47,23 +68,22 @@ class Command(BaseCommand):
             RarityTranslation.objects.get_or_create(
                 rarity=rarity_obj,
                 language=lang_en,
-                name=rarity["name"]  # Assuming you have translations in the dataset
+                name=rarity["name"],  # Assuming you have translations in the dataset
             )
-        print('Added EN rarities')
+        print("Added EN rarities")
 
         # Then insert all types and their english translation
         for type in types:
             type_obj, created = PokemonType.objects.get_or_create(
-                code=type["id"],
-                image_url=f'/types/{type["id"].lower()}.webp'
+                code=type["id"], image_url=f'/types/{type["id"].lower()}.webp'
             )
 
             PokemonTypeTranslation.objects.get_or_create(
                 pokemon_type=type_obj,
                 language=lang_en,
-                name=type["id"]  # Assuming you have translations in the dataset
+                name=type["id"],  # Assuming you have translations in the dataset
             )
-        print('Added types')
+        print("Added types")
 
         # Then insert all sets and their english translation
         for set in sets:
@@ -74,9 +94,9 @@ class Command(BaseCommand):
             SetTranslation.objects.get_or_create(
                 set=set_obj,
                 language=lang_en,
-                name=set["name"]  # Assuming you have translations in the dataset
+                name=set["name"],  # Assuming you have translations in the dataset
             )
-        print('Added Sets')
+        print("Added Sets")
 
         # Then insert all cards and their english translation
         # print(cards[0])
@@ -88,53 +108,64 @@ class Command(BaseCommand):
 
                 # Get or create the Illustrator first
                 illustrator, created = Illustrator.objects.get_or_create(
-                    name=card["illustratorNames"][0]  # Assuming card contains the illustrator's name
+                    name=card["illustratorNames"][
+                        0
+                    ]  # Assuming card contains the illustrator's name
                 )
 
                 card_obj, created = Card.objects.get_or_create(
-                    set = Set.objects.get(code = card["expansionCollectionNumbers"][0]["expansionId"]),
-                    number = card["collectionNumber"],
-                    rarity = Rarity.objects.get(code = card["rarity"]),
-                    illustrator=illustrator
+                    set=Set.objects.get(code=card["expansionCollectionNumbers"][0]["expansionId"]),
+                    number=card["collectionNumber"],
+                    rarity=Rarity.objects.get(code=card["rarity"]),
+                    illustrator=illustrator,
                 )
 
                 CardImage.objects.update_or_create(
                     card=card_obj,
                     language=lang_en,
-                    url = f"/images/cards/en/{card['expansionCollectionNumbers'][0]['expansionId']}/{card['expansionCollectionNumbers'][0]['expansionId']}-{card['collectionNumber']:03d}.webp"
+                    url=f"/images/cards/en/{card['expansionCollectionNumbers'][0]['expansionId']}/{card['expansionCollectionNumbers'][0]['expansionId']}-{card['collectionNumber']:03d}.webp",
                 )
-                print('Added CardImage')
+                print("Added CardImage")
 
                 CardNameTranslation.objects.update_or_create(
-                    card=card_obj,
-                    language=lang_en,
-                    name=card["pokemon"]["name"]
+                    card=card_obj, language=lang_en, name=card["pokemon"]["name"]
                 )
 
                 # find pokemon in pokedex
-                try: 
-                    pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].replace(" ex", "")).first()
+                try:
+                    pokemon_trans_obj = PokemonTranslation.objects.filter(
+                        name__icontains=card["pokemon"]["name"].replace(" ex", "")
+                    ).first()
                     pokemon_obj = pokemon_trans_obj.pokemon
-                    print(f'pokemon was found : {pokemon_obj}')
-                except: # if a pokemon has a composed name, try and search for every keyword in its name
+                    print(f"pokemon was found : {pokemon_obj}")
+                except (
+                    ObjectDoesNotExist
+                ):  # if a pokemon has a composed name, try and search for every keyword in its name
                     try:
-                        pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].split()[1]).first()
+                        pokemon_trans_obj = PokemonTranslation.objects.filter(
+                            name__icontains=card["pokemon"]["name"].split()[1]
+                        ).first()
                         pokemon_obj = pokemon_trans_obj.pokemon
-                    except:
+                    except ObjectDoesNotExist:
                         try:
-                            pokemon_trans_obj=PokemonTranslation.objects.filter(name__icontains=card["pokemon"]["name"].split()[2]).first()
+                            pokemon_trans_obj = PokemonTranslation.objects.filter(
+                                name__icontains=card["pokemon"]["name"].split()[2]
+                            ).first()
                             pokemon_obj = pokemon_trans_obj.pokemon
-                        except:
+                        except ObjectDoesNotExist:
                             print(f'couldnt find {print(card["pokemon"]["name"])} in db')
-                
 
                 # find pokemon type in db
-                pokemon_type_trans_obj=PokemonTypeTranslation.objects.get(name__icontains=card["pokemon"]["pokemonTypes"][0])
+                pokemon_type_trans_obj = PokemonTypeTranslation.objects.get(
+                    name__icontains=card["pokemon"]["pokemonTypes"][0]
+                )
                 pokemon_type_obj = pokemon_type_trans_obj.pokemon_type
-                
+
                 # find pokemon weakness type in db
                 try:
-                    pokemon_weakness_type_trans_obj=PokemonTypeTranslation.objects.get(name__icontains=card["pokemon"]["weaknessType"])
+                    pokemon_weakness_type_trans_obj = PokemonTypeTranslation.objects.get(
+                        name__icontains=card["pokemon"]["weaknessType"]
+                    )
                     pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.pokemon_type
                 except PokemonTypeTranslation.DoesNotExist:
                     pokemon_weakness_type_obj = None  # or set a default value
@@ -145,14 +176,14 @@ class Command(BaseCommand):
                     pokemon=pokemon_obj,
                     weakness_type=pokemon_weakness_type_obj,
                     retreat=card["pokemon"]["retreatAmount"],
-                    pokemon_type=pokemon_type_obj
+                    pokemon_type=pokemon_type_obj,
                 )
                 print(f'Finished adding Card details for {card["pokemon"]["name"]}')
 
                 PokemonCardDetailsTranslation.objects.get_or_create(
-                pokemon_card_details=pokemon_card_details_obj,
-                language=lang_en,
-                description=card["flavorText"]
+                    pokemon_card_details=pokemon_card_details_obj,
+                    language=lang_en,
+                    description=card["flavorText"],
                 )
 
         #     SetTranslation.objects.get_or_create(

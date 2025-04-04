@@ -10,6 +10,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.db import transaction
 
+
 class RegisterView(APIView):
     @transaction.atomic  # Ensures atomicity
     def post(self, request):
@@ -27,31 +28,36 @@ class RegisterView(APIView):
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
 
                     # Generate confirmation link
-                    current_site = 'localhost:5000'  # Change this for production
+                    current_site = "localhost:5000"  # Change this for production
                     relative_link = f"/verify-email?id={uid}&token={token}"
                     verification_link = f"http://{current_site}{relative_link}"
 
                     # Prepare email
                     subject = "Activate yout TCG Trader account"
-                    html_message = render_to_string('auth/email_verification.html', {
-                        'user': user,
-                        'verification_link': verification_link,
-                    })
+                    html_message = render_to_string(
+                        "auth/email_verification.html",
+                        {
+                            "user": user,
+                            "verification_link": verification_link,
+                        },
+                    )
                     plain_text_message = f"Hi {user.username},\n\nClick the link below to verify your email:\n{verification_link}"
 
                     email = EmailMultiAlternatives(
-                        subject,
-                        plain_text_message,
-                        settings.DEFAULT_FROM_EMAIL,
-                        [user.email]
+                        subject, plain_text_message, settings.DEFAULT_FROM_EMAIL, [user.email]
                     )
                     email.attach_alternative(html_message, "text/html")
                     email.send()  # Send the email
 
-                    return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+                    return Response(
+                        {"message": "User registered successfully"}, status=status.HTTP_201_CREATED
+                    )
 
-            except Exception as e:
+            except Exception:
                 transaction.set_rollback(True)  # Rollback transaction if email sending fails
-                return Response({"error": "User registration failed, please try again."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(
+                    {"error": "User registration failed, please try again."},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,5 +1,19 @@
 from django.contrib import admin
-from cards.models import Pokemon, Language, PokemonTranslation,Set,SetTranslation,PokemonType,PokemonTypeTranslation,Rarity,RarityTranslation,Card,CardImage,CardNameTranslation,CardType
+from cards.models import (
+    Pokemon,
+    Language,
+    PokemonTranslation,
+    Set,
+    SetTranslation,
+    PokemonType,
+    PokemonTypeTranslation,
+    Rarity,
+    RarityTranslation,
+    Card,
+    CardImage,
+    CardNameTranslation,
+    CardType,
+)
 
 # Register your models here.
 admin.site.register(Language)
