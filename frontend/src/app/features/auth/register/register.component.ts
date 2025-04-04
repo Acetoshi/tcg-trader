@@ -84,10 +84,6 @@ export class RegisterComponent implements OnInit {
         this.loading.set(false);
         const data = await response.json();
 
-        console.log("response status:", response.ok);
-
-        console.log(data);
-
         if (response.ok) {
           this.registerSuccess.set(true);
           this.registerFail.set(false);

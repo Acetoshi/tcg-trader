@@ -48,7 +48,6 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     effect(() => {
       const currentFilters = this.filters();
-      console.log("Filters changed:", this.lastFetchedFilters,'  ',currentFilters);
       if (
         this.lastFetchedFilters.setCodes.toString() !==
           currentFilters.setCodes.toString() ||

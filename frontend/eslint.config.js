@@ -16,6 +16,7 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "no-console": ["error", { allow: ["error", "info"] }],
       "@typescript-eslint/no-explicit-any": "warn",
       "@angular-eslint/directive-selector": [
         "error",
@@ -42,5 +43,6 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
+    ignores: ["dist/**", "node_modules/**"],
   }
 );

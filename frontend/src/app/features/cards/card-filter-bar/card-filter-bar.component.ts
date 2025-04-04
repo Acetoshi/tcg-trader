@@ -116,7 +116,7 @@ export class CardFilterBarComponent implements OnInit {
       .get(controlName)
       ?.valueChanges.pipe(debounceTime(600))
       .subscribe(() => {
-        this.emitFilters(); // Emit the updated filters object
+        this.emitFilters();
       });
   }
 
