@@ -17,7 +17,7 @@ repos:
     rev: v1.9.0  # Use latest stable version
     hooks:
       - id: mypy
-        args: ["--config-file=backend/mypy.ini"]
+        args: ["--install-types", "--ignore-missing-imports","--config-file=backend/mypy.ini"]
         files: ^backend/
 
   - repo: https://github.com/pre-commit/pre-commit-hooks

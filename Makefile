@@ -34,4 +34,5 @@ db-sql:
 	@docker exec -it tcg-trader-db psql -U postgres -d postgres
 
 lint:
-	@make -f backend/Makefile lint
+	@cd backend && venv/bin/pre-commit run --all-files
+	@cd frontend && npm run format+lint:fix
