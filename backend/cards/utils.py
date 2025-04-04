@@ -10,4 +10,4 @@ def sanitize_input(input_string):
         return input_string  # Return empty input as is
 
     # Remove anything that is not a letter, number, or space
-    return re.sub(r"[^a-zA-Z0-9\s]", "", input_string)
+    return re.sub(r"[^a-zA-Z0-9\s-]", "", input_string)

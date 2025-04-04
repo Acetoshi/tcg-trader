@@ -12,7 +12,7 @@ class RarityListView(ListAPIView):
         language_code = self.kwargs["language_code"]
 
         # Base query with no filters applied
-        rarities_queryset = Rarity.objects.all().order_by("code")
+        rarities_queryset = Rarity.objects.all().order_by("id")
 
         rarity_name_subquery = RarityTranslation.objects.filter(
             rarity_id=OuterRef("id"), language__code__iexact=language_code

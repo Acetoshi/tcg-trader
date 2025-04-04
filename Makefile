@@ -5,11 +5,16 @@ db-migrate:
 	docker exec -it tcg-trader-backend python manage.py migrate
 
 db-seed:
+	@docker exec -it tcg-trader-backend python manage.py languages_seeder
 	@docker exec -it tcg-trader-backend python manage.py pokedex_seeder
+	@docker exec -it tcg-trader-backend python manage.py rarities_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 
 dev:
 	docker compose up
+
+download-game-data:
+	@docker exec -it tcg-trader-backend python manage.py download_game_data
 
 download-assets:
 	@docker exec -it tcg-trader-backend python manage.py download_cards_images

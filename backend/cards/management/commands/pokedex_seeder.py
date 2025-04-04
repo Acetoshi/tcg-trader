@@ -10,28 +10,10 @@ class Command(BaseCommand):
     help = "Seed the database with Pokédex data"
 
     def handle(self, *args, **kwargs):
-        self.stdout.write("Loading dataset...")
+        self.stdout.write("Loading pokédex dataset...")
 
         with open(EN_DATASET_PATH, "r", encoding="utf-8") as f:
             pokemons = json.load(f)
-
-        languages = [
-            {"code": "FR", "name": "français"},
-            {"code": "EN", "name": "english"},
-            {"code": "DE", "name": "deutsch"},
-            {"code": "ES", "name": "español"},
-            {"code": "IT", "name": "italiano"},
-        ]
-
-        # First set up all languages, in the
-        for language in languages:
-            language_obj, created = Language.objects.get_or_create(
-                code=language["code"], defaults={"name": language["name"]}
-            )
-            if created:
-                self.stdout.write(f"Added language: {language['name']} ({language['code']})")
-            else:
-                self.stdout.write(f"Language already exists: {language_obj}")
 
         # Then insert all pokemon and their english translation
         for pokemon in pokemons:

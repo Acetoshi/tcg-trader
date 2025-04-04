@@ -7,6 +7,8 @@ sets = [
     {"code": "A1a", "count": 86},
     {"code": "A2", "count": 207},
     {"code": "A2a", "count": 96},
+    {"code": "PROMO", "count": 59},
+    {"code": "A2b", "count": 111},
 ]
 
 # Directory where images will be saved
