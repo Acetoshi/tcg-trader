@@ -35,7 +35,12 @@
           <mat-label>Filter by Rarity</mat-label>
           <mat-select multiple formControlName="rarityCodes">
             @for (rarity of rarities(); track rarity) {
-              <mat-option [value]="rarity.code">{{ rarity.name }}</mat-option>
+              <mat-option [value]="rarity.code">
+                <div class="tcg-card-rarity-option">
+                  <img alt="" [src]="fileServerBaseUrl + rarity.imageUrl" />
+                  {{ rarity.name }}
+                </div>
+              </mat-option>
             }
           </mat-select>
         </mat-form-field>

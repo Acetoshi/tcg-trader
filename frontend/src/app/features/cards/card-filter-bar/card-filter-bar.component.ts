@@ -23,6 +23,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { Rarity } from "../models/rarity.model";
 
 @Component({
   selector: "app-card-filter-bar",
@@ -48,8 +49,10 @@ export class CardFilterBarComponent implements OnInit {
   filtersForm!: FormGroup;
 
   private apiUrl = environment.apiUrl;
+  fileServerBaseUrl = environment.fileServerUrl;
+
   sets = signal<Set[]>([]);
-  rarities = signal<Set[]>([]);
+  rarities = signal<Rarity[]>([]);
   showMoreFilters = signal(false);
 
   loading = signal(false);
