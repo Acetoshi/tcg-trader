@@ -113,18 +113,18 @@ class Command(BaseCommand):
 
                 # find pokemon weakness type in db
                 try:
-                    pokemon_weakness_type_trans_obj = ColorTranslation.objects.get(
+                    pokemon_weak_to_trans_obj = ColorTranslation.objects.get(
                         name__icontains=card["weakness"]
                     )
-                    pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.color
+                    pokemon_weak_to_obj = pokemon_weak_to_trans_obj.color
                 except ColorTranslation.DoesNotExist:
-                    pokemon_weakness_type_obj = None  # or set a default value
+                    pokemon_weak_to_obj = None  # or set a default value
 
                 pokemon_card_details_obj, created = PokemonCardDetails.objects.update_or_create(
                     card=card_obj,
                     hp=card["hp"],
                     pokemon=pokemon_obj,
-                    weakness_type=pokemon_weakness_type_obj,
+                    weak_to=pokemon_weak_to_obj,
                     retreat=card["retreat"],
                     color=color_obj,
                 )

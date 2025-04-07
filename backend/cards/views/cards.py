@@ -22,7 +22,8 @@ class CardListView(ListAPIView):
         set_codes = self.request.query_params.get("set")
         rarity_codes = self.request.query_params.get("rarity")
         type_codes = self.request.query_params.get("type")
-        # color_codes = self.request.query_params.get("color")
+        color_codes = self.request.query_params.get("color")
+        weakness_codes = self.request.query_params.get("weakness")
 
         # Base query with no filters applied
         cards_queryset = (
@@ -44,6 +45,18 @@ class CardListView(ListAPIView):
         if type_codes:
             type_filter = list(map(sanitize_input, type_codes.split(",")))
             cards_queryset = cards_queryset.filter(type__code__in=type_filter)
+
+        if color_codes:
+            color_filter = list(map(sanitize_input, color_codes.split(",")))
+            cards_queryset = cards_queryset.filter(
+                pokemon_card_details__color__code__in=color_filter
+            )
+
+        if weakness_codes:
+            weakness_filter = list(map(sanitize_input, weakness_codes.split(",")))
+            cards_queryset = cards_queryset.filter(
+                pokemon_card_details__weak_to__code__in=weakness_filter
+            )
 
         # Accessing the set name based on the language parameters
         set_name_subquery = SetTranslation.objects.filter(
@@ -82,13 +95,6 @@ class CardListView(ListAPIView):
         ).values("name")[:1]
 
         cards_queryset = cards_queryset.annotate(typeName=Subquery(card_type_name_subquery))
-
-        # # Accessing the pokemon type name based on the language parameters
-        # color_name_subquery = ColorTranslation.objects.filter(
-        #     color=OuterRef("type_id"), language__code__iexact=language_code
-        # ).values("name")[:1]
-
-        # cards_queryset = cards_queryset.annotate(pokemonTypeName=Subquery(color_name_subquery))
 
         # Filtering by search term
         if search:
