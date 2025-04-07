@@ -64,6 +64,13 @@ class CardListView(ListAPIView):
 
         cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery))
 
+        # # Accessing the card type name based on the language parameters
+        # card_type_subquery = CardNameTranslation.objects.filter(
+        #     card_id=OuterRef("id"), language__code__iexact=language_code
+        # ).values("name")[:1]
+
+        # cards_queryset = cards_queryset.annotate(type=Subquery(card_type_subquery))
+
         # Filtering by search term
         if search:
             search_condition = Q(illustrator__name__icontains=search) | Q(name__icontains=search)

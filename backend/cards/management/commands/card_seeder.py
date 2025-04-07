@@ -1,10 +1,12 @@
 import json
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 from cards.models import (
     Language,
     Rarity,
     PokemonTypeTranslation,
     Set,
+    CardType,
     Card,
     CardImage,
     Illustrator,
@@ -44,11 +46,16 @@ class Command(BaseCommand):
                 raritytranslation__name__iexact=card["rarity"],
                 raritytranslation__language__code="EN",
             )
+            type_obj = CardType.objects.get(
+                Q(cardtypetranslation__name__unaccent__iexact=card["type"]),
+                cardtypetranslation__language__code="EN",
+            )
 
             card_obj, card_created = Card.objects.get_or_create(
                 set=set_obj,
                 number=int(card["number"]),
                 rarity=rarity_obj,
+                type=type_obj,
                 illustrator=illustrator,
             )
 

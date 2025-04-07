@@ -30,4 +30,4 @@ class CardSerializer(serializers.ModelSerializer):
             "pokemon_card_details",
             "illustratorName",
         ]
-        #'__all__'  # Include all fields from the Card model
+        # fields = '__all__'  # Include all fields from the Card model

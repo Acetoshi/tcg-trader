@@ -34,12 +34,15 @@ db-reset:
 	@docker exec -it tcg-trader-db psql -U postgres -c "DROP DATABASE IF EXISTS tcg_trader_db;"
 	@docker exec -it tcg-trader-db psql -U postgres -c "CREATE DATABASE tcg_trader_db;"
 	@echo "Database dropped and recreated."
+	@echo "Creating unaccent extension if not exists..."
+	@docker exec -it tcg-trader-db psql -U postgres -d tcg_trader_db -c "CREATE EXTENSION IF NOT EXISTS unaccent;"
+	@echo "Unaccent extension created."
 	@echo "Starting the backend container..."
 	@docker compose start backend
 	@docker exec -it tcg-trader-backend python manage.py migrate
 
 db-sql:
-	@docker exec -it tcg-trader-db psql -U postgres -d postgres
+	@docker exec -it tcg-trader-db psql -U postgres -d tcg_trader_db
 
 lint:
 	@cd backend && venv/bin/pre-commit run --all-files

@@ -1,4 +1,10 @@
 from django.db import models
+from django.db.models import CharField
+from django.contrib.postgres.lookups import Unaccent
+
+# Register the lookup to ignore accents
+# This is necessary for the unaccent lookup to work
+CharField.register_lookup(Unaccent)
 
 
 # Language Model
@@ -107,12 +113,34 @@ class Illustrator(models.Model):
         return self.name
 
 
+# Card Type
+class CardType(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f"{self.code}"
+
+
+# Card Type Translation
+class CardTypeTranslation(models.Model):
+    card_type = models.ForeignKey(CardType, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        unique_together = ("card_type", "language")
+
+    def __str__(self):
+        return f"{self.name} ({self.language.code})"
+
+
 # Card Model
 class Card(models.Model):
     number = models.IntegerField()
     rarity = models.ForeignKey(Rarity, on_delete=models.CASCADE)
     illustrator = models.ForeignKey(Illustrator, on_delete=models.CASCADE)
     set = models.ForeignKey(Set, on_delete=models.CASCADE)
+    type = models.ForeignKey(CardType, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.set.code}-{self.number:03d}"
@@ -137,27 +165,6 @@ class CardNameTranslation(models.Model):
 
     class Meta:
         unique_together = ("card", "language")
-
-    def __str__(self):
-        return f"{self.name} ({self.language.code})"
-
-
-# Card Type
-class CardType(models.Model):
-    code = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return f"{self.code}"
-
-
-# Card Type Translation
-class CardTypeTranslation(models.Model):
-    card_type = models.ForeignKey(CardType, on_delete=models.CASCADE)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        unique_together = ("card_type", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
