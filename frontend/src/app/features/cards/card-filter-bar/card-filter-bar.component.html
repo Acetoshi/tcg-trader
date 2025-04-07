@@ -1,12 +1,14 @@
 <mat-card class="cards-list-filterbar">
   <mat-card-content class="high-density">
-    <form (ngSubmit)="onSubmit($event)" [formGroup]="filtersForm">
+    <form
+      (ngSubmit)="onSubmit($event)"
+      [formGroup]="filtersForm"
+      class="card-filters-form">
       <fieldset>
         <!-- <legend>Card Filters</legend> -->
         <mat-form-field
           appearance="outline"
           class="search-input"
-          class="high-density"
           subscriptSizing="dynamic">
           <mat-label>Search for a card</mat-label>
           <input
@@ -16,11 +18,8 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline"
-          class="high-density"
-          subscriptSizing="dynamic">
-          <mat-label>Filter by Set</mat-label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Set</mat-label>
           <mat-select multiple formControlName="setCodes">
             @for (set of sets(); track set) {
               <mat-option [value]="set.code">{{ set.name }}</mat-option>
@@ -28,11 +27,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field
-          appearance="outline"
-          class="high-density"
-          subscriptSizing="dynamic">
-          <mat-label>Filter by Rarity</mat-label>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-label>Rarity</mat-label>
           <mat-select multiple formControlName="rarityCodes">
             @for (rarity of rarities(); track rarity) {
               <mat-option [value]="rarity.code">
@@ -63,7 +59,18 @@
         </button>
       </fieldset>
       @if (showMoreFilters()) {
-        <fieldset>more filters</fieldset>
+        <fieldset>
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Type</mat-label>
+            <mat-select multiple formControlName="cardTypeCodes">
+              @for (cardType of cardTypes(); track cardType) {
+                <mat-option [value]="cardType.code">
+                  {{ cardType.name }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </fieldset>
       }
     </form>
   </mat-card-content>

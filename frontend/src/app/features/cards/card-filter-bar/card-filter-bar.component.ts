@@ -76,6 +76,7 @@ export class CardFilterBarComponent implements OnInit {
     // Fetch filters data
     this.fetchSets();
     this.fetchRarities();
+    this.fetchCardTypes();
   }
 
   async fetchSets() {
@@ -95,14 +96,22 @@ export class CardFilterBarComponent implements OnInit {
   async fetchRarities() {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
-      //this.loading.set(true);
       const response = await fetch(`${this.apiUrl}/en/rarities`);
       const data = await response.json();
       this.rarities.set(data.results);
     } catch {
       console.error("Error fetching Sets");
-    } finally {
-      // this.loading.set(false);
+    }
+  }
+
+  async fetchCardTypes() {
+    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
+    try {
+      const response = await fetch(`${this.apiUrl}/en/card-types`);
+      const data = await response.json();
+      this.cardTypes.set(data.results);
+    } catch {
+      console.error("Error fetching card types");
     }
   }
 
@@ -141,6 +150,7 @@ export class CardFilterBarComponent implements OnInit {
       search: this.filtersForm.get("search")?.value || "",
       setCodes: this.filtersForm.get("setCodes")?.value || [],
       rarityCodes: this.filtersForm.get("rarityCodes")?.value || [],
+      cardTypeCodes: this.filtersForm.get("cardTypeCodes")?.value || [],
     };
     this.filterChange.emit(updatedFilters);
   }

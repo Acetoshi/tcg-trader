@@ -54,7 +54,9 @@ export class CardsListComponent implements OnInit, AfterViewInit {
           currentFilters.setCodes.toString() ||
         this.lastFetchedFilters.search !== currentFilters.search ||
         this.lastFetchedFilters.rarityCodes.toString() !==
-          currentFilters.rarityCodes.toString()
+          currentFilters.rarityCodes.toString() ||
+        this.lastFetchedFilters.cardTypeCodes.toString() !==
+          currentFilters.cardTypeCodes.toString()
       ) {
         this.cards.set([]);
         this.nextPage = 1;
@@ -85,7 +87,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       const response = await fetch(
         `${this.apiUrl}/en/cards?page=${
           targetPage || ""
-        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}&rarity=${this.filters().rarityCodes.join(",")}` //
+        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}&rarity=${this.filters().rarityCodes.join(",")}&type=${this.filters().cardTypeCodes.join(",")}` //
       );
       const data = await response.json();
 

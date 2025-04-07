@@ -7,19 +7,18 @@
     )
   );
 }
-.cards-list-filterbar {
-  position: sticky;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
-  margin-bottom: 16px;
+
+.cards-list-filterbar form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .cards-list-filterbar form fieldset {
   display: flex;
   flex-direction: row;
   align-items: center;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   gap: 16px;
 
   //  Override default styling
@@ -39,7 +38,7 @@
 }
 
 .cards-list-filterbar .search-input {
-  flex-grow: 1;
+  flex-grow: 2;
   min-width: 100px;
 }
 
