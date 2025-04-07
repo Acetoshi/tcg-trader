@@ -5,8 +5,8 @@ from cards.models import (
     PokemonTranslation,
     Set,
     SetTranslation,
-    PokemonType,
-    PokemonTypeTranslation,
+    Color,
+    ColorTranslation,
     Rarity,
     RarityTranslation,
     Card,
@@ -21,8 +21,8 @@ admin.site.register(Pokemon)
 admin.site.register(PokemonTranslation)
 admin.site.register(Set)
 admin.site.register(SetTranslation)
-admin.site.register(PokemonType)
-admin.site.register(PokemonTypeTranslation)
+admin.site.register(Color)
+admin.site.register(ColorTranslation)
 admin.site.register(Rarity)
 admin.site.register(RarityTranslation)
 admin.site.register(Card)

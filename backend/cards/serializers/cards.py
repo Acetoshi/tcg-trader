@@ -15,7 +15,17 @@ class CardSerializer(serializers.ModelSerializer):
     setCode = serializers.CharField(source="set.code")
     setName = serializers.CharField(read_only=True)
     imageUrl = serializers.CharField(read_only=True)
-    pokemon_card_details = PokemonCardDetailsSerializer(many=True)
+
+    pokemonDetails = serializers.SerializerMethodField()
+
+    def get_pokemonDetails(self, obj):
+        # Assuming `pokemon_card_details` is prefetched, otherwise performance is bad.
+        # The query below has a slightly better performance, but returns an array.
+        # pokemonDetails = PokemonCardDetailsSerializer(many=True, source="pokemon_card_details")
+        pokemon_details = obj.pokemon_card_details.first()
+        if pokemon_details:
+            return PokemonCardDetailsSerializer(pokemon_details).data
+        return None
 
     class Meta:
         model = Card
@@ -31,7 +41,7 @@ class CardSerializer(serializers.ModelSerializer):
             "setNumber",
             "setCode",
             "setName",
-            "pokemon_card_details",
+            "pokemonDetails",
             "illustratorName",
         ]
         # fields = '__all__'  # Include all fields from the Card model

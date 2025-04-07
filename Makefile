@@ -9,7 +9,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py pokedex_seeder
 	@docker exec -it tcg-trader-backend python manage.py rarities_seeder
 	@docker exec -it tcg-trader-backend python manage.py sets_seeder
-	@docker exec -it tcg-trader-backend python manage.py pokemon_types_seeder
+	@docker exec -it tcg-trader-backend python manage.py colors_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_types_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 

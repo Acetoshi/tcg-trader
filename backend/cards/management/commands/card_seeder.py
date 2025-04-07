@@ -4,7 +4,7 @@ from django.db.models import Q
 from cards.models import (
     Language,
     Rarity,
-    PokemonTypeTranslation,
+    ColorTranslation,
     Set,
     CardType,
     Card,
@@ -108,18 +108,16 @@ class Command(BaseCommand):
                             print(f'couldnt find {print(card["name"])} in db')
 
                 # find pokemon type in db
-                pokemon_type_trans_obj = PokemonTypeTranslation.objects.get(
-                    name__icontains=card["color"]
-                )
-                pokemon_type_obj = pokemon_type_trans_obj.pokemon_type
+                color_trans_obj = ColorTranslation.objects.get(name__icontains=card["color"])
+                color_obj = color_trans_obj.color
 
                 # find pokemon weakness type in db
                 try:
-                    pokemon_weakness_type_trans_obj = PokemonTypeTranslation.objects.get(
+                    pokemon_weakness_type_trans_obj = ColorTranslation.objects.get(
                         name__icontains=card["weakness"]
                     )
-                    pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.pokemon_type
-                except PokemonTypeTranslation.DoesNotExist:
+                    pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.color
+                except ColorTranslation.DoesNotExist:
                     pokemon_weakness_type_obj = None  # or set a default value
 
                 pokemon_card_details_obj, created = PokemonCardDetails.objects.update_or_create(
@@ -128,7 +126,7 @@ class Command(BaseCommand):
                     pokemon=pokemon_obj,
                     weakness_type=pokemon_weakness_type_obj,
                     retreat=card["retreat"],
-                    pokemon_type=pokemon_type_obj,
+                    color=color_obj,
                 )
                 print(f'Finished adding Card details for {card["name"]}')
 

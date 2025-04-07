@@ -3,8 +3,8 @@ from django.core.management.base import BaseCommand
 from cards.models import (
     Language,
     Rarity,
-    PokemonType,
-    PokemonTypeTranslation,
+    Color,
+    ColorTranslation,
     Set,
     SetTranslation,
     Card,
@@ -40,12 +40,12 @@ class Command(BaseCommand):
 
         # Then insert all types and their english translation
         for type in types:
-            type_obj, created = PokemonType.objects.get_or_create(
+            type_obj, created = Color.objects.get_or_create(
                 code=type["id"], image_url=f'/types/{type["id"].lower()}.webp'
             )
 
-            PokemonTypeTranslation.objects.get_or_create(
-                pokemon_type=type_obj,
+            ColorTranslation.objects.get_or_create(
+                color=type_obj,
                 language=lang_en,
                 name=type["id"],  # Assuming you have translations in the dataset
             )
@@ -120,18 +120,18 @@ class Command(BaseCommand):
                             print(f'couldnt find {print(card["pokemon"]["name"])} in db')
 
                 # find pokemon type in db
-                pokemon_type_trans_obj = PokemonTypeTranslation.objects.get(
+                color_trans_obj = ColorTranslation.objects.get(
                     name__icontains=card["pokemon"]["pokemonTypes"][0]
                 )
-                pokemon_type_obj = pokemon_type_trans_obj.pokemon_type
+                color_obj = color_trans_obj.color
 
                 # find pokemon weakness type in db
                 try:
-                    pokemon_weakness_type_trans_obj = PokemonTypeTranslation.objects.get(
+                    pokemon_weakness_type_trans_obj = ColorTranslation.objects.get(
                         name__icontains=card["pokemon"]["weaknessType"]
                     )
-                    pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.pokemon_type
-                except PokemonTypeTranslation.DoesNotExist:
+                    pokemon_weakness_type_obj = pokemon_weakness_type_trans_obj.color
+                except ColorTranslation.DoesNotExist:
                     pokemon_weakness_type_obj = None  # or set a default value
 
                 pokemon_card_details_obj, created = PokemonCardDetails.objects.update_or_create(
@@ -140,7 +140,7 @@ class Command(BaseCommand):
                     pokemon=pokemon_obj,
                     weakness_type=pokemon_weakness_type_obj,
                     retreat=card["pokemon"]["retreatAmount"],
-                    pokemon_type=pokemon_type_obj,
+                    color=color_obj,
                 )
                 print(f'Finished adding Card details for {card["pokemon"]["name"]}')
 

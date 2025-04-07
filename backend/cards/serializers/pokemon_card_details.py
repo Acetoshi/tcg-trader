@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from cards.models import PokemonCardDetails
-from cards.serializers.pokemon import PokemonSerializer
 
 
 class PokemonCardDetailsSerializer(serializers.ModelSerializer):
-    pokemon = PokemonSerializer()
+    pokedexNumber = serializers.IntegerField(source="pokemon.pokedex_number", read_only=True)
+    type = serializers.CharField(source="color.code", read_only=True)
+    weakness = serializers.CharField(source="weakness_type.code", read_only=True)
 
     class Meta:
         model = PokemonCardDetails
-        fields = ["pokemon_type", "hp", "retreat", "pokemon", "weakness_type"]
+        # fields = '__all__'
+        fields = ["type", "hp", "retreat", "weakness", "pokedexNumber"]

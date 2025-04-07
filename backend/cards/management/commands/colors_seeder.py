@@ -2,8 +2,8 @@ import json
 from django.core.management.base import BaseCommand
 from cards.models import (
     Language,
-    PokemonType,
-    PokemonTypeTranslation,
+    Color,
+    ColorTranslation,
 )
 
 DATASET_PATH = "/app/dataset/pokemon-types.json"
@@ -24,16 +24,16 @@ class Command(BaseCommand):
 
         # Then insert all types and their english translation
         for type in types:
-            type_obj, type_created = PokemonType.objects.get_or_create(
+            type_obj, type_created = Color.objects.get_or_create(
                 code=type["id"], image_url=f'/types/{type["id"].lower()}.webp'
             )
             if type_created:
-                self.stdout.write(self.style.SUCCESS(f"✔ Created PokémonType: {type_obj}"))
+                self.stdout.write(self.style.SUCCESS(f"✔ Created Color: {type_obj}"))
             else:
-                self.stdout.write(self.style.WARNING(f"⚠ PokémonType already exists: {type_obj}"))
+                self.stdout.write(self.style.WARNING(f"⚠ Color already exists: {type_obj}"))
 
-            translation_obj, translation_created = PokemonTypeTranslation.objects.get_or_create(
-                pokemon_type=type_obj,
+            translation_obj, translation_created = ColorTranslation.objects.get_or_create(
+                color=type_obj,
                 language=lang_en,
                 name=type["name-en"],  # Assuming you have translations in the dataset
             )

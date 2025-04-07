@@ -62,7 +62,7 @@ class SetTranslation(models.Model):
 
 
 # Pokémon Type Model
-class PokemonType(models.Model):
+class Color(models.Model):
     code = models.CharField(max_length=100)
     image_url = models.URLField()
 
@@ -71,13 +71,13 @@ class PokemonType(models.Model):
 
 
 # Pokémon Type Translation
-class PokemonTypeTranslation(models.Model):
-    pokemon_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE)
+class ColorTranslation(models.Model):
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
 
     class Meta:
-        unique_together = ("pokemon_type", "language")
+        unique_together = ("color", "language")
 
     def __str__(self):
         return f"{self.name} ({self.language.code})"
@@ -175,12 +175,10 @@ class PokemonCardDetails(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="pokemon_card_details")
     hp = models.IntegerField()
     weakness_type = models.ForeignKey(
-        PokemonType, on_delete=models.CASCADE, null=True, blank=True, related_name="weakness_type"
+        Color, on_delete=models.CASCADE, null=True, blank=True, related_name="weakness_type"
     )
     retreat = models.CharField(max_length=100)
-    pokemon_type = models.ForeignKey(
-        PokemonType, on_delete=models.CASCADE, related_name="pokemon_type"
-    )
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, related_name="color")
     is_ex = models.BooleanField(default=False)
 
     def __str__(self):

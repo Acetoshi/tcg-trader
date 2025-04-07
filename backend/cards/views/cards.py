@@ -22,6 +22,7 @@ class CardListView(ListAPIView):
         set_codes = self.request.query_params.get("set")
         rarity_codes = self.request.query_params.get("rarity")
         type_codes = self.request.query_params.get("type")
+        # color_codes = self.request.query_params.get("color")
 
         # Base query with no filters applied
         cards_queryset = (
@@ -75,12 +76,19 @@ class CardListView(ListAPIView):
 
         cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery))
 
-        # # Accessing the card type name based on the language parameters
+        # Accessing the card type name based on the language parameters
         card_type_name_subquery = CardTypeTranslation.objects.filter(
             card_type=OuterRef("type_id"), language__code__iexact=language_code
         ).values("name")[:1]
 
         cards_queryset = cards_queryset.annotate(typeName=Subquery(card_type_name_subquery))
+
+        # # Accessing the pokemon type name based on the language parameters
+        # color_name_subquery = ColorTranslation.objects.filter(
+        #     color=OuterRef("type_id"), language__code__iexact=language_code
+        # ).values("name")[:1]
+
+        # cards_queryset = cards_queryset.annotate(pokemonTypeName=Subquery(color_name_subquery))
 
         # Filtering by search term
         if search:
