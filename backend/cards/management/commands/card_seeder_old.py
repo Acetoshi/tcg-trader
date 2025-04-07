@@ -3,8 +3,10 @@ from django.core.management.base import BaseCommand
 from cards.models import (
     Language,
     Rarity,
+    PokemonType,
     PokemonTypeTranslation,
     Set,
+    SetTranslation,
     Card,
     CardImage,
     Illustrator,
@@ -14,7 +16,7 @@ from cards.models import (
     CardNameTranslation,
 )
 
-DATASET_PATH = "/app/dataset/game-data-en.json"
+DATASET_PATH = "/app/dataset/game-data.json"
 
 
 class Command(BaseCommand):
@@ -26,11 +28,41 @@ class Command(BaseCommand):
         with open(DATASET_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
 
+        sets = data["data"]["expansions"]
+        types = data["data"]["pokemonTypes"]
         cards = data["data"]["cards"]
 
+        self.stdout.write(f"Found {len(types)} types.")
+        self.stdout.write(f"Found {len(sets)} sets.")
         self.stdout.write(f"Found {len(cards)} cards.")
 
         lang_en = Language.objects.get(code="EN")
+
+        # Then insert all types and their english translation
+        for type in types:
+            type_obj, created = PokemonType.objects.get_or_create(
+                code=type["id"], image_url=f'/types/{type["id"].lower()}.webp'
+            )
+
+            PokemonTypeTranslation.objects.get_or_create(
+                pokemon_type=type_obj,
+                language=lang_en,
+                name=type["id"],  # Assuming you have translations in the dataset
+            )
+        print("Added types")
+
+        # Then insert all sets and their english translation
+        for set in sets:
+            set_obj, created = Set.objects.get_or_create(
+                code=set["expansionId"],
+            )
+
+            SetTranslation.objects.get_or_create(
+                set=set_obj,
+                language=lang_en,
+                name=set["name"],  # Assuming you have translations in the dataset
+            )
+        print("Added Sets")
 
         # Then insert all cards and their english translation
         for card in cards:
