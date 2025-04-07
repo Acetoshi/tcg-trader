@@ -20,7 +20,6 @@ class CardSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
-            "reference",
             "imageUrl",
             "rarityCode",
             "rarityName",
