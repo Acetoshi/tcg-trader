@@ -48,23 +48,20 @@ export class CardsListComponent implements OnInit, AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     effect(() => {
+      // Check if the filters have changed
       const currentFilters = this.filters();
-      if (
-        this.lastFetchedFilters.setCodes.toString() !==
-          currentFilters.setCodes.toString() ||
-        this.lastFetchedFilters.search !== currentFilters.search ||
-        this.lastFetchedFilters.rarityCodes.toString() !==
-          currentFilters.rarityCodes.toString() ||
-        this.lastFetchedFilters.cardTypeCodes.toString() !==
-          currentFilters.cardTypeCodes.toString() ||
-        this.lastFetchedFilters.weaknessCodes.toString() !==
-          currentFilters.weaknessCodes.toString() ||
-        this.lastFetchedFilters.colorCodes.toString() !==
-          currentFilters.colorCodes.toString()
-      ) {
+      const filterKeys = Object.keys(currentFilters) as (keyof CardFilters)[];
+      const shouldFetch = filterKeys.some(
+        key =>
+          this.lastFetchedFilters[key]?.toString() !==
+          currentFilters[key]?.toString()
+      );
+      // If any filter has changed, fetch the cards again
+      if (shouldFetch) {
         this.cards.set([]);
         this.nextPage = 1;
         this.fetchCards(this.nextPage);
+        this.lastFetchedFilters = { ...currentFilters };
       }
     });
   }
@@ -88,10 +85,28 @@ export class CardsListComponent implements OnInit, AfterViewInit {
     try {
       this.loading.set(true);
       this.noResults.set(false);
+
+      const currentFilters = this.filters();
+      const {
+        setCodes,
+        search,
+        rarityCodes,
+        cardTypeCodes,
+        colorCodes,
+        weaknessCodes,
+      } = currentFilters;
+      const params = new URLSearchParams({
+        page: targetPage ? targetPage.toString() : "",
+        set: setCodes.join(","),
+        search,
+        rarity: rarityCodes.join(","),
+        type: cardTypeCodes.join(","),
+        color: colorCodes.join(","),
+        weakness: weaknessCodes.join(","),
+      });
+
       const response = await fetch(
-        `${this.apiUrl}/en/cards?page=${
-          targetPage || ""
-        }&set=${this.filters().setCodes.join(",")}&search=${this.filters().search}&rarity=${this.filters().rarityCodes.join(",")}&type=${this.filters().cardTypeCodes.join(",")}&color=${this.filters().colorCodes.join(",")}&weakness=${this.filters().weaknessCodes.join(",")}` //
+        `${this.apiUrl}/en/cards?${params.toString()}`
       );
       const data = await response.json();
 
@@ -99,7 +114,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
 
       if (data.count === 0) this.noResults.set(true);
 
-      this.lastFetchedFilters = this.filters();
+      this.lastFetchedFilters = currentFilters;
       const nextPageUrl = data.next;
       if (nextPageUrl === null) {
         this.nextPage = null;
