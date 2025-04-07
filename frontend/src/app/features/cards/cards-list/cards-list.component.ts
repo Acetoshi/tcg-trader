@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
 import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatIcon } from "@angular/material/icon";
+import { Card } from "../models/card.model";
 
 @Component({
   selector: "app-cards-list",
@@ -33,7 +34,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   // Backend config
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
-  cards = signal<any[]>([]);
+  cards = signal<Card[]>([]);
   currentPage: number | null = null;
   nextPage: number | null = 1;
 

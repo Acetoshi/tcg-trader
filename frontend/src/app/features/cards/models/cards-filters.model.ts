@@ -8,4 +8,5 @@ export const defaultFilters = {
   search: "",
   setCodes: [],
   rarityCodes: [],
+  cardTypeCodes: [],
 };
