@@ -2,6 +2,7 @@ from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
 from cards.serializers.rarity import RaritySerializer
 from cards.models import Rarity, RarityTranslation
+from cards.utils import sanitize_input
 
 
 class RarityListView(ListAPIView):
@@ -9,7 +10,7 @@ class RarityListView(ListAPIView):
 
     def get_queryset(self):
         # Get the language code from the URL
-        language_code = self.kwargs["language_code"]
+        language_code = sanitize_input(self.kwargs["language_code"])
 
         # Base query with no filters applied
         rarities_queryset = Rarity.objects.all().order_by("id")

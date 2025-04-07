@@ -2,6 +2,7 @@ from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
 from cards.serializers.set import SetSerializer
 from cards.models import Set, SetTranslation
+from cards.utils import sanitize_input
 
 
 class SetListView(ListAPIView):
@@ -9,7 +10,7 @@ class SetListView(ListAPIView):
 
     def get_queryset(self):
         # Get the language code from the URL
-        language_code = self.kwargs["language_code"]
+        language_code = sanitize_input(self.kwargs["language_code"])
 
         # Base query with no filters applied
         sets_queryset = Set.objects.all().order_by("code")
