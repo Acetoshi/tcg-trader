@@ -1,5 +1,5 @@
-export interface Rarity{
-    code: string;
-    name: string;
-    imageUrl: string;
-  }
+export interface Rarity {
+  code: string;
+  name: string;
+  imageUrl: string;
+}
