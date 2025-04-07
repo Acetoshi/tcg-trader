@@ -70,6 +70,31 @@
               }
             </mat-select>
           </mat-form-field>
+
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Color</mat-label>
+            <mat-select multiple formControlName="colorCodes">
+              @for (color of colors(); track color) {
+                <mat-option [value]="color.code">
+                  <div class="tcg-card-rarity-option">
+                    <img alt="" [src]="fileServerBaseUrl + color.imageUrl" />
+                    {{ color.name }}
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Weakness</mat-label>
+            <mat-select multiple formControlName="weaknessCodes">
+              @for (color of colors(); track color) {
+                <mat-option [value]="color.code">
+                  {{ color.name }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field> -->
         </fieldset>
       }
     </form>

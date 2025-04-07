@@ -21,7 +21,7 @@ download-game-data:
 
 download-assets:
 	@docker exec -it tcg-trader-backend python manage.py download_cards_images
-	@docker exec -it tcg-trader-backend python manage.py download_types_images
+	@docker exec -it tcg-trader-backend python manage.py download_colors_images
 	@docker exec -it tcg-trader-backend python manage.py download_rarity_images
 
 api-admin:

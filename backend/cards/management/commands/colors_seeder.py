@@ -6,36 +6,36 @@ from cards.models import (
     ColorTranslation,
 )
 
-DATASET_PATH = "/app/dataset/pokemon-types.json"
+DATASET_PATH = "/app/dataset/colors.json"
 
 
 class Command(BaseCommand):
-    help = "Seed the database with Pokémon types data"
+    help = "Seed the database with Pokémon colors data"
 
     def handle(self, *args, **kwargs):
-        self.stdout.write("Loading pokemon types dataset...")
+        self.stdout.write("Loading pokemon colors dataset...")
 
         with open(DATASET_PATH, "r", encoding="utf-8") as f:
-            types = json.load(f)
+            colors = json.load(f)
 
-        self.stdout.write(f"Found {len(types)} types.")
+        self.stdout.write(f"Found {len(colors)} colors.")
 
         lang_en = Language.objects.get(code="EN")
 
-        # Then insert all types and their english translation
-        for type in types:
-            type_obj, type_created = Color.objects.get_or_create(
-                code=type["id"], image_url=f'/types/{type["id"].lower()}.webp'
+        # Then insert all colors and their english translation
+        for color in colors:
+            color_obj, color_created = Color.objects.get_or_create(
+                code=color["id"], image_url=f"/images/colors/{color['id'].lower()}.webp"
             )
-            if type_created:
-                self.stdout.write(self.style.SUCCESS(f"✔ Created Color: {type_obj}"))
+            if color_created:
+                self.stdout.write(self.style.SUCCESS(f"✔ Created Color: {color_obj}"))
             else:
-                self.stdout.write(self.style.WARNING(f"⚠ Color already exists: {type_obj}"))
+                self.stdout.write(self.style.WARNING(f"⚠ Color already exists: {color_obj}"))
 
             translation_obj, translation_created = ColorTranslation.objects.get_or_create(
-                color=type_obj,
+                color=color_obj,
                 language=lang_en,
-                name=type["name-en"],  # Assuming you have translations in the dataset
+                name=color["name-en"],  # Assuming you have translations in the dataset
             )
 
             if translation_created:

@@ -28,6 +28,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Rarity } from "../models/rarity.model";
 import { CardType } from "../models/card-type.model";
+import { Color } from "../models/color.model";
 
 @Component({
   selector: "app-card-filter-bar",
@@ -58,6 +59,7 @@ export class CardFilterBarComponent implements OnInit {
   sets = signal<Set[]>([]);
   rarities = signal<Rarity[]>([]);
   cardTypes = signal<CardType[]>([]);
+  colors = signal<Color[]>([]);
   showMoreFilters = signal(false);
 
   loading = signal(false);
@@ -77,6 +79,7 @@ export class CardFilterBarComponent implements OnInit {
     this.fetchSets();
     this.fetchRarities();
     this.fetchCardTypes();
+    this.fetchColors();
   }
 
   async fetchSets() {
@@ -112,6 +115,17 @@ export class CardFilterBarComponent implements OnInit {
       this.cardTypes.set(data.results);
     } catch {
       console.error("Error fetching card types");
+    }
+  }
+
+  async fetchColors() {
+    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
+    try {
+      const response = await fetch(`${this.apiUrl}/en/colors`);
+      const data = await response.json();
+      this.colors.set(data.results);
+    } catch {
+      console.error("Error fetching colors");
     }
   }
 
@@ -151,6 +165,8 @@ export class CardFilterBarComponent implements OnInit {
       setCodes: this.filtersForm.get("setCodes")?.value || [],
       rarityCodes: this.filtersForm.get("rarityCodes")?.value || [],
       cardTypeCodes: this.filtersForm.get("cardTypeCodes")?.value || [],
+      colorCodes: this.filtersForm.get("colorCodes")?.value || [],
+      weaknessCodes: this.filtersForm.get("weaknessCodes")?.value || [],
     };
     this.filterChange.emit(updatedFilters);
   }

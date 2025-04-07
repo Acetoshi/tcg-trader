@@ -3,6 +3,8 @@ export interface CardFilters {
   setCodes: string[];
   rarityCodes: string[];
   cardTypeCodes: string[];
+  colorCodes: string[];
+  weaknessCodes: string[];
 }
 
 export const defaultFilters = {
@@ -10,4 +12,6 @@ export const defaultFilters = {
   setCodes: [],
   rarityCodes: [],
   cardTypeCodes: [],
+  colorCodes: [],
+  weaknessCodes: [],
 };

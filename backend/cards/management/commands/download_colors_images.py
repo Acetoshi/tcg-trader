@@ -1,40 +1,36 @@
 import os
 import requests
+import json
 from django.core.management.base import BaseCommand
 
-types = [
-    "colorless",
-    "grass",
-    "fire",
-    "water",
-    "lightning",
-    "psychic",
-    "fighting",
-    "darkness",
-    "metal",
-    "dragon",
-    "fairy",
-]
+
 # directory where images will be saved
-SAVE_DIR = "/app/static/images/types"
+SAVE_DIR = "/app/static/images/colors"
 
 # Ensure the directory exists
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 # Base URL for the Pokémon card images
-BASE_URL = "{image_source_url}/icons/{type}.png"
+BASE_URL = "{image_source_url}/icons/{color}.png"
 IMAGE_SOURCE_URL = os.getenv("IMAGE_SOURCE_URL")
+
+DATASET_PATH = "/app/dataset/colors.json"
 
 
 class Command(BaseCommand):
-    help = "Download Pokémon card images"
+    help = "Download Pokémon color images"
 
     def handle(self, *args, **kwargs):
 
-        for type in types:
+        with open(DATASET_PATH, "r", encoding="utf-8") as f:
+            colors = json.load(f)
 
-            url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL, type=type)
-            filename = os.path.join(SAVE_DIR, f"{type}.webp")
+        for color in colors:
+
+            print(color["id"])
+
+            url = BASE_URL.format(image_source_url=IMAGE_SOURCE_URL, color=color["id"])
+            filename = os.path.join(SAVE_DIR, f"{color['id']}.webp")
 
             if os.path.exists(filename):
                 self.stdout.write(self.style.WARNING(f"Skipping {filename}, already exists."))
