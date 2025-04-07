@@ -1,23 +1,12 @@
 import os
 import requests
+import json
 from django.core.management.base import BaseCommand
 
-rarities = [
-    {"url": "Common", "filename": "common"},
-    {"url": "Uncommon", "filename": "uncommon"},
-    {"url": "Rare", "filename": "rare"},
-    {"url": "DoubleRare", "filename": "double-rare"},
-    {"url": "ArtRare", "filename": "art-rare"},
-    {"url": "SuperRare", "filename": "super-rare"},
-    {"url": "ImmersiveRare", "filename": "immersive-rare"},
-    {"url": "CrownRare", "filename": "crown-rare"},
-    {"url": "SpecialArtRare", "filename": "special-art-rare"},
-]
+DATASET_PATH = "/app/dataset/rarities.json"
 
 # directory where images will be saved
 SAVE_DIR = "/app/static/images/rarities"
-
-# Ensure the directory exists
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 # Base URL for the Pokémon card images
@@ -29,6 +18,9 @@ class Command(BaseCommand):
     help = "Download Pokémon card images"
 
     def handle(self, *args, **kwargs):
+
+        with open(DATASET_PATH, "r", encoding="utf-8") as f:
+            rarities = json.load(f)
 
         for rarity in rarities:
 
