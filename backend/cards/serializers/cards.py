@@ -5,6 +5,8 @@ from cards.serializers.pokemon_card_details import PokemonCardDetailsSerializer
 
 class CardSerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)
+    typeCode = illustratorName = serializers.CharField(source="type.code")
+    typeName = serializers.CharField(read_only=True)
     illustratorName = serializers.CharField(source="illustrator.name")
     rarityCode = serializers.CharField(source="rarity.code")
     rarityImageUrl = serializers.CharField(source="rarity.image_url")
@@ -20,6 +22,8 @@ class CardSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "typeCode",
+            "typeName",
             "imageUrl",
             "rarityCode",
             "rarityName",

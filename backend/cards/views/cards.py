@@ -2,7 +2,13 @@ from django.db.models import Q, Subquery, OuterRef
 from rest_framework.generics import ListAPIView
 from cards.models import Card
 from cards.serializers.cards import CardSerializer
-from cards.models import SetTranslation, CardImage, RarityTranslation, CardNameTranslation
+from cards.models import (
+    SetTranslation,
+    CardImage,
+    RarityTranslation,
+    CardNameTranslation,
+    CardTypeTranslation,
+)
 from cards.utils import sanitize_input
 
 
@@ -65,11 +71,11 @@ class CardListView(ListAPIView):
         cards_queryset = cards_queryset.annotate(name=Subquery(card_name_subquery))
 
         # # Accessing the card type name based on the language parameters
-        # card_type_subquery = CardNameTranslation.objects.filter(
-        #     card_id=OuterRef("id"), language__code__iexact=language_code
-        # ).values("name")[:1]
+        card_type_name_subquery = CardTypeTranslation.objects.filter(
+            card_type=OuterRef("type_id"), language__code__iexact=language_code
+        ).values("name")[:1]
 
-        # cards_queryset = cards_queryset.annotate(type=Subquery(card_type_subquery))
+        cards_queryset = cards_queryset.annotate(typeName=Subquery(card_type_name_subquery))
 
         # Filtering by search term
         if search:
