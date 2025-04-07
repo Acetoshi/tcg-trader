@@ -64,7 +64,7 @@ class PokemonType(models.Model):
         return self.code
 
 
-# Type Translation
+# Pokémon Type Translation
 class PokemonTypeTranslation(models.Model):
     pokemon_type = models.ForeignKey(PokemonType, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
@@ -143,13 +143,25 @@ class CardNameTranslation(models.Model):
         return f"{self.name} ({self.language.code})"
 
 
-# Card Type Relationship
+# Card Type
 class CardType(models.Model):
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100)
+    code = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return f"{self.card.reference}"
+        return f"{self.code}"
+
+
+# Card Type Translation
+class CardTypeTranslation(models.Model):
+    card_type = models.ForeignKey(CardType, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        unique_together = ("card_type", "language")
+
+    def __str__(self):
+        return f"{self.name} ({self.language.code})"
 
 
 class PokemonCardDetails(models.Model):
