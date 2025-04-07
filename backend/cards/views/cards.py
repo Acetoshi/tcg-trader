@@ -21,6 +21,7 @@ class CardListView(ListAPIView):
         search = sanitize_input(self.request.query_params.get("search"))
         set_codes = self.request.query_params.get("set")
         rarity_codes = self.request.query_params.get("rarity")
+        type_codes = self.request.query_params.get("type")
 
         # Base query with no filters applied
         cards_queryset = (
@@ -38,6 +39,10 @@ class CardListView(ListAPIView):
         if rarity_codes:
             rarity_filter = list(map(sanitize_input, rarity_codes.split(",")))
             cards_queryset = cards_queryset.filter(rarity__code__in=rarity_filter)
+
+        if type_codes:
+            type_filter = list(map(sanitize_input, type_codes.split(",")))
+            cards_queryset = cards_queryset.filter(type__code__in=type_filter)
 
         # Accessing the set name based on the language parameters
         set_name_subquery = SetTranslation.objects.filter(
