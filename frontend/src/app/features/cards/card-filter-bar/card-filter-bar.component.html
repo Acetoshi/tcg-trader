@@ -85,16 +85,20 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>Weakness</mat-label>
             <mat-select multiple formControlName="weaknessCodes">
               @for (color of colors(); track color) {
                 <mat-option [value]="color.code">
-                  {{ color.name }}
+                  <div class="tcg-card-rarity-option">
+                    <img alt="" [src]="fileServerBaseUrl + color.imageUrl" />
+                    {{ color.name }}
+                  </div>
                 </mat-option>
               }
+              <mat-option [value]="'none'"> No weakness </mat-option>
             </mat-select>
-          </mat-form-field> -->
+          </mat-form-field>
         </fieldset>
       }
     </form>
