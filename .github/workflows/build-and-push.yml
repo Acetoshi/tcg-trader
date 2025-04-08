@@ -32,5 +32,4 @@ jobs:
         context: ./frontend
         push: true
         tags: |
-          ghcr.io/${{ github.repository }}/frontend:latest
-          ghcr.io/${{ github.repository }}/frontend:${{ github.sha }}
+          ghcr.io/acetoshi/tcg-trader/frontend:latest
