@@ -53,7 +53,8 @@
           mat-flat-button
           type="button"
           color="warn"
-          (click)="resetFilters()">
+          (click)="resetFilters()"
+          [disabled]="!filtersForm.dirty">
           Reset
           <mat-icon>clear</mat-icon>
         </button>

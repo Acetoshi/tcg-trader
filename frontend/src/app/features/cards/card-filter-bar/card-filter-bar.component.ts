@@ -55,14 +55,13 @@ export class CardFilterBarComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
+  loading = signal(false);
 
   sets = signal<Set[]>([]);
   rarities = signal<Rarity[]>([]);
   cardTypes = signal<CardType[]>([]);
   colors = signal<Color[]>([]);
   showMoreFilters = signal(false);
-
-  loading = signal(false);
 
   constructor(
     private fb: FormBuilder,
