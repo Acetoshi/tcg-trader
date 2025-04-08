@@ -14,7 +14,10 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 
 dev:
-	docker compose up
+	docker compose -f docker-compose.dev.yml up
+
+prod:
+	docker compose -f docker-compose.prod.yml up
 
 download-game-data:
 	@docker exec -it tcg-trader-backend python manage.py download_game_data
