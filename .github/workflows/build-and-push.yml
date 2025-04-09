@@ -31,7 +31,7 @@ jobs:
     - name: Build and Push frontend Docker image
       uses: docker/build-push-action@v4
       with:
-        dockerfile: ./frontend/Dockerfile.prod
+        context: ./frontend/Dockerfile.prod
         push: true
         tags: |
           ghcr.io/acetoshi/tcg-trader/frontend:latest
