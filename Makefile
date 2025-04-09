@@ -2,7 +2,9 @@ db-make-migrations:
 	docker exec -it tcg-trader-backend python manage.py makemigrations
 
 db-migrate:
-	docker exec -it tcg-trader-backend python manage.py migrate
+	@docker exec -it tcg-trader-backend python manage.py migrate
+	@echo "Creating unaccent extension if not exists..."
+	@docker exec -it tcg-trader-db psql -U postgres -d tcg_trader_db -c "CREATE EXTENSION IF NOT EXISTS unaccent;"
 
 db-seed:
 	@docker exec -it tcg-trader-backend python manage.py languages_seeder
