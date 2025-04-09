@@ -28,15 +28,9 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: List files in frontend directory (debug)
-      run: |
-        ls -la ./frontend
-        ls -la ./frontend/Dockerfile.prod
-
     - name: Build and Push frontend Docker image
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v4
       with:
-        context: ./frontend
         dockerfile: ./frontend/Dockerfile.prod
         push: true
         tags: |
