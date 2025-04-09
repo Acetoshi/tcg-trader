@@ -18,6 +18,9 @@ db-seed:
 dev:
 	docker compose -f docker-compose.dev.yml up
 
+staged:
+	docker compose -f docker-compose.staged.yml up
+
 prod:
 	docker compose -f docker-compose.prod.yml up
 

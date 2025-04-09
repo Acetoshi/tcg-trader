@@ -22,12 +22,12 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: tcg-trader-frontend
     networks:
       app-network:
         ipv4_address: "172.20.0.3"
-    command: npm start
+    command: node dist/tcg-trader/server/server.mjs
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.frontend.rule=Host(`localhost`) && PathPrefix(`/`)"
