@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
-  apiUrl: "http://localhost:5000/api",
-  fileServerUrl: "http://localhost:5000/files",
+  production: true,
+  apiUrl: "https://bulbatrade.com/api",
+  fileServerUrl: "https://bulbatrade.com/files",
 };
