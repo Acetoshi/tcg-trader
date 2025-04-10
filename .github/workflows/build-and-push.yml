@@ -35,12 +35,15 @@ jobs:
         file: ./frontend/Dockerfile.prod
         push: true
         tags: |
-          ghcr.io/acetoshi/tcg-trader/frontend:latest
+          ghcr.io/acetoshi/tcg-trader/frontend:latest |
+          ghcr.io/acetoshi/tcg-trader/frontend:${{ github.sha }}
 
     - name: Build and Push backend Docker image
       uses: docker/build-push-action@v6
       with:
         context: ./backend
+        file: ./backend/Dockerfile.prod
         push: true
         tags: |
-          ghcr.io/acetoshi/tcg-trader/backend:latest
+          ghcr.io/acetoshi/tcg-trader/backend:latest |
+          ghcr.io/acetoshi/tcg-trader/backend:${{ github.sha }}
