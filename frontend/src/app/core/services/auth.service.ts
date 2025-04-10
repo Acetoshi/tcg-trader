@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from "@angular/core";
 import { Router } from "@angular/router";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -12,13 +13,15 @@ export class AuthService {
   isAuthenticated = computed(() => this._isAuthenticated());
   user = computed(() => this._user());
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private router: Router) {}
 
   async login(email: string, password: string): Promise<boolean> {
     if (!email || !password) return false;
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${this.apiUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +43,7 @@ export class AuthService {
   }
 
   async logout(): Promise<boolean> {
-    const response = await fetch("http://localhost:5000/api/auth/logout");
+    const response = await fetch(`${this.apiUrl}/auth/logout`);
     if (response.ok) {
       this._isAuthenticated.set(false);
       this._user.set(null);
@@ -55,7 +58,7 @@ export class AuthService {
     if (!id || !token) return false;
     try {
       const response = await fetch(
-        `http://localhost:5000/api/auth/verify-email/${id}/${token}`
+        `${this.apiUrl}/auth/verify-email/${id}/${token}`
       );
 
       if (response.ok) {
@@ -70,7 +73,7 @@ export class AuthService {
   }
 
   async getUserDetails(): Promise<boolean> {
-    const response = await fetch("http://localhost:5000/api/auth/user");
+    const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {
       const data = await response.json();
       this._user.set(data.email);
