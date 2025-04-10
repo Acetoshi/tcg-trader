@@ -47,3 +47,13 @@ jobs:
         tags: |
           ghcr.io/acetoshi/tcg-trader/backend:latest
           ghcr.io/acetoshi/tcg-trader/backend:${{ github.sha }}
+
+    - name: Deploy to Production
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          cd ~/tcg-trader
+          make redeploy-prod
