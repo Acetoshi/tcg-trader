@@ -1,3 +1,4 @@
+import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -28,9 +29,11 @@ class RegisterView(APIView):
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
 
                     # Generate confirmation link
-                    current_site = "localhost:5000"  # Change this for production
+                    current_site = os.getenv(
+                        "FRONTEND_URL", "http://localhost:5000"
+                    )  # Change this for production
                     relative_link = f"/verify-email?id={uid}&token={token}"
-                    verification_link = f"http://{current_site}{relative_link}"
+                    verification_link = f"{current_site}{relative_link}"
 
                     # Prepare email
                     subject = "Activate yout TCG Trader account"
