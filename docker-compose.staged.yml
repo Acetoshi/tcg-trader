@@ -3,14 +3,14 @@ services:
   backend:
     build:
       context: ./backend
+      dockerfile: Dockerfile.prod
     container_name: tcg-trader-backend
     volumes:
-      - static_files:/app/static
+      - static_files:/app/static #Only used to download assets
     env_file: .env
     networks:
       app-network:
         ipv4_address: "172.20.0.2"
-    command: python manage.py runserver 0.0.0.0:8000
     depends_on:
     - db
     labels:
@@ -27,7 +27,6 @@ services:
     networks:
       app-network:
         ipv4_address: "172.20.0.3"
-    command: node dist/tcg-trader/server/server.mjs
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.frontend.rule=Host(`localhost`) && PathPrefix(`/`)"
