@@ -14,8 +14,9 @@ services:
     - db
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api/`)"
-      - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.routers.backend.rule=Host(`bulbatrade.com`) && PathPrefix(`/api/`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
       - "traefik.http.services.backend.loadbalancer.server.port=8000"
 
   frontend:
@@ -26,11 +27,12 @@ services:
     networks:
       app-network:
         ipv4_address: "172.20.0.3"
-    command: npm start
+    command: node dist/tcg-trader/server/server.mjs
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.frontend.rule=Host(`localhost`) && PathPrefix(`/`)"
-    - "traefik.http.routers.frontend.entrypoints=web"
+    - "traefik.http.routers.frontend.rule=Host(`bulbatrade.com`) && PathPrefix(`/`)"
+    - "traefik.http.routers.frontend.entrypoints=websecure"
+    - "traefik.http.routers.frontend.tls.certresolver=myresolver"
     - "traefik.http.services.frontend.loadbalancer.server.port=4200"
 
   reverse-proxy:
@@ -40,9 +42,18 @@ services:
       - "--providers.docker"
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=admin@bulbatrade.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
     ports:
       - "80:80"
+      - "443:443"
     volumes:
+      - certificates:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       app-network:
@@ -66,27 +77,26 @@ services:
       timeout: 5s
       retries: 5
 
-
   file-server:
     image: nginx
     container_name: tcg-trader-file-server
-    ports:
-      - 7000:80
     volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - static_files:/usr/share/nginx/html
     networks:
       app-network:
         ipv4_address: "172.20.0.6"
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.files.rule=Host(`localhost`) && PathPrefix(`/files/`)"
-    - "traefik.http.routers.files.entrypoints=web"
+    - "traefik.http.routers.files.rule=Host(`bulbatrade.com`) && PathPrefix(`/files/`)"
+    - "traefik.http.routers.files.entrypoints=websecure"
+    - "traefik.http.routers.files.tls.certresolver=myresolver"
     - "traefik.http.services.files.loadbalancer.server.port=80"
 
 volumes:
   db_data:
   static_files:
-  letsencrypt:
+  certificates:
 
 networks:
   app-network:
