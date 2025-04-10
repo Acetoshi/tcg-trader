@@ -16,7 +16,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 
 dev:
-	docker compose -f docker-compose.dev.yml up
+	docker compose -f docker-compose.dev.yml up --build
 
 staged:
 	docker compose -f docker-compose.staged.yml up --build
@@ -37,7 +37,7 @@ api-admin:
 
 db-reset:
 	@echo "Stopping the backend container..."
-	@docker compose stop backend
+	@docker compose -f docker-compose.dev.yml stop backend
 	@echo "Dropping database..."
 	@docker exec -it tcg-trader-db psql -U postgres -c "DROP DATABASE IF EXISTS tcg_trader_db;"
 	@docker exec -it tcg-trader-db psql -U postgres -c "CREATE DATABASE tcg_trader_db;"
@@ -46,7 +46,7 @@ db-reset:
 	@docker exec -it tcg-trader-db psql -U postgres -d tcg_trader_db -c "CREATE EXTENSION IF NOT EXISTS unaccent;"
 	@echo "Unaccent extension created."
 	@echo "Starting the backend container..."
-	@docker compose start backend
+	@docker compose -f docker-compose.dev.yml start backend
 	@docker exec -it tcg-trader-backend python manage.py migrate
 
 db-sql:
