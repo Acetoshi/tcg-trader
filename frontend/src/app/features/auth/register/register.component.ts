@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { AuthService } from "../../../core/services/auth.service";
 
 @Component({
   selector: "app-register",
@@ -39,7 +40,10 @@ export class RegisterComponent implements OnInit {
   registerSuccess = signal(false);
   loading = signal(false);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -71,20 +75,13 @@ export class RegisterComponent implements OnInit {
       const formData = this.registerForm.value;
       try {
         this.loading.set(true);
-        const response = await fetch(
-          "http://localhost:5000/api/auth/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
+        const { success, message } = await this.authService.register(
+          formData.email,
+          formData.password
         );
         this.loading.set(false);
-        const data = await response.json();
 
-        if (response.ok) {
+        if (success) {
           this.registerSuccess.set(true);
           this.registerFail.set(false);
           this.message =
@@ -92,11 +89,7 @@ export class RegisterComponent implements OnInit {
         } else {
           this.registerFail.set(true);
           this.registerSuccess.set(false);
-          if (data.password) {
-            this.message = `Registration failed : ${data.password}`;
-          } else if (data.email) {
-            this.message = `Registration failed : ${data.email}`;
-          }
+          this.message = `Registration failed: ${message}`;
         }
       } catch {
         this.message = "An error occurred. Please try again later.";

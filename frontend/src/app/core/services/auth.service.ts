@@ -17,6 +17,33 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
+  async register(
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; message: string }> {
+    if (!email || !password)
+      return { success: false, message: "Invalid email or password" };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        return { success: true, message: "Registration successful" };
+      } else {
+        const reason = data.email || data.password || "Unknown reason";
+        return { success: false, message: reason };
+      }
+    } catch {
+      return { success: false, message: "Registration failed" };
+    }
+  }
+
   async login(email: string, password: string): Promise<boolean> {
     if (!email || !password) return false;
 
