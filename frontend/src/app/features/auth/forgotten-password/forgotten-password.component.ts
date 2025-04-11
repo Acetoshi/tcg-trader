@@ -41,13 +41,12 @@ export class ForgottenPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     // Initialize the form group with form controls
     this.forgottenPasswordForm = this.fb.group({
-      email: ["", [Validators.required, Validators.minLength(3)]],
+      email: ["", [Validators.required, Validators.email]],
     });
   }
 
@@ -59,13 +58,13 @@ export class ForgottenPasswordComponent implements OnInit {
       const success = await this.authService.sendPasswordResetEmail(email);
 
       if (success) {
-        this.submissionFailed.set(false);
         this.submissionSuccess.set(true);
         this.loading.set(false);
       } else {
         this.submissionFailed.set(true);
-        this.submissionSuccess.set(false);
         this.loading.set(false);
+        await new Promise(r => setTimeout(r, 3000));
+        this.submissionFailed.set(false);
       }
     }
   }
