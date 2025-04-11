@@ -55,5 +55,5 @@ jobs:
         username: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
-          cd ~/tcg-trader
+          cd /opt/tcg-trader
           make redeploy-prod
