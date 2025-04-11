@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: tcg-trader-backend
     volumes:
+      - ./backend:/app
       - static_files:/app/static
     env_file: .env
     networks:
@@ -25,6 +26,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     container_name: tcg-trader-frontend
+    volumes:
+      - ./frontend:/app
     networks:
       app-network:
         ipv4_address: "172.20.0.3"
