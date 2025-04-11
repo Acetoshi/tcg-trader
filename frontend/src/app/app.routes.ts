@@ -3,6 +3,7 @@ import { HomepageComponent } from "./features/homepage/homepage.component";
 import { LoginComponent } from "./features/auth/login/login.component";
 import { RegisterComponent } from "./features/auth/register/register.component";
 import { ForgottenPasswordComponent } from "./features/auth/forgotten-password/forgotten-password.component";
+import { ResetPasswordComponent } from "./features/auth/reset-password/reset-password.component";
 import { VerifyEmailComponent } from "./features/auth/verify-email/verify-email.component";
 import { DashboardComponent } from "./features/dashboard/dashboard.component";
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "forgotten-password", component: ForgottenPasswordComponent },
+  { path: "reset-password", component: ResetPasswordComponent },
   { path: "verify-email", component: VerifyEmailComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "cards", component: CardsListComponent },

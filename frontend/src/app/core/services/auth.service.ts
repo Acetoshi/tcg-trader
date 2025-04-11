@@ -115,6 +115,34 @@ export class AuthService {
     }
   }
 
+  async resetPassword(id: string, token: string, password: string): Promise<{ success: boolean; message: string }> {
+    if (!id || !token || !password) return { success: false, message: "Invalid input" };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          token,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        return { success: true, message: "Password reset successful" };
+      } else {
+        const data = await response.json();
+        const reason = data.password || "Unknown reason";
+        return { success: false, message: reason };
+      }
+    } catch {
+      return { success: false, message: "Password reset failed" };
+    }
+  }
+
   async getUserDetails(): Promise<boolean> {
     const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {

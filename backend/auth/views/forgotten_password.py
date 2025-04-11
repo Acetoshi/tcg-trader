@@ -30,7 +30,7 @@ class ForgottenPasswordView(APIView):
 
             # Build reset link
             current_site = os.getenv("FRONTEND_URL", "http://localhost:5000")
-            reset_link = f"{current_site}/reset-password?id={uid}&token={token}"
+            reset_link = f"{current_site}/reset-password?id={uid}&token={token}"  # TODO how to make this link expire after some time ?
 
             print(f"reset link : {reset_link}")  # Debugging line to check the reset link
 
