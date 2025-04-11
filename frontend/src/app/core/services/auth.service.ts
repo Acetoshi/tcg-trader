@@ -17,12 +17,8 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-  async register(
-    email: string,
-    password: string
-  ): Promise<{ success: boolean; message: string }> {
-    if (!email || !password)
-      return { success: false, message: "Invalid email or password" };
+  async register(email: string, password: string): Promise<{ success: boolean; message: string }> {
+    if (!email || !password) return { success: false, message: "Invalid email or password" };
 
     try {
       const response = await fetch(`${this.apiUrl}/auth/register`, {
@@ -84,9 +80,7 @@ export class AuthService {
   async verifyEmail(id: string, token: string): Promise<boolean> {
     if (!id || !token) return false;
     try {
-      const response = await fetch(
-        `${this.apiUrl}/auth/verify-email/${id}/${token}`
-      );
+      const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
 
       if (response.ok) {
         this._isAuthenticated.set(true);

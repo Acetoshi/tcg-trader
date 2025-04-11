@@ -11,31 +11,22 @@
         @if (!loading()) {
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Email</mat-label>
-            <input
-              matInput
-              formControlName="email"
-              placeholder="Enter your email" />
+            <input matInput formControlName="email" placeholder="Enter your email" />
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>Password</mat-label>
-            <input
-              matInput
-              type="password"
-              formControlName="password"
-              placeholder="Enter your password" />
+            <input matInput type="password" formControlName="password" placeholder="Enter your password" />
           </mat-form-field>
         }
 
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="loginForm.invalid || loading()">
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading()">
           Login
         </button>
-
-        <a mat-button routerLink="/register">Create an account</a>
+        <div>
+          <a mat-button routerLink="/register">Create an account</a>
+          <a mat-button routerLink="/forgotten-password">Forgotten password ?</a>
+        </div>
       </form>
     </mat-card-content>
     @if (loginFailed()) {

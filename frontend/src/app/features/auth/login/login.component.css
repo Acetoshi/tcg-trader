@@ -1,10 +1,14 @@
 .login-form {
   padding: 32px 16px 0px 16px;
-  padding-top: 32px;
   display: flex;
   gap: 8px;
   flex-direction: column;
+  align-items: center;
   min-width: min(50vw, 400px);
+
+  & .form-field {
+    width: 100%;
+  }
 }
 
 .centered-spinner-container {

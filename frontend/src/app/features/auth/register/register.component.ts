@@ -1,10 +1,5 @@
 import { Component, signal, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -49,14 +44,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group(
       {
         email: ["", [Validators.required, Validators.email]],
-        password: [
-          "",
-          [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(64),
-          ],
-        ],
+        password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
         passwordConfirmation: ["", [Validators.required]],
       },
       { validator: this.passwordMatchValidator }
@@ -75,17 +63,13 @@ export class RegisterComponent implements OnInit {
       const formData = this.registerForm.value;
       try {
         this.loading.set(true);
-        const { success, message } = await this.authService.register(
-          formData.email,
-          formData.password
-        );
+        const { success, message } = await this.authService.register(formData.email, formData.password);
         this.loading.set(false);
 
         if (success) {
           this.registerSuccess.set(true);
           this.registerFail.set(false);
-          this.message =
-            "Account successfully created, check your email for activation link.";
+          this.message = "Account successfully created, check your email for activation link.";
         } else {
           this.registerFail.set(true);
           this.registerSuccess.set(false);

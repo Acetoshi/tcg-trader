@@ -1,10 +1,5 @@
 import { Component, signal, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -12,7 +7,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { AuthService } from "../../../core/services/auth.service";
-import { ToastService } from "../../../core/services/toast.service";
 import { CommonModule } from "@angular/common";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
@@ -40,7 +34,7 @@ export class ForgottenPasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
