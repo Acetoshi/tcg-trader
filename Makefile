@@ -24,6 +24,12 @@ staged:
 prod:
 	docker compose -f docker-compose.prod.yml up
 
+redeploy-prod:
+	@docker compose -f docker-compose.prod.yml pull
+	@docker compose -f docker-compose.prod.yml up -d
+	@sleep 30
+	@docker image prune -f
+
 download-game-data:
 	@docker exec -it tcg-trader-backend python manage.py download_game_data
 
