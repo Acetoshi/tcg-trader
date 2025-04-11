@@ -4,7 +4,7 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
         @if (loading()) {
           <div class="centered-spinner-container"><mat-spinner /></div>
         }

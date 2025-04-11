@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.scss"],
   imports: [
     MatProgressSpinnerModule,
     CommonModule,

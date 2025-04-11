@@ -5,15 +5,15 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
-import { RouterLink } from "@angular/router";
 import { AuthService } from "../../../core/services/auth.service";
 import { CommonModule } from "@angular/common";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-forgotten-password",
   templateUrl: "./forgotten-password.component.html",
-  styleUrls: ["./forgotten-password.component.css"],
+  styleUrls: ["./forgotten-password.component.scss"],
   imports: [
     MatProgressSpinnerModule,
     CommonModule,

@@ -15,7 +15,6 @@ import { AuthService } from "../../../core/services/auth.service";
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
-  standalone: true,
   imports: [
     MatProgressSpinner,
     CommonModule,
@@ -29,11 +28,11 @@ import { AuthService } from "../../../core/services/auth.service";
     RouterLink,
   ],
 })
-export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup;
+export class ResetPasswordComponent implements OnInit {
+  resetPasswordFrom!: FormGroup;
   message = "";
-  registerFail = signal(false);
-  registerSuccess = signal(false);
+  submitFail = signal(false);
+  submitSuccess = signal(false);
   loading = signal(false);
 
   constructor(
@@ -42,9 +41,8 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group(
+    this.resetPasswordFrom = this.fb.group(
       {
-        email: ["", [Validators.required, Validators.email]],
         password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
         passwordConfirmation: ["", [Validators.required]],
       },
@@ -60,20 +58,20 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister(): Promise<void> {
-    if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+    if (this.resetPasswordFrom.valid) {
+      const formData = this.resetPasswordFrom.value;
       try {
         this.loading.set(true);
         const { success, message } = await this.authService.register(formData.email, formData.password);
         this.loading.set(false);
 
         if (success) {
-          this.registerSuccess.set(true);
-          this.registerFail.set(false);
+          this.submitSuccess.set(true);
+          this.submitFail.set(false);
           this.message = "Account successfully created, check your email for activation link.";
         } else {
-          this.registerFail.set(true);
-          this.registerSuccess.set(false);
+          this.submitFail.set(true);
+          this.submitSuccess.set(false);
           this.message = `Registration failed: ${message}`;
         }
       } catch {
