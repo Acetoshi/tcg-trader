@@ -10,13 +10,6 @@ import { MatCardActions } from "@angular/material/card";
   selector: "app-homepage",
   templateUrl: "./homepage.component.html",
   styleUrls: ["./homepage.component.css"],
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardHeader,
-    MatCardSubtitle,
-    MatCardContent,
-    MatCardActions,
-  ],
+  imports: [MatCard, MatCardTitle, MatCardHeader, MatCardSubtitle, MatCardContent, MatCardActions],
 })
 export class HomepageComponent {}

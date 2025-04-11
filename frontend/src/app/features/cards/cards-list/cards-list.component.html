@@ -1,19 +1,12 @@
 <main class="justify-start">
-  <app-card-filter-bar
-    [filters]="filters()"
-    (filterChange)="updateFilters($event)"
-    class="app-card-filter-bar" />
+  <app-card-filter-bar [filters]="filters()" (filterChange)="updateFilters($event)" class="app-card-filter-bar" />
   <ul class="tcg-card-list">
     @for (card of cards(); track card.id) {
       <li>
         <mat-card class="tcg-card">
           <figure>
             <img [src]="fileServerBaseUrl + card.imageUrl" alt="" />
-            <figcaption>
-              {{ card.name }} #{{ card.setCode }}-{{
-                card.setNumber.padStart(3, "0")
-              }}
-            </figcaption>
+            <figcaption>{{ card.name }} #{{ card.setCode }}-{{ card.setNumber.padStart(3, "0") }}</figcaption>
           </figure>
         </mat-card>
       </li>

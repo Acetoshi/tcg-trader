@@ -1,20 +1,11 @@
 <mat-card class="cards-list-filterbar">
   <mat-card-content class="high-density">
-    <form
-      (ngSubmit)="onSubmit($event)"
-      [formGroup]="filtersForm"
-      class="card-filters-form">
+    <form (ngSubmit)="onSubmit($event)" [formGroup]="filtersForm" class="card-filters-form">
       <fieldset>
         <!-- <legend>Card Filters</legend> -->
-        <mat-form-field
-          appearance="outline"
-          class="search-input"
-          subscriptSizing="dynamic">
+        <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
           <mat-label>Search for a card</mat-label>
-          <input
-            matInput
-            placeholder="Ex. Pikachu, Red ..."
-            formControlName="search" />
+          <input matInput placeholder="Ex. Pikachu, Red ..." formControlName="search" />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -42,19 +33,10 @@
         </mat-form-field>
 
         <span>
-          <mat-slide-toggle
-            labelPosition="before"
-            (change)="onToggleChange($event)"
-            >More filters</mat-slide-toggle
-          >
+          <mat-slide-toggle labelPosition="before" (change)="onToggleChange($event)">More filters</mat-slide-toggle>
         </span>
 
-        <button
-          mat-flat-button
-          type="button"
-          color="warn"
-          (click)="resetFilters()"
-          [disabled]="!filtersForm.dirty">
+        <button mat-flat-button type="button" color="warn" (click)="resetFilters()" [disabled]="!filtersForm.dirty">
           Reset
           <mat-icon>clear</mat-icon>
         </button>

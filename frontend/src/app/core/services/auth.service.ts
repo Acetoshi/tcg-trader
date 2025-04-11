@@ -17,12 +17,8 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-  async register(
-    email: string,
-    password: string
-  ): Promise<{ success: boolean; message: string }> {
-    if (!email || !password)
-      return { success: false, message: "Invalid email or password" };
+  async register(email: string, password: string): Promise<{ success: boolean; message: string }> {
+    if (!email || !password) return { success: false, message: "Invalid email or password" };
 
     try {
       const response = await fetch(`${this.apiUrl}/auth/register`, {
@@ -84,9 +80,7 @@ export class AuthService {
   async verifyEmail(id: string, token: string): Promise<boolean> {
     if (!id || !token) return false;
     try {
-      const response = await fetch(
-        `${this.apiUrl}/auth/verify-email/${id}/${token}`
-      );
+      const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
 
       if (response.ok) {
         this._isAuthenticated.set(true);
@@ -96,6 +90,56 @@ export class AuthService {
       }
     } catch {
       return false;
+    }
+  }
+
+  async sendPasswordResetEmail(email: string): Promise<boolean> {
+    if (!email) return false;
+
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/forgotten-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email }),
+      });
+
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
+      return false;
+    }
+  }
+
+  async resetPassword(id: string, token: string, password: string): Promise<{ success: boolean; message: string }> {
+    if (!id || !token || !password) return { success: false, message: "Invalid input" };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          token,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        return { success: true, message: "Password reset successful" };
+      } else {
+        const data = await response.json();
+        const reason = data.password || "Unknown reason";
+        return { success: false, message: reason };
+      }
+    } catch {
+      return { success: false, message: "Password reset failed" };
     }
   }
 

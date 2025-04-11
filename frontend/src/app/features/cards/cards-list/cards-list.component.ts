@@ -20,13 +20,7 @@ import { Card } from "../models/card.model";
 
 @Component({
   selector: "app-cards-list",
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    CardFilterBarComponent,
-    MatIcon,
-  ],
+  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, CardFilterBarComponent, MatIcon],
   templateUrl: "./cards-list.component.html",
   styleUrl: "./cards-list.component.scss",
 })
@@ -52,9 +46,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       const currentFilters = this.filters();
       const filterKeys = Object.keys(currentFilters) as (keyof CardFilters)[];
       const shouldFetch = filterKeys.some(
-        key =>
-          this.lastFetchedFilters[key]?.toString() !==
-          currentFilters[key]?.toString()
+        key => this.lastFetchedFilters[key]?.toString() !== currentFilters[key]?.toString()
       );
       // If any filter has changed, fetch the cards again
       if (shouldFetch) {
@@ -87,14 +79,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
       this.noResults.set(false);
 
       const currentFilters = this.filters();
-      const {
-        setCodes,
-        search,
-        rarityCodes,
-        cardTypeCodes,
-        colorCodes,
-        weaknessCodes,
-      } = currentFilters;
+      const { setCodes, search, rarityCodes, cardTypeCodes, colorCodes, weaknessCodes } = currentFilters;
       const params = new URLSearchParams({
         page: targetPage ? targetPage.toString() : "",
         set: setCodes.join(","),
@@ -105,9 +90,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
         weakness: weaknessCodes.join(","),
       });
 
-      const response = await fetch(
-        `${this.apiUrl}/en/cards?${params.toString()}`
-      );
+      const response = await fetch(`${this.apiUrl}/en/cards?${params.toString()}`);
       const data = await response.json();
 
       this.cards.set([...this.cards(), ...data.results]);
