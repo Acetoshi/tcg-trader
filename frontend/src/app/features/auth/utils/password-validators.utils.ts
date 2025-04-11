@@ -17,5 +17,5 @@ export const hasDigit: ValidatorFn = (control: AbstractControl): ValidationError
 
 export const hasSpecialChar: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const value = control.value;
-  return value && !/[!@#$%^&*(),.?":{}|<>_\-\\[\]=+;']/g.test(value) ? { missingSpecialChar: true } : null;
+  return value && !/[!@#$%^&*(),.?":{}|<>_\-\\\/[\]=+;']/g.test(value) ? { missingSpecialChar: true } : null;
 };
