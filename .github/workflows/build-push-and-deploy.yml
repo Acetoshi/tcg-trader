@@ -25,7 +25,13 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Check for changes in frontend
+      id: frontend_changes
+      run: |
+        git diff --exit-code --quiet HEAD^ HEAD frontend || echo "frontend changed"
+
     - name: Build and Push frontend Docker image
+      if: steps.frontend_changes.outputs.changed == 'true'
       uses: docker/build-push-action@v6
       with:
         context: ./frontend
@@ -35,7 +41,13 @@ jobs:
           ghcr.io/acetoshi/tcg-trader/frontend:latest
           ghcr.io/acetoshi/tcg-trader/frontend:${{ github.sha }}
 
+    - name: Check for changes in backend
+      id: backend_changes
+      run: |
+        git diff --exit-code --quiet HEAD^ HEAD backend || echo "backend changed"
+
     - name: Build and Push backend Docker image
+      if: steps.backend_changes.outputs.changed == 'true'
       uses: docker/build-push-action@v6
       with:
         context: ./backend
@@ -57,4 +69,5 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /opt/tcg-trader
+            git pull origin main
             make redeploy-prod
