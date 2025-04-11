@@ -99,6 +99,28 @@ export class AuthService {
     }
   }
 
+  async sendPasswordResetEmail(email: string): Promise<boolean> {
+    if (!email) return false;
+
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/forgotten-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email }),
+      });
+
+      if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
+      return false;
+    }
+  }
+
   async getUserDetails(): Promise<boolean> {
     const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {

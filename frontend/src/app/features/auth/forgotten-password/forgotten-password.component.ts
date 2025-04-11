@@ -56,18 +56,17 @@ export class ForgottenPasswordComponent implements OnInit {
       this.loading.set(true);
       this.submissionFailed.set(false);
       const { email } = this.forgottenPasswordForm.value;
-      // const success = await this.authService.forgotten-password(email, password);
+      const success = await this.authService.sendPasswordResetEmail(email);
 
-      // if (success) {
-      //   this.submissionFailed = signal(false);
-      //   this.loading.set(false);
-      //   this.toastService.showSuccess("Logged in successfully");
-      // } else {
-      //   await new Promise(r => setTimeout(r, 2000)); // Simulate a delay to prevent bruteforce attacks on the frontend
-      //   this.submissionFailed.set(true);
-      //   this.loading.set(false);
-      //   this.toastService.showError("Login error, check credentials");
-      // }
+      if (success) {
+        this.submissionFailed.set(false);
+        this.submissionSuccess.set(true);
+        this.loading.set(false);
+      } else {
+        this.submissionFailed.set(true);
+        this.submissionSuccess.set(false);
+        this.loading.set(false);
+      }
     }
   }
 }
