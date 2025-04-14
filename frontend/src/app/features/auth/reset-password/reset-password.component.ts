@@ -90,7 +90,7 @@ export class ResetPasswordComponent implements OnInit {
         } else {
           this.submitFail.set(true);
           this.submitSuccess.set(false);
-          this.message = `Registration failed: ${message}`;
+          this.message = `Password reset failed, check your link and try again.`;
         }
       } catch {
         this.message = "An error occurred. Please try again later.";

@@ -22,6 +22,14 @@
   }
 }
 
+.auth-card-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px 16px 8px;
+}
+
 .centered-container {
   display: flex;
   flex-direction: column;
