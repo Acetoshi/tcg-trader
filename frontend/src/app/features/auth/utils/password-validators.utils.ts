@@ -1,21 +1,14 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export const hasUppercase: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const isStrongPassword: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const value = control.value;
-  return value && !/[A-Z]/.test(value) ? { missingUppercase: true } : null;
-};
+  const errors = [];
 
-export const hasLowercase: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const value = control.value;
-  return value && !/[a-z]/.test(value) ? { missingLowercase: true } : null;
-};
+  if (value.length < 12) errors.push("12 characters");
+  if (!/[!@#$%^&*(),.?":{}|<>_\-\\\/[\]=+;']/g.test(value)) errors.push("1 special character");
+  if (!/[A-Z]/.test(value)) errors.push("1 uppercase");
+  if (!/[a-z]/.test(value)) errors.push("1 lowercase");
+  if (!/[0-9]/.test(value)) errors.push("1 digit");
 
-export const hasDigit: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const value = control.value;
-  return value && !/[0-9]/.test(value) ? { missingDigit: true } : null;
-};
-
-export const hasSpecialChar: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const value = control.value;
-  return value && !/[!@#$%^&*(),.?":{}|<>_\-\\\/[\]=+;']/g.test(value) ? { missingSpecialChar: true } : null;
+  return errors.length ? { weakness: errors.join(", ") } : null;
 };

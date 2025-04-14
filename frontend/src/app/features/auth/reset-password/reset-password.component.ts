@@ -1,4 +1,6 @@
 import { Component, signal, OnInit, computed } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -6,11 +8,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { CommonModule } from "@angular/common";
-import { ActivatedRoute, RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
-import { hasUppercase, hasLowercase, hasDigit, hasSpecialChar } from "../utils/password-validators.utils";
+import { isStrongPassword } from "../utils/password-validators.utils";
 
 @Component({
   selector: "app-reset-password",
@@ -35,15 +35,7 @@ export class ResetPasswordComponent implements OnInit {
   submitFail = signal(false);
   submitSuccess = signal(false);
   loading = signal(false);
-  passwordStrengthErrors = computed(() => {
-    const errors = [];
-    if (this.resetPasswordForm.get("password")?.hasError("minlength")) errors.push("12 characters");
-    if (this.resetPasswordForm.get("password")?.hasError("missingSpecialChar")) errors.push("one special character");
-    if (this.resetPasswordForm.get("password")?.hasError("missingUppercase")) errors.push("one uppercase letter");
-    if (this.resetPasswordForm.get("password")?.hasError("missingLowercase")) errors.push("one lowercase letter");
-    if (this.resetPasswordForm.get("password")?.hasError("missingDigit")) errors.push("one digit");
-    return errors.join(", ");
-  });
+  passwordVisible = signal(false);
 
   constructor(
     private route: ActivatedRoute,
@@ -58,12 +50,7 @@ export class ResetPasswordComponent implements OnInit {
           "",
           [
             Validators.required,
-            Validators.minLength(12),
-            Validators.maxLength(64),
-            hasUppercase,
-            hasLowercase,
-            hasDigit,
-            hasSpecialChar,
+            isStrongPassword,
           ],
         ],
         passwordConfirmation: ["", [Validators.required]],
@@ -84,6 +71,10 @@ export class ResetPasswordComponent implements OnInit {
     const passwordConfirmation = form.get("passwordConfirmation")?.value;
 
     return password === passwordConfirmation ? null : { mismatch: true };
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible.set(!this.passwordVisible());
   }
 
   async onRegister(): Promise<void> {
