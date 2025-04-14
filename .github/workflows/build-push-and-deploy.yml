@@ -30,9 +30,11 @@ jobs:
       run: |
         git diff --exit-code --quiet HEAD^ HEAD frontend
         if [ $? -eq 1 ]; then
-            echo "frontend_changed=true" >> $GITHUB_ENV
-          else
-            echo "frontend_changed=false" >> $GITHUB_ENV
+          echo "frontend_changed=true" >> $GITHUB_ENV
+        else
+          echo "frontend_changed=false" >> $GITHUB_ENV
+        fi
+        echo "Frontend changed: ${{ env.frontend_changed }}"
 
     - name: Build and Push frontend Docker image
       if: env.frontend_changed == 'true'
@@ -50,9 +52,11 @@ jobs:
       run: |
         git diff --exit-code --quiet HEAD^ HEAD backend
         if [ $? -eq 1 ]; then
-            echo "backend_changed=true" >> $GITHUB_ENV
-          else
-            echo "backend_changed=false" >> $GITHUB_ENV
+          echo "backend_changed=true" >> $GITHUB_ENV
+        else
+          echo "backend_changed=false" >> $GITHUB_ENV
+        fi
+        echo "Backend changed: ${{ env.backend_changed }}"
 
     - name: Build and Push backend Docker image
       if: env.backend_changed == 'true'
