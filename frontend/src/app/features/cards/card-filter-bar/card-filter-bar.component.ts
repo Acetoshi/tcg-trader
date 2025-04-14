@@ -1,14 +1,5 @@
 import { isPlatformBrowser } from "@angular/common";
-import {
-  Component,
-  OnInit,
-  signal,
-  PLATFORM_ID,
-  Inject,
-  Input,
-  Output,
-  EventEmitter,
-} from "@angular/core";
+import { Component, OnInit, signal, PLATFORM_ID, Inject, Input, Output, EventEmitter } from "@angular/core";
 import { debounceTime } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { CommonModule } from "@angular/common";
@@ -20,10 +11,7 @@ import { MatIcon } from "@angular/material/icon";
 import { Set } from "../models/set.model";
 import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatCardModule } from "@angular/material/card";
-import {
-  MatSlideToggleChange,
-  MatSlideToggleModule,
-} from "@angular/material/slide-toggle";
+import { MatSlideToggleChange, MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Rarity } from "../models/rarity.model";

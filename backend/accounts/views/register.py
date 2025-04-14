@@ -5,7 +5,7 @@ from rest_framework import status
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from auth.serializers import RegisterSerializer
+from accounts.serializers import RegisterSerializer
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -36,7 +36,7 @@ class RegisterView(APIView):
                     verification_link = f"{current_site}{relative_link}"
 
                     # Prepare email
-                    subject = "Activate yout TCG Trader account"
+                    subject = "[BULBATRADE.COM] - Activate your account"
                     html_message = render_to_string(
                         "auth/email_verification.html",
                         {
@@ -63,4 +63,6 @@ class RegisterView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            serializer.errors, status=status.HTTP_400_BAD_REQUEST
+        )  # TODO : is this correct? is there a security leak here ?

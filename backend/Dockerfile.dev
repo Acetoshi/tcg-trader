@@ -1,0 +1,22 @@
+FROM python:3.10-slim
+
+# Step 2: Set environment variables to prevent python from writing pyc files to disk
+# and to ensure that the output of python and pip is sent straight to the terminal
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+# Step 4: Copy the requirements.txt file into the container
+COPY requirements.txt /app/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+# Install Postgresql Client
+RUN apt update && apt install -y postgresql-client
+
+COPY . /app/
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -1,10 +1,5 @@
 import { Component, signal, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -19,7 +14,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.scss"],
   imports: [
     MatProgressSpinnerModule,
     CommonModule,
@@ -36,6 +31,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginFailed = signal(false);
   loading = signal(false);
+  passwordVisible = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -47,15 +43,12 @@ export class LoginComponent implements OnInit {
     // Initialize the form group with form controls
     this.loginForm = this.fb.group({
       email: ["", [Validators.required, Validators.minLength(3)]],
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(64),
-        ],
-      ], // Password field with validations
+      password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]], // Password field with validations
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible.set(!this.passwordVisible());
   }
 
   async onLogin(): Promise<void> {

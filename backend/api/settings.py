@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "rest_framework",
-    "cards",
     "django.core.management.base",
     "django.contrib.postgres",
+    "rest_framework",
+    "cards",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -91,24 +91,39 @@ DATABASES = {
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+# Authentication settings
+AUTH_USER_MODEL = "accounts.CustomUser"
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-]
+AUTH_PASSWORD_VALIDATORS = (
+    [  # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+        {
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+            "OPTIONS": {
+                "min_length": 12,
+            },
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        },
+    ]
+)
 
+PASSWORD_RESET_TIMEOUT = 60 * 30  # make password reset link expire after 30 minutes
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Short-lived access tokens
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
+    "ROTATE_REFRESH_TOKENS": True,  # Security best practice
+    "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -121,11 +136,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "files/"
 
 # Redirect to the URL with a trailing slash
 # https://docs.djangoproject.com/en/5.1/ref/settings/#append-slash
@@ -143,15 +153,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-}
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Short-lived access tokens
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
-    "ROTATE_REFRESH_TOKENS": True,  # Security best practice
-    "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
-    "SIGNING_KEY": "your-secret-key",  # Change this to a strong secret key
-    "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
 }
 
 # Email settings

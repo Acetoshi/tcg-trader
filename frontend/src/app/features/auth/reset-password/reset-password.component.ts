@@ -1,4 +1,6 @@
 import { Component, signal, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -6,17 +8,14 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { CommonModule } from "@angular/common";
-import { RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
 import { isStrongPassword } from "../utils/password-validators.utils";
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
-  standalone: true,
+  selector: "app-reset-password",
+  templateUrl: "./reset-password.component.html",
+  styleUrls: ["./reset-password.component.scss"],
   imports: [
     MatProgressSpinner,
     CommonModule,
@@ -30,28 +29,35 @@ import { isStrongPassword } from "../utils/password-validators.utils";
     RouterLink,
   ],
 })
-export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup;
+export class ResetPasswordComponent implements OnInit {
+  resetPasswordForm!: FormGroup;
   message = "";
-  registerFail = signal(false);
-  registerSuccess = signal(false);
+  submitFail = signal(false);
+  submitSuccess = signal(false);
   loading = signal(false);
   passwordVisible = signal(false);
 
   constructor(
+    private route: ActivatedRoute,
     private authService: AuthService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group(
+    this.resetPasswordForm = this.fb.group(
       {
-        email: ["", [Validators.required, Validators.email]],
         password: ["", [Validators.required, isStrongPassword]],
         passwordConfirmation: ["", [Validators.required]],
+        id: [""],
+        token: [""],
       },
       { validator: this.passwordMatchValidator }
     );
+
+    this.route.queryParams.subscribe(params => {
+      this.resetPasswordForm.get("id")?.setValue(params["id"]);
+      this.resetPasswordForm.get("token")?.setValue(params["token"]);
+    });
   }
 
   passwordMatchValidator(form: FormGroup): null | { mismatch: boolean } {
@@ -66,21 +72,25 @@ export class RegisterComponent implements OnInit {
   }
 
   async onRegister(): Promise<void> {
-    if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+    if (this.resetPasswordForm.valid) {
+      const formData = this.resetPasswordForm.value;
       try {
         this.loading.set(true);
-        const { success, message } = await this.authService.register(formData.email, formData.password);
+        const { success, message } = await this.authService.resetPassword(
+          formData.id,
+          formData.token,
+          formData.password
+        );
         this.loading.set(false);
 
         if (success) {
-          this.registerSuccess.set(true);
-          this.registerFail.set(false);
+          this.submitSuccess.set(true);
+          this.submitFail.set(false);
           this.message = "Account successfully created, check your email for activation link.";
         } else {
-          this.registerFail.set(true);
-          this.registerSuccess.set(false);
-          this.message = `Registration failed: ${message}`;
+          this.submitFail.set(true);
+          this.submitSuccess.set(false);
+          this.message = `Password reset failed, check your link and try again.`;
         }
       } catch {
         this.message = "An error occurred. Please try again later.";
