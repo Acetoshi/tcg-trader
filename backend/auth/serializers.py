@@ -54,3 +54,9 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data["password"],
         )
         return user
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    token = serializers.CharField()
+    password = serializers.CharField(write_only=True)

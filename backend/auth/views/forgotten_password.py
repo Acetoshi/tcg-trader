@@ -28,7 +28,7 @@ class ForgottenPasswordView(APIView):
 
             # Build reset link
             current_site = os.getenv("FRONTEND_URL", "http://localhost:5000")
-            reset_link = f"{current_site}/reset-password?id={uid}&token={token}"  # TODO how to make this link expire after some time ? https://shuup.readthedocs.io/en/latest/_modules/django/contrib/auth/tokens.html
+            reset_link = f"{current_site}/reset-password?id={uid}&token={token}"
 
             # Email content
             subject = "[BULBATRADE.COM] - Password Reset Request"
