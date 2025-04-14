@@ -1,13 +1,12 @@
 from django.urls import path
-
-from auth.views.register import RegisterView
-from auth.views.forgotten_password import ForgottenPasswordView
-from auth.views.verify_email import VerifyEmailView
-from auth.views.login import CookieTokenObtainPairView
-from auth.views.user_details import UserDetailsView
-from auth.views.refresh import CookieTokenRefreshView
-from auth.views.logout import LogoutView
-from auth.views.reset_password import ResetPasswordView
+from accounts.views.register import RegisterView
+from accounts.views.forgotten_password import ForgottenPasswordView
+from accounts.views.verify_email import VerifyEmailView
+from accounts.views.login import CookieTokenObtainPairView
+from accounts.views.user_details import UserDetailsView
+from accounts.views.refresh import CookieTokenRefreshView
+from accounts.views.logout import LogoutView
+from accounts.views.reset_password import ResetPasswordView
 
 urlpatterns = [
     path("login", CookieTokenObtainPairView.as_view(), name="token_obtain_pair"),
