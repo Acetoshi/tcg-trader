@@ -120,7 +120,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
     "ROTATE_REFRESH_TOKENS": True,  # Security best practice
     "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
-    "SIGNING_KEY": os.getenv(SECRET_KEY),
+    "SIGNING_KEY": SECRET_KEY,
     "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
 }
 
