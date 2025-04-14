@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginFailed = signal(false);
   loading = signal(false);
+  passwordVisible = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,10 @@ export class LoginComponent implements OnInit {
       email: ["", [Validators.required, Validators.minLength(3)]],
       password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]], // Password field with validations
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible.set(!this.passwordVisible());
   }
 
   async onLogin(): Promise<void> {

@@ -10,6 +10,7 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
+import { isStrongPassword } from "../utils/password-validators.utils";
 
 @Component({
   selector: "app-register",
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
   registerFail = signal(false);
   registerSuccess = signal(false);
   loading = signal(false);
+  passwordVisible = signal(false);
 
   constructor(
     private authService: AuthService,
@@ -45,7 +47,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group(
       {
         email: ["", [Validators.required, Validators.email]],
-        password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+        password: ["", [Validators.required, isStrongPassword]],
         passwordConfirmation: ["", [Validators.required]],
       },
       { validator: this.passwordMatchValidator }
@@ -57,6 +59,10 @@ export class RegisterComponent implements OnInit {
     const passwordConfirmation = form.get("passwordConfirmation")?.value;
 
     return password === passwordConfirmation ? null : { mismatch: true };
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible.set(!this.passwordVisible());
   }
 
   async onRegister(): Promise<void> {

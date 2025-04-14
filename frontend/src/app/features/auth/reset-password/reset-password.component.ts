@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, computed } from "@angular/core";
+import { Component, signal, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
@@ -46,13 +46,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group(
       {
-        password: [
-          "",
-          [
-            Validators.required,
-            isStrongPassword,
-          ],
-        ],
+        password: ["", [Validators.required, isStrongPassword]],
         passwordConfirmation: ["", [Validators.required]],
         id: [""],
         token: [""],
