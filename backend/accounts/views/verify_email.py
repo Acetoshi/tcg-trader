@@ -12,6 +12,7 @@ User = get_user_model()
 
 class VerifyEmailView(APIView):
     def get(self, request, uidb64, token):
+        # TODO : add serializer here
         try:
             # Step 1: Decode the user ID from the URL
             uid = force_str(urlsafe_base64_decode(uidb64))
