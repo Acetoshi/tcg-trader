@@ -28,10 +28,14 @@ jobs:
     - name: Check for changes in frontend
       id: frontend_changes
       run: |
-        git diff --exit-code --quiet HEAD^ HEAD frontend || echo "frontend changed"
+        git diff --exit-code --quiet HEAD^ HEAD frontend
+        if [ $? -eq 1 ]; then
+            echo "frontend_changed=true" >> $GITHUB_ENV
+          else
+            echo "frontend_changed=false" >> $GITHUB_ENV
 
     - name: Build and Push frontend Docker image
-      if: steps.frontend_changes.outputs.changed == 'true'
+      if: env.frontend_changed == 'true'
       uses: docker/build-push-action@v6
       with:
         context: ./frontend
@@ -44,10 +48,14 @@ jobs:
     - name: Check for changes in backend
       id: backend_changes
       run: |
-        git diff --exit-code --quiet HEAD^ HEAD backend || echo "backend changed"
+        git diff --exit-code --quiet HEAD^ HEAD backend
+        if [ $? -eq 1 ]; then
+            echo "backend_changed=true" >> $GITHUB_ENV
+          else
+            echo "backend_changed=false" >> $GITHUB_ENV
 
     - name: Build and Push backend Docker image
-      if: steps.backend_changes.outputs.changed == 'true'
+      if: env.backend_changed == 'true'
       uses: docker/build-push-action@v6
       with:
         context: ./backend
