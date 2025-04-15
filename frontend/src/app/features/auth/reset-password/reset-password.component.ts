@@ -76,11 +76,7 @@ export class ResetPasswordComponent implements OnInit {
       const formData = this.resetPasswordForm.value;
       try {
         this.loading.set(true);
-        const { success, message } = await this.authService.resetPassword(
-          formData.id,
-          formData.token,
-          formData.password
-        );
+        const { success } = await this.authService.resetPassword(formData.id, formData.token, formData.password);
         this.loading.set(false);
 
         if (success) {

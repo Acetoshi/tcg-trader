@@ -8,6 +8,7 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
+from accounts.serializers import ForgottenPasswordSerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -16,12 +17,13 @@ User = get_user_model()
 class ForgottenPasswordView(APIView):
 
     def post(self, request):
-        email = request.data.get("email")
+        serializer = ForgottenPasswordSerializer(data=request.data)
 
-        if not email:
-            return Response({"error": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
+        if not serializer.is_valid():
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         try:
+            email = serializer.validated_data.get("email")
             user = User.objects.get(email=email)
 
             # Generate reset token and uid
