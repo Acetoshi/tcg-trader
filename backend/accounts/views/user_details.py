@@ -25,14 +25,16 @@ class UserDetailsView(APIView):
 
             if not user:
                 return Response({"error": "Invalid token"}, status=401)
-        except Exception as e:
-            return Response({"error": str(e)}, status=401)
+        except Exception:
+            return Response(status=401)
 
         user_data = {
+            "id": user.id,
             "username": user.username,
             "email": user.email,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
+            "tcgpId": user.tcgp_id,
+            "bio": user.bio,
+            "avatarUrl": user.avatarUrl,
         }
 
         return Response(user_data, status=status.HTTP_200_OK)
