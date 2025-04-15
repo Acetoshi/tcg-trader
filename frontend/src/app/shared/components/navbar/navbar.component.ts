@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
 import { AuthService } from "../../../core/services/auth.service";
 import { ToastService } from "../../../core/services/toast.service";
 
@@ -10,7 +12,7 @@ import { ToastService } from "../../../core/services/toast.service";
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.css"],
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterLink],
 })
 export class NavbarComponent {
   constructor(
@@ -20,6 +22,10 @@ export class NavbarComponent {
 
   get isAuthenticated() {
     return this.authService.isAuthenticated;
+  }
+
+  get userName() {
+    return this.authService.user();
   }
 
   async logout(): Promise<void> {

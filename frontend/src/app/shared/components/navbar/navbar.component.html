@@ -9,7 +9,13 @@
     }
     @if (isAuthenticated()) {
       <button mat-button routerLink="dashboard">Dashboard</button>
-      <button mat-stroked-button (click)="logout()">Logout</button>
+      <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
+        {{ userName }}<mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="my-account"><mat-icon>settings</mat-icon>Account settings</button>
+        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+      </mat-menu>
     }
   </menu>
 </mat-toolbar>

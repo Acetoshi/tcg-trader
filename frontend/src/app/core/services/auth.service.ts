@@ -147,7 +147,7 @@ export class AuthService {
     const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {
       const data = await response.json();
-      this._user.set(data.email);
+      this._user.set(data.email); // TODO : get better infos here
       this._isAuthenticated.set(true);
       return true;
     } else {
