@@ -5,7 +5,8 @@ import { RegisterComponent } from "./features/auth/register/register.component";
 import { ForgottenPasswordComponent } from "./features/auth/forgotten-password/forgotten-password.component";
 import { ResetPasswordComponent } from "./features/auth/reset-password/reset-password.component";
 import { VerifyEmailComponent } from "./features/auth/verify-email/verify-email.component";
-import { DashboardComponent } from "./features/dashboard/dashboard.component";
+import { DashboardComponent } from "./features/dashboard/dashboard-frame/dashboard.component";
+import { AccountComponent } from "./features/my-account/account.component";
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
 
 export const routes: Routes = [
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: "reset-password", component: ResetPasswordComponent },
   { path: "verify-email", component: VerifyEmailComponent },
   { path: "dashboard", component: DashboardComponent },
+  { path: "my-account", component: AccountComponent },
   { path: "cards", component: CardsListComponent },
 ];

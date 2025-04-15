@@ -1,0 +1,52 @@
+<main class="justify-start">
+  <mat-accordion multi class="account-accordion">
+    <!-- Public info  Section -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Public profile</mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="publicInfoForm" class="public-info-panel-content">
+        <div class="avatar-section">
+          <img
+            [src]="'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/002.png'"
+            alt="your avatar"
+            class="avatar-preview" />
+          <button mat-stroked-button color="primary">Change Avatar</button>
+        </div>
+
+        <div class="public-info-section">
+          <mat-form-field class="full-width-form-field">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width-form-field">
+            <mat-label>Pokemon TCG Pocket trainer ID</mat-label>
+            <input matInput formControlName="tcgpId" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width-form-field">
+            <mat-label>Bio</mat-label>
+            <textarea matInput formControlName="bio"></textarea>
+          </mat-form-field>
+
+          <mat-slide-toggle> Show my collection to others </mat-slide-toggle>
+
+          <div class="action-form-buttons">
+            <button mat-raised-button color="primary" [disabled]="!publicInfoForm.dirty">Save</button>
+            <button mat-button type="button" [disabled]="!publicInfoForm.dirty">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </mat-expansion-panel>
+
+    <!-- Credentials Section -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Credentials</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      Soon you'll be able to change your email or password here
+    </mat-expansion-panel>
+  </mat-accordion>
+</main>
