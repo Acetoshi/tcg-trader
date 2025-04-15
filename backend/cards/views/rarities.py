@@ -1,11 +1,13 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 from cards.serializers.rarity import RaritySerializer
 from cards.models import Rarity, RarityTranslation
 from cards.utils import sanitize_input
 
 
 class RarityListView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = RaritySerializer
 
     def get_queryset(self):

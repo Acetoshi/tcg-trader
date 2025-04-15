@@ -67,3 +67,12 @@ class ResetPasswordSerializer(serializers.Serializer):
 
 class ForgottenPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "bio", "tcgpId"]
+
+    tcgpId = serializers.CharField(source="tcgp_id")
+    # username = serializers.CharField()

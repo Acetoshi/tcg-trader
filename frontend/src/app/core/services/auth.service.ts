@@ -146,16 +146,44 @@ export class AuthService {
   }
 
   async getUser(): Promise<boolean> {
-    const response = await fetch(`${this.apiUrl}/auth/user`);
-    if (response.ok) {
-      const data = await response.json();
-      this._user.set(data as User);
-      this._isAuthenticated.set(true);
-      this._isUserLoaded.set(true);
-      return true;
-    } else {
-      this._isAuthenticated.set(false);
-      this._isUserLoaded.set(true);
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/user`);
+      if (response.ok) {
+        const data = await response.json();
+        this._user.set(data as User);
+        this._isAuthenticated.set(true);
+        this._isUserLoaded.set(true);
+        return true;
+      } else {
+        this._isAuthenticated.set(false);
+        this._isUserLoaded.set(true);
+        return false;
+      }
+    } catch {
+      return false;
+    }
+  }
+
+  async updateUser(username: string, tcgpId: string, bio: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/user`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          tcgpId,
+          bio,
+        }),
+      });
+      if (response.ok) {
+        this._user.set({ ...(this._user() as User), username, tcgpId, bio });
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
       return false;
     }
   }

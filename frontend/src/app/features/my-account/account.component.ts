@@ -63,4 +63,11 @@ export class AccountComponent implements OnInit {
       bio: user?.bio ?? "",
     });
   }
+
+  async onSubmit() {
+    const { username, tcgpId, bio } = this.publicInfoForm.value;
+
+    const success = this.authService.updateUser(username, tcgpId, bio);
+    console.log("info was submitted : ", success);
+  }
 }

@@ -5,7 +5,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>Public profile</mat-panel-title>
       </mat-expansion-panel-header>
-      <form [formGroup]="publicInfoForm" class="public-info-panel-content">
+      <form [formGroup]="publicInfoForm" (ngSubmit)="onSubmit()" class="public-info-panel-content">
         <div class="avatar-section">
           <img
             [src]="'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/002.png'"
@@ -33,7 +33,7 @@
           <mat-slide-toggle> Show my collection to others </mat-slide-toggle>
 
           <div class="action-form-buttons">
-            <button mat-raised-button color="primary" [disabled]="!publicInfoForm.dirty">Save</button>
+            <button mat-flat-button color="primary" type="submit" [disabled]="!publicInfoForm.dirty">Save</button>
             <button mat-button type="button" [disabled]="!publicInfoForm.dirty" (click)="resetForm()">Cancel</button>
           </div>
         </div>
