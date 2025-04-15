@@ -41,3 +41,6 @@ class ResetPasswordView(APIView):
 
         except User.DoesNotExist:
             return Response(status=status.HTTP_200_OK)
+
+        except UnicodeDecodeError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
