@@ -24,9 +24,10 @@ export class NavbarComponent {
     return this.authService.isAuthenticated;
   }
 
-  get userName() {
+  get user() {
     return this.authService.user();
   }
+
 
   async logout(): Promise<void> {
     const success = await this.authService.logout();

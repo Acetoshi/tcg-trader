@@ -1,13 +1,14 @@
 import { Injectable, signal, computed } from "@angular/core";
 import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
+import { User } from "./auth.models";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private _isAuthenticated = signal<boolean>(false);
-  private _user = signal<string | null>(null);
+  private _user = signal<User | null>(null);
 
   // Read-only signals for state access
   isAuthenticated = computed(() => this._isAuthenticated());
@@ -53,8 +54,7 @@ export class AuthService {
       });
 
       if (response.ok) {
-        this._isAuthenticated.set(true);
-        this._user.set(email);
+        await this.getUserDetails();
         this.router.navigate(["/dashboard"]);
         return true;
       } else {
@@ -83,7 +83,7 @@ export class AuthService {
       const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
 
       if (response.ok) {
-        this._isAuthenticated.set(true);
+        await this.getUserDetails();
         return true;
       } else {
         return false;
@@ -147,7 +147,7 @@ export class AuthService {
     const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {
       const data = await response.json();
-      this._user.set(data.email); // TODO : get better infos here
+      this._user.set(data as User);
       this._isAuthenticated.set(true);
       return true;
     } else {

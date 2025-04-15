@@ -10,6 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component({
   selector: "app-account",
@@ -30,11 +31,18 @@ import { MatIconModule } from "@angular/material/icon";
 export class AccountComponent {
   publicInfoForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) {
     this.publicInfoForm = this.fb.group({
       username: [""],
       tcgpId: [""],
       bio: [""],
     });
+  }
+
+  get user() {
+    return this.authService.user();
   }
 }
