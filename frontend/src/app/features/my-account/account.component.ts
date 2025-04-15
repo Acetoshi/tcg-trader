@@ -44,16 +44,23 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.authService.user();
-    if (user) {
-      this.publicInfoForm.patchValue({
-        username: user.username ?? "",
-        tcgpId: user.tcgpId ?? "",
-        bio: user.bio ?? "",
-      });
-    }
+    this.publicInfoForm.patchValue({
+      username: user?.username ?? "",
+      tcgpId: user?.tcgpId ?? "",
+      bio: user?.bio ?? "",
+    });
   }
 
   get user() {
     return this.authService.user();
+  }
+
+  resetForm() {
+    const user = this.authService.user();
+    this.publicInfoForm.reset({
+      username: user?.username ?? "",
+      tcgpId: user?.tcgpId ?? "",
+      bio: user?.bio ?? "",
+    });
   }
 }

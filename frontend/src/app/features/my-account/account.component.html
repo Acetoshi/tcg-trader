@@ -34,7 +34,7 @@
 
           <div class="action-form-buttons">
             <button mat-raised-button color="primary" [disabled]="!publicInfoForm.dirty">Save</button>
-            <button mat-button type="button" [disabled]="!publicInfoForm.dirty">Cancel</button>
+            <button mat-button type="button" [disabled]="!publicInfoForm.dirty" (click)="resetForm()">Cancel</button>
           </div>
         </div>
       </form>
