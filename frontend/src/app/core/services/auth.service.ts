@@ -9,10 +9,12 @@ import { User } from "./auth.models";
 export class AuthService {
   private _isAuthenticated = signal<boolean>(false);
   private _user = signal<User | null>(null);
+  private _isUserLoaded = signal(false);
 
   // Read-only signals for state access
   isAuthenticated = computed(() => this._isAuthenticated());
   user = computed(() => this._user());
+  isUserLoaded = computed(() => this._isUserLoaded()); // isUserLoaded is used here to memoize wether or not an API call was made to getUser
 
   private apiUrl = environment.apiUrl;
 
@@ -54,7 +56,7 @@ export class AuthService {
       });
 
       if (response.ok) {
-        await this.getUserDetails();
+        await this.getUser();
         this.router.navigate(["/dashboard"]);
         return true;
       } else {
@@ -83,7 +85,7 @@ export class AuthService {
       const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
 
       if (response.ok) {
-        await this.getUserDetails();
+        await this.getUser();
         return true;
       } else {
         return false;
@@ -143,15 +145,17 @@ export class AuthService {
     }
   }
 
-  async getUserDetails(): Promise<boolean> {
+  async getUser(): Promise<boolean> {
     const response = await fetch(`${this.apiUrl}/auth/user`);
     if (response.ok) {
       const data = await response.json();
       this._user.set(data as User);
       this._isAuthenticated.set(true);
+      this._isUserLoaded.set(true);
       return true;
     } else {
       this._isAuthenticated.set(false);
+      this._isUserLoaded.set(true);
       return false;
     }
   }

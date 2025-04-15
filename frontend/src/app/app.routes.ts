@@ -8,6 +8,7 @@ import { VerifyEmailComponent } from "./features/auth/verify-email/verify-email.
 import { DashboardComponent } from "./features/dashboard/dashboard-frame/dashboard.component";
 import { AccountComponent } from "./features/my-account/account.component";
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
+import { AuthGuard } from "./core/guards/auth.guard";
 
 export const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -16,7 +17,7 @@ export const routes: Routes = [
   { path: "forgotten-password", component: ForgottenPasswordComponent },
   { path: "reset-password", component: ResetPasswordComponent },
   { path: "verify-email", component: VerifyEmailComponent },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "my-account", component: AccountComponent },
+  { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: "my-account", component: AccountComponent, canActivate: [AuthGuard] },
   { path: "cards", component: CardsListComponent },
 ];

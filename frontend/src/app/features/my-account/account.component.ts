@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormBuilder, FormGroup } from "@angular/forms";
 
@@ -28,7 +28,7 @@ import { AuthService } from "../../core/services/auth.service";
     MatIconModule,
   ],
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   publicInfoForm: FormGroup;
 
   constructor(
@@ -40,6 +40,17 @@ export class AccountComponent {
       tcgpId: [""],
       bio: [""],
     });
+  }
+
+  ngOnInit(): void {
+    const user = this.authService.user();
+    if (user) {
+      this.publicInfoForm.patchValue({
+        username: user.username ?? "",
+        tcgpId: user.tcgpId ?? "",
+        bio: user.bio ?? "",
+      });
+    }
   }
 
   get user() {

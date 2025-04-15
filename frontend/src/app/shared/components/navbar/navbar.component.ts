@@ -28,7 +28,6 @@ export class NavbarComponent {
     return this.authService.user();
   }
 
-
   async logout(): Promise<void> {
     const success = await this.authService.logout();
     if (success) this.toastService.showSuccess("Logged out successfully");
