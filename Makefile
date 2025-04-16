@@ -9,6 +9,10 @@ db-migrate:
 	@echo "Creating unaccent extension if not exists..."
 	@docker exec -it tcg-trader-db psql -U postgres -d tcg_trader_db -c "CREATE EXTENSION IF NOT EXISTS unaccent;"
 
+# the -it was replaced wit -i cause TTY isn't available in github actions
+db-migrate-prod:
+	@docker exec -i tcg-trader-backend python manage.py migrate
+
 db-seed:
 	@docker exec -it tcg-trader-backend python manage.py languages_seeder
 	@docker exec -it tcg-trader-backend python manage.py pokedex_seeder
@@ -32,6 +36,7 @@ redeploy-prod:
 	@docker compose -f docker-compose.prod.yml up -d
 	@sleep 30
 	@docker image prune -f
+
 
 download-game-data:
 	@docker exec -it tcg-trader-backend python manage.py download_game_data

@@ -59,4 +59,4 @@ jobs:
             cd /opt/tcg-trader
             git pull origin main
             make redeploy-prod
-            make db-migrate
+            make db-migrate-prod
