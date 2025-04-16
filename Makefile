@@ -34,7 +34,6 @@ prod:
 redeploy-prod:
 	@docker compose -f docker-compose.prod.yml pull
 	@docker compose -f docker-compose.prod.yml up -d
-	@sleep 30
 	@docker image prune -f
 
 
