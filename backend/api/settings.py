@@ -18,12 +18,6 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
@@ -92,6 +86,9 @@ DATABASES = {
 }
 
 # Authentication settings
+SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
+EXPIRY_MINUTES = 15
+SLIDING_REFRESH_THRESHOLD = 5
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = (
@@ -151,11 +148,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 50,
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "api.security_utils.cookie_authentication.CookieJWTAuthentication",
+        "accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
     ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ],
 }
 
 # Email settings
