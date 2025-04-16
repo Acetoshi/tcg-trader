@@ -11,6 +11,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { AuthService } from "../../core/services/auth.service";
+import { ToastService } from "../../core/services/toast.service";
 
 @Component({
   selector: "app-account",
@@ -33,8 +34,9 @@ export class AccountComponent implements OnInit {
   userNameUnicityError = false;
 
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
-    private fb: FormBuilder
+    private toastService: ToastService
   ) {
     this.publicInfoForm = this.fb.group({
       username: [""],
@@ -45,11 +47,13 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.authService.user();
-    this.publicInfoForm.patchValue({
-      username: user?.username ?? "",
-      tcgpId: user?.tcgpId ?? "",
-      bio: user?.bio ?? "",
-    });
+    if (user) {
+      this.publicInfoForm.patchValue({
+        username: user?.username ?? "",
+        tcgpId: user?.tcgpId ?? "",
+        bio: user?.bio ?? "",
+      });
+    }
   }
 
   get user() {
@@ -68,7 +72,12 @@ export class AccountComponent implements OnInit {
   async onSubmit() {
     const { username, tcgpId, bio } = this.publicInfoForm.value;
 
-    const success = this.authService.updateUser(username, tcgpId, bio);
-    console.log("info was submitted : ", success);
+    const { success, message } = await this.authService.updateUser(username, tcgpId, bio);
+    if (success) {
+      this.toastService.showSuccess(message);
+      this.resetForm()
+    } else {
+      this.toastService.showError(message);
+    }
   }
 }

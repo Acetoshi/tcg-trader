@@ -164,7 +164,7 @@ export class AuthService {
     }
   }
 
-  async updateUser(username: string, tcgpId: string, bio: string): Promise<boolean> {
+  async updateUser(username: string, tcgpId: string, bio: string): Promise<{ success: boolean; message: string }> {
     try {
       const response = await fetch(`${this.apiUrl}/auth/user`, {
         method: "PUT",
@@ -179,12 +179,17 @@ export class AuthService {
       });
       if (response.ok) {
         this._user.set({ ...(this._user() as User), username, tcgpId, bio });
-        return true;
+        return { success: true, message: "Account info successfully updated" };
       } else {
-        return false;
+        const errors = await response.json();
+        let message = "";
+        if (errors?.username) {
+          message += errors.username.join("");
+        }
+        return { success: false, message };
       }
     } catch {
-      return false;
+      return { success: false, message: "An error occured" };
     }
   }
 }

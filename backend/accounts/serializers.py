@@ -29,10 +29,12 @@ class RegisterSerializer(AutoSanitizingSerializer):
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("This email is already in use.")
+            raise serializers.ValidationError("This email is not available.")
         return value
 
-    def validate_password(self, value):
+    def validate_password(
+        self, value
+    ):  # TODO : put this in the general password validator in settings
         if len(value) < 12:
             raise serializers.ValidationError("Password must be at least 12 characters long.")
         if not any(char.islower() for char in value):
@@ -72,7 +74,6 @@ class ForgottenPasswordSerializer(serializers.Serializer):
 
 class UserDetailsSerializer(AutoSanitizingSerializer):
     tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
-    # username = serializers.CharField()
 
     class Meta:
         model = User
@@ -81,5 +82,5 @@ class UserDetailsSerializer(AutoSanitizingSerializer):
     def validate_username(self, value):
         user = self.instance or self.context["request"].user
         if User.objects.exclude(pk=user.pk).filter(username=value).exists():
-            raise serializers.ValidationError("This username is already taken.")
+            raise serializers.ValidationError("This username is not available.")
         return value

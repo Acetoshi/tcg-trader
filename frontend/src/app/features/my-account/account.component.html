@@ -11,13 +11,14 @@
             [src]="'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/002.png'"
             alt="your avatar"
             class="avatar-preview" />
-          <button mat-stroked-button color="primary">Change Avatar</button>
+          <!-- <button mat-stroked-button color="primary" [disabled] >Change Avatar</button> -->
         </div>
 
         <div class="public-info-section">
           <mat-form-field class="full-width-form-field">
             <mat-label>Username</mat-label>
             <input matInput formControlName="username" />
+            <mat-hint>For your privacy, avoid using personal information in your username.</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="full-width-form-field">
@@ -30,10 +31,10 @@
             <textarea matInput formControlName="bio"></textarea>
           </mat-form-field>
 
-          <mat-slide-toggle> Show my collection to others </mat-slide-toggle>
+          <!-- <mat-slide-toggle> Show my collection to others </mat-slide-toggle> -->
 
           <div class="action-form-buttons">
-            <button mat-flat-button color="primary" type="submit" [disabled]="!publicInfoForm.dirty">Save</button>
+            <button mat-flat-button color="primary" type="submit" [disabled]="!publicInfoForm.dirty">SAVE</button>
             <button mat-button type="button" [disabled]="!publicInfoForm.dirty" (click)="resetForm()">Cancel</button>
           </div>
         </div>

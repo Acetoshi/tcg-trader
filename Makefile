@@ -1,6 +1,6 @@
+# chown is needed here because it is root inside the docker that generates the files.
 db-make-migrations:
 	docker exec -it tcg-trader-backend python manage.py makemigrations
-	# chown is needed here because it is root inside the docker that generates the files.
 	sudo chown $(shell id -un):$(shell id -gn) backend/*/migrations/*.py
 	chmod u+w backend/*/migrations/*.py
 
