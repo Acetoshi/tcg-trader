@@ -12,4 +12,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Use Gunicorn to serve Django
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "api.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "api.wsgi:application", "--log-level", "info"]
