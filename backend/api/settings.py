@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -112,15 +111,6 @@ AUTH_PASSWORD_VALIDATORS = (
 )
 
 PASSWORD_RESET_TIMEOUT = 60 * 30  # make password reset link expire after 30 minutes
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Short-lived access tokens
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
-    "ROTATE_REFRESH_TOKENS": True,  # Security best practice
-    "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
-    "SIGNING_KEY": SECRET_KEY,
-    "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

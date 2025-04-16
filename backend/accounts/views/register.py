@@ -2,7 +2,6 @@ import os
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -14,7 +13,6 @@ from django.db import transaction
 
 
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
 
     @transaction.atomic  # Ensures atomicity
     def post(self, request):
