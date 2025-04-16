@@ -4,6 +4,7 @@ services:
     image: ghcr.io/acetoshi/tcg-trader/backend:latest
     container_name: tcg-trader-backend
     volumes:
+      - ./backend/dataset:/app/dataset
       - static_files:/app/static
     env_file: .env
     networks:
