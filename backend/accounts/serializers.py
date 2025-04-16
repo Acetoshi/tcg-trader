@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from api.security_utils.xss_safe_serializer import AutoSanitizingSerializer
 import re
 
 User = get_user_model()
@@ -19,7 +20,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "name"]
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class RegisterSerializer(AutoSanitizingSerializer):
     password = serializers.CharField(write_only=True, min_length=12)
 
     class Meta:
@@ -69,7 +70,7 @@ class ForgottenPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 
-class UserDetailsSerializer(serializers.ModelSerializer):
+class UserDetailsSerializer(AutoSanitizingSerializer):
     tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
     # username = serializers.CharField()
 
