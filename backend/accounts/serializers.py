@@ -70,9 +70,15 @@ class ForgottenPasswordSerializer(serializers.Serializer):
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
+    tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
+    # username = serializers.CharField()
+
     class Meta:
         model = User
         fields = ["username", "bio", "tcgpId"]
 
-    tcgpId = serializers.CharField(source="tcgp_id")
-    # username = serializers.CharField()
+    def validate_username(self, value):
+        user = self.instance or self.context["request"].user
+        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
+            raise serializers.ValidationError("This username is already taken.")
+        return value

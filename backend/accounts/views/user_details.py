@@ -32,25 +32,16 @@ class UserDetailsView(APIView):
             )
 
     def put(self, request):
-        serializer = UserDetailsSerializer(data=request.data)
+        user = request.user
+        serializer = UserDetailsSerializer(
+            user, data=request.data, context={"request": request}, partial=True
+        )
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            user = request.user
-
-            new_username = serializer.validated_data.get("username")
-            new_tcgp_id = serializer.validated_data.get("tcgpId")
-            new_bio = serializer.validated_data.get("bio")
-
-            user.username = new_username
-            user.bio = new_bio
-            user.tcgp_id = new_tcgp_id
-
-            print(user)
-
-            user.save()
+            serializer.save()
 
             return Response(status=status.HTTP_200_OK)
 

@@ -30,6 +30,7 @@ import { AuthService } from "../../core/services/auth.service";
 })
 export class AccountComponent implements OnInit {
   publicInfoForm: FormGroup;
+  userNameUnicityError = false;
 
   constructor(
     private authService: AuthService,
