@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from accounts.serializers import UserDetailsSerializer
 
 # View to return the authenticated user's details.
 
@@ -9,30 +9,46 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 class UserDetailsView(APIView):
 
     def get(self, request):
+        try:
+            user = request.user
 
-        access_token = request.COOKIES.get("access_token")
-        if not access_token:
-            return Response({"error": "Access token missing"}, status=401)
+            user_data = {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "tcgpId": user.tcgp_id,
+                "bio": user.bio,
+                "avatarUrl": user.avatarUrl,
+            }
 
-        # Set the Authorization header to the JWT token
-        request.META["HTTP_AUTHORIZATION"] = f"Bearer {access_token}"
+            return Response(user_data, status=status.HTTP_200_OK)
 
-        user = JWTAuthentication().authenticate(request)
+        except AttributeError:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        except Exception:
+            return Response(
+                {"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    def put(self, request):
+        user = request.user
+        serializer = UserDetailsSerializer(
+            user, data=request.data, context={"request": request}, partial=True
+        )
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            # This will check the validity of the token and populate request.user
-            user, auth = JWTAuthentication().authenticate(request)
+            serializer.save()
 
-            if not user:
-                return Response({"error": "Invalid token"}, status=401)
-        except Exception as e:
-            return Response({"error": str(e)}, status=401)
+            return Response(status=status.HTTP_200_OK)
 
-        user_data = {
-            "username": user.username,
-            "email": user.email,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-        }
+        except AttributeError:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        return Response(user_data, status=status.HTTP_200_OK)
+        except Exception:
+            return Response(
+                {"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -1,17 +1,20 @@
 import { Injectable, signal, computed } from "@angular/core";
 import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
+import { User } from "./auth.models";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private _isAuthenticated = signal<boolean>(false);
-  private _user = signal<string | null>(null);
+  private _user = signal<User | null>(null);
+  private _isUserLoaded = signal(false);
 
   // Read-only signals for state access
   isAuthenticated = computed(() => this._isAuthenticated());
   user = computed(() => this._user());
+  isUserLoaded = computed(() => this._isUserLoaded()); // isUserLoaded is used here to memoize wether or not an API call was made to getUser
 
   private apiUrl = environment.apiUrl;
 
@@ -53,8 +56,7 @@ export class AuthService {
       });
 
       if (response.ok) {
-        this._isAuthenticated.set(true);
-        this._user.set(email);
+        await this.getUser();
         this.router.navigate(["/dashboard"]);
         return true;
       } else {
@@ -83,7 +85,7 @@ export class AuthService {
       const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
 
       if (response.ok) {
-        this._isAuthenticated.set(true);
+        await this.getUser();
         return true;
       } else {
         return false;
@@ -143,16 +145,51 @@ export class AuthService {
     }
   }
 
-  async getUserDetails(): Promise<boolean> {
-    const response = await fetch(`${this.apiUrl}/auth/user`);
-    if (response.ok) {
-      const data = await response.json();
-      this._user.set(data.email);
-      this._isAuthenticated.set(true);
-      return true;
-    } else {
-      this._isAuthenticated.set(false);
+  async getUser(): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/user`);
+      if (response.ok) {
+        const data = await response.json();
+        this._user.set(data as User);
+        this._isAuthenticated.set(true);
+        this._isUserLoaded.set(true);
+        return true;
+      } else {
+        this._isAuthenticated.set(false);
+        this._isUserLoaded.set(true);
+        return false;
+      }
+    } catch {
       return false;
+    }
+  }
+
+  async updateUser(username: string, tcgpId: string, bio: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await fetch(`${this.apiUrl}/auth/user`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          tcgpId,
+          bio,
+        }),
+      });
+      if (response.ok) {
+        this._user.set({ ...(this._user() as User), username, tcgpId, bio });
+        return { success: true, message: "Account info successfully updated" };
+      } else {
+        const errors = await response.json();
+        let message = "";
+        if (errors?.username) {
+          message += errors.username.join("");
+        }
+        return { success: false, message };
+      }
+    } catch {
+      return { success: false, message: "An error occured" };
     }
   }
 }

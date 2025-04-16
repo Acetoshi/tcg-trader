@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       // Only check User Auth on browser
-      this.authService.getUserDetails();
+      this.authService.getUser();
     }
   }
 }

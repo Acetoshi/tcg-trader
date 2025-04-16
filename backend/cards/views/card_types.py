@@ -1,11 +1,13 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 from cards.serializers.card_type import CardTypeSerializer
 from cards.models import CardType, CardTypeTranslation
 from cards.utils import sanitize_input
 
 
 class CardTypeListView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = CardTypeSerializer
 
     def get_queryset(self):

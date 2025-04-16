@@ -1,11 +1,13 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 from cards.serializers.color import ColorSerializer
 from cards.models import Color, ColorTranslation
 from cards.utils import sanitize_input
 
 
 class ColorListView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = ColorSerializer
 
     def get_queryset(self):

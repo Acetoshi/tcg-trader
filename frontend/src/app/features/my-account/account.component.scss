@@ -1,0 +1,34 @@
+.account-accordion {
+  width: 100%;
+}
+
+.public-info-panel-content {
+  // TODO : this needs to be responsive
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.public-info-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width-form-field {
+  width: 100%;
+}
+
+.action-form-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
