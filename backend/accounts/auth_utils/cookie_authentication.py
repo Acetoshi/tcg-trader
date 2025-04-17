@@ -3,7 +3,7 @@ import jwt
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
-from accounts.auth_utils.jwt import decode_jwt, generate_jwt
+from accounts.auth_utils.jwt import decode_jwt
 
 User = get_user_model()
 
@@ -30,7 +30,7 @@ class CookieJWTAuthentication(BaseAuthentication):
 
             # Generate a new token if needed
             if time_to_expiration_minutes < SLIDING_REFRESH_THRESHOLD:
-                request.new_access_token = generate_jwt(user)
+                request.new_token_needed = True
 
         except (User.DoesNotExist, jwt.ExpiredSignatureError, jwt.InvalidTokenError):
             return None

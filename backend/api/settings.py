@@ -87,8 +87,9 @@ DATABASES = {
 
 # Authentication settings
 SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
-EXPIRY_MINUTES = 15
-SLIDING_REFRESH_THRESHOLD = 16
+# duration of auth tokens
+EXPIRY_MINUTES = 36 * 60
+SLIDING_REFRESH_THRESHOLD = 12 * 60
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = (

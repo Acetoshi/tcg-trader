@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from accounts.auth_utils.jwt import generate_jwt
+from accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
 
@@ -36,17 +36,9 @@ class LoginView(APIView):
                 raise InvalidCredentials()
 
             # Auth successful
-            token = generate_jwt(authenticated_user)
             response = Response({"detail": "Login successful"}, status=status.HTTP_200_OK)
 
-            response.set_cookie(
-                key="access_token",
-                value=token,
-                httponly=True,
-                secure=not request.get_host().startswith("localhost"),
-                samesite="Strict",
-                max_age=60 * 15,  # 15 minutes
-            )
+            attach_jwt_cookie(response, authenticated_user)
 
             return response
 

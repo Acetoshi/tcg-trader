@@ -5,6 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth import get_user_model
 from accounts.serializers import ResetPasswordSerializer
+from accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
 
@@ -32,12 +33,14 @@ class ResetPasswordView(APIView):
 
             # Set the new password
             new_password = request.data.get("password")
-            print(user.password)
             user.set_password(new_password)
             user.is_active = True  # Activate user account if never accessed, considering password reset is an email verification
             user.save()
 
-            return Response(status=status.HTTP_200_OK)
+            response = Response(status=status.HTTP_200_OK)
+            attach_jwt_cookie(response, user)  # log the user in
+
+            return response
 
         except User.DoesNotExist:
             return Response(status=status.HTTP_200_OK)

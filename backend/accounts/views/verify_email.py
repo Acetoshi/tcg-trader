@@ -5,7 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from accounts.auth_utils.jwt import generate_jwt
+from accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
 
@@ -31,16 +31,7 @@ class VerifyEmailView(APIView):
                 )
 
                 # Set the access token in HttpOnly cookies
-                token = generate_jwt(user)
-
-                response.set_cookie(
-                    key="access_token",
-                    value=token,
-                    httponly=True,
-                    secure=not request.get_host().startswith("localhost"),
-                    samesite="Strict",
-                    max_age=60 * 15,  # 15 minutes
-                )
+                attach_jwt_cookie(response, user)
 
                 return response
             else:
