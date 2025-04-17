@@ -1,3 +1,5 @@
+@use "global-variables" as *;
+
 .tcg-card-list {
   list-style: none;
   display: flex;
@@ -47,4 +49,11 @@
   width: 100%;
   z-index: 1;
   margin-bottom: 16px;
+}
+
+// mobile styles
+@media screen and (max-width: #{$breakpoint}) {
+  .app-card-filter-bar {
+    top: 16px;
+  }
 }

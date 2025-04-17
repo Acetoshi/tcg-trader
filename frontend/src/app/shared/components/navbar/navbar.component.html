@@ -1,20 +1,47 @@
 <mat-toolbar color="primary" class="navbar">
   <h2 class="app-title" routerLink="">BulbaTrade</h2>
   <menu>
-    <button mat-button routerLink="">Home</button>
-    <button mat-button routerLink="cards">Cards</button>
+    <button mat-button routerLink="">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+
+    <button mat-button routerLink="cards">
+      <mat-icon>view_list</mat-icon>
+      Cards
+    </button>
+
     @if (!isAuthenticated()) {
-      <button mat-button routerLink="register">Register</button>
-      <button mat-stroked-button routerLink="login">Login</button>
+      <button mat-button routerLink="register">
+        <mat-icon>how_to_reg</mat-icon>
+        Register
+      </button>
+
+      <button mat-stroked-button routerLink="login">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
     }
+
     @if (isAuthenticated()) {
-      <button mat-button routerLink="dashboard">Dashboard</button>
+      <button mat-button routerLink="dashboard">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </button>
+
       <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
         {{ user?.username }}<mat-icon>person</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="my-account"><mat-icon>settings</mat-icon>Account settings</button>
-        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+        <button mat-menu-item routerLink="my-account">
+          <mat-icon>settings</mat-icon>
+          Account settings
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
       </mat-menu>
     }
   </menu>

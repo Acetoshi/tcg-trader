@@ -1,11 +1,15 @@
 @use "@angular/material" as mat;
-@import "./app/core/services/toast.service.css";
+@use "global-variables" as *;
+@use "toast-service.scss";
 
 // Custom colors
 $success-color: #4caf50;
 $error-color: #f44336;
 $warning-color: #ffc107;
 $info-color: #2196f3;
+
+// responsive design
+$breakpoint: 768px;
 
 html {
   color-scheme: light dark;
@@ -36,9 +40,17 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
   max-width: 80%;
   margin: auto;
+}
+
+// mobile styles
+@media screen and (max-width: #{$breakpoint}) {
+  main {
+    max-width: unset;
+    padding: 16px 16px 64px 16px;
+  }
 }
 
 main.justify-start {

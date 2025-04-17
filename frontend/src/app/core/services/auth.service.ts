@@ -134,6 +134,7 @@ export class AuthService {
       });
 
       if (response.ok) {
+        await this.getUser();
         return { success: true, message: "Password reset successful" };
       } else {
         const data = await response.json();
