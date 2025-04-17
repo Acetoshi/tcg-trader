@@ -1,9 +1,10 @@
+@use "global-variables" as *;
+
 .account-accordion {
   width: 100%;
 }
 
 .public-info-panel-content {
-  // TODO : this needs to be responsive
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 16px;
@@ -31,4 +32,12 @@
   gap: 8px;
   justify-content: flex-end;
   align-items: center;
+}
+
+// mobile styles
+@media screen and (max-width: #{$breakpoint}) {
+  .public-info-panel-content {
+    display: flex;
+    flex-direction: column;
+  }
 }

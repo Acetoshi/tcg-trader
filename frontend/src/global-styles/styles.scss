@@ -1,5 +1,6 @@
 @use "@angular/material" as mat;
-@import "./app/core/services/toast.service.css";
+@use "global-variables" as *;
+@use "toast-service.scss";
 
 // Custom colors
 $success-color: #4caf50;
@@ -42,7 +43,14 @@ main {
   min-height: calc(100svh - 64px);
   max-width: 80%;
   margin: auto;
-  padding-bottom: 64px;
+}
+
+// mobile styles
+@media screen and (max-width: #{$breakpoint}) {
+  main {
+    max-width: unset;
+    padding: 16px 16px 64px 16px;
+  }
 }
 
 main.justify-start {

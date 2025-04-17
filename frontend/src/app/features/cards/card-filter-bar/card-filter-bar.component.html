@@ -9,29 +9,6 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" subscriptSizing="dynamic">
-          <mat-label>Set</mat-label>
-          <mat-select multiple formControlName="setCodes">
-            @for (set of sets(); track set) {
-              <mat-option [value]="set.code">{{ set.name }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" subscriptSizing="dynamic">
-          <mat-label>Rarity</mat-label>
-          <mat-select multiple formControlName="rarityCodes">
-            @for (rarity of rarities(); track rarity) {
-              <mat-option [value]="rarity.code">
-                <div class="tcg-card-rarity-option">
-                  <img alt="" [src]="fileServerBaseUrl + rarity.imageUrl" />
-                  {{ rarity.name }}
-                </div>
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
         <span>
           <mat-slide-toggle labelPosition="before" (change)="onToggleChange($event)">More filters</mat-slide-toggle>
         </span>
@@ -42,7 +19,30 @@
         </button>
       </fieldset>
       @if (showMoreFilters()) {
-        <fieldset>
+        <fieldset class="advanced-filters">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Set</mat-label>
+            <mat-select multiple formControlName="setCodes">
+              @for (set of sets(); track set) {
+                <mat-option [value]="set.code">{{ set.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Rarity</mat-label>
+            <mat-select multiple formControlName="rarityCodes">
+              @for (rarity of rarities(); track rarity) {
+                <mat-option [value]="rarity.code">
+                  <div class="tcg-card-rarity-option">
+                    <img alt="" [src]="fileServerBaseUrl + rarity.imageUrl" />
+                    {{ rarity.name }}
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>Type</mat-label>
             <mat-select multiple formControlName="cardTypeCodes">
