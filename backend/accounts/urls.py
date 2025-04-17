@@ -2,15 +2,13 @@ from django.urls import path
 from accounts.views.register import RegisterView
 from accounts.views.forgotten_password import ForgottenPasswordView
 from accounts.views.verify_email import VerifyEmailView
-from accounts.views.login import CookieTokenObtainPairView
+from accounts.views.login import LoginView
 from accounts.views.user_details import UserDetailsView
-from accounts.views.refresh import CookieTokenRefreshView
 from accounts.views.logout import LogoutView
 from accounts.views.reset_password import ResetPasswordView
 
 urlpatterns = [
-    path("login", CookieTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("refresh", CookieTokenRefreshView.as_view(), name="token_refresh"),
+    path("login", LoginView.as_view(), name="login"),
     path("register", RegisterView.as_view(), name="register"),
     path("forgotten-password", ForgottenPasswordView.as_view(), name="register"),
     path("reset-password", ResetPasswordView.as_view(), name="reset_password"),
