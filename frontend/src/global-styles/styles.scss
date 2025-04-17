@@ -92,3 +92,20 @@ main.justify-start {
 .info-color {
   color: $info-color !important;
 }
+
+//background color overrides
+.success-bg-color {
+  background-color: $success-color !important;
+}
+
+.error-bg-color {
+  background-color: $error-color !important;
+}
+
+.warning-bg-color {
+  background-color: $warning-color !important;
+}
+
+.info-bg-color {
+  background-color: $info-color !important;
+}

@@ -11,7 +11,6 @@ import { MatIcon } from "@angular/material/icon";
 import { Set } from "../models/set.model";
 import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatCardModule } from "@angular/material/card";
-import { MatSlideToggleChange, MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Rarity } from "../models/rarity.model";
@@ -28,7 +27,6 @@ import { Color } from "../models/color.model";
     MatIcon,
     MatInput,
     MatCardModule,
-    MatSlideToggleModule,
     ReactiveFormsModule,
     MatButtonModule,
   ],
@@ -120,12 +118,8 @@ export class CardFilterBarComponent implements OnInit {
     event.preventDefault();
   }
 
-  onToggleChange(event: MatSlideToggleChange): void {
-    if (event.checked) {
-      this.showMoreFilters.set(true);
-    } else {
-      this.showMoreFilters.set(false);
-    }
+  toggleFiltersVisibility(): void {
+    this.showMoreFilters.set(!this.showMoreFilters());
   }
 
   createForm() {
