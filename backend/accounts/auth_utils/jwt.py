@@ -8,7 +8,6 @@ User = get_user_model()
 SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 EXPIRY_MINUTES = settings.EXPIRY_MINUTES
-SLIDING_REFRESH_THRESHOLD = settings.SLIDING_REFRESH_THRESHOLD
 
 
 def generate_jwt(user):
@@ -21,13 +20,9 @@ def generate_jwt(user):
     return token
 
 
+# Errors like jwt.ExpiredSignatureError, jwt.InvalidTokenError need to be caught where this is used
 def decode_jwt(token):
-    try:
-        return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    except jwt.ExpiredSignatureError:
-        return None
-    except jwt.InvalidTokenError:
-        return None
+    return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
 
 def get_user_from_token(token):

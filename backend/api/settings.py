@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+IS_PRODUCTION = os.getenv("IS_PRODUCTION", "false").lower() == "true"
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 
@@ -87,7 +88,7 @@ DATABASES = {
 # Authentication settings
 SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
 EXPIRY_MINUTES = 15
-SLIDING_REFRESH_THRESHOLD = 5
+SLIDING_REFRESH_THRESHOLD = 16
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = (

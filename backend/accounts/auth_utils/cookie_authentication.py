@@ -1,8 +1,13 @@
-from rest_framework.authentication import BaseAuthentication
-from accounts.auth_utils.jwt import get_user_from_token
+from datetime import datetime
+import jwt
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from rest_framework.authentication import BaseAuthentication
+from accounts.auth_utils.jwt import decode_jwt, generate_jwt
 
 User = get_user_model()
+
+SLIDING_REFRESH_THRESHOLD = settings.SLIDING_REFRESH_THRESHOLD
 
 
 class CookieJWTAuthentication(BaseAuthentication):
@@ -12,9 +17,22 @@ class CookieJWTAuthentication(BaseAuthentication):
             return None
 
         try:
-            user = get_user_from_token(token)
 
-        except User.DoesNotExist:
+            payload = decode_jwt(token)
+
+            user = User.objects.get(id=payload["user_id"])
+
+            # Check how soon is the token to expire
+            exp_timestamp = payload["exp"]
+            exp_date = datetime.utcfromtimestamp(exp_timestamp)
+            time_to_expiration = exp_date - datetime.utcnow()
+            time_to_expiration_minutes = round(time_to_expiration.total_seconds() / 60)
+
+            # Generate a new token if needed
+            if time_to_expiration_minutes < SLIDING_REFRESH_THRESHOLD:
+                request.new_access_token = generate_jwt(user)
+
+        except (User.DoesNotExist, jwt.ExpiredSignatureError, jwt.InvalidTokenError):
             return None
 
         return (user, None)
