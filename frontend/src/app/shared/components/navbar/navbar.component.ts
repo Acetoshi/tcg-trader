@@ -11,7 +11,7 @@ import { ToastService } from "../../../core/services/toast.service";
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"],
+  styleUrls: ["./navbar.component.scss"],
   imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterLink],
 })
 export class NavbarComponent {
