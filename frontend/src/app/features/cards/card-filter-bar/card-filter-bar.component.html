@@ -9,13 +9,23 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <span>
-          <mat-slide-toggle labelPosition="before" (change)="onToggleChange($event)">More filters</mat-slide-toggle>
-        </span>
+        <button mat-mini-fab type="button" (click)="toggleFiltersVisibility()" aria-label="toggle more filters">
+          @if (!showMoreFilters()) {
+            <mat-icon>tune</mat-icon>
+          }
+          @if (showMoreFilters()) {
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          }
+        </button>
 
-        <button mat-flat-button type="button" color="warn" (click)="resetFilters()" [disabled]="!filtersForm.dirty">
-          Reset
-          <mat-icon>clear</mat-icon>
+        <button
+          mat-mini-fab
+          type="button"
+          [ngClass]="{ 'error-bg-color': filtersForm.dirty }"
+          (click)="resetFilters()"
+          aria-label="reset filters"
+          [disabled]="!filtersForm.dirty">
+          <mat-icon>filter_alt_off</mat-icon>
         </button>
       </fieldset>
       @if (showMoreFilters()) {
