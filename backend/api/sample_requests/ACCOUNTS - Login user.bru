@@ -1,0 +1,16 @@
+meta {
+  name: ACCOUNTS / Login user
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:5000/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {"username":"jxvuvcmyeiqeqapqot@hthlm.com",
+  "password":"samplePassword123#"}
+}
