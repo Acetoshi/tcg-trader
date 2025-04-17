@@ -7,7 +7,6 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from rest_framework.permissions import AllowAny
 from django.template.loader import render_to_string
 from accounts.serializers import ForgottenPasswordSerializer
 from django.contrib.auth import get_user_model
@@ -16,7 +15,6 @@ User = get_user_model()
 
 
 class ForgottenPasswordView(APIView):
-    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = ForgottenPasswordSerializer(data=request.data)

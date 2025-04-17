@@ -1,12 +1,14 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
+from accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
+from rest_framework.permissions import IsAuthenticated
 from accounts.serializers import UserDetailsSerializer
 
 # View to return the authenticated user's details.
 
 
-class UserDetailsView(APIView):
+class UserDetailsView(SlidingAuthBaseView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         try:

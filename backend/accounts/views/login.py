@@ -1,25 +1,50 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from accounts.auth_utils.cookie import attach_jwt_cookie
+
+User = get_user_model()
 
 
-# Custom Login View that sets JWT tokens in HttpOnly cookies.
-class CookieTokenObtainPairView(TokenObtainPairView):
+class LoginView(APIView):
+    def post(self, request):
 
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        if response.status_code == 200:  # If login is successful
+        try:
+            identifier = request.data.get("username")
+            password = request.data.get("password")
 
-            # Set tokens as secure cookies
-            response.set_cookie(
-                key="access_token",
-                value=response.data["access"],
-                httponly=True,
-                secure=True,
-                samesite="Strict",
-                max_age=60 * 60 * 24 * 7,  # 7 days
+            if not identifier or not password:
+                return Response(
+                    {"detail": "Missing credentials"}, status=status.HTTP_400_BAD_REQUEST
+                )
+
+            target_user = (
+                User.objects.filter(email=identifier).first()
+                or User.objects.filter(username=identifier).first()
             )
 
-            # Remove tokens from response body (don't leak to client)
-            response.data.pop("access", None)
-            response.data.pop("refresh", None)
+            if not target_user:
+                raise InvalidCredentials()
 
-        return response
+            authenticated_user = authenticate(
+                request, username=target_user.username, password=password
+            )
+
+            if not authenticated_user:
+                raise InvalidCredentials()
+
+            # Auth successful
+            response = Response({"detail": "Login successful"}, status=status.HTTP_200_OK)
+
+            attach_jwt_cookie(response, authenticated_user)
+
+            return response
+
+        except InvalidCredentials:
+            return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class InvalidCredentials(Exception):
+    pass

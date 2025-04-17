@@ -5,14 +5,12 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
 
 
 class VerifyEmailView(APIView):
-    permission_classes = [AllowAny]
 
     def get(self, request, uidb64, token):
         # TODO : add serializer here
@@ -26,10 +24,6 @@ class VerifyEmailView(APIView):
                 user.is_active = True  # Activate user account
                 user.save()
 
-                # Step 3: Generate JWT token
-                refresh = RefreshToken.for_user(user)
-                access_token = str(refresh.access_token)
-
                 # Step 4: Create the response and set JWT token in cookies
                 response = Response(
                     {"message": "Email verified and logged in successfully!"},
@@ -37,14 +31,7 @@ class VerifyEmailView(APIView):
                 )
 
                 # Set the access token in HttpOnly cookies
-                response.set_cookie(
-                    key="access_token",
-                    value=access_token,
-                    httponly=True,
-                    secure=True,  # Set to True in production
-                    samesite="Strict",
-                    max_age=60 * 60 * 24 * 7,  # 7 days
-                )
+                attach_jwt_cookie(response, user)
 
                 return response
             else:

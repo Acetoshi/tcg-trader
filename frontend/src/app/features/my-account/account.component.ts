@@ -75,7 +75,7 @@ export class AccountComponent implements OnInit {
     const { success, message } = await this.authService.updateUser(username, tcgpId, bio);
     if (success) {
       this.toastService.showSuccess(message);
-      this.resetForm()
+      this.resetForm();
     } else {
       this.toastService.showError(message);
     }

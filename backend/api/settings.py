@@ -12,19 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
-
 # SECURITY WARNING: don't run with debug turned on in production!
+IS_PRODUCTION = os.getenv("IS_PRODUCTION", "false").lower() == "true"
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 
@@ -92,6 +86,10 @@ DATABASES = {
 }
 
 # Authentication settings
+SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key")
+# duration of auth tokens
+EXPIRY_MINUTES = 36 * 60
+SLIDING_REFRESH_THRESHOLD = 12 * 60
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 AUTH_PASSWORD_VALIDATORS = (
@@ -115,15 +113,6 @@ AUTH_PASSWORD_VALIDATORS = (
 )
 
 PASSWORD_RESET_TIMEOUT = 60 * 30  # make password reset link expire after 30 minutes
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # Short-lived access tokens
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Long-lived refresh tokens
-    "ROTATE_REFRESH_TOKENS": True,  # Security best practice
-    "BLACKLIST_AFTER_ROTATION": True,  # Invalidate old refresh tokens
-    "SIGNING_KEY": SECRET_KEY,
-    "AUTH_HEADER_TYPES": ("Bearer",),  # Standard token prefix
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -151,11 +140,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 50,
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "api.security_utils.cookie_authentication.CookieJWTAuthentication",
+        "accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
     ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ],
 }
 
 # Email settings
