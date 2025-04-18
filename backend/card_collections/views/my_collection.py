@@ -11,15 +11,13 @@ class MyCollectionView(SlidingAuthBaseView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user_id = request.user.id
-        set_codes = self.request.query_params.get("set").split(",")
 
         with connection.cursor() as cursor:
             sql_request, params = self.build_get_collection_query(
                 {
-                    "user_id": user_id,
-                    "set_codes": set_codes,
-                    "language_code": request.query_params.get("lang"),
+                    "user_id": request.user.id,
+                    "set_codes": request.query_params.get("set"),
+                    "rarity_codes": request.query_params.get("rarity"),
                     "search": request.query_params.get("search"),
                 }
             )
@@ -50,6 +48,7 @@ class MyCollectionView(SlidingAuthBaseView):
             INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
             INNER JOIN cards_language lang ON lang.id = name_trans.language_id
             INNER JOIN cards_set set ON set.id = c.set_id
+            INNER JOIN cards_rarity rarity ON rarity.id = c.rarity_id
             LEFT JOIN cards_cardimage img ON img.card_id = c.id AND img.language_id = lang.id
             LEFT JOIN card_collections_usercardcollection ucc
                 ON ucc.card_id = c.id AND ucc.language_id = lang.id AND ucc.user_id = %(user_id)s
@@ -59,17 +58,17 @@ class MyCollectionView(SlidingAuthBaseView):
         params = {"user_id": filters["user_id"]}
 
         if filters.get("set_codes"):
-            print(f" these are the selected set codes : {filters['set_codes']}")
-            set_codes = filters["set_codes"]
+            set_codes = filters["set_codes"].split(",")
             where_clauses.append("set.code IN %(set_codes)s")
             params["set_codes"] = tuple(set_codes)
 
-        if filters.get("language_code"):
-            where_clauses.append("lang.code = %(language_code)s")
-            params["language_code"] = filters["language_code"]
+        if filters.get("rarity_codes"):
+            rarity_codes = filters["rarity_codes"].split(",")
+            where_clauses.append("rarity.code IN %(rarity_codes)s")
+            params["rarity_codes"] = tuple(rarity_codes)
 
         if filters.get("search"):
-            where_clauses.append("name_trans.name ILIKE %(search)s")
+            where_clauses.append("unaccent(name_trans.name) ILIKE unaccent(%(search)s)")
             params["search"] = f"%{filters['search']}%"
 
         if where_clauses:
