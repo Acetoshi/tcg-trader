@@ -7,7 +7,7 @@ User = get_user_model()
 
 class UserCardCollection(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, related_name="user_card_collection", on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True, blank=True)
     quantity_owned = models.PositiveIntegerField(default=0)
     quantity_for_trade = models.PositiveIntegerField(default=0)

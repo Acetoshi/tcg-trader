@@ -1,21 +1,82 @@
 from accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
+from django.db import connection
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from card_collections.models import UserCardCollection
 from card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
-from card_collections.serializers.get_my_collection import GetMyCollectionSerializer
 
 
 class MyCollectionView(SlidingAuthBaseView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user = request.user
-        cards = UserCardCollection.objects.filter(user=user)
-        print(cards)
-        serializer = GetMyCollectionSerializer(cards, many=True)
-        return Response(serializer.data, status.HTTP_200_OK)
+        user_id = request.user.id
+        with connection.cursor() as cursor:
+            sql_request, params = self.build_get_collection_query(
+                {
+                    "user_id": user_id,
+                    "set_id": request.query_params.get("set"),
+                    "language_code": request.query_params.get("lang"),
+                    "search": request.query_params.get("search"),
+                }
+            )
+            cursor.execute(sql_request, params)
+            results = self.dict_fetchall(cursor)
+
+        return Response(results, status.HTTP_200_OK)
+
+    # This complex query was needed because django's ORM won't easily handle the json_agg function
+    def build_get_collection_query(self, filters):
+        base_sql = """
+            SELECT
+                c.id AS card_id,
+                c.number,
+                c.set_id,
+                json_agg(
+                    json_build_object(
+                        'languageCode', lang.code,
+                        'name', name_trans.name,
+                        'imageUrl', img.url,
+                        'owned', COALESCE(ucc.quantity_owned, 0),
+                        'forTrade', COALESCE(ucc.quantity_for_trade, 0),
+                        'desired', COALESCE(ucc.desired_quantity, 0)
+                    )
+                    ORDER BY lang.code
+                ) AS variants
+            FROM cards_card c
+            INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
+            INNER JOIN cards_language lang ON lang.id = name_trans.language_id
+            LEFT JOIN cards_cardimage img ON img.card_id = c.id AND img.language_id = lang.id
+            LEFT JOIN card_collections_usercardcollection ucc
+                ON ucc.card_id = c.id AND ucc.language_id = lang.id AND ucc.user_id = %(user_id)s
+        """
+
+        where_clauses = []
+        params = {"user_id": filters["user_id"]}
+
+        if filters.get("set_id"):
+            where_clauses.append("c.set_id = %(set_id)s")
+            params["set_id"] = filters["set_id"]
+
+        if filters.get("language_code"):
+            where_clauses.append("lang.code = %(language_code)s")
+            params["language_code"] = filters["language_code"]
+
+        if filters.get("search"):
+            where_clauses.append("name_trans.name ILIKE %(search)s")
+            params["search"] = f"%{filters['search']}%"
+
+        if where_clauses:
+            base_sql += " WHERE " + " AND ".join(where_clauses)
+
+        base_sql += " GROUP BY c.id, c.number, c.set_id ORDER BY c.set_id, c.number"
+
+        return base_sql, params
+
+    def dict_fetchall(self, cursor):
+        columns = [col[0] for col in cursor.description]
+        return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
     def patch(self, request):
         user = request.user
