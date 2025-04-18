@@ -30,9 +30,9 @@ class MyCollectionView(SlidingAuthBaseView):
     def build_get_collection_query(self, filters):
         base_sql = """
             SELECT
-                c.id AS cardId,
-                c.number,
-                set.code AS setCode,
+                c.id AS "id",
+                c.number AS "setNumber",
+                set.code AS "setCode",
                 json_agg(
                     json_build_object(
                         'languageCode', lang.code,
@@ -43,7 +43,7 @@ class MyCollectionView(SlidingAuthBaseView):
                         'desired', COALESCE(ucc.desired_quantity, 0)
                     )
                     ORDER BY lang.code
-                ) AS variants
+                ) AS "languageVersions"
             FROM cards_card c
             INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
             INNER JOIN cards_language lang ON lang.id = name_trans.language_id
@@ -74,7 +74,7 @@ class MyCollectionView(SlidingAuthBaseView):
         if where_clauses:
             base_sql += " WHERE " + " AND ".join(where_clauses)
 
-        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number"
+        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number LIMIT 20"  # TODO : remove the limit and implement pagination
 
         return base_sql, params
 
