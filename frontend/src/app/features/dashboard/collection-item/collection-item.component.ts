@@ -6,6 +6,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { CollectionItem, LanguageVersion } from "../models/collection-item.model";
 import { environment } from "../../../../environments/environment";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { debounceTime } from "rxjs";
+import { CollectionService } from "../../../core/services/collection.service";
 
 @Component({
   selector: "app-collection-item",
@@ -25,27 +27,47 @@ export class CollectionItemComponent implements OnInit {
   availableLanguagesCodes = computed(() => this.collectionItem.languageVersions.map(version => version.languageCode));
 
   // TODO : fallback to english if the default user's language isn't available
-  version = computed(() =>
-    this.collectionItem.languageVersions.find(version => version.languageCode === this.selectedLanguageCode()) as LanguageVersion
+  version = computed(
+    () =>
+      this.collectionItem.languageVersions.find(
+        version => version.languageCode === this.selectedLanguageCode()
+      ) as LanguageVersion
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private collectionService: CollectionService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.createForm();
     // Debounce input
-    // Object.keys(defaultFilters).forEach(controlName => {
-    //   this.debounceFormControl(controlName);
-    // });
-    console.log(this.collectionItemForm.value)
+    Object.keys(this.collectionItemForm.value).forEach(controlName => {
+      this.debounceFormControl(controlName);
+    });
   }
 
   createForm() {
-      this.collectionItemForm = this.fb.group({
-        languageCode: this.version().languageCode,
-        owned:this.version().owned,
-        forTrade:this.version().forTrade,
-        desired:this.version().desired,
+    this.collectionItemForm = this.fb.group({
+      languageCode: this.version().languageCode,
+      owned: this.version().owned,
+      forTrade: this.version().forTrade,
+      desired: this.version().desired,
+    });
+  }
+
+  private debounceFormControl(controlName: string): void {
+    this.collectionItemForm
+      .get(controlName)
+      ?.valueChanges.pipe(debounceTime(600))
+      .subscribe(() => {
+        this.collectionService.updateCollectionItem({
+          cardId: this.collectionItem.id,
+          languageId: 2, // TODO : backend needs to be adjusted, and naming needs to be more normalized as well
+          quantityOwned: this.collectionItemForm.value.owned,
+          quantityForTrade: this.collectionItemForm.value.forTrade,
+          desiredQuantity: this.collectionItemForm.value.desired,
+        });
       });
-    }
+  }
 }

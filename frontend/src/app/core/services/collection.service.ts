@@ -39,4 +39,22 @@ export class CollectionService {
   getMyCollection(): Signal<CollectionItem[]> {
     return this.myCollection;
   }
+
+  async updateCollectionItem(data: {
+    cardId: number;
+    languageId: number;
+    quantityOwned: number;
+    quantityForTrade: number;
+    desiredQuantity: number;
+  }): Promise<boolean> {
+    if (!isPlatformBrowser(this.platformId)) return false;
+
+    try {
+      await this.http.patch(`${this.apiUrl}/user/collection`, data).toPromise();
+      return true;
+    } catch (error) {
+      console.error("Failed to update collection item:", error);
+      return false;
+    }
+  }
 }
