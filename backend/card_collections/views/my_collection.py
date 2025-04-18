@@ -12,11 +12,13 @@ class MyCollectionView(SlidingAuthBaseView):
 
     def get(self, request):
         user_id = request.user.id
+        set_codes = self.request.query_params.get("set").split(",")
+
         with connection.cursor() as cursor:
             sql_request, params = self.build_get_collection_query(
                 {
                     "user_id": user_id,
-                    "set_id": request.query_params.get("set"),
+                    "set_codes": set_codes,
                     "language_code": request.query_params.get("lang"),
                     "search": request.query_params.get("search"),
                 }
@@ -30,9 +32,9 @@ class MyCollectionView(SlidingAuthBaseView):
     def build_get_collection_query(self, filters):
         base_sql = """
             SELECT
-                c.id AS card_id,
+                c.id AS cardId,
                 c.number,
-                c.set_id,
+                set.code AS setCode,
                 json_agg(
                     json_build_object(
                         'languageCode', lang.code,
@@ -47,6 +49,7 @@ class MyCollectionView(SlidingAuthBaseView):
             FROM cards_card c
             INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
             INNER JOIN cards_language lang ON lang.id = name_trans.language_id
+            INNER JOIN cards_set set ON set.id = c.set_id
             LEFT JOIN cards_cardimage img ON img.card_id = c.id AND img.language_id = lang.id
             LEFT JOIN card_collections_usercardcollection ucc
                 ON ucc.card_id = c.id AND ucc.language_id = lang.id AND ucc.user_id = %(user_id)s
@@ -55,9 +58,11 @@ class MyCollectionView(SlidingAuthBaseView):
         where_clauses = []
         params = {"user_id": filters["user_id"]}
 
-        if filters.get("set_id"):
-            where_clauses.append("c.set_id = %(set_id)s")
-            params["set_id"] = filters["set_id"]
+        if filters.get("set_codes"):
+            print(f" these are the selected set codes : {filters['set_codes']}")
+            set_codes = filters["set_codes"]
+            where_clauses.append("set.code IN %(set_codes)s")
+            params["set_codes"] = tuple(set_codes)
 
         if filters.get("language_code"):
             where_clauses.append("lang.code = %(language_code)s")
@@ -70,7 +75,7 @@ class MyCollectionView(SlidingAuthBaseView):
         if where_clauses:
             base_sql += " WHERE " + " AND ".join(where_clauses)
 
-        base_sql += " GROUP BY c.id, c.number, c.set_id ORDER BY c.set_id, c.number"
+        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number"
 
         return base_sql, params
 
