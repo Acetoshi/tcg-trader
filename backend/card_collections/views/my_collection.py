@@ -51,8 +51,6 @@ class MyCollectionView(SlidingAuthBaseView):
             INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
             INNER JOIN cards_language lang ON lang.id = name_trans.language_id
             INNER JOIN cards_set set ON set.id = c.set_id
-            INNER JOIN cards_cardtype type ON type.id = c.type_id
-            INNER JOIN cards_rarity rarity ON rarity.id = c.rarity_id
             LEFT JOIN cards_cardimage img ON img.card_id = c.id AND img.language_id = lang.id
             LEFT JOIN card_collections_usercardcollection ucc
                 ON ucc.card_id = c.id AND ucc.language_id = lang.id AND ucc.user_id = %(user_id)s
@@ -70,11 +68,32 @@ class MyCollectionView(SlidingAuthBaseView):
             rarity_codes = filters["rarity_codes"].split(",")
             where_clauses.append("rarity.code IN %(rarity_codes)s")
             params["rarity_codes"] = tuple(rarity_codes)
+            base_sql += " INNER JOIN cards_rarity rarity ON rarity.id = c.rarity_id "
 
         if filters.get("card_type_codes"):
             card_type_codes = filters["card_type_codes"].split(",")
             where_clauses.append("type.code IN %(card_type_codes)s")
             params["card_type_codes"] = tuple(card_type_codes)
+            base_sql += " INNER JOIN cards_cardtype type ON type.id = c.type_id "
+
+        if filters.get("weakness_codes") or filters.get("color_codes"):
+            base_sql += (
+                " INNER JOIN cards_pokemoncarddetails poke_details ON poke_details.card_id = c.id "
+            )
+
+            if filters.get("color_codes"):
+                color_codes = filters["color_codes"].split(",")
+                where_clauses.append("color.code IN %(color_codes)s")
+                params["color_codes"] = tuple(color_codes)
+                base_sql += " INNER JOIN cards_color color ON poke_details.color_id=color.id "
+
+            if filters.get("weakness_codes"):
+                weakness_codes = filters["weakness_codes"].split(",")
+                where_clauses.append("weakness.code IN %(weakness_codes)s")
+                params["weakness_codes"] = tuple(weakness_codes)
+                base_sql += (
+                    " INNER JOIN cards_color weakness ON poke_details.weak_to_id=weakness.id "
+                )
 
         if filters.get("search"):
             where_clauses.append("unaccent(name_trans.name) ILIKE unaccent(%(search)s)")
