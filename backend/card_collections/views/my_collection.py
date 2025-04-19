@@ -40,7 +40,7 @@ class MyCollectionView(SlidingAuthBaseView):
                         'imageUrl', img.url,
                         'owned', COALESCE(ucc.quantity_owned, 0),
                         'forTrade', COALESCE(ucc.quantity_for_trade, 0),
-                        'desired', COALESCE(ucc.desired_quantity, 0)
+                        'wishlist', COALESCE(ucc.desired_quantity, 0)
                     )
                     ORDER BY lang.code
                 ) AS "languageVersions"
