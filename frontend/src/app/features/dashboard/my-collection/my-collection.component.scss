@@ -11,3 +11,14 @@
   margin-inline-end: 0px;
   padding-inline-start: 0px;
 }
+
+div.no-results-for-filters {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  & p {
+    text-align: center;
+  }
+}

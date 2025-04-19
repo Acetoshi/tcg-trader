@@ -7,7 +7,7 @@
   <mat-card-content>
     <form class="quantities-form" [formGroup]="collectionItemForm">
       <span
-        ><strong>#{{ collectionItem.setCode }}-{{ collectionItem.setNumber.toString().padStart(3, "0") }}</strong> -
+        ><strong>#{{ collectionItem().setCode }}-{{ collectionItem().setNumber.toString().padStart(3, "0") }}</strong> -
         {{ version().name }}</span
       >
       <!-- TODO : this selcet should be ON the bottom right corner of the card -->

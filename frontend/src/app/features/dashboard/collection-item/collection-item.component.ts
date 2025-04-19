@@ -1,4 +1,4 @@
-import { Component, computed, Input, OnInit, signal } from "@angular/core";
+import { Component, computed, input, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -10,13 +10,14 @@ import { debounceTime } from "rxjs";
 import { CollectionService } from "../../../core/services/collection.service";
 
 @Component({
+  standalone: true,
   selector: "app-collection-item",
   templateUrl: "./collection-item.component.html",
   styleUrls: ["./collection-item.component.scss"],
   imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
 })
 export class CollectionItemComponent implements OnInit {
-  @Input({ required: true }) collectionItem!: CollectionItem;
+  collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;
 
@@ -24,12 +25,12 @@ export class CollectionItemComponent implements OnInit {
 
   defaultLanguageCode = "EN"; // This needs to be changed when i18n is handled
   selectedLanguageCode = signal(this.defaultLanguageCode);
-  availableLanguageCodes = computed(() => this.collectionItem.languageVersions.map(version => version.languageCode));
+  availableLanguageCodes = computed(() => this.collectionItem().languageVersions.map(version => version.languageCode));
 
   // TODO : fallback to english if the default user's language isn't available
   version = computed(
     () =>
-      this.collectionItem.languageVersions.find(
+      this.collectionItem().languageVersions.find(
         version => version.languageCode === this.selectedLanguageCode()
       ) as LanguageVersion
   );
@@ -75,7 +76,7 @@ export class CollectionItemComponent implements OnInit {
       ?.valueChanges.pipe(debounceTime(600))
       .subscribe(() => {
         this.collectionService.updateCollectionItem({
-          cardId: this.collectionItem.id,
+          cardId: this.collectionItem().id,
           languageCode: this.collectionItemForm.value.languageCode,
           owned: this.collectionItemForm.value.owned,
           forTrade: this.collectionItemForm.value.forTrade,
