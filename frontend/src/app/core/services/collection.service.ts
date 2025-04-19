@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { CardFilters } from "../../features/cards/models/cards-filters.model";
+import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
 import { isPlatformBrowser } from "@angular/common";
 import { CollectionItem, LanguageVersion } from "../../features/dashboard/models/collection-item.model";
 import { firstValueFrom } from "rxjs";
@@ -12,24 +12,30 @@ import { firstValueFrom } from "rxjs";
 export class CollectionService {
   private apiUrl = environment.apiUrl;
 
+  filters = signal<CardFilters>(defaultFilters);
+
   // Signal for myCollection data
   myCollection = signal<CollectionItem[]>([]);
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private http: HttpClient
-  ) {}
+  ) {
+    // effect(() => console.log(this.myCollection()));
+  }
 
   // Method to fetch collection data
   fetchMyCollection(filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    const params = new HttpParams()
-      .set("search", filters.search || "")
-      .set("setCodes", filters.setCodes.join(","))
-      .set("rarityCodes", filters.rarityCodes.join(","))
-      .set("cardTypeCodes", filters.cardTypeCodes.join(","))
-      .set("colorCodes", filters.colorCodes.join(","))
-      .set("weaknessCodes", filters.weaknessCodes.join(","));
+
+    //TODO : convert this to a utility function.
+    let params = new HttpParams();
+    if (filters.search) params = params.set("search", filters.search);
+    if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
+    if (filters.rarityCodes.length) params = params.set("rarity", filters.rarityCodes.join(","));
+    if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
+    if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
+    if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
 
     this.http.get<CollectionItem[]>(`${this.apiUrl}/user/collection`, { params }).subscribe(collection => {
       this.myCollection.set(collection);
@@ -71,5 +77,10 @@ export class CollectionService {
       console.error("Failed to update collection item:", error);
       return false;
     }
+  }
+
+  updateFilters(newFilters: Partial<CardFilters>) {
+    this.filters.set({ ...this.filters(), ...newFilters });
+    this.fetchMyCollection(this.filters());
   }
 }
