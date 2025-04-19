@@ -42,18 +42,21 @@ export class CollectionItemComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     // Debounce input
-    ['owned','forTrade','wishlist'].forEach(controlName => {
+    ["owned", "forTrade", "wishlist"].forEach(controlName => {
       this.debounceFormControl(controlName);
     });
     // subscribe the signal to the formControl value
-    this.collectionItemForm.get('languageCode')?.valueChanges.subscribe(code => {
+    this.collectionItemForm.get("languageCode")?.valueChanges.subscribe(code => {
       this.selectedLanguageCode.set(code);
 
-      this.collectionItemForm.patchValue({
-        owned: this.version().owned,
-        forTrade: this.version().forTrade,
-        wishlist: this.version().wishlist,
-      }, { emitEvent: false });
+      this.collectionItemForm.patchValue(
+        {
+          owned: this.version().owned,
+          forTrade: this.version().forTrade,
+          wishlist: this.version().wishlist,
+        },
+        { emitEvent: false }
+      );
     });
   }
 

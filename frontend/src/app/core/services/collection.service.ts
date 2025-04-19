@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { CardFilters } from "../../features/cards/models/cards-filters.model";
 import { isPlatformBrowser } from "@angular/common";
-import { CollectionItem } from "../../features/dashboard/models/collection-item.model";
+import { CollectionItem, LanguageVersion } from "../../features/dashboard/models/collection-item.model";
 import { firstValueFrom } from "rxjs";
 
 @Injectable({
@@ -51,9 +51,19 @@ export class CollectionService {
     if (!isPlatformBrowser(this.platformId)) return false;
 
     try {
-      const updated = await firstValueFrom(this.http.patch(`${this.apiUrl}/user/collection`, data));
+      const updatedLanguageVersion = (await firstValueFrom(
+        this.http.patch(`${this.apiUrl}/user/collection`, data)
+      )) as LanguageVersion;
 
-      console.log(updated)
+      //if successful, we need to update the collection signal
+      const myUpdatedCollection = [...this.myCollection()];
+      const updatedItem = myUpdatedCollection.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
+      const languageVersion = updatedItem.languageVersions.find(
+        languageVersion => languageVersion.languageCode === data.languageCode
+      ) as LanguageVersion;
+      Object.assign(languageVersion, updatedLanguageVersion);
+
+      this.myCollection.set(myUpdatedCollection);
 
       return true;
     } catch (error) {
