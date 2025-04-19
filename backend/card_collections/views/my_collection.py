@@ -19,6 +19,9 @@ class MyCollectionView(SlidingAuthBaseView):
                     "set_codes": request.query_params.get("set"),
                     "rarity_codes": request.query_params.get("rarity"),
                     "search": request.query_params.get("search"),
+                    "card_type_codes": request.query_params.get("type"),
+                    "color_codes": request.query_params.get("color"),
+                    "weakness_codes": request.query_params.get("weakness"),
                 }
             )
             cursor.execute(sql_request, params)
@@ -48,6 +51,7 @@ class MyCollectionView(SlidingAuthBaseView):
             INNER JOIN cards_cardnametranslation name_trans ON name_trans.card_id = c.id
             INNER JOIN cards_language lang ON lang.id = name_trans.language_id
             INNER JOIN cards_set set ON set.id = c.set_id
+            INNER JOIN cards_cardtype type ON type.id = c.type_id
             INNER JOIN cards_rarity rarity ON rarity.id = c.rarity_id
             LEFT JOIN cards_cardimage img ON img.card_id = c.id AND img.language_id = lang.id
             LEFT JOIN card_collections_usercardcollection ucc
@@ -66,6 +70,11 @@ class MyCollectionView(SlidingAuthBaseView):
             rarity_codes = filters["rarity_codes"].split(",")
             where_clauses.append("rarity.code IN %(rarity_codes)s")
             params["rarity_codes"] = tuple(rarity_codes)
+
+        if filters.get("card_type_codes"):
+            card_type_codes = filters["card_type_codes"].split(",")
+            where_clauses.append("type.code IN %(card_type_codes)s")
+            params["card_type_codes"] = tuple(card_type_codes)
 
         if filters.get("search"):
             where_clauses.append("unaccent(name_trans.name) ILIKE unaccent(%(search)s)")
