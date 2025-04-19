@@ -1,0 +1,21 @@
+meta {
+  name: COLLECTIONS / get the user's collection
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:5000/api/user/collection?search=ven&rarity=RR&set=A1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search: ven
+  rarity: RR
+  set: A1
+}
+
+headers {
+  Set-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzYzODM2MzctMDEwOC00ZTc2LTlhZDItNDRkMWJhMjQwNjA3IiwiZXhwIjoxNzQ1MDM4OTg0LCJpYXQiOjE3NDQ5MDkzODR9.oqogLYDtjcf7xp4bwdTt5WyvRuKPxJqJ732_7qP1vNc; expires=Sat, 19 Apr 2025 05:03:04 GMT; HttpOnly; Max-Age=129600; Path=/; SameSite=Strict
+}

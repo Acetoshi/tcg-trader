@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     "django.core.management.base",
     "django.contrib.postgres",
     "rest_framework",
-    "cards",
     "accounts",
+    "cards",
+    "card_collections",
 ]
 
 MIDDLEWARE = [

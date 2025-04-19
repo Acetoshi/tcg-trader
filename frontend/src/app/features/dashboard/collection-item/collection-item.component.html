@@ -1,0 +1,38 @@
+<mat-card class="collection-item high-density">
+  <img
+    mat-card-image
+    [src]="fileServerBaseUrl + version().imageUrl"
+    alt="version().name"
+    [ngClass]="{ unobtained: version().owned === 0 }" />
+  <mat-card-content>
+    <form class="quantities-form" [formGroup]="collectionItemForm">
+      <span
+        ><strong>#{{ collectionItem().setCode }}-{{ collectionItem().setNumber.toString().padStart(3, "0") }}</strong> -
+        {{ version().name }}</span
+      >
+      <!-- TODO : this selcet should be ON the bottom right corner of the card -->
+      <mat-form-field appearance="outline" class="language-code-select" subscriptSizing="dynamic">
+        <mat-select formControlName="languageCode">
+          @for (languageCode of availableLanguageCodes(); track languageCode) {
+            <mat-option [value]="languageCode">{{ languageCode }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
+        <mat-label>Owned</mat-label>
+        <input matInput type="number" min="0" formControlName="owned" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
+        <mat-label>For trade</mat-label>
+        <input matInput type="number" min="0" formControlName="forTrade" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
+        <mat-label>Wishlist</mat-label>
+        <input matInput type="number" min="0" formControlName="wishlist" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

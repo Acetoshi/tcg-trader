@@ -11,7 +11,7 @@ import { AuthService } from "./core/services/auth.service";
   styleUrl: "./app.component.css",
 })
 export class AppComponent implements OnInit {
-  title = "tcg-trader";
+  title = "BulbaTrade";
 
   constructor(
     private authService: AuthService,

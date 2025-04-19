@@ -1,0 +1,20 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.filters()"
+  (filterChange)="this.collectionService.updateFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (collectionItem of this.collectionService.myCollection(); track collectionItem.id) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <div class="no-results-for-filters">
+    <mat-icon class="icon-xxl">search_off</mat-icon>
+    <p>
+      No results found. <br />
+      Try adjusting your filters.
+    </p>
+  </div>
+}
