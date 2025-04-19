@@ -4,7 +4,7 @@ export interface LanguageVersion {
   imageUrl: string;
   owned: number;
   forTrade: number;
-  desired: number;
+  wishlist: number;
 }
 
 export interface CollectionItem {

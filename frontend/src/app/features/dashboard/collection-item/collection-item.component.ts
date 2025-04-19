@@ -24,7 +24,7 @@ export class CollectionItemComponent implements OnInit {
 
   defaultLanguageCode = "EN"; // This needs to be changed when i18n is handled
   selectedLanguageCode = signal(this.defaultLanguageCode);
-  availableLanguagesCodes = computed(() => this.collectionItem.languageVersions.map(version => version.languageCode));
+  availableLanguageCodes = computed(() => this.collectionItem.languageVersions.map(version => version.languageCode));
 
   // TODO : fallback to english if the default user's language isn't available
   version = computed(
@@ -42,8 +42,18 @@ export class CollectionItemComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     // Debounce input
-    Object.keys(this.collectionItemForm.value).forEach(controlName => {
+    ['owned','forTrade','wishlist'].forEach(controlName => {
       this.debounceFormControl(controlName);
+    });
+    // subscribe the signal to the formControl value
+    this.collectionItemForm.get('languageCode')?.valueChanges.subscribe(code => {
+      this.selectedLanguageCode.set(code);
+
+      this.collectionItemForm.patchValue({
+        owned: this.version().owned,
+        forTrade: this.version().forTrade,
+        wishlist: this.version().wishlist,
+      }, { emitEvent: false });
     });
   }
 
@@ -52,7 +62,7 @@ export class CollectionItemComponent implements OnInit {
       languageCode: this.version().languageCode,
       owned: this.version().owned,
       forTrade: this.version().forTrade,
-      desired: this.version().desired,
+      wishlist: this.version().wishlist,
     });
   }
 
@@ -63,10 +73,10 @@ export class CollectionItemComponent implements OnInit {
       .subscribe(() => {
         this.collectionService.updateCollectionItem({
           cardId: this.collectionItem.id,
-          languageId: 2, // TODO : backend needs to be adjusted, and naming needs to be more normalized as well
-          quantityOwned: this.collectionItemForm.value.owned,
-          quantityForTrade: this.collectionItemForm.value.forTrade,
-          desiredQuantity: this.collectionItemForm.value.desired,
+          languageCode: this.collectionItemForm.value.languageCode,
+          owned: this.collectionItemForm.value.owned,
+          forTrade: this.collectionItemForm.value.forTrade,
+          wishlist: this.collectionItemForm.value.wishlist,
         });
       });
   }

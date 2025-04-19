@@ -4,6 +4,7 @@ import { environment } from "../../../environments/environment";
 import { CardFilters } from "../../features/cards/models/cards-filters.model";
 import { isPlatformBrowser } from "@angular/common";
 import { CollectionItem } from "../../features/dashboard/models/collection-item.model";
+import { firstValueFrom } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -42,17 +43,21 @@ export class CollectionService {
 
   async updateCollectionItem(data: {
     cardId: number;
-    languageId: number;
-    quantityOwned: number;
-    quantityForTrade: number;
-    desiredQuantity: number;
+    languageCode: string;
+    owned: number;
+    forTrade: number;
+    wishlist: number;
   }): Promise<boolean> {
     if (!isPlatformBrowser(this.platformId)) return false;
 
     try {
-      await this.http.patch(`${this.apiUrl}/user/collection`, data).toPromise();
+      const updated = await firstValueFrom(this.http.patch(`${this.apiUrl}/user/collection`, data));
+
+      console.log(updated)
+
       return true;
     } catch (error) {
+      //TODO : show a toast
       console.error("Failed to update collection item:", error);
       return false;
     }

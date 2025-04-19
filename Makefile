@@ -23,6 +23,9 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 
 dev:
+	docker compose -f docker-compose.dev.yml up
+
+dev-buid:
 	docker compose -f docker-compose.dev.yml up --build
 
 staged:
