@@ -3,6 +3,7 @@ from django.db import connection
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from card_collections.models import UserCardCollection
 from card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
 
@@ -27,7 +28,10 @@ class MyCollectionView(SlidingAuthBaseView):
             cursor.execute(sql_request, params)
             results = self.dict_fetchall(cursor)
 
-        return Response(results, status.HTTP_200_OK)
+            paginator = PageNumberPagination()
+            paginated_page = paginator.paginate_queryset(results, request)
+
+        return paginator.get_paginated_response(paginated_page)
 
     # This complex query was needed because django's ORM won't easily handle the json_agg function
     def build_get_collection_query(self, filters):
@@ -102,7 +106,7 @@ class MyCollectionView(SlidingAuthBaseView):
         if where_clauses:
             base_sql += " WHERE " + " AND ".join(where_clauses)
 
-        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number LIMIT 20"  # TODO : remove the limit and implement pagination
+        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number "  # TODO : remove the limit and implement pagination
 
         return base_sql, params
 
