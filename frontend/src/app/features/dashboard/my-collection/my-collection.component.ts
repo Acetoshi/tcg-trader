@@ -4,12 +4,13 @@ import { MatIconModule } from "@angular/material/icon";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CollectionItemComponent } from "../collection-item/collection-item.component";
+import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 
 @Component({
   selector: "app-my-collection",
   templateUrl: "./my-collection.component.html",
   styleUrls: ["./my-collection.component.scss"],
-  imports: [CommonModule, MatIconModule, CardFilterBarComponent, CollectionItemComponent],
+  imports: [CommonModule, MatIconModule, CardFilterBarComponent, CollectionItemComponent, ScrollListenerComponent],
 })
 export class MyCollectionComponent implements OnInit {
   noResults = computed(() => this.collectionService.myCollection().length === 0);

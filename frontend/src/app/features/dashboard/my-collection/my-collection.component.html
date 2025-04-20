@@ -18,4 +18,4 @@
     </p>
   </div>
 }
-<button (click)="this.collectionService.fetchMyCollectionNextPage()">fetch more</button>
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchMyCollectionNextPage()" />
