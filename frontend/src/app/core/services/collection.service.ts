@@ -1,18 +1,22 @@
-import { Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angular/core";
+import { computed, Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { isPlatformBrowser } from "@angular/common";
+import { firstValueFrom } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { isPlatformBrowser } from "@angular/common";
 import { CollectionItem, LanguageVersion } from "../../features/dashboard/models/collection-item.model";
-import { firstValueFrom } from "rxjs";
+import { PaginatedResponse } from "./pagination.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class CollectionService {
   private apiUrl = environment.apiUrl;
+  private _loading = signal(false);
+  loading = computed(() => this._loading());
 
   filters = signal<CardFilters>(defaultFilters);
+  pagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
 
   // Signal for myCollection data
   myCollection = signal<CollectionItem[]>([]);
@@ -28,7 +32,6 @@ export class CollectionService {
   fetchMyCollection(filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    //TODO : convert this to a utility function.
     let params = new HttpParams();
     if (filters.search) params = params.set("search", filters.search);
     if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
@@ -37,9 +40,21 @@ export class CollectionService {
     if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
     if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
 
-    this.http.get<CollectionItem[]>(`${this.apiUrl}/user/collection`, { params }).subscribe(collection => {
-      this.myCollection.set(collection);
-    });
+    this.http
+      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
+      .subscribe(response => {
+        this.pagination.set({ next: response.next, previous: response.previous });
+        this.myCollection.set(response.results);
+      });
+  }
+
+  fetchMyCollectionNextPage(): void {
+    if (this.pagination().next) {
+      this.http.get<PaginatedResponse<CollectionItem>>(this.pagination().next as string).subscribe(response => {
+        this.pagination.set({ next: response.next, previous: response.previous });
+        this.myCollection.set([...this.myCollection(), ...response.results]);
+      });
+    }
   }
 
   // Method to get the current collection data (signal)
@@ -80,7 +95,9 @@ export class CollectionService {
   }
 
   updateFilters(newFilters: Partial<CardFilters>) {
+    //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
+    // Otherwise i'd get a weird behaviour when toggling filters
     this.filters.set({ ...this.filters(), ...newFilters });
-    this.fetchMyCollection(this.filters());
+    this.fetchMyCollection(this.filters()); // how can we use this existing emthod that already tracks filters ?
   }
 }
