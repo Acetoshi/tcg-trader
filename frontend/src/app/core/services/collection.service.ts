@@ -6,6 +6,7 @@ import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
 import { CollectionItem, LanguageVersion } from "../../features/dashboard/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
+import { ToastService } from "./toast.service";
 
 @Injectable({
   providedIn: "root",
@@ -23,10 +24,9 @@ export class CollectionService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private http: HttpClient
-  ) {
-    // effect(() => console.log(this.myCollection()));
-  }
+    private http: HttpClient,
+    private toastService: ToastService
+  ) {}
 
   // Method to fetch collection data
   fetchMyCollection(filters: CardFilters): void {
@@ -88,8 +88,7 @@ export class CollectionService {
 
       return true;
     } catch (error) {
-      //TODO : show a toast
-      console.error("Failed to update collection item:", error);
+      this.toastService.showError('There was an error updating your collection, refresh the page and try again')
       return false;
     }
   }
@@ -98,6 +97,6 @@ export class CollectionService {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
     this.filters.set({ ...this.filters(), ...newFilters });
-    this.fetchMyCollection(this.filters()); // how can we use this existing emthod that already tracks filters ?
+    this.fetchMyCollection(this.filters());
   }
 }
