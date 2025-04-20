@@ -88,7 +88,7 @@ export class CollectionService {
 
       return true;
     } catch (error) {
-      this.toastService.showError('There was an error updating your collection, refresh the page and try again')
+      this.toastService.showError("There was an error updating your collection, refresh the page and try again");
       return false;
     }
   }
