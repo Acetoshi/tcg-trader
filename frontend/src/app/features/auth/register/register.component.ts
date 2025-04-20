@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group(
       {
+        username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(64)]],
         email: ["", [Validators.required, Validators.email]],
         password: ["", [Validators.required, isStrongPassword]],
         passwordConfirmation: ["", [Validators.required]],
@@ -67,10 +68,14 @@ export class RegisterComponent implements OnInit {
 
   async onRegister(): Promise<void> {
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
       try {
         this.loading.set(true);
-        const { success, message } = await this.authService.register(formData.email, formData.password);
+        const userData = {
+          username: this.registerForm.value.username,
+          email: this.registerForm.value.email,
+          password: this.registerForm.value.password,
+        };
+        const { success, message } = await this.authService.register(userData);
         this.loading.set(false);
 
         if (success) {

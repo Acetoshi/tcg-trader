@@ -10,6 +10,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.db import transaction
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class RegisterView(APIView):
@@ -21,7 +24,9 @@ class RegisterView(APIView):
         if serializer.is_valid():
             try:
                 with transaction.atomic():  # Start a transaction
-                    user = serializer.save()
+                    userData = serializer.validated_data
+                    password = userData.pop("password")
+                    user = User.objects.create_user(password=password, **userData)
                     user.is_active = False  # Deactivate account until email verification
                     user.save()
 
@@ -50,8 +55,12 @@ class RegisterView(APIView):
                     email = EmailMultiAlternatives(
                         subject, plain_text_message, settings.DEFAULT_FROM_EMAIL, [user.email]
                     )
+
                     email.attach_alternative(html_message, "text/html")
-                    email.send()  # Send the email
+                    try:
+                        email.send()  # Send the email
+                    except Exception as e:
+                        print(f"Error sending email : {e}")
 
                     return Response(
                         {"message": "User registered successfully"}, status=status.HTTP_201_CREATED
@@ -63,7 +72,5 @@ class RegisterView(APIView):
                     {"error": "User registration failed, please try again."},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
-
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )  # TODO : is this correct? is there a security leak here ?
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

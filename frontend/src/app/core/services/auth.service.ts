@@ -10,18 +10,26 @@ export class AuthService {
   private _isAuthenticated = signal<boolean>(false);
   private _user = signal<User | null>(null);
   private _isUserLoaded = signal(false);
+  private _loading = signal(false);
 
   // Read-only signals for state access
   isAuthenticated = computed(() => this._isAuthenticated());
   user = computed(() => this._user());
   isUserLoaded = computed(() => this._isUserLoaded()); // isUserLoaded is used here to memoize wether or not an API call was made to getUser
+  loading = computed(() => this._loading());
 
   private apiUrl = environment.apiUrl;
 
   constructor(private router: Router) {}
 
-  async register(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    if (!email || !password) return { success: false, message: "Invalid email or password" };
+  async register(data: {
+    username: string;
+    email: string;
+    password: string;
+  }): Promise<{ success: boolean; message: string }> {
+    if (!data.email || !data.password || !data.username)
+      return { success: false, message: "Invalid email or password" };
+    this._loading.set(true);
 
     try {
       const response = await fetch(`${this.apiUrl}/auth/register`, {
@@ -29,18 +37,19 @@ export class AuthService {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
+      const respData = await response.json();
       if (response.ok) {
         return { success: true, message: "Registration successful" };
       } else {
-        const reason = data.email || data.password || "Unknown reason";
+        const reason = respData.username || respData.email || respData.password || "Unknown reason";
         return { success: false, message: reason };
       }
     } catch {
       return { success: false, message: "Registration failed" };
     }
+    this._loading.set(false);
   }
 
   async login(email: string, password: string): Promise<boolean> {
