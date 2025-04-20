@@ -87,7 +87,7 @@ export class CollectionService {
       this.myCollection.set(myUpdatedCollection);
 
       return true;
-    } catch (error) {
+    } catch {
       this.toastService.showError("There was an error updating your collection, refresh the page and try again");
       return false;
     }

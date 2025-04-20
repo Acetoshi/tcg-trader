@@ -42,8 +42,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the form group with form controls
     this.loginForm = this.fb.group({
-      email: ["", [Validators.required, Validators.minLength(3)]],
-      password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(64)]], // Password field with validations
+      identifier: ["", [Validators.required, Validators.minLength(3)]],
+      password: ["", [Validators.required, Validators.minLength(12), Validators.maxLength(64)]], // Password field with validations
     });
   }
 
@@ -55,8 +55,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loading.set(true);
       this.loginFailed.set(false);
-      const { email, password } = this.loginForm.value;
-      const success = await this.authService.login(email, password);
+      const success = await this.authService.login(this.loginForm.value);
 
       if (success) {
         this.loginFailed = signal(false);

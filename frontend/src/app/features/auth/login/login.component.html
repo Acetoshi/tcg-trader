@@ -9,12 +9,12 @@
           <div class="centered-spinner-container"><mat-spinner /></div>
         }
         @if (!loading()) {
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Enter your email" />
+          <mat-form-field appearance="outline" subscriptSizing="dynamic">
+            <mat-label>Email/Username</mat-label>
+            <input matInput formControlName="identifier" placeholder="Enter your email or username" />
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="form-field">
+          <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
             <input
               matInput
@@ -27,9 +27,7 @@
           </mat-form-field>
         }
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading()">
-          LOGIN
-        </button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loading()">LOGIN</button>
         <div>
           <a mat-button routerLink="/register">Create an account</a>
           <a mat-button routerLink="/forgotten-password">Forgotten password ?</a>

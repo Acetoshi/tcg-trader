@@ -18,8 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+IS_PRODUCTION = os.getenv("IS_PRODUCTION", "True").lower() == "true"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
 IS_PRODUCTION = os.getenv("IS_PRODUCTION", "false").lower() == "true"
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 # these settings enable django to forward https links for pagination in prod
@@ -150,10 +154,13 @@ REST_FRAMEWORK = {
 }
 
 # Email settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Brevo SMTP email
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # Brevo SMTP password
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = os.getenv("EMAIL_FROM")
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = os.getenv("EMAIL_HOST")
+    EMAIL_PORT = os.getenv("EMAIL_PORT")
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Brevo SMTP email
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # Brevo SMTP password
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = os.getenv("EMAIL_FROM")
