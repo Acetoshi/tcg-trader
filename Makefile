@@ -25,7 +25,7 @@ db-seed:
 dev:
 	docker compose -f docker-compose.dev.yml up
 
-dev-buid:
+dev-build:
 	docker compose -f docker-compose.dev.yml up --build
 
 staged:

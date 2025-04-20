@@ -21,8 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 IS_PRODUCTION = os.getenv("IS_PRODUCTION", "True").lower() == "true"
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
+IS_PRODUCTION = os.getenv("IS_PRODUCTION", "false").lower() == "true"
+DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+
+# these settings enable django to forward https links for pagination in prod
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
 
 # Application definition
@@ -133,7 +139,6 @@ APPEND_SLASH = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # REST Framework settings
