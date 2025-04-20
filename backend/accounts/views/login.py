@@ -12,7 +12,7 @@ class LoginView(APIView):
     def post(self, request):
 
         try:
-            identifier = request.data.get("username")
+            identifier = request.data.get("identifier")
             password = request.data.get("password")
 
             if not identifier or not password:

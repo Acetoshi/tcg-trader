@@ -1,7 +1,9 @@
-import { Injectable, signal, computed } from "@angular/core";
+import { Injectable, signal, computed, Inject, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
 import { User } from "./auth.models";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +22,11 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   async register(data: {
     username: string;
@@ -48,36 +54,31 @@ export class AuthService {
       }
     } catch {
       return { success: false, message: "Registration failed" };
+    } finally {
+      this._loading.set(false);
     }
-    this._loading.set(false);
   }
 
-  async login(email: string, password: string): Promise<boolean> {
-    if (!email || !password) return false;
+  async login(data: { identifier: string; password: string }): Promise<boolean> {
+    if (!data.identifier || !data.password) return false;
+    this._loading.set(true);
 
     try {
-      const response = await fetch(`${this.apiUrl}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
-
-      if (response.ok) {
-        await this.getUser();
-        this.router.navigate(["/dashboard"]);
-        return true;
-      } else {
-        return false;
-      }
+      await firstValueFrom(this.http.post(`${this.apiUrl}/auth/login`, data));
+      await this.getUser();
+      this.router.navigate(["/dashboard"]);
+      return true;
     } catch {
       return false;
+    } finally {
+      this._loading.set(false);
     }
   }
 
   async logout(): Promise<boolean> {
+    this._loading.set(true);
     const response = await fetch(`${this.apiUrl}/auth/logout`);
+    this._loading.set(false);
     if (response.ok) {
       this._isAuthenticated.set(false);
       this._user.set(null);
@@ -90,9 +91,9 @@ export class AuthService {
 
   async verifyEmail(id: string, token: string): Promise<boolean> {
     if (!id || !token) return false;
+    this._loading.set(true);
     try {
       const response = await fetch(`${this.apiUrl}/auth/verify-email/${id}/${token}`);
-
       if (response.ok) {
         await this.getUser();
         return true;
@@ -101,6 +102,8 @@ export class AuthService {
       }
     } catch {
       return false;
+    } finally {
+      this._loading.set(false);
     }
   }
 
