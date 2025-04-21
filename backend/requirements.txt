@@ -1,4 +1,5 @@
 asgiref==3.8.1
+beautifulsoup4==4.13.4
 bleach==6.2.0
 certifi==2025.1.31
 cfgv==3.4.0
@@ -14,12 +15,14 @@ idna==3.10
 mypy==1.15.0
 mypy-extensions==1.0.0
 nodeenv==1.9.1
+pillow==11.2.1
 platformdirs==4.3.7
 pre_commit==4.2.0
 psycopg2-binary==2.9.10
 PyJWT==2.9.0
 PyYAML==6.0.2
 requests==2.32.3
+soupsieve==2.7
 sqlparse==0.5.3
 types-bleach==6.2.0.20241123
 types-html5lib==1.1.11.20241018

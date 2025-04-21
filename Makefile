@@ -21,6 +21,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py colors_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_types_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
+	@docker exec -it tcg-trader-backend python manage.py card_seeder_fr
 
 dev:
 	docker compose -f docker-compose.dev.yml up
@@ -44,7 +45,8 @@ download-game-data:
 	@docker exec -it tcg-trader-backend python manage.py download_game_data
 
 download-assets:
-	@docker exec -it tcg-trader-backend python manage.py download_cards_images
+	@docker exec -it tcg-trader-backend python manage.py download_cards_images_en
+	@docker exec -it tcg-trader-backend python manage.py download_cards_images_fr
 	@docker exec -it tcg-trader-backend python manage.py download_colors_images
 	@docker exec -it tcg-trader-backend python manage.py download_rarity_images
 
