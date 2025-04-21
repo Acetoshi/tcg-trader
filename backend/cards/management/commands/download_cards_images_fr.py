@@ -11,27 +11,22 @@ SETS = [
     {
         "code": "A1a",
         "datasetFile": "dataset/cards_A1a_FR.json",
-        "name-fr": "L'Île Fabuleuse",
     },
     {
         "code": "PROMO",
-        "datasetFile": "dataset/cards_PROMO_FR.json",
-        "name-fr": "Puissance Génétique",
+        "datasetFile": "dataset/cards_PROMO-A_FR.json",
     },
     {
         "code": "A2",
         "datasetFile": "dataset/cards_A2_FR.json",
-        "name-fr": "Choc Spatio-Temporel",
     },
     {
         "code": "A2a",
         "datasetFile": "dataset/cards_A2a_FR.json",
-        "name-fr": "Lumière Triomphale",
     },
     {
         "code": "A2b",
         "datasetFile": "dataset/cards_A2b_FR.json",
-        "name-fr": "Réjouissances Rayonnantes",
     },
 ]
 
