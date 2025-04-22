@@ -3,18 +3,24 @@
   <menu>
     <button mat-button routerLink="">
       <mat-icon>home</mat-icon>
-      Home
+      {{ "NAV_HOME" | translate }}
     </button>
 
     <button mat-button routerLink="cards">
       <mat-icon>view_list</mat-icon>
-      Cards
+      {{ "NAV_CARDS" | translate }}
     </button>
+
+    <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" [hideSingleSelectionIndicator]="true">
+      @for (locale of locales; track locale) {
+        <mat-button-toggle (click)="this.changeLanguage(locale)" value="locale">{{ locale }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
 
     @if (!isAuthenticated()) {
       <button mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
-        Register
+        {{ "NAV_REGISTER" | translate }}
       </button>
 
       <button mat-stroked-button routerLink="login">
