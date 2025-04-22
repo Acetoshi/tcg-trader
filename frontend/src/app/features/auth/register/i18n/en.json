@@ -1,27 +1,4 @@
 {
-  "login": {
-    "title": "Login",
-    "form": {
-      "identifier": {
-        "label": "Email/Username",
-        "placeholder": "Enter your email or username"
-      },
-      "password": {
-        "label": "Password",
-        "placeholder": "Enter your password"
-      },
-      "submit": "LOGIN"
-    },
-    "links": {
-      "register": "Create an account",
-      "forgotPassword": "Forgotten password ?"
-    },
-    "messages": {
-      "error": "Check your credentials and try again",
-      "loginSuccess": "Logged in successfully",
-      "loginError": "Login error, check credentials"
-    }
-  },
   "register": {
     "title": "Create an account",
     "form": {
@@ -59,20 +36,5 @@
         "genericError": "An error occurred. Please try again later."
       }
     }
-  },
-  "dashboardFrame": {
-    "myCollection": "My Collection",
-    "wishlist": "Wishlist",
-    "tradeFinder": "Trade Finder",
-    "tradeHistory": "Trade History"
-  },
-  "navbar": {
-    "home": "Home",
-    "cards": "Cards",
-    "register": "Register",
-    "login": "Login",
-    "dashboard": "Dashboard",
-    "accountSettings": "Account Settings",
-    "logout": "Logout"
   }
 }

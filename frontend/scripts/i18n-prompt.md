@@ -1,5 +1,19 @@
 COMPONENT AUTO-TRANSLATION PROMPT
 
+IMPORTANT: When working with translations, DO NOT modify:
+
+- CSS files
+- HTML structure
+- Component logic
+  without explicit permission from the user.
+
+Your role is to:
+
+1. Create/update translation files
+2. Help identify text that needs translation
+3. Suggest translation keys
+4. Guide on translation implementation
+
 Given a component's files, create translations following this structure:
 
 1. ANALYZE TEMPLATE
@@ -56,11 +70,6 @@ Given a component's files, create translations following this structure:
   - "Error" -> "Erreur"
   - "Warning" -> "Avertissement"
 
-- Collection Terms:
-  - "List" -> "Liste"
-  - "Collection" -> "Collection"
-  - "History" -> "Historique"
-  - "Details" -> "Détails"
 
 5. IMPLEMENTATION STEPS
    a. Create i18n folder:
@@ -89,7 +98,7 @@ import { TranslateModule } from "@ngx-translate/core";
 ```
 
 d. Update template:
-Replace all hardcoded text with translation pipes:
+Replace all hardcoded text with translation pipes, do not modify HTML structure:
 
 ```html
 {{ "[componentNameCamelCase].[key]" | translate }}
@@ -121,3 +130,10 @@ Replace all hardcoded text with translation pipes:
 - Document special cases
 - Use consistent naming
 - Consider text expansion
+
+9. FINAL STEPS
+
+After completing the translations:
+
+1. Run `make i18n-merge` to merge the new translations with existing ones
+2. Run `make lint` to ensure code quality and formatting

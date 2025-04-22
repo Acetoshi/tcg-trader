@@ -86,3 +86,10 @@ db-reset:
 
 api-admin:
 	@docker exec -it tcg-trader-backend python3 manage.py createsuperuser
+
+########
+# i18n #
+########
+
+i18n-merge:
+	@cd frontend && npm run merge:i18n
