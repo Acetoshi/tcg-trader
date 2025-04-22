@@ -70,7 +70,6 @@ Given a component's files, create translations following this structure:
   - "Error" -> "Erreur"
   - "Warning" -> "Avertissement"
 
-
 5. IMPLEMENTATION STEPS
    a. Create i18n folder:
 

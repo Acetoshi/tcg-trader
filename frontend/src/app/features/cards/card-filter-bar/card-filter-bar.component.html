@@ -4,12 +4,20 @@
       <fieldset>
         <!-- <legend>Card Filters</legend> -->
         <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
-          <mat-label>Search for a card</mat-label>
-          <input matInput placeholder="Ex. Pikachu, Red ..." formControlName="search" />
+          <mat-label>{{ "cardFilterBar.search.label" | translate }}</mat-label>
+          <input matInput [placeholder]="'cardFilterBar.search.placeholder' | translate" formControlName="search" />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <button mat-mini-fab type="button" (click)="toggleFiltersVisibility()" aria-label="toggle more filters">
+        <button
+          mat-mini-fab
+          type="button"
+          (click)="toggleFiltersVisibility()"
+          [attr.aria-label]="
+            showMoreFilters()
+              ? ('cardFilterBar.filters.toggle.hide' | translate)
+              : ('cardFilterBar.filters.toggle.show' | translate)
+          ">
           @if (!showMoreFilters()) {
             <mat-icon>tune</mat-icon>
           }
@@ -23,7 +31,7 @@
           type="button"
           [ngClass]="{ 'error-bg-color': filtersForm.dirty }"
           (click)="resetFilters()"
-          aria-label="reset filters"
+          [attr.aria-label]="'cardFilterBar.filters.reset' | translate"
           [disabled]="!filtersForm.dirty">
           <mat-icon>filter_alt_off</mat-icon>
         </button>
@@ -31,7 +39,7 @@
       @if (showMoreFilters()) {
         <fieldset class="advanced-filters">
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Set</mat-label>
+            <mat-label>{{ "cardFilterBar.advancedFilters.set.label" | translate }}</mat-label>
             <mat-select multiple formControlName="setCodes">
               @for (set of sets(); track set) {
                 <mat-option [value]="set.code">{{ set.name }}</mat-option>
@@ -40,7 +48,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Rarity</mat-label>
+            <mat-label>{{ "cardFilterBar.advancedFilters.rarity.label" | translate }}</mat-label>
             <mat-select multiple formControlName="rarityCodes">
               @for (rarity of rarities(); track rarity) {
                 <mat-option [value]="rarity.code">
@@ -54,7 +62,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Type</mat-label>
+            <mat-label>{{ "cardFilterBar.advancedFilters.type.label" | translate }}</mat-label>
             <mat-select multiple formControlName="cardTypeCodes">
               @for (cardType of cardTypes(); track cardType) {
                 <mat-option [value]="cardType.code">
@@ -65,7 +73,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Color</mat-label>
+            <mat-label>{{ "cardFilterBar.advancedFilters.color.label" | translate }}</mat-label>
             <mat-select multiple formControlName="colorCodes">
               @for (color of colors(); track color) {
                 <mat-option [value]="color.code">
@@ -79,7 +87,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Weakness</mat-label>
+            <mat-label>{{ "cardFilterBar.advancedFilters.weakness.label" | translate }}</mat-label>
             <mat-select multiple formControlName="weaknessCodes">
               @for (color of colors(); track color) {
                 <mat-option [value]="color.code">
@@ -89,7 +97,9 @@
                   </div>
                 </mat-option>
               }
-              <mat-option [value]="'none'"> No weakness </mat-option>
+              <mat-option [value]="'none'">{{
+                "cardFilterBar.advancedFilters.weakness.noWeakness" | translate
+              }}</mat-option>
             </mat-select>
           </mat-form-field>
         </fieldset>

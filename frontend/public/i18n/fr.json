@@ -47,7 +47,7 @@
       "submit": "S'INSCRIRE"
     },
     "links": {
-      "login": "J'ai déjà un compte, connectez-moi"
+      "login": "J'ai déjà un compte"
     },
     "messages": {
       "success": {
@@ -58,6 +58,43 @@
         "registrationFailed": "Échec de l'inscription : {{ message }}",
         "genericError": "Une erreur est survenue. Veuillez réessayer plus tard."
       }
+    }
+  },
+  "cardFilterBar": {
+    "search": {
+      "label": "Rechercher une carte",
+      "placeholder": "Ex. Pikachu, Rouge ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Afficher plus de filtres",
+        "hide": "Masquer les filtres"
+      },
+      "reset": "Réinitialiser les filtres"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Extension"
+      },
+      "rarity": {
+        "label": "Rareté"
+      },
+      "type": {
+        "label": "Type de carte"
+      },
+      "color": {
+        "label": "Type"
+      },
+      "weakness": {
+        "label": "Faiblesse",
+        "noWeakness": "Aucune faiblesse"
+      }
+    },
+    "errors": {
+      "fetchSets": "Erreur lors de la récupération des extensions",
+      "fetchRarities": "Erreur lors de la récupération des raretés",
+      "fetchCardTypes": "Erreur lors de la récupération des types de cartes",
+      "fetchColors": "Erreur lors de la récupération des couleurs"
     }
   },
   "dashboardFrame": {

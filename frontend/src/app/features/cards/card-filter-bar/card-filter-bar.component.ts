@@ -16,6 +16,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { Rarity } from "../models/rarity.model";
 import { CardType } from "../models/card-type.model";
 import { Color } from "../models/color.model";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-card-filter-bar",
@@ -29,6 +30,7 @@ import { Color } from "../models/color.model";
     MatCardModule,
     ReactiveFormsModule,
     MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: "./card-filter-bar.component.html",
   styleUrl: "./card-filter-bar.component.scss",
@@ -51,7 +53,8 @@ export class CardFilterBarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -75,7 +78,7 @@ export class CardFilterBarComponent implements OnInit {
       const data = await response.json();
       this.sets.set(data.results);
     } catch {
-      console.error("Error fetching Sets");
+      console.error(this.translateService.instant("cardFilterBar.errors.fetchSets"));
     } finally {
       this.loading.set(false);
     }
@@ -88,7 +91,7 @@ export class CardFilterBarComponent implements OnInit {
       const data = await response.json();
       this.rarities.set(data.results);
     } catch {
-      console.error("Error fetching Sets");
+      console.error(this.translateService.instant("cardFilterBar.errors.fetchRarities"));
     }
   }
 
@@ -99,7 +102,7 @@ export class CardFilterBarComponent implements OnInit {
       const data = await response.json();
       this.cardTypes.set(data.results);
     } catch {
-      console.error("Error fetching card types");
+      console.error(this.translateService.instant("cardFilterBar.errors.fetchCardTypes"));
     }
   }
 
@@ -110,7 +113,7 @@ export class CardFilterBarComponent implements OnInit {
       const data = await response.json();
       this.colors.set(data.results);
     } catch {
-      console.error("Error fetching colors");
+      console.error(this.translateService.instant("cardFilterBar.errors.fetchColors"));
     }
   }
 
