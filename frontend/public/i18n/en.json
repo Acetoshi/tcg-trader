@@ -1,0 +1,17 @@
+{
+  "dashboardFrame": {
+    "myCollection": "My Collection",
+    "wishlist": "Wishlist",
+    "tradeFinder": "Trade Finder",
+    "tradeHistory": "Trade History"
+  },
+  "navbar": {
+    "home": "Home",
+    "cards": "Cards",
+    "register": "Register",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "accountSettings": "Account Settings",
+    "logout": "Logout"
+  }
+}

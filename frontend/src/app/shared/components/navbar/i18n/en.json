@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "home": "Home",
+    "cards": "Cards",
+    "register": "Register",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "accountSettings": "Account Settings",
+    "logout": "Logout"
+  }
+}

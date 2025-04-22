@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "cards": "Cartes",
+    "register": "S'inscrire",
+    "login": "Connexion",
+    "dashboard": "Tableau de bord",
+    "accountSettings": "Paramètres du compte",
+    "logout": "Déconnexion"
+  }
+}

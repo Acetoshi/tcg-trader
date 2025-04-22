@@ -3,30 +3,30 @@
   <menu>
     <button mat-button routerLink="">
       <mat-icon>home</mat-icon>
-      {{ "NAV_HOME" | translate }}
+      {{ "navbar.home" | translate }}
     </button>
 
     <button mat-button routerLink="cards">
       <mat-icon>view_list</mat-icon>
-      {{ "NAV_CARDS" | translate }}
+      {{ "navbar.cards" | translate }}
     </button>
 
     @if (!isAuthenticated()) {
       <button mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
-        {{ "NAV_REGISTER" | translate }}
+        {{ "navbar.register" | translate }}
       </button>
 
       <button mat-stroked-button routerLink="login">
         <mat-icon>login</mat-icon>
-        {{ "NAV_LOGIN" | translate }}
+        {{ "navbar.login" | translate }}
       </button>
     }
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="dashboard">
         <mat-icon>dashboard</mat-icon>
-        {{ "NAV_DASHBOARD" | translate }}
+        {{ "navbar.dashboard" | translate }}
       </button>
 
       <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
@@ -35,12 +35,12 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
-          {{ "NAV_ACCOUNT_SETTINGS" | translate }}
+          {{ "navbar.accountSettings" | translate }}
         </button>
 
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
-          {{ "NAV_LOGOUT" | translate }}
+          {{ "navbar.logout" | translate }}
         </button>
       </mat-menu>
     }
