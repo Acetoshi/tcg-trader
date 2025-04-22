@@ -1,0 +1,9 @@
+{
+  "NAV_HOME": "Home",
+  "NAV_CARDS": "Cards",
+  "NAV_REGISTER": "Register",
+  "NAV_LOGIN": "Login",
+  "NAV_DASHBOARD": "Dashboard",
+  "NAV_ACCOUNT_SETTINGS": "Account Settings",
+  "NAV_LOGOUT": "Logout"
+}

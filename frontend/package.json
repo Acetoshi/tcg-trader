@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:tcg-trader": "node dist/tcg-trader/server/server.mjs",
+    "serve:ssr": "node dist/tcg-trader/server/server.mjs",
     "lint": "ng lint",
     "format+lint:fix": "npx prettier --write . && eslint --fix '**/*.{ts,html}'"
   },

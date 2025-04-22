@@ -11,12 +11,6 @@
       {{ "NAV_CARDS" | translate }}
     </button>
 
-    <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" [hideSingleSelectionIndicator]="true">
-      @for (locale of locales; track locale) {
-        <mat-button-toggle (click)="this.changeLanguage(locale)" value="locale">{{ locale }}</mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-
     @if (!isAuthenticated()) {
       <button mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
@@ -25,14 +19,14 @@
 
       <button mat-stroked-button routerLink="login">
         <mat-icon>login</mat-icon>
-        Login
+        {{ "NAV_LOGIN" | translate }}
       </button>
     }
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="dashboard">
         <mat-icon>dashboard</mat-icon>
-        Dashboard
+        {{ "NAV_DASHBOARD" | translate }}
       </button>
 
       <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
@@ -41,14 +35,23 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
-          Account settings
+          {{ "NAV_ACCOUNT_SETTINGS" | translate }}
         </button>
 
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
-          Logout
+          {{ "NAV_LOGOUT" | translate }}
         </button>
       </mat-menu>
     }
+
+    <button mat-button class="language-button" (click)="changeLanguage()">
+      @if (translateService.currentLang === "en") {
+        🇬🇧
+      }
+      @if (translateService.currentLang === "fr") {
+        🇫🇷
+      }
+    </button>
   </menu>
 </mat-toolbar>

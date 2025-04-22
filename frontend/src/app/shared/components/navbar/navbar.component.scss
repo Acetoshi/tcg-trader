@@ -9,7 +9,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 0 0 32px;
+}
+
+button.language-button {
+  font-size: larger;
 }
 
 /* Mobile styles */
