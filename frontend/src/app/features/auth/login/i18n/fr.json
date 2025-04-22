@@ -21,20 +21,5 @@
       "loginSuccess": "Connexion réussie",
       "loginError": "Erreur de connexion, vérifiez vos identifiants"
     }
-  },
-  "dashboardFrame": {
-    "myCollection": "Ma Collection",
-    "wishlist": "Liste de souhaits",
-    "tradeFinder": "Recherche d'échange",
-    "tradeHistory": "Historique des échanges"
-  },
-  "navbar": {
-    "home": "Accueil",
-    "cards": "Cartes",
-    "register": "S'inscrire",
-    "login": "Connexion",
-    "dashboard": "Tableau de bord",
-    "accountSettings": "Paramètres du compte",
-    "logout": "Déconnexion"
   }
 }

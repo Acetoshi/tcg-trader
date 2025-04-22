@@ -10,6 +10,7 @@ import { AuthService } from "../../../core/services/auth.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { CommonModule } from "@angular/common";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-login",
@@ -25,6 +26,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     ReactiveFormsModule,
     RouterLink,
     MatIcon,
+    TranslateModule,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -36,7 +38,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -60,12 +63,12 @@ export class LoginComponent implements OnInit {
       if (success) {
         this.loginFailed = signal(false);
         this.loading.set(false);
-        this.toastService.showSuccess("Logged in successfully");
+        this.toastService.showSuccess(this.translateService.instant("login.messages.loginSuccess"));
       } else {
         await new Promise(r => setTimeout(r, 2000)); // Simulate a delay to prevent bruteforce attacks on the frontend
         this.loginFailed.set(true);
         this.loading.set(false);
-        this.toastService.showError("Login error, check credentials");
+        this.toastService.showError(this.translateService.instant("login.messages.loginError"));
       }
     }
   }
