@@ -1,4 +1,102 @@
 {
+  "login": {
+    "title": "Connexion",
+    "form": {
+      "identifier": {
+        "label": "E-mail/Nom d'utilisateur",
+        "placeholder": "Entrez votre e-mail ou nom d'utilisateur"
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "submit": "SE CONNECTER"
+    },
+    "links": {
+      "register": "Créer un compte",
+      "forgotPassword": "Mot de passe oublié ?"
+    },
+    "messages": {
+      "error": "Vérifiez vos identifiants et réessayez",
+      "loginSuccess": "Connexion réussie",
+      "loginError": "Erreur de connexion, vérifiez vos identifiants"
+    }
+  },
+  "register": {
+    "title": "Créer un compte",
+    "form": {
+      "username": {
+        "label": "Nom d'utilisateur",
+        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles."
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Entrez votre e-mail",
+        "error": "Veuillez entrer un e-mail valide."
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Entrez votre mot de passe",
+        "error": "Au moins {{ weakness }}."
+      },
+      "passwordConfirmation": {
+        "label": "Confirmation du mot de passe",
+        "placeholder": "Répétez votre mot de passe",
+        "error": "Les mots de passe ne correspondent pas."
+      },
+      "submit": "S'INSCRIRE"
+    },
+    "links": {
+      "login": "J'ai déjà un compte"
+    },
+    "messages": {
+      "success": {
+        "title": "Compte créé avec succès",
+        "description": "vérifiez votre e-mail pour le lien d'activation."
+      },
+      "error": {
+        "registrationFailed": "Échec de l'inscription : {{ message }}",
+        "genericError": "Une erreur est survenue. Veuillez réessayer plus tard."
+      }
+    }
+  },
+  "cardFilterBar": {
+    "search": {
+      "label": "Rechercher une carte",
+      "placeholder": "Ex. Pikachu, Rouge ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Afficher plus de filtres",
+        "hide": "Masquer les filtres"
+      },
+      "reset": "Réinitialiser les filtres"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Extension"
+      },
+      "rarity": {
+        "label": "Rareté"
+      },
+      "type": {
+        "label": "Type de carte"
+      },
+      "color": {
+        "label": "Type"
+      },
+      "weakness": {
+        "label": "Faiblesse",
+        "noWeakness": "Aucune faiblesse"
+      }
+    },
+    "errors": {
+      "fetchSets": "Erreur lors de la récupération des extensions",
+      "fetchRarities": "Erreur lors de la récupération des raretés",
+      "fetchCardTypes": "Erreur lors de la récupération des types de cartes",
+      "fetchColors": "Erreur lors de la récupération des couleurs"
+    }
+  },
   "dashboardFrame": {
     "myCollection": "Ma Collection",
     "wishlist": "Liste de souhaits",

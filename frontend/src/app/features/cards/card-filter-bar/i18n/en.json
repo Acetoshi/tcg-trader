@@ -1,0 +1,39 @@
+{
+  "cardFilterBar": {
+    "search": {
+      "label": "Search for a card",
+      "placeholder": "Ex. Pikachu, Red ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Show more filters",
+        "hide": "Hide filters"
+      },
+      "reset": "Reset filters"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Set"
+      },
+      "rarity": {
+        "label": "Rarity"
+      },
+      "type": {
+        "label": "Type"
+      },
+      "color": {
+        "label": "Color"
+      },
+      "weakness": {
+        "label": "Weakness",
+        "noWeakness": "No weakness"
+      }
+    },
+    "errors": {
+      "fetchSets": "Error fetching Sets",
+      "fetchRarities": "Error fetching Rarities",
+      "fetchCardTypes": "Error fetching card types",
+      "fetchColors": "Error fetching colors"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "login": {
+    "title": "Login",
+    "form": {
+      "identifier": {
+        "label": "Email/Username",
+        "placeholder": "Enter your email or username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "submit": "LOGIN"
+    },
+    "links": {
+      "register": "Create an account",
+      "forgotPassword": "Forgotten password ?"
+    },
+    "messages": {
+      "error": "Check your credentials and try again",
+      "loginSuccess": "Logged in successfully",
+      "loginError": "Login error, check credentials"
+    }
+  }
+}

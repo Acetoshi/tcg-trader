@@ -1,0 +1,25 @@
+{
+  "login": {
+    "title": "Connexion",
+    "form": {
+      "identifier": {
+        "label": "E-mail/Nom d'utilisateur",
+        "placeholder": "Entrez votre e-mail ou nom d'utilisateur"
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "submit": "SE CONNECTER"
+    },
+    "links": {
+      "register": "Créer un compte",
+      "forgotPassword": "Mot de passe oublié ?"
+    },
+    "messages": {
+      "error": "Vérifiez vos identifiants et réessayez",
+      "loginSuccess": "Connexion réussie",
+      "loginError": "Erreur de connexion, vérifiez vos identifiants"
+    }
+  }
+}

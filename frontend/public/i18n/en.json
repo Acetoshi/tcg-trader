@@ -1,4 +1,102 @@
 {
+  "login": {
+    "title": "Login",
+    "form": {
+      "identifier": {
+        "label": "Email/Username",
+        "placeholder": "Enter your email or username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "submit": "LOGIN"
+    },
+    "links": {
+      "register": "Create an account",
+      "forgotPassword": "Forgotten password ?"
+    },
+    "messages": {
+      "error": "Check your credentials and try again",
+      "loginSuccess": "Logged in successfully",
+      "loginError": "Login error, check credentials"
+    }
+  },
+  "register": {
+    "title": "Create an account",
+    "form": {
+      "username": {
+        "label": "Username",
+        "hint": "For your privacy, avoid using personal information."
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email",
+        "error": "Please enter a valid email."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "error": "At least {{ weakness }}."
+      },
+      "passwordConfirmation": {
+        "label": "Password confirmation",
+        "placeholder": "Repeat your password",
+        "error": "Passwords do not match."
+      },
+      "submit": "REGISTER"
+    },
+    "links": {
+      "login": "I already have an account, log me in"
+    },
+    "messages": {
+      "success": {
+        "title": "Account successfully created",
+        "description": "check your email for activation link."
+      },
+      "error": {
+        "registrationFailed": "Registration failed: {{ message }}",
+        "genericError": "An error occurred. Please try again later."
+      }
+    }
+  },
+  "cardFilterBar": {
+    "search": {
+      "label": "Search for a card",
+      "placeholder": "Ex. Pikachu, Red ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Show more filters",
+        "hide": "Hide filters"
+      },
+      "reset": "Reset filters"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Set"
+      },
+      "rarity": {
+        "label": "Rarity"
+      },
+      "type": {
+        "label": "Type"
+      },
+      "color": {
+        "label": "Color"
+      },
+      "weakness": {
+        "label": "Weakness",
+        "noWeakness": "No weakness"
+      }
+    },
+    "errors": {
+      "fetchSets": "Error fetching Sets",
+      "fetchRarities": "Error fetching Rarities",
+      "fetchCardTypes": "Error fetching card types",
+      "fetchColors": "Error fetching colors"
+    }
+  },
   "dashboardFrame": {
     "myCollection": "My Collection",
     "wishlist": "Wishlist",

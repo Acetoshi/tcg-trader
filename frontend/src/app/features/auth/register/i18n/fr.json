@@ -1,0 +1,40 @@
+{
+  "register": {
+    "title": "Créer un compte",
+    "form": {
+      "username": {
+        "label": "Nom d'utilisateur",
+        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles."
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Entrez votre e-mail",
+        "error": "Veuillez entrer un e-mail valide."
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Entrez votre mot de passe",
+        "error": "Au moins {{ weakness }}."
+      },
+      "passwordConfirmation": {
+        "label": "Confirmation du mot de passe",
+        "placeholder": "Répétez votre mot de passe",
+        "error": "Les mots de passe ne correspondent pas."
+      },
+      "submit": "S'INSCRIRE"
+    },
+    "links": {
+      "login": "J'ai déjà un compte"
+    },
+    "messages": {
+      "success": {
+        "title": "Compte créé avec succès",
+        "description": "vérifiez votre e-mail pour le lien d'activation."
+      },
+      "error": {
+        "registrationFailed": "Échec de l'inscription : {{ message }}",
+        "genericError": "Une erreur est survenue. Veuillez réessayer plus tard."
+      }
+    }
+  }
+}

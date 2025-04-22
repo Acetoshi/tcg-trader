@@ -1,0 +1,40 @@
+{
+  "register": {
+    "title": "Create an account",
+    "form": {
+      "username": {
+        "label": "Username",
+        "hint": "For your privacy, avoid using personal information."
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email",
+        "error": "Please enter a valid email."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "error": "At least {{ weakness }}."
+      },
+      "passwordConfirmation": {
+        "label": "Password confirmation",
+        "placeholder": "Repeat your password",
+        "error": "Passwords do not match."
+      },
+      "submit": "REGISTER"
+    },
+    "links": {
+      "login": "I already have an account, log me in"
+    },
+    "messages": {
+      "success": {
+        "title": "Account successfully created",
+        "description": "check your email for activation link."
+      },
+      "error": {
+        "registrationFailed": "Registration failed: {{ message }}",
+        "genericError": "An error occurred. Please try again later."
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
 import { isStrongPassword } from "../utils/password-validators.utils";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-register",
@@ -28,6 +29,7 @@ import { isStrongPassword } from "../utils/password-validators.utils";
     MatIconModule,
     MatProgressSpinnerModule,
     RouterLink,
+    TranslateModule,
   ],
 })
 export class RegisterComponent implements OnInit {
@@ -40,7 +42,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -81,14 +84,17 @@ export class RegisterComponent implements OnInit {
         if (success) {
           this.registerSuccess.set(true);
           this.registerFail.set(false);
-          this.message = "Account successfully created, check your email for activation link.";
+          this.message =
+            this.translateService.instant("register.messages.success.title") +
+            ", " +
+            this.translateService.instant("register.messages.success.description");
         } else {
           this.registerFail.set(true);
           this.registerSuccess.set(false);
-          this.message = `Registration failed: ${message}`;
+          this.message = this.translateService.instant("register.messages.error.registrationFailed", { message });
         }
       } catch {
-        this.message = "An error occurred. Please try again later.";
+        this.message = this.translateService.instant("register.messages.error.genericError");
       }
     }
   }

@@ -1,7 +1,7 @@
 <main>
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>{{ "login.title" | translate }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
@@ -10,34 +10,39 @@
         }
         @if (!loading()) {
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
-            <mat-label>Email/Username</mat-label>
-            <input matInput formControlName="identifier" placeholder="Enter your email or username" />
+            <mat-label>{{ "login.form.identifier.label" | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="identifier"
+              [placeholder]="'login.form.identifier.placeholder' | translate" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
+            <mat-label>{{ "login.form.password.label" | translate }}</mat-label>
             <input
               matInput
               [type]="passwordVisible() ? 'text' : 'password'"
               formControlName="password"
-              placeholder="Enter your password" />
+              [placeholder]="'login.form.password.placeholder' | translate" />
             <button matSuffix mat-icon-button type="button" (click)="togglePasswordVisibility()">
               <mat-icon>{{ passwordVisible() ? "visibility" : "visibility_off" }}</mat-icon>
             </button>
           </mat-form-field>
         }
 
-        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loading()">LOGIN</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid || loading()">
+          {{ "login.form.submit" | translate }}
+        </button>
         <div>
-          <a mat-button routerLink="/register">Create an account</a>
-          <a mat-button routerLink="/forgotten-password">Forgotten password ?</a>
+          <a mat-button routerLink="/register">{{ "login.links.register" | translate }}</a>
+          <a mat-button routerLink="/forgotten-password">{{ "login.links.forgotPassword" | translate }}</a>
         </div>
       </form>
     </mat-card-content>
     @if (loginFailed()) {
       <mat-card-footer class="login-card-footer">
         <mat-icon class="icon-l error-color">cancel</mat-icon>
-        Check your credentials and try again
+        {{ "login.messages.error" | translate }}
       </mat-card-footer>
     }
   </mat-card>
