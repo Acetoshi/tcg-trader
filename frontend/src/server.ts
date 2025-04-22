@@ -27,6 +27,9 @@ const commonEngine = new CommonEngine();
 /**
  * Serve static files from /browser
  */
+// serve i18n files
+app.use("/i18n", express.static(join(browserDistFolder, "i18n")));
+
 app.get(
   "**",
   express.static(browserDistFolder, {

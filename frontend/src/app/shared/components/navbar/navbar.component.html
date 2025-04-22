@@ -3,30 +3,30 @@
   <menu>
     <button mat-button routerLink="">
       <mat-icon>home</mat-icon>
-      Home
+      {{ "navbar.home" | translate }}
     </button>
 
     <button mat-button routerLink="cards">
       <mat-icon>view_list</mat-icon>
-      Cards
+      {{ "navbar.cards" | translate }}
     </button>
 
     @if (!isAuthenticated()) {
       <button mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
-        Register
+        {{ "navbar.register" | translate }}
       </button>
 
       <button mat-stroked-button routerLink="login">
         <mat-icon>login</mat-icon>
-        Login
+        {{ "navbar.login" | translate }}
       </button>
     }
 
     @if (isAuthenticated()) {
       <button mat-button routerLink="dashboard">
         <mat-icon>dashboard</mat-icon>
-        Dashboard
+        {{ "navbar.dashboard" | translate }}
       </button>
 
       <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
@@ -35,14 +35,23 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
-          Account settings
+          {{ "navbar.accountSettings" | translate }}
         </button>
 
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
-          Logout
+          {{ "navbar.logout" | translate }}
         </button>
       </mat-menu>
     }
+
+    <button mat-button class="language-button" (click)="changeLanguage()">
+      @if (translateService.currentLang === "en") {
+        🇬🇧
+      }
+      @if (translateService.currentLang === "fr") {
+        🇫🇷
+      }
+    </button>
   </menu>
 </mat-toolbar>
