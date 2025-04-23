@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from card_collections.models import UserCardCollection
+from modules.card_collections.models import UserCardCollection
 
 User = get_user_model()
 

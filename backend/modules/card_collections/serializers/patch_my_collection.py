@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from card_collections.models import UserCardCollection
+from modules.card_collections.models import UserCardCollection
 from cards.models import Card, Language
 
 

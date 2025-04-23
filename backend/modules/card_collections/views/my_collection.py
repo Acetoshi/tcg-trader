@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
-from card_collections.models import UserCardCollection
-from card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
+from modules.card_collections.models import UserCardCollection
+from modules.card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
 
 
 class MyCollectionView(SlidingAuthBaseView):

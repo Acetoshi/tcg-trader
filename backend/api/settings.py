@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "accounts",
     "cards",
-    "card_collections",
+    "modules.card_collections",
     "trades",
 ]
 

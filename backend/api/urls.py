@@ -9,5 +9,5 @@ urlpatterns = [
     path("api/admin", admin.site.urls),  # do i want this ?
     path("api/auth/", include("accounts.urls")),
     path("api/<str:language_code>/", include("cards.urls")),
-    path("api/", include("card_collections.urls")),
+    path("api/", include("modules.card_collections.urls")),
 ]
