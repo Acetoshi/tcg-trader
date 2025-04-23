@@ -8,6 +8,7 @@ import { environment } from "../../../../environments/environment";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
 import { CollectionService } from "../../../core/services/collection.service";
+import { LanguageService } from "../../../core/services/language.service";
 
 @Component({
   standalone: true,
@@ -23,24 +24,27 @@ export class CollectionItemComponent implements OnInit {
 
   fileServerBaseUrl = environment.fileServerUrl;
 
-  defaultLanguageCode = "EN"; // This needs to be changed when i18n is handled
-  selectedLanguageCode = signal(this.defaultLanguageCode);
+  selectedLanguageCode = signal("en");
   availableLanguageCodes = computed(() => this.collectionItem().languageVersions.map(version => version.languageCode));
 
   // TODO : fallback to english if the default user's language isn't available
   version = computed(
     () =>
       this.collectionItem().languageVersions.find(
-        version => version.languageCode === this.selectedLanguageCode()
+        version => version.languageCode.toLowerCase() === this.selectedLanguageCode().toLowerCase()
       ) as LanguageVersion
   );
 
   constructor(
+    private languageService: LanguageService,
     private collectionService: CollectionService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
+    //display cards in the user's language if possible
+    this.selectedLanguageCode.set(this.languageService.currentLang());
+
     this.createForm();
     // Debounce input
     ["owned", "forTrade", "wishlist"].forEach(controlName => {

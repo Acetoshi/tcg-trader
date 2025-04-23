@@ -1,0 +1,30 @@
+{
+  "account": {
+    "panels": {
+      "publicProfile": "Profil public",
+      "credentials": "Identifiants"
+    },
+    "form": {
+      "username": {
+        "label": "Nom d'utilisateur",
+        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles dans votre nom d'utilisateur."
+      },
+      "tcgpId": {
+        "label": "ID dresseur Pokemon TCG Pocket"
+      },
+      "bio": {
+        "label": "Biographie"
+      }
+    },
+    "buttons": {
+      "save": "ENREGISTRER",
+      "cancel": "Annuler"
+    },
+    "messages": {
+      "comingSoon": "Bientôt, vous pourrez modifier votre email ou mot de passe ici"
+    },
+    "avatar": {
+      "alt": "votre avatar"
+    }
+  }
+}

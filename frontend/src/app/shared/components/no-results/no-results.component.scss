@@ -1,0 +1,10 @@
+div.no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  & p {
+    text-align: center;
+  }
+}

@@ -1,4 +1,22 @@
 {
+  "forgottenPassword": {
+    "title": "Forgotten password ?",
+    "instructions": "Enter the email address associated with your account, and we'll send you a link to",
+    "resetPassword": "reset your password.",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "error": "Please enter a valid email"
+    },
+    "submit": "SEND ME A LINK",
+    "success": {
+      "message": "Check your email for a link to reset your password."
+    },
+    "error": {
+      "message": "There was an error on the server, please try again"
+    },
+    "login": "Log in"
+  },
   "login": {
     "title": "Login",
     "form": {
@@ -60,6 +78,50 @@
       }
     }
   },
+  "resetPassword": {
+    "title": "Change password",
+    "form": {
+      "newPassword": {
+        "label": "New password",
+        "placeholder": "Enter your password"
+      },
+      "confirmPassword": {
+        "label": "New password confirmation",
+        "placeholder": "Repeat your password"
+      },
+      "errors": {
+        "mismatch": "Passwords do not match",
+        "weakness": "At least {{requirements}}"
+      }
+    },
+    "buttons": {
+      "save": "SAVE PASSWORD",
+      "dashboard": "Go to dashboard"
+    },
+    "messages": {
+      "success": "Your password was successfully updated",
+      "resetFailed": "Password reset failed, check your link and try again",
+      "error": "An error occurred. Please try again later"
+    }
+  },
+  "passwordValidation": {
+    "minLength": "12 characters",
+    "specialChar": "1 special character",
+    "uppercase": "1 uppercase",
+    "lowercase": "1 lowercase",
+    "digit": "1 digit"
+  },
+  "verifyEmail": {
+    "title": "Email verification",
+    "verifying": "Verifying your email ...",
+    "success": {
+      "message": "Your email has been successfully verified, you are logged in !",
+      "dashboard": "Go to my dashboard"
+    },
+    "error": {
+      "message": "Your email couldn't be verified, check your link."
+    }
+  },
   "cardFilterBar": {
     "search": {
       "label": "Search for a card",
@@ -103,6 +165,34 @@
     "tradeFinder": "Trade Finder",
     "tradeHistory": "Trade History"
   },
+  "account": {
+    "panels": {
+      "publicProfile": "Public profile",
+      "credentials": "Credentials"
+    },
+    "form": {
+      "username": {
+        "label": "Username",
+        "hint": "For your privacy, avoid using personal information in your username."
+      },
+      "tcgpId": {
+        "label": "Pokemon TCG Pocket trainer ID"
+      },
+      "bio": {
+        "label": "Bio"
+      }
+    },
+    "buttons": {
+      "save": "SAVE",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "comingSoon": "Soon you'll be able to change your email or password here"
+    },
+    "avatar": {
+      "alt": "your avatar"
+    }
+  },
   "navbar": {
     "home": "Home",
     "cards": "Cards",
@@ -111,5 +201,9 @@
     "dashboard": "Dashboard",
     "accountSettings": "Account Settings",
     "logout": "Logout"
+  },
+  "noResults": {
+    "title": "No results found.",
+    "suggestion": "Try adjusting your filters."
   }
 }

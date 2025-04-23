@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 
-export const strongPasswordValidator = (translate: TranslateService): ValidatorFn => {
+export function strongPasswordValidatorFactory(translate: TranslateService): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
     const errors = [];
@@ -15,4 +15,4 @@ export const strongPasswordValidator = (translate: TranslateService): ValidatorF
 
     return errors.length ? { weakness: errors.join(", ") } : null;
   };
-};
+}

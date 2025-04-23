@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormBuilder, FormGroup } from "@angular/forms";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 // Angular Material Modules
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -27,6 +28,7 @@ import { ToastService } from "../../core/services/toast.service";
     MatSelectModule,
     MatSlideToggleModule,
     MatIconModule,
+    TranslateModule,
   ],
 })
 export class AccountComponent implements OnInit {
@@ -36,7 +38,8 @@ export class AccountComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private translateService: TranslateService
   ) {
     this.publicInfoForm = this.fb.group({
       username: [""],

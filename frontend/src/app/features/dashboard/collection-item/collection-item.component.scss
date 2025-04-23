@@ -18,6 +18,11 @@
   transform: scale(1.05) translateY(-3%);
 }
 
+// this is useful if some images aren't transparent
+img.card-image {
+  border-radius: 5%/3.5%;
+}
+
 .unobtained {
   filter: grayscale(100%);
 }

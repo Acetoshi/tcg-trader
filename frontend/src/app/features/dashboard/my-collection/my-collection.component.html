@@ -10,12 +10,6 @@
   }
 </ul>
 @if (noResults()) {
-  <div class="no-results-for-filters">
-    <mat-icon class="icon-xxl">search_off</mat-icon>
-    <p>
-      No results found. <br />
-      Try adjusting your filters.
-    </p>
-  </div>
+  <app-no-results />
 }
 <app-scroll-listener (reachedBottom)="this.collectionService.fetchMyCollectionNextPage()" />

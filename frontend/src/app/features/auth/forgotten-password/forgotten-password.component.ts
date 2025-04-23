@@ -9,6 +9,7 @@ import { AuthService } from "../../../core/services/auth.service";
 import { CommonModule } from "@angular/common";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { RouterLink } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-forgotten-password",
@@ -24,6 +25,7 @@ import { RouterLink } from "@angular/router";
     ReactiveFormsModule,
     RouterLink,
     MatIcon,
+    TranslateModule,
   ],
 })
 export class ForgottenPasswordComponent implements OnInit {

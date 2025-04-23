@@ -1,4 +1,22 @@
 {
+  "forgottenPassword": {
+    "title": "Mot de passe oublié ?",
+    "instructions": "Entrez l'adresse e-mail associée à votre compte, et nous vous enverrons un lien pour",
+    "resetPassword": "réinitialiser votre mot de passe.",
+    "email": {
+      "label": "E-mail",
+      "placeholder": "Entrez votre e-mail",
+      "error": "Veuillez entrer une adresse e-mail valide"
+    },
+    "submit": "ENVOYEZ-MOI UN LIEN",
+    "success": {
+      "message": "Consultez vos mails pour obtenir un lien de réinitialisation du mot de passe."
+    },
+    "error": {
+      "message": "Une erreur s'est produite sur le serveur, veuillez réessayer"
+    },
+    "login": "Se connecter"
+  },
   "login": {
     "title": "Connexion",
     "form": {
@@ -60,6 +78,50 @@
       }
     }
   },
+  "resetPassword": {
+    "title": "Changer le mot de passe",
+    "form": {
+      "newPassword": {
+        "label": "Nouveau mot de passe",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "confirmPassword": {
+        "label": "Confirmation du nouveau mot de passe",
+        "placeholder": "Répétez votre mot de passe"
+      },
+      "errors": {
+        "mismatch": "Les mots de passe ne correspondent pas",
+        "weakness": "Au moins {{requirements}}"
+      }
+    },
+    "buttons": {
+      "save": "ENREGISTRER LE MOT DE PASSE",
+      "dashboard": "Aller sur mon tableau de bord"
+    },
+    "messages": {
+      "success": "Votre mot de passe a été mis à jour avec succès",
+      "resetFailed": "La réinitialisation du mot de passe a échoué, vérifiez votre lien et réessayez",
+      "error": "Une erreur s'est produite. Veuillez réessayer plus tard"
+    }
+  },
+  "passwordValidation": {
+    "minLength": "12 caractères",
+    "specialChar": "1 caractère spécial",
+    "uppercase": "1 majuscule",
+    "lowercase": "1 minuscule",
+    "digit": "1 chiffre"
+  },
+  "verifyEmail": {
+    "title": "Vérification de votre e-mail",
+    "verifying": "Vérification de votre e-mail ...",
+    "success": {
+      "message": "Votre e-mail a été vérifié avec succès, vous êtes connecté !",
+      "dashboard": "Aller à mon tableau de bord"
+    },
+    "error": {
+      "message": "Votre e-mail n'a pas pu être vérifié, vérifiez votre lien."
+    }
+  },
   "cardFilterBar": {
     "search": {
       "label": "Rechercher une carte",
@@ -103,6 +165,34 @@
     "tradeFinder": "Recherche d'échange",
     "tradeHistory": "Historique des échanges"
   },
+  "account": {
+    "panels": {
+      "publicProfile": "Profil public",
+      "credentials": "Identifiants"
+    },
+    "form": {
+      "username": {
+        "label": "Nom d'utilisateur",
+        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles dans votre nom d'utilisateur."
+      },
+      "tcgpId": {
+        "label": "ID dresseur Pokemon TCG Pocket"
+      },
+      "bio": {
+        "label": "Biographie"
+      }
+    },
+    "buttons": {
+      "save": "ENREGISTRER",
+      "cancel": "Annuler"
+    },
+    "messages": {
+      "comingSoon": "Bientôt, vous pourrez modifier votre email ou mot de passe ici"
+    },
+    "avatar": {
+      "alt": "votre avatar"
+    }
+  },
   "navbar": {
     "home": "Accueil",
     "cards": "Cartes",
@@ -111,5 +201,9 @@
     "dashboard": "Tableau de bord",
     "accountSettings": "Paramètres du compte",
     "logout": "Déconnexion"
+  },
+  "noResults": {
+    "title": "Aucun résultat trouvé.",
+    "suggestion": "Essayez d'ajuster vos filtres."
   }
 }

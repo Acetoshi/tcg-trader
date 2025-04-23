@@ -1,0 +1,20 @@
+{
+  "forgottenPassword": {
+    "title": "Forgotten password ?",
+    "instructions": "Enter the email address associated with your account, and we'll send you a link to",
+    "resetPassword": "reset your password.",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "error": "Please enter a valid email"
+    },
+    "submit": "SEND ME A LINK",
+    "success": {
+      "message": "Check your email for a link to reset your password."
+    },
+    "error": {
+      "message": "There was an error on the server, please try again"
+    },
+    "login": "Log in"
+  }
+}

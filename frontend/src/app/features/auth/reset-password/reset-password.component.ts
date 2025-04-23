@@ -10,7 +10,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
-import { isStrongPassword } from "../utils/password-validators.utils";
+import { strongPasswordValidatorFactory } from "../utils/strong-password-validator.utils";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-reset-password",
@@ -27,6 +28,7 @@ import { isStrongPassword } from "../utils/password-validators.utils";
     MatIconModule,
     MatProgressSpinnerModule,
     RouterLink,
+    TranslateModule,
   ],
 })
 export class ResetPasswordComponent implements OnInit {
@@ -38,6 +40,7 @@ export class ResetPasswordComponent implements OnInit {
   passwordVisible = signal(false);
 
   constructor(
+    private translateService: TranslateService,
     private route: ActivatedRoute,
     private authService: AuthService,
     private fb: FormBuilder
@@ -46,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group(
       {
-        password: ["", [Validators.required, isStrongPassword]],
+        password: ["", [Validators.required, strongPasswordValidatorFactory(this.translateService)]],
         passwordConfirmation: ["", [Validators.required]],
         id: [""],
         token: [""],
@@ -82,14 +85,14 @@ export class ResetPasswordComponent implements OnInit {
         if (success) {
           this.submitSuccess.set(true);
           this.submitFail.set(false);
-          this.message = "Account successfully created, check your email for activation link.";
+          this.message = this.translateService.instant("resetPassword.messages.success");
         } else {
           this.submitFail.set(true);
           this.submitSuccess.set(false);
-          this.message = `Password reset failed, check your link and try again.`;
+          this.message = this.translateService.instant("resetPassword.messages.resetFailed");
         }
       } catch {
-        this.message = "An error occurred. Please try again later.";
+        this.message = this.translateService.instant("resetPassword.messages.error");
       }
     }
   }

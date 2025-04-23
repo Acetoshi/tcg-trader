@@ -10,8 +10,8 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
-import { isStrongPassword } from "../utils/password-validators.utils";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { strongPasswordValidatorFactory } from "../utils/strong-password-validator.utils";
 
 @Component({
   selector: "app-register",
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
       {
         username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(64)]],
         email: ["", [Validators.required, Validators.email]],
-        password: ["", [Validators.required, isStrongPassword]],
+        password: ["", [Validators.required, strongPasswordValidatorFactory(this.translateService)]],
         passwordConfirmation: ["", [Validators.required]],
       },
       { validator: this.passwordMatchValidator }

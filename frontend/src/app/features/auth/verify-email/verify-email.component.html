@@ -1,23 +1,23 @@
 <main>
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Email verification</mat-card-title>
+      <mat-card-title>{{ "verifyEmail.title" | translate }}</mat-card-title>
     </mat-card-header>
     <mat-card-content class="verify-email-content">
       @if (waitingForResponse) {
         <mat-spinner />
-        <p>Verifying your email ...</p>
+        <p>{{ "verifyEmail.verifying" | translate }}</p>
       }
       @if (!waitingForResponse && verificationStatus) {
         <mat-icon class="icon-xl success-color">check_circle</mat-icon>
-        <p>Your email has been successfully verified, you are logged in !</p>
+        <p>{{ "verifyEmail.success.message" | translate }}</p>
         <button mat-flat-button color="primary" routerLink="/dashboard">
-          <mat-icon>chevron_right</mat-icon> Go to my dashboard
+          <mat-icon>chevron_right</mat-icon> {{ "verifyEmail.success.dashboard" | translate }}
         </button>
       }
       @if (!waitingForResponse && !verificationStatus) {
         <mat-icon color="warn" class="icon-xl error-color">cancel</mat-icon>
-        <p>Your email couldn't be verified, check your link.</p>
+        <p>{{ "verifyEmail.error.message" | translate }}</p>
       }
     </mat-card-content>
   </mat-card>

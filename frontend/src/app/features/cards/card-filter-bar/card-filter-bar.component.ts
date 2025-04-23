@@ -17,6 +17,7 @@ import { Rarity } from "../models/rarity.model";
 import { CardType } from "../models/card-type.model";
 import { Color } from "../models/color.model";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "../../../core/services/language.service";
 
 @Component({
   selector: "app-card-filter-bar",
@@ -52,6 +53,7 @@ export class CardFilterBarComponent implements OnInit {
   showMoreFilters = signal(false);
 
   constructor(
+    private languageService: LanguageService,
     private fb: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: object,
     private translateService: TranslateService
@@ -74,7 +76,7 @@ export class CardFilterBarComponent implements OnInit {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
       this.loading.set(true);
-      const response = await fetch(`${this.apiUrl}/en/sets`);
+      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/sets`);
       const data = await response.json();
       this.sets.set(data.results);
     } catch {
@@ -87,7 +89,7 @@ export class CardFilterBarComponent implements OnInit {
   async fetchRarities() {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
-      const response = await fetch(`${this.apiUrl}/en/rarities`);
+      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/rarities`);
       const data = await response.json();
       this.rarities.set(data.results);
     } catch {
@@ -98,7 +100,7 @@ export class CardFilterBarComponent implements OnInit {
   async fetchCardTypes() {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
-      const response = await fetch(`${this.apiUrl}/en/card-types`);
+      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/card-types`);
       const data = await response.json();
       this.cardTypes.set(data.results);
     } catch {
@@ -109,7 +111,7 @@ export class CardFilterBarComponent implements OnInit {
   async fetchColors() {
     if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
     try {
-      const response = await fetch(`${this.apiUrl}/en/colors`);
+      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/colors`);
       const data = await response.json();
       this.colors.set(data.results);
     } catch {
