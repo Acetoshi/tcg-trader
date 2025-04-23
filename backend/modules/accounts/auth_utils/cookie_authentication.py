@@ -3,7 +3,7 @@ import jwt
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
-from accounts.auth_utils.jwt import decode_jwt
+from modules.accounts.auth_utils.jwt import decode_jwt
 
 User = get_user_model()
 

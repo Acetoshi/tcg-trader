@@ -1,9 +1,9 @@
-from accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 from django.db import connection
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
+from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 from modules.card_collections.models import UserCardCollection
 from modules.card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
 

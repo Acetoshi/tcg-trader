@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from accounts.auth_utils.cookie import attach_jwt_cookie
+from modules.accounts.auth_utils.cookie import attach_jwt_cookie
 
 
 class SlidingAuthBaseView(APIView):

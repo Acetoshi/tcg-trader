@@ -1,11 +1,11 @@
 from django.urls import path
-from accounts.views.register import RegisterView
-from accounts.views.forgotten_password import ForgottenPasswordView
-from accounts.views.verify_email import VerifyEmailView
-from accounts.views.login import LoginView
-from accounts.views.user_details import UserDetailsView
-from accounts.views.logout import LogoutView
-from accounts.views.reset_password import ResetPasswordView
+from modules.accounts.views.register import RegisterView
+from modules.accounts.views.forgotten_password import ForgottenPasswordView
+from modules.accounts.views.verify_email import VerifyEmailView
+from modules.accounts.views.login import LoginView
+from modules.accounts.views.user_details import UserDetailsView
+from modules.accounts.views.logout import LogoutView
+from modules.accounts.views.reset_password import ResetPasswordView
 
 urlpatterns = [
     path("login", LoginView.as_view(), name="login"),

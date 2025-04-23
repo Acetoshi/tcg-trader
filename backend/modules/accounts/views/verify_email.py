@@ -5,7 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from accounts.auth_utils.cookie import attach_jwt_cookie
+from modules.accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
 

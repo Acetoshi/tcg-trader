@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class TradesConfig(AppConfig):
+class QuickstartConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "trades"
+    name = "modules.accounts"
+    label = "accounts"

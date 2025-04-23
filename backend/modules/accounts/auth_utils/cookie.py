@@ -1,5 +1,5 @@
 from django.conf import settings
-from accounts.auth_utils.jwt import generate_jwt
+from modules.accounts.auth_utils.jwt import generate_jwt
 
 
 def attach_jwt_cookie(response, user):

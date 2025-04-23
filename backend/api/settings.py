@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     "django.core.management.base",
     "django.contrib.postgres",
     "rest_framework",
-    "accounts",
+    "modules.accounts",
     "cards",
     "modules.card_collections",
-    "trades",
+    "modules.trades",
 ]
 
 MIDDLEWARE = [
@@ -147,7 +147,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 50,
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
+        "modules.accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
     ],
     # "DEFAULT_PERMISSION_CLASSES": [
     #     "rest_framework.permissions.IsAuthenticated",
