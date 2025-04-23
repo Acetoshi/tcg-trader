@@ -24,7 +24,7 @@ export class CollectionItemComponent implements OnInit {
 
   fileServerBaseUrl = environment.fileServerUrl;
 
-  selectedLanguageCode = signal('en');
+  selectedLanguageCode = signal("en");
   availableLanguageCodes = computed(() => this.collectionItem().languageVersions.map(version => version.languageCode));
 
   // TODO : fallback to english if the default user's language isn't available
@@ -43,7 +43,7 @@ export class CollectionItemComponent implements OnInit {
 
   ngOnInit() {
     //display cards in the user's language if possible
-    this.selectedLanguageCode.set(this.languageService.currentLang())
+    this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
     // Debounce input
