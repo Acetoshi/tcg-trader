@@ -78,6 +78,13 @@
       }
     }
   },
+  "passwordValidation": {
+    "minLength": "12 caractères",
+    "specialChar": "1 caractère spécial",
+    "uppercase": "1 majuscule",
+    "lowercase": "1 minuscule",
+    "digit": "1 chiffre"
+  },
   "verifyEmail": {
     "title": "Vérification de votre e-mail",
     "verifying": "Vérification de votre e-mail ...",

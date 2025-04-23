@@ -10,7 +10,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
-import { isStrongPassword } from "../utils/password-validators.utils";
+import { strongPasswordValidatorFactory } from "../utils/strong-password-validator.utils";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-reset-password",
@@ -38,6 +39,7 @@ export class ResetPasswordComponent implements OnInit {
   passwordVisible = signal(false);
 
   constructor(
+    private translateService: TranslateService,
     private route: ActivatedRoute,
     private authService: AuthService,
     private fb: FormBuilder
@@ -46,7 +48,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group(
       {
-        password: ["", [Validators.required, isStrongPassword]],
+        password: ["", [Validators.required, strongPasswordValidatorFactory(this.translateService)]],
         passwordConfirmation: ["", [Validators.required]],
         id: [""],
         token: [""],
