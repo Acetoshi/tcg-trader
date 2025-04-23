@@ -11,17 +11,17 @@ import {
 } from "@angular/core";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../../environments/environment";
+import { LanguageService } from "../../../core/services/language.service";
+import { CardFilters, defaultFilters } from "../models/cards-filters.model";
+import { Card } from "../models/card.model";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
-import { CardFilters, defaultFilters } from "../models/cards-filters.model";
-import { MatIcon } from "@angular/material/icon";
-import { Card } from "../models/card.model";
-import { LanguageService } from "../../../core/services/language.service";
+import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 
 @Component({
   selector: "app-cards-list",
-  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, CardFilterBarComponent, MatIcon],
+  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, CardFilterBarComponent, NoResultsComponent],
   templateUrl: "./cards-list.component.html",
   styleUrl: "./cards-list.component.scss",
 })
