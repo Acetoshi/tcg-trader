@@ -21,6 +21,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Found {len(colors)} colors.")
 
         lang_en = Language.objects.get(code="EN")
+        lang_fr = Language.objects.get(code="FR")
 
         # Then insert all colors and their english translation
         for color in colors:
@@ -46,5 +47,22 @@ class Command(BaseCommand):
                 self.stdout.write(
                     self.style.WARNING(
                         f"   └─ English translation already exists for: {translation_obj}"
+                    )
+                )
+
+            translation_obj, translation_created = ColorTranslation.objects.get_or_create(
+                color=color_obj,
+                language=lang_fr,
+                name=color["name-fr"],  # Assuming you have translations in the dataset
+            )
+
+            if translation_created:
+                self.stdout.write(
+                    self.style.SUCCESS(f"   └─ Created French translation: {translation_obj}")
+                )
+            else:
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"   └─ French translation already exists for: {translation_obj}"
                     )
                 )

@@ -17,6 +17,7 @@ import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.compo
 import { CardFilters, defaultFilters } from "../models/cards-filters.model";
 import { MatIcon } from "@angular/material/icon";
 import { Card } from "../models/card.model";
+import { LanguageService } from "../../../core/services/language.service";
 
 @Component({
   selector: "app-cards-list",
@@ -40,7 +41,10 @@ export class CardsListComponent implements OnInit, AfterViewInit {
   filters = signal<CardFilters>(defaultFilters);
   lastFetchedFilters: CardFilters = defaultFilters;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+    private languageService: LanguageService
+  ) {
     effect(() => {
       // Check if the filters have changed
       const currentFilters = this.filters();
@@ -90,7 +94,7 @@ export class CardsListComponent implements OnInit, AfterViewInit {
         weakness: weaknessCodes.join(","),
       });
 
-      const response = await fetch(`${this.apiUrl}/en/cards?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/cards?${params.toString()}`);
       const data = await response.json();
 
       this.cards.set([...this.cards(), ...data.results]);

@@ -53,7 +53,7 @@ export class CardFilterBarComponent implements OnInit {
   showMoreFilters = signal(false);
 
   constructor(
-    private languageService : LanguageService,
+    private languageService: LanguageService,
     private fb: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: object,
     private translateService: TranslateService

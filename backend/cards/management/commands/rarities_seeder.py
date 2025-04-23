@@ -22,6 +22,7 @@ class Command(BaseCommand):
 
         # First get the English language object
         lang_en = Language.objects.get(code="EN")
+        lang_fr = Language.objects.get(code="FR")
 
         # Then insert all rarities and their english translation
         for rarity in rarities:
@@ -32,6 +33,12 @@ class Command(BaseCommand):
             RarityTranslation.objects.get_or_create(
                 rarity=rarity_obj,
                 language=lang_en,
-                name=rarity["name"],  # Assuming you have translations in the dataset
+                name=rarity["name-en"],  # Assuming you have translations in the dataset
+            )
+
+            RarityTranslation.objects.get_or_create(
+                rarity=rarity_obj,
+                language=lang_fr,
+                name=rarity["name-fr"],  # Assuming you have translations in the dataset
             )
         self.stdout.write(f"Added {len(rarities)} rarities with English translations.")

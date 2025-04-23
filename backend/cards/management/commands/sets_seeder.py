@@ -21,7 +21,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Found {len(sets)} sets.")
 
         lang_en = Language.objects.get(code="EN")
-        # lang_fr = Language.objects.get(code="FR")
+        lang_fr = Language.objects.get(code="FR")
 
         # Then insert all sets and their english translation
         for set in sets:
@@ -29,10 +29,17 @@ class Command(BaseCommand):
                 code=set["code"],
             )
 
-            SetTranslation.objects.get_or_create(
+            SetTranslation.objects.update_or_create(
                 set=set_obj,
                 language=lang_en,
                 name=set["name-en"],  # Assuming you have translations in the dataset
+            )
+            self.stdout.write(self.style.SUCCESS(f"added set {set['name-en']}"))
+
+            SetTranslation.objects.update_or_create(
+                set=set_obj,
+                language=lang_fr,
+                name=set["name-fr"],  # Assuming you have translations in the dataset
             )
             self.stdout.write(self.style.SUCCESS(f"added set {set['name-en']}"))
         print("Added Sets")

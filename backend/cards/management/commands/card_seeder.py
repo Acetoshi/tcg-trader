@@ -108,7 +108,9 @@ class Command(BaseCommand):
                             print(f'couldnt find {print(card["name"])} in db')
 
                 # find pokemon type in db
-                color_trans_obj = ColorTranslation.objects.get(name__icontains=card["color"])
+                color_trans_obj = ColorTranslation.objects.filter(
+                    name__icontains=card["color"]
+                ).first()
                 color_obj = color_trans_obj.color
 
                 # find pokemon weakness type in db
