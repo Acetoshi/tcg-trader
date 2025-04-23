@@ -201,5 +201,9 @@
     "dashboard": "Tableau de bord",
     "accountSettings": "Paramètres du compte",
     "logout": "Déconnexion"
+  },
+  "noResults": {
+    "title": "Aucun résultat trouvé.",
+    "suggestion": "Essayez d'ajuster vos filtres."
   }
 }

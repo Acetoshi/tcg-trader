@@ -201,5 +201,9 @@
     "dashboard": "Dashboard",
     "accountSettings": "Account Settings",
     "logout": "Logout"
+  },
+  "noResults": {
+    "title": "No results found.",
+    "suggestion": "Try adjusting your filters."
   }
 }
