@@ -10,7 +10,7 @@
     },
     "submit": "ENVOYEZ-MOI UN LIEN",
     "success": {
-      "message": "Consultez votre e-mail pour obtenir un lien de réinitialisation du mot de passe."
+      "message": "Consultez vos mails pour obtenir un lien de réinitialisation du mot de passe."
     },
     "error": {
       "message": "Une erreur s'est produite sur le serveur, veuillez réessayer"

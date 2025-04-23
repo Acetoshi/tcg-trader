@@ -10,7 +10,7 @@
     },
     "submit": "ENVOYEZ-MOI UN LIEN",
     "success": {
-      "message": "Consultez votre e-mail pour obtenir un lien de réinitialisation du mot de passe."
+      "message": "Consultez vos mails pour obtenir un lien de réinitialisation du mot de passe."
     },
     "error": {
       "message": "Une erreur s'est produite sur le serveur, veuillez réessayer"
@@ -96,7 +96,7 @@
     },
     "buttons": {
       "save": "ENREGISTRER LE MOT DE PASSE",
-      "login": "Aller à la connexion"
+      "dashboard": "Aller sur mon tableau de bord"
     },
     "messages": {
       "success": "Votre mot de passe a été mis à jour avec succès",

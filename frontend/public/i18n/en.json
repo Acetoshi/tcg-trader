@@ -96,7 +96,7 @@
     },
     "buttons": {
       "save": "SAVE PASSWORD",
-      "login": "Go to login"
+      "dashboard": "Go to dashboard"
     },
     "messages": {
       "success": "Your password was successfully updated",

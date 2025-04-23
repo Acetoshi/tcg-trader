@@ -17,7 +17,7 @@
     },
     "buttons": {
       "save": "ENREGISTRER LE MOT DE PASSE",
-      "login": "Aller à la connexion"
+      "dashboard": "Aller sur mon tableau de bord"
     },
     "messages": {
       "success": "Votre mot de passe a été mis à jour avec succès",
