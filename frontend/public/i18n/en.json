@@ -165,6 +165,34 @@
     "tradeFinder": "Trade Finder",
     "tradeHistory": "Trade History"
   },
+  "account": {
+    "panels": {
+      "publicProfile": "Public profile",
+      "credentials": "Credentials"
+    },
+    "form": {
+      "username": {
+        "label": "Username",
+        "hint": "For your privacy, avoid using personal information in your username."
+      },
+      "tcgpId": {
+        "label": "Pokemon TCG Pocket trainer ID"
+      },
+      "bio": {
+        "label": "Bio"
+      }
+    },
+    "buttons": {
+      "save": "SAVE",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "comingSoon": "Soon you'll be able to change your email or password here"
+    },
+    "avatar": {
+      "alt": "your avatar"
+    }
+  },
   "navbar": {
     "home": "Home",
     "cards": "Cards",
