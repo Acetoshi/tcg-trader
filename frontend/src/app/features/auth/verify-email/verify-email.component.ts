@@ -7,12 +7,21 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { MatCardModule } from "@angular/material/card";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-verify-email",
   templateUrl: "./verify-email.component.html",
   styleUrls: ["./verify-email.component.scss"],
-  imports: [CommonModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, RouterLink, MatCardModule],
+  imports: [
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterLink,
+    MatCardModule,
+    TranslateModule,
+  ],
 })
 export class VerifyEmailComponent implements OnInit {
   verificationStatus = false;

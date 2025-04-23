@@ -78,6 +78,17 @@
       }
     }
   },
+  "verifyEmail": {
+    "title": "Vérification de votre e-mail",
+    "verifying": "Vérification de votre e-mail ...",
+    "success": {
+      "message": "Votre e-mail a été vérifié avec succès, vous êtes connecté !",
+      "dashboard": "Aller à mon tableau de bord"
+    },
+    "error": {
+      "message": "Votre e-mail n'a pas pu être vérifié, vérifiez votre lien."
+    }
+  },
   "cardFilterBar": {
     "search": {
       "label": "Rechercher une carte",
