@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "accounts",
     "cards",
     "card_collections",
+    "trades",
 ]
 
 MIDDLEWARE = [
