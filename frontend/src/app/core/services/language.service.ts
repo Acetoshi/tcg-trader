@@ -1,4 +1,4 @@
-import { Injectable, signal } from "@angular/core";
+import { computed, Injectable, signal } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { isPlatformBrowser } from "@angular/common";
 import translationsEN from "../../../../public/i18n/en.json";
@@ -26,7 +26,7 @@ export class LanguageService {
     this.translate.use(this._currentLang());
   }
 
-  currentLang = () => this._currentLang.asReadonly();
+  currentLang = computed(() => this._currentLang());
 
   setLang(lang: string) {
     this._currentLang.set(lang);
