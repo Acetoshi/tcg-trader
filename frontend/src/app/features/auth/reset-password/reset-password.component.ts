@@ -11,7 +11,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
 import { AuthService } from "../../../core/services/auth.service";
 import { strongPasswordValidatorFactory } from "../utils/strong-password-validator.utils";
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-reset-password",
@@ -28,6 +28,7 @@ import { TranslateService } from "@ngx-translate/core";
     MatIconModule,
     MatProgressSpinnerModule,
     RouterLink,
+    TranslateModule,
   ],
 })
 export class ResetPasswordComponent implements OnInit {
@@ -84,14 +85,14 @@ export class ResetPasswordComponent implements OnInit {
         if (success) {
           this.submitSuccess.set(true);
           this.submitFail.set(false);
-          this.message = "Account successfully created, check your email for activation link.";
+          this.message = this.translateService.instant("resetPassword.messages.success");
         } else {
           this.submitFail.set(true);
           this.submitSuccess.set(false);
-          this.message = `Password reset failed, check your link and try again.`;
+          this.message = this.translateService.instant("resetPassword.messages.resetFailed");
         }
       } catch {
-        this.message = "An error occurred. Please try again later.";
+        this.message = this.translateService.instant("resetPassword.messages.error");
       }
     }
   }

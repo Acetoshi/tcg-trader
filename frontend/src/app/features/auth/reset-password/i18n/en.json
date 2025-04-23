@@ -1,0 +1,28 @@
+{
+  "resetPassword": {
+    "title": "Change password",
+    "form": {
+      "newPassword": {
+        "label": "New password",
+        "placeholder": "Enter your password"
+      },
+      "confirmPassword": {
+        "label": "New password confirmation",
+        "placeholder": "Repeat your password"
+      },
+      "errors": {
+        "mismatch": "Passwords do not match",
+        "weakness": "At least {{requirements}}"
+      }
+    },
+    "buttons": {
+      "save": "SAVE PASSWORD",
+      "login": "Go to login"
+    },
+    "messages": {
+      "success": "Your password was successfully updated",
+      "resetFailed": "Password reset failed, check your link and try again",
+      "error": "An error occurred. Please try again later"
+    }
+  }
+}

@@ -8,7 +8,10 @@ dev:
 dev-build:
 	docker compose -f docker-compose.dev.yml up --build
 
+# the script runs linters twice to auto-correct stuff
 lint:
+	@cd backend && venv/bin/pre-commit run --all-files
+	@cd frontend && npm run format+lint:fix
 	@cd backend && venv/bin/pre-commit run --all-files
 	@cd frontend && npm run format+lint:fix
 

@@ -1,0 +1,28 @@
+{
+  "resetPassword": {
+    "title": "Changer le mot de passe",
+    "form": {
+      "newPassword": {
+        "label": "Nouveau mot de passe",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "confirmPassword": {
+        "label": "Confirmation du nouveau mot de passe",
+        "placeholder": "Répétez votre mot de passe"
+      },
+      "errors": {
+        "mismatch": "Les mots de passe ne correspondent pas",
+        "weakness": "Au moins {{requirements}}"
+      }
+    },
+    "buttons": {
+      "save": "ENREGISTRER LE MOT DE PASSE",
+      "login": "Aller à la connexion"
+    },
+    "messages": {
+      "success": "Votre mot de passe a été mis à jour avec succès",
+      "resetFailed": "La réinitialisation du mot de passe a échoué, vérifiez votre lien et réessayez",
+      "error": "Une erreur s'est produite. Veuillez réessayer plus tard"
+    }
+  }
+}
