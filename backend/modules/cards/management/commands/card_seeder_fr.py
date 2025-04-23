@@ -1,7 +1,7 @@
 import json
 import os
 from django.core.management.base import BaseCommand
-from cards.models import Card, CardNameTranslation, CardImage, Language, Set
+from modules.cards.models import Card, CardNameTranslation, CardImage, Language, Set
 
 
 # Update this to include all sets you want to process

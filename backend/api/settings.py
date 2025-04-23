@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "rest_framework",
     "modules.accounts",
-    "cards",
+    "modules.cards",
     "modules.card_collections",
     "modules.trades",
 ]

@@ -1,5 +1,5 @@
 from django.db import models
-from cards.models import Card, Language
+from modules.cards.models import Card, Language
 from django.contrib.auth import get_user_model
 
 User = get_user_model()

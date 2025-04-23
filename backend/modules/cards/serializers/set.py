@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from cards.models import CardType
+from modules.cards.models import Set
 
 
-class CardTypeSerializer(serializers.ModelSerializer):
+class SetSerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)
 
     class Meta:
-        model = CardType
+        model = Set
         fields = ["code", "name"]

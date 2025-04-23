@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from cards.models import Illustrator
+from modules.cards.models import Illustrator
 
 
 class IllustratorSerializer(serializers.ModelSerializer):

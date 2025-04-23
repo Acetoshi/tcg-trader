@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from cards.models import Card
-from cards.serializers.pokemon_card_details import PokemonCardDetailsSerializer
+from modules.cards.models import Card
+from modules.cards.serializers.pokemon_card_details import PokemonCardDetailsSerializer
 
 
 class CardSerializer(serializers.ModelSerializer):

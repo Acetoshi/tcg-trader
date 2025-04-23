@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from cards.models import Color
+from modules.cards.models import Rarity
 
 
-class ColorSerializer(serializers.ModelSerializer):
+class RaritySerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)
     imageUrl = serializers.CharField(source="image_url")
 
     class Meta:
-        model = Color
+        model = Rarity
         fields = ["code", "name", "imageUrl"]

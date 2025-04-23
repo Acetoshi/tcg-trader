@@ -1,5 +1,5 @@
 from django.contrib import admin
-from cards.models import (
+from modules.cards.models import (
     Pokemon,
     Language,
     PokemonTranslation,

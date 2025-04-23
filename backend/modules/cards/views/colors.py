@@ -1,8 +1,8 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
-from cards.serializers.color import ColorSerializer
-from cards.models import Color, ColorTranslation
-from cards.utils import sanitize_input
+from modules.cards.serializers.color import ColorSerializer
+from modules.cards.models import Color, ColorTranslation
+from modules.cards.utils import sanitize_input
 
 
 class ColorListView(ListAPIView):

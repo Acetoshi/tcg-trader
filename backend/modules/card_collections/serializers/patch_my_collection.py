@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from modules.card_collections.models import UserCardCollection
-from cards.models import Card, Language
+from modules.cards.models import Card, Language
 
 
 class PatchMyCollectionSerializer(serializers.ModelSerializer):

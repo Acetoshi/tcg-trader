@@ -1,8 +1,8 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
-from cards.serializers.set import SetSerializer
-from cards.models import Set, SetTranslation
-from cards.utils import sanitize_input
+from modules.cards.serializers.set import SetSerializer
+from modules.cards.models import Set, SetTranslation
+from modules.cards.utils import sanitize_input
 
 
 class SetListView(ListAPIView):

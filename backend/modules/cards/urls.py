@@ -1,9 +1,9 @@
 from django.urls import path
-from cards.views.cards import CardListView
-from cards.views.sets import SetListView
-from cards.views.rarities import RarityListView
-from cards.views.card_types import CardTypeListView
-from cards.views.colors import ColorListView
+from modules.cards.views.cards import CardListView
+from modules.cards.views.sets import SetListView
+from modules.cards.views.rarities import RarityListView
+from modules.cards.views.card_types import CardTypeListView
+from modules.cards.views.colors import ColorListView
 
 urlpatterns = [
     path("cards", CardListView.as_view(), name="card-list"),

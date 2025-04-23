@@ -1,8 +1,8 @@
 from django.db.models import Subquery, OuterRef
 from rest_framework.generics import ListAPIView
-from cards.serializers.rarity import RaritySerializer
-from cards.models import Rarity, RarityTranslation
-from cards.utils import sanitize_input
+from modules.cards.serializers.rarity import RaritySerializer
+from modules.cards.models import Rarity, RarityTranslation
+from modules.cards.utils import sanitize_input
 
 
 class RarityListView(ListAPIView):

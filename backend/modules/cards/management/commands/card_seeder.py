@@ -1,7 +1,7 @@
 import json
 from django.core.management.base import BaseCommand
 from django.db.models import Q
-from cards.models import (
+from modules.cards.models import (
     Language,
     Rarity,
     ColorTranslation,

@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from cards.models import Language, Pokemon, PokemonTranslation
+from modules.cards.models import Language, Pokemon, PokemonTranslation
 
 EN_DATASET_PATH = "/app/dataset/pokedex_data_en.json"
 FR_DATASET_PATH = "/app/dataset/pokedex_data_fr.json"

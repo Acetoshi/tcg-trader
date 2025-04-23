@@ -1,15 +1,15 @@
 from django.db.models import Q, Subquery, OuterRef
 from rest_framework.generics import ListAPIView
-from cards.models import Card
-from cards.serializers.cards import CardSerializer
-from cards.models import (
+from modules.cards.models import Card
+from modules.cards.serializers.cards import CardSerializer
+from modules.cards.models import (
     SetTranslation,
     CardImage,
     RarityTranslation,
     CardNameTranslation,
     CardTypeTranslation,
 )
-from cards.utils import sanitize_input
+from modules.cards.utils import sanitize_input
 
 
 class CardListView(ListAPIView):
