@@ -3,12 +3,10 @@
   <mat-card-content class="trade-overview">
     <figure>
       <p>You give</p>
-      <img
-        mat-card-image
-        [src]="fileServerBaseUrl + opportunity().offeredItem.imgUrl"
-        alt="card ref"
-        class="trade-opportunity-image" />
-      <figcaption>#A1_001 bulbizarre FR</figcaption>
+      <img mat-card-image [src]="fileServerBaseUrl + myCard().imgUrl" alt="card ref" class="trade-opportunity-image" />
+      <figcaption>
+        #{{ myCard().setCode }}-{{ myCard().cardNumber.toString().padStart(3, "0") }} ({{ myCard().languageCode }})
+      </figcaption>
     </figure>
     <span class="text-centered">
       <mat-icon class="icon-xl">swap_horiz</mat-icon>
@@ -20,7 +18,11 @@
         [src]="fileServerBaseUrl + opportunity().requestedItem.imgUrl"
         alt="card ref"
         class="trade-opportunity-image" />
-      <figcaption>#A1_001 bulbizarre FR</figcaption>
+      <figcaption>
+        #{{ theirCard().setCode }}-{{ theirCard().cardNumber.toString().padStart(3, "0") }} ({{
+          theirCard().languageCode
+        }})
+      </figcaption>
     </figure>
   </mat-card-content>
   <mat-card-actions class="trade-actions high-density">

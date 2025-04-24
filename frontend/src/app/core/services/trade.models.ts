@@ -1,13 +1,13 @@
 export interface TradeOpportunity {
   partnerUsername: string;
-  offeredItem: {
-    languageCode: string;
-    collectionId: number;
-    imgUrl: string;
-  };
-  requestedItem: {
-    languageCode: string;
-    collectionId: number;
-    imgUrl: string;
-  };
+  offeredItem: TradeItem;
+  requestedItem: TradeItem;
+}
+
+interface TradeItem {
+  collectionId: number;
+  languageCode: string;
+  cardNumber: number;
+  setCode: string;
+  imgUrl: string;
 }

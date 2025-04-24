@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { TradeOpportunity } from "../../../core/services/trade.models";
 import { CommonModule } from "@angular/common";
@@ -15,6 +15,9 @@ import { MatButtonModule } from "@angular/material/button";
 })
 export class TradeOpportunityComponent {
   opportunity = input.required<TradeOpportunity>();
+
+  myCard = computed(() => this.opportunity().offeredItem);
+  theirCard = computed(() => this.opportunity().requestedItem);
 
   fileServerBaseUrl = environment.fileServerUrl;
 }
