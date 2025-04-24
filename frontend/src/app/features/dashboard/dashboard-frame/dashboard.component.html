@@ -4,10 +4,14 @@
       <app-my-collection />
     </mat-tab>
 
-    <mat-tab label="{{ 'dashboardFrame.wishlist' | translate }}"> Content 2 </mat-tab>
+    <mat-tab label="{{ 'dashboardFrame.wishlist' | translate }}"> Soon, you'll see your current wishlist here </mat-tab>
 
-    <mat-tab label="{{ 'dashboardFrame.tradeFinder' | translate }}"> Content 3 </mat-tab>
+    <mat-tab label="{{ 'dashboardFrame.tradeFinder' | translate }}">
+      <app-trade-opportunities />
+    </mat-tab>
 
-    <mat-tab label="{{ 'dashboardFrame.tradeHistory' | translate }}"> Content 4 </mat-tab>
+    <mat-tab label="{{ 'dashboardFrame.tradeHistory' | translate }}">
+      Make a first trade to see it appear here
+    </mat-tab>
   </mat-tab-group>
 </main>

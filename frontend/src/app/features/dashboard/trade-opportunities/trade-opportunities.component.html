@@ -1,0 +1,11 @@
+<ul class="collection-items-list">
+  @for (opportunity of tradeService.opportunities(); track opportunity.partnerUsername) {
+    <li>
+      {{ opportunity.partnerUsername }}
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results />
+}
+<app-scroll-listener (reachedBottom)="(tradeService.fetchTradeOpportunitiesNextPage)" />
