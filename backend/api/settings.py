@@ -34,7 +34,6 @@ USE_X_FORWARDED_HOST = True
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -42,9 +41,10 @@ INSTALLED_APPS = [
     "django.core.management.base",
     "django.contrib.postgres",
     "rest_framework",
-    "accounts",
-    "cards",
-    "card_collections",
+    "modules.accounts",
+    "modules.cards",
+    "modules.card_collections",
+    "modules.trades",
 ]
 
 MIDDLEWARE = [
@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 50,
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
+        "modules.accounts.auth_utils.cookie_authentication.CookieJWTAuthentication",
     ],
     # "DEFAULT_PERMISSION_CLASSES": [
     #     "rest_framework.permissions.IsAuthenticated",

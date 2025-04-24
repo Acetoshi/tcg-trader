@@ -1,0 +1,34 @@
+<mat-accordion multi="true">
+  @for (partnerOpps of tradeService.opportunities(); track partnerOpps.partnerUsername) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span
+            >{{ partnerOpps.opportunities.length }}
+            @if (partnerOpps.opportunities.length > 1) {
+              trade opportunities
+            } @else {
+              trade opportunity
+            }
+            with&nbsp;</span
+          >
+          <a routerLink="/profiles/{{ partnerOpps.partnerUsername }}">
+            {{ partnerOpps.partnerUsername }}
+          </a>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="collection-items-list">
+        @for (opportunity of partnerOpps.opportunities; track opportunity) {
+          <li>
+            <app-trade-opportunity [opportunity]="opportunity" />
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
+  }
+</mat-accordion>
+
+@if (noResults()) {
+  <app-no-results />
+}
+<app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />
