@@ -7,7 +7,7 @@
     </a>
 
     <a mat-button routerLink="cards">
-      <mat-icon>view_list</mat-icon>
+      <mat-icon>content_copy</mat-icon>
       {{ "navbar.cards" | translate }}
     </a>
 
@@ -25,12 +25,12 @@
 
     @if (isAuthenticated()) {
       <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open dashboard menu">
-        <mat-icon>dashboard</mat-icon>
-        My Collection
+        <mat-icon>grid_view</mat-icon>
+        Collection
       </button>
       <mat-menu #myCollectionMenu="matMenu">
         <a mat-menu-item routerLink="my-collection">
-          <mat-icon>inventory</mat-icon>
+          <mat-icon>inventory_2</mat-icon>
           {{ "dashboardFrame.myCollection" | translate }}
         </a>
 
