@@ -63,20 +63,22 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
         )
         SELECT
             u.username AS "partnerUsername",
-            json_build_object(
-                'collectionId', your_offer_id,
-                'languageCode', your_lang.code,
-                'cardNumber', your_card.number,
-                'setCode', your_set.code,
-                'imgUrl', your_img.url
-            ) AS "offeredItem",
-            json_build_object(
-                'collectionId', their_offer_id,
-                'languageCode', their_lang.code,
-                'cardNumber', their_card.number,
-                'setCode', their_set.code,
-                'imgUrl', their_img.url
-            ) AS "requestedItem"
+            json_agg(
+                json_build_object(
+                    'offeredCard', json_build_object(
+                        'collectionId', your_offer_id,
+                        'languageCode', your_lang.code,
+                        'cardRef', your_set.code || '-' || LPAD(your_card.number::text, 3, '0'),
+                        'imgUrl', your_img.url
+                    ),
+                    'requestedCard', json_build_object(
+                        'collectionId', their_offer_id,
+                        'languageCode', their_lang.code,
+                        'cardRef', their_set.code || '-' || LPAD(their_card.number::text, 3, '0'),
+                        'imgUrl', their_img.url
+                    )
+                )
+            ) AS "opportunites"
         FROM matches
 
         JOIN accounts_customuser u
@@ -105,6 +107,8 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
 
         WHERE
             your_card.rarity_id=their_card.rarity_id
+
+        GROUP BY u.username
         ;"""
 
         params = {"user_id": filters["user_id"]}
