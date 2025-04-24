@@ -2,15 +2,6 @@
 @use "global-variables" as *;
 @use "toast-service.scss";
 
-// Custom colors
-$success-color: #4caf50;
-$error-color: #f44336;
-$warning-color: #ffc107;
-$info-color: #2196f3;
-
-// responsive design
-$breakpoint: 768px;
-
 html {
   color-scheme: light dark;
   @include mat.theme(
