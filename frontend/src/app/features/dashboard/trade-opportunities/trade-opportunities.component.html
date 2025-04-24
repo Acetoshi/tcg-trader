@@ -3,7 +3,15 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ partnerOpps.opportunities.length }} trades opportunities with
+          <span
+            >{{ partnerOpps.opportunities.length }}
+            @if (partnerOpps.opportunities.length > 1) {
+              trade opportunities
+            } @else {
+              trade opportunity
+            }
+            with&nbsp;</span
+          >
           <a routerLink="/profiles/{{ partnerOpps.partnerUsername }}">
             {{ partnerOpps.partnerUsername }}
           </a>
