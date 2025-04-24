@@ -24,29 +24,50 @@
     }
 
     @if (isAuthenticated()) {
-      <button mat-button [matMenuTriggerFor]="dashboardMenu" aria-label="Open dashboard menu">
+      <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open dashboard menu">
         <mat-icon>dashboard</mat-icon>
-        {{ "navbar.dashboard" | translate }}
+        My Collection
       </button>
-      <mat-menu #dashboardMenu="matMenu">
-        <a mat-menu-item routerLink="dashboard/my-collection">
+      <mat-menu #myCollectionMenu="matMenu">
+        <a mat-menu-item routerLink="my-collection">
           <mat-icon>inventory</mat-icon>
           {{ "dashboardFrame.myCollection" | translate }}
         </a>
 
-        <a mat-menu-item routerLink="dashboard/wishlist">
+        <a mat-menu-item routerLink="/my-collection/wishlist">
           <mat-icon>star</mat-icon>
           {{ "dashboardFrame.wishlist" | translate }}
         </a>
+      </mat-menu>
 
-        <a mat-menu-item routerLink="dashboard/trade-finder">
-          <mat-icon>swap_horiz</mat-icon>
-          {{ "dashboardFrame.tradeFinder" | translate }}
+      <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open dashboard menu">
+        <mat-icon>swap_horiz</mat-icon>
+        Trades
+      </button>
+      <mat-menu #tradingMenu="matMenu">
+        <a mat-menu-item routerLink="trades/find">
+          <mat-icon>search</mat-icon>
+          find
         </a>
 
-        <a mat-menu-item routerLink="dashboard/trade-history">
+        <a mat-menu-item routerLink="trades/incoming">
+          <mat-icon>call_received</mat-icon>
+          Incoming
+        </a>
+
+        <a mat-menu-item routerLink="trades/sent">
+          <mat-icon>call_made</mat-icon>
+          Sent
+        </a>
+
+        <a mat-menu-item routerLink="trades/ongoing">
+          <mat-icon>schedule</mat-icon>
+          Ongoing
+        </a>
+
+        <a mat-menu-item routerLink="trades/history">
           <mat-icon>history</mat-icon>
-          {{ "dashboardFrame.tradeHistory" | translate }}
+          History
         </a>
       </mat-menu>
 

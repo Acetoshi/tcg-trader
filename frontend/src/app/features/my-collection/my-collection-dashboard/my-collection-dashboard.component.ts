@@ -1,23 +1,23 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { filter } from "rxjs/operators";
 import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
+import { MatIcon } from "@angular/material/icon";
 import { MyCollectionComponent } from "../my-collection/my-collection.component";
 import { TranslateModule } from "@ngx-translate/core";
-import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { filter } from "rxjs/operators";
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"],
-  imports: [CommonModule, TranslateModule, MatTabsModule, MyCollectionComponent, TradeOpportunitiesComponent],
+  selector: "app-my-collection-dashboard",
+  templateUrl: "./my-collection-dashboard.component.html",
+  styleUrls: ["./my-collection-dashboard.component.scss"],
+  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, MyCollectionComponent],
 })
-export class DashboardComponent implements OnInit {
+export class MyCollectionDashboardComponent implements OnInit {
   selectedTabIndex = 0;
 
   // map index → child route
-  private tabs = ["my-collection", "wishlist", "trade-finder", "trade-history"];
+  private tabs = ["owned", "wishlist"];
 
   constructor(
     private router: Router,
