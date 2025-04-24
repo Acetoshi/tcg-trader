@@ -59,15 +59,21 @@
           {{ "navbar.accountSettings" | translate }}
         </button>
 
+        <button mat-menu-item (click)="changeLanguage($event)">
+          <mat-icon>translate</mat-icon>
+          Language : {{ languageService.getCurrentFlag() }}
+        </button>
+
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           {{ "navbar.logout" | translate }}
         </button>
       </mat-menu>
     }
-
-    <button mat-button class="language-button" (click)="changeLanguage()">
-      {{ languageService.getCurrentFlag() }}
-    </button>
+    @if (!isAuthenticated()) {
+      <button mat-button class="language-button" (click)="changeLanguage($event)">
+        {{ languageService.getCurrentFlag() }}
+      </button>
+    }
   </menu>
 </mat-toolbar>

@@ -30,5 +30,6 @@
 
 @if (noResults()) {
   <app-no-results />
+  <!-- TODO : add a CTA to share the app / go fill your collection -->
 }
 <app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

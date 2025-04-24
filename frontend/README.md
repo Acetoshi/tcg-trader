@@ -1,59 +1,78 @@
-# TcgTrader
+# Structure FR
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+- **Accueil**
+  Page d’accueil avec résumé des nouveautés et notifications.
 
-## Development server
+- **Cartothèque**
+  Exploration de toutes les cartes disponibles (recherche, filtres, détails).
 
-To start a local development server, run:
+- **Ma Collection**
+  Gestion personnelle de tes cartes.
 
-```bash
-ng serve
-```
+  - Ma collection
+  - Ma liste de souhaits
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Échanges**
+  Toute la partie trading, centralisée sous un seul onglet.
 
-## Code scaffolding
+  1. **Trouver un échange**
+     - Parcours des opportunités
+     - Suggestion automatique basée sur ta collection et ta wishlist
+  2. **À traiter**
+     - Offres reçues en attente de ta réponse
+     - Actions : Accepter, Refuser, Contre-offre
+  3. **Envoyées**
+     - Offres que tu as envoyées
+     - Actions : Annuler la proposition
+  4. **En cours**
+     - Échanges acceptés, en phase d’expédition ou de confirmation
+     - Actions : Suivi d’envoi, Marquer comme reçu
+  5. **Historique**
+     - Échanges terminés (acceptés ou refusés)
+     - Filtrable par statut (Accepté | Refusé | Complété)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Profil**
+  Tes paramètres et informations personnelles.
 
-```bash
-ng generate component component-name
-```
+  - Mon profil
+  - Préférences (langue, notifications)
+  - Déconnexion
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+  # EN structure :
 
-```bash
-ng generate --help
-```
+- **Home**
+  Dashboard with news, highlights and notifications.
 
-## Building
+- **Card Catalog**
+  Browse and search all available cards (filters, details, collections).
 
-To build the project run:
+- **My Collection**
+  Personal management of your cards.
 
-```bash
-ng build
-```
+  - **My Cards** – cards you own
+  - **My Wishlist** – cards you’re looking for
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **Trades**
+  All trading features in one place.
 
-## Running unit tests
+  1. **Find a Trade**
+     - Browse match suggestions based on your collection & wishlist
+     - Explore open trade opportunities
+  2. **Incoming**
+     - Offers you’ve received, awaiting your decision
+     - Actions: Accept, Decline, Counter-offer
+  3. **Sent**
+     - Offers you’ve sent, awaiting response
+     - Action: Cancel offer
+  4. **Ongoing**
+     - Accepted trades in progress (shipping/confirmation)
+     - Actions: Track shipment, Mark as received
+  5. **History**
+     - Completed or declined trades
+     - Filter by status (Accepted | Declined | Completed)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Profile**
+  Your account settings and preferences.
+  - **My Profile**
+  - **Settings** (language, notifications)
+  - **Log Out**
