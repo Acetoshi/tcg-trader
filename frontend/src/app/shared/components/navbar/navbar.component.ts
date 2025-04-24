@@ -40,5 +40,4 @@ export class NavbarComponent {
   protected changeLanguage(): void {
     this.languageService.changeLanguage();
   }
-
 }

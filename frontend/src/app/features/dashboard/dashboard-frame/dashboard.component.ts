@@ -25,11 +25,16 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //on hard refresh, show the right tab
+    this.setTabFromUrl();
+
     // when the child route changes, set selectedTabIndex
-    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
-      const child = this.route.firstChild?.snapshot.url[0]?.path;
-      this.selectedTabIndex = this.tabs.indexOf(child || "");
-    });
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => this.setTabFromUrl());
+  }
+
+  setTabFromUrl() {
+    const child = this.route.firstChild?.snapshot.url[0]?.path;
+    this.selectedTabIndex = this.tabs.indexOf(child || "");
   }
 
   onTabChange(event: MatTabChangeEvent) {
