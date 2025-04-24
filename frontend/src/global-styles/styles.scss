@@ -1,6 +1,7 @@
 @use "@angular/material" as mat;
 @use "global-variables" as *;
 @use "toast-service.scss";
+@use "material-overrides";
 
 html {
   color-scheme: light dark;

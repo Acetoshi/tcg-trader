@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   width: 100%;
+  height: 48px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -14,6 +15,11 @@
 
 button.language-button {
   font-size: larger;
+}
+
+menu {
+  margin: 0;
+  padding: 0;
 }
 
 /* Mobile styles */

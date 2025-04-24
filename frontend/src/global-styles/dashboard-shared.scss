@@ -4,29 +4,16 @@
   width: 100%;
 }
 
- ::ng-deep .mat-mdc-tab-header {
-  position: sticky !important;
-  top: 0px;
-  width: 100%;
-  z-index: 10000;
-  margin-bottom: 16px;
-  overflow: unset !important;
-  background-color: var(--mat-sys-surface);
-}
-
-.app-card-filterbar {
-  position: sticky ;
-  top: 20px;
-}
-
+// .app-card-filterbar {
+//   position: sticky !important;
+//   top: 20px;
+// }
 
 // mobile styles
 @media screen and (max-width: #{$breakpoint}) {
-  // for this particuliar layout we don't want the padding to get tabs full width
-main {
-  padding: 0;
-}
-::ng-deep .mat-mdc-tab-body-wrapper{
-  padding: 16px 16px 64px 16px;
-}
+  // for this particuliar layout we don't want the padding
+  // or we wouldn't get tabs full width
+  main {
+    padding: 0;
+  }
 }

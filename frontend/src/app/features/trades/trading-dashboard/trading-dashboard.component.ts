@@ -7,7 +7,6 @@ import { TranslateModule } from "@ngx-translate/core";
 import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 
-
 @Component({
   selector: "app-trading-dashboard",
   templateUrl: "./trading-dashboard.component.html",

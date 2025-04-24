@@ -3,20 +3,20 @@
     class="dashboard-tab-group"
     [selectedIndex]="selectedTabIndex"
     (selectedTabChange)="onTabChange($event)">
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
-          My collection
-        </ng-template>
-        <app-my-collection />
-      </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
+        My collection
+      </ng-template>
+      <app-my-collection />
+    </mat-tab>
 
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon class="icon-margin-right-8px">star</mat-icon>
-          My wishlist
-        </ng-template>
-        Soon, you'll see your current wishlist here
-      </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon-margin-right-8px">star</mat-icon>
+        My wishlist
+      </ng-template>
+      Soon, you'll see your current wishlist here
+    </mat-tab>
   </mat-tab-group>
 </main>
