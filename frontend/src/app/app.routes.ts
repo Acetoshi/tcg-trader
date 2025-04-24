@@ -17,7 +17,17 @@ export const routes: Routes = [
   { path: "forgotten-password", component: ForgottenPasswordComponent },
   { path: "reset-password", component: ResetPasswordComponent },
   { path: "verify-email", component: VerifyEmailComponent },
-  { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: "my-collection", component: DashboardComponent }, //This looks stupid but is needed to route to mat-tabs
+      { path: "wishlist", component: DashboardComponent },
+      { path: "trade-finder", component: DashboardComponent },
+      { path: "trade-history", component: DashboardComponent },
+    ],
+  },
   { path: "my-account", component: AccountComponent, canActivate: [AuthGuard] },
   { path: "cards", component: CardsListComponent },
 ];

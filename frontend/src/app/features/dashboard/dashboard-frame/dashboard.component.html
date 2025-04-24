@@ -1,5 +1,8 @@
 <main class="justify-start">
-  <mat-tab-group class="dashboard-tab-group">
+  <mat-tab-group
+    class="dashboard-tab-group"
+    [selectedIndex]="selectedTabIndex"
+    (selectedTabChange)="onTabChange($event)">
     <mat-tab label="{{ 'dashboardFrame.myCollection' | translate }}">
       <app-my-collection />
     </mat-tab>

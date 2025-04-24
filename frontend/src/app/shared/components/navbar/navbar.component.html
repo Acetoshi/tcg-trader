@@ -1,38 +1,59 @@
 <mat-toolbar color="primary" class="navbar">
   <h2 class="app-title" routerLink="">BulbaTrade</h2>
   <menu>
-    <button mat-button routerLink="">
+    <a mat-button routerLink="">
       <mat-icon>home</mat-icon>
       {{ "navbar.home" | translate }}
-    </button>
+    </a>
 
-    <button mat-button routerLink="cards">
+    <a mat-button routerLink="cards">
       <mat-icon>view_list</mat-icon>
       {{ "navbar.cards" | translate }}
-    </button>
+    </a>
 
     @if (!isAuthenticated()) {
-      <button mat-button routerLink="register">
+      <a mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
         {{ "navbar.register" | translate }}
-      </button>
+      </a>
 
-      <button mat-stroked-button routerLink="login">
+      <a mat-stroked-button routerLink="login">
         <mat-icon>login</mat-icon>
         {{ "navbar.login" | translate }}
-      </button>
+      </a>
     }
 
     @if (isAuthenticated()) {
-      <button mat-button routerLink="dashboard">
+      <button mat-button [matMenuTriggerFor]="dashboardMenu" aria-label="Open dashboard menu">
         <mat-icon>dashboard</mat-icon>
         {{ "navbar.dashboard" | translate }}
       </button>
+      <mat-menu #dashboardMenu="matMenu">
+        <a mat-menu-item routerLink="dashboard/my-collection">
+          <mat-icon>inventory</mat-icon>
+          {{ 'dashboardFrame.myCollection' | translate }}
+        </a>
 
-      <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
+        <a mat-menu-item routerLink="dashboard/wishlist">
+          <mat-icon>star</mat-icon>
+          {{ 'dashboardFrame.wishlist' | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="dashboard/trade-finder">
+          <mat-icon>swap_horiz</mat-icon>
+          {{ 'dashboardFrame.tradeFinder' | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="dashboard/trade-history">
+          <mat-icon>history</mat-icon>
+          {{ 'dashboardFrame.tradeHistory' | translate }}
+        </a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="userMenu" aria-label="Open user menu">
         {{ user?.username }}<mat-icon>person</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
           {{ "navbar.accountSettings" | translate }}
