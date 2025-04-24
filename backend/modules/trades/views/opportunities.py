@@ -78,7 +78,7 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
                         'imgUrl', their_img.url
                     )
                 )
-            ) AS "opportunites"
+            ) AS "opportunities"
         FROM matches
 
         JOIN accounts_customuser u

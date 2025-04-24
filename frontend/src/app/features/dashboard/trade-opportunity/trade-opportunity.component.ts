@@ -16,8 +16,8 @@ import { MatButtonModule } from "@angular/material/button";
 export class TradeOpportunityComponent {
   opportunity = input.required<TradeOpportunity>();
 
-  myCard = computed(() => this.opportunity().offeredItem);
-  theirCard = computed(() => this.opportunity().requestedItem);
+  myCard = computed(() => this.opportunity().offeredCard);
+  theirCard = computed(() => this.opportunity().requestedCard);
 
   fileServerBaseUrl = environment.fileServerUrl;
 }

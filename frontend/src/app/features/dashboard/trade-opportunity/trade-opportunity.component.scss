@@ -25,4 +25,7 @@
 .trade-actions {
   display: flex;
   justify-content: center;
+  & button{
+    width: 100%;
+  }
 }

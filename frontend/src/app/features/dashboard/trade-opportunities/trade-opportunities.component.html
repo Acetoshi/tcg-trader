@@ -1,10 +1,25 @@
-<ul class="collection-items-list">
-  @for (opportunity of tradeService.opportunities(); track opportunity.partnerUsername) {
-    <li>
-      <app-trade-opportunity [opportunity]="opportunity" />
-    </li>
+<mat-accordion multi="true">
+  @for (partnerOpps of tradeService.opportunities(); track partnerOpps.partnerUsername) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ partnerOpps.opportunities.length }} trades opportunities with
+          <a routerLink="/profiles/{{ partnerOpps.partnerUsername }}">
+            {{ partnerOpps.partnerUsername }}
+          </a>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="collection-items-list">
+        @for (opportunity of partnerOpps.opportunities; track opportunity) {
+          <li>
+            <app-trade-opportunity [opportunity]="opportunity" />
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
   }
-</ul>
+</mat-accordion>
+
 @if (noResults()) {
   <app-no-results />
 }

@@ -1,31 +1,25 @@
 <mat-card class="trade-opportunity-card">
-  <mat-card-header> Trade with : {{ opportunity().partnerUsername }} </mat-card-header>
+  <!-- <mat-card-header> Trade with : {{ opportunity().partnerUsername }} </mat-card-header> -->
   <mat-card-content class="trade-overview">
     <figure>
-      <p>You give</p>
+      <span>You give</span>
       <img mat-card-image [src]="fileServerBaseUrl + myCard().imgUrl" alt="card ref" class="trade-opportunity-image" />
-      <figcaption>
-        #{{ myCard().setCode }}-{{ myCard().cardNumber.toString().padStart(3, "0") }} ({{ myCard().languageCode }})
-      </figcaption>
+      <figcaption>#{{ myCard().cardRef }} ({{ myCard().languageCode }})</figcaption>
     </figure>
     <span class="text-centered">
       <mat-icon class="icon-xl">swap_horiz</mat-icon>
     </span>
     <figure>
-      <p>You get</p>
+      <span>You get</span>
       <img
         mat-card-image
-        [src]="fileServerBaseUrl + opportunity().requestedItem.imgUrl"
+        [src]="fileServerBaseUrl + theirCard().imgUrl"
         alt="card ref"
         class="trade-opportunity-image" />
-      <figcaption>
-        #{{ theirCard().setCode }}-{{ theirCard().cardNumber.toString().padStart(3, "0") }} ({{
-          theirCard().languageCode
-        }})
-      </figcaption>
+      <figcaption>#{{ theirCard().cardRef }} ({{ theirCard().languageCode }})</figcaption>
     </figure>
   </mat-card-content>
   <mat-card-actions class="trade-actions high-density">
-    <button mat-button>ASK TO TRADE<mat-icon>chevron_right</mat-icon></button>
+    <button mat-flat-button>ASK TO TRADE<mat-icon>chevron_right</mat-icon></button>
   </mat-card-actions>
 </mat-card>

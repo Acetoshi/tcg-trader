@@ -4,12 +4,14 @@ import { ScrollListenerComponent } from "../../../shared/components/scroll-liste
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { TradeService } from "../../../core/services/trade.service";
 import { TradeOpportunityComponent } from "../trade-opportunity/trade-opportunity.component";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-trade-opportunities",
   templateUrl: "./trade-opportunities.component.html",
   styleUrls: ["./trade-opportunities.component.scss"],
-  imports: [CommonModule, TradeOpportunityComponent, ScrollListenerComponent, NoResultsComponent],
+  imports: [CommonModule, MatExpansionModule, RouterLink, TradeOpportunityComponent, ScrollListenerComponent, NoResultsComponent],
 })
 export class TradeOpportunitiesComponent implements OnInit {
   noResults = computed(() => this.tradeService.opportunities().length === 0);

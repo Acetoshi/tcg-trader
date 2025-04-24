@@ -1,13 +1,16 @@
-export interface TradeOpportunity {
+export interface GroupedTradeOpportunities {
   partnerUsername: string;
-  offeredItem: TradeItem;
-  requestedItem: TradeItem;
+  opportunities: TradeOpportunity[];
 }
 
-interface TradeItem {
+export interface TradeOpportunity {
+  offeredCard: TradePart;
+  requestedCard: TradePart;
+}
+
+export interface TradePart {
   collectionId: number;
   languageCode: string;
-  cardNumber: number;
-  setCode: string;
+  cardRef: string;
   imgUrl: string;
 }
