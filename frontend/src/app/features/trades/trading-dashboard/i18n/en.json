@@ -1,8 +1,9 @@
 {
-  "dashboardFrame": {
-    "myCollection": "My Collection",
-    "wishlist": "Wishlist",
-    "tradeFinder": "Trade Finder",
-    "tradeHistory": "Trade History"
+  "tradingDashboard": {
+    "find": "Find",
+    "incoming": "Incoming",
+    "sent": "Sent",
+    "ongoing": "Ongoing",
+    "history": "History"
   }
 }

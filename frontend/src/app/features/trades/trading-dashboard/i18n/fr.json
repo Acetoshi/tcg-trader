@@ -1,8 +1,9 @@
 {
-  "dashboardFrame": {
-    "myCollection": "Ma Collection",
-    "wishlist": "Liste de souhaits",
-    "tradeFinder": "Recherche d'échange",
-    "tradeHistory": "Historique des échanges"
+  "tradingDashboard": {
+    "find": "Rechercher",
+    "incoming": "Propositions reçues",
+    "sent": "Propositions envoyées",
+    "ongoing": "En cours",
+    "history": "Historique"
   }
 }

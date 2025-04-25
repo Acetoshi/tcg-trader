@@ -1,8 +1,6 @@
 {
-  "dashboardFrame": {
+  "myCollectionDashboard": {
     "myCollection": "My Collection",
-    "wishlist": "Wishlist",
-    "tradeFinder": "Trade Finder",
-    "tradeHistory": "Trade History"
+    "wishlist": "Wishlist"
   }
 }

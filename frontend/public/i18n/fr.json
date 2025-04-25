@@ -159,12 +159,6 @@
       "fetchColors": "Erreur lors de la récupération des couleurs"
     }
   },
-  "dashboardFrame": {
-    "myCollection": "Ma Collection",
-    "wishlist": "Liste de souhaits",
-    "tradeFinder": "Recherche d'échange",
-    "tradeHistory": "Historique des échanges"
-  },
   "account": {
     "panels": {
       "publicProfile": "Profil public",
@@ -193,12 +187,24 @@
       "alt": "votre avatar"
     }
   },
+  "myCollectionDashboard": {
+    "myCollection": "Ma collection",
+    "wishlist": "Liste de souhaits"
+  },
+  "tradingDashboard": {
+    "find": "Rechercher",
+    "incoming": "Propositions reçues",
+    "sent": "Propositions envoyées",
+    "ongoing": "En cours",
+    "history": "Historique"
+  },
   "navbar": {
     "home": "Accueil",
     "cards": "Cartes",
     "register": "S'inscrire",
     "login": "Connexion",
-    "dashboard": "Tableau de bord",
+    "trades": "Échanges",
+    "collection": "Collection",
     "accountSettings": "Paramètres du compte",
     "logout": "Déconnexion"
   },

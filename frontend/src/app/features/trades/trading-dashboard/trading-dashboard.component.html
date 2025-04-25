@@ -6,7 +6,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">search</mat-icon>
-        Find
+        {{ "tradingDashboard.find" | translate }}
       </ng-template>
       <app-trade-opportunities />
     </mat-tab>
@@ -14,7 +14,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_received</mat-icon>
-        Incoming
+        {{ "tradingDashboard.incoming" | translate }}
       </ng-template>
       - Offers you have received, awaiting your decision - Actions: Accept, Decline, Counter-offer
     </mat-tab>
@@ -22,7 +22,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_made</mat-icon>
-        Sent
+        {{ "tradingDashboard.sent" | translate }}
       </ng-template>
       - Offers you have sent, awaiting response - Action: Cancel offer
     </mat-tab>
@@ -30,7 +30,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">schedule</mat-icon>
-        Ongoing
+        {{ "tradingDashboard.ongoing" | translate }}
       </ng-template>
       - Accepted trades in progress (shipping/confirmation) - Actions: Track shipment, Mark as received
     </mat-tab>
@@ -38,7 +38,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">history</mat-icon>
-        History
+        {{ "tradingDashboard.history" | translate }}
       </ng-template>
       - Completed or declined trades - Filter by status (Accepted | Declined | Completed)
     </mat-tab>

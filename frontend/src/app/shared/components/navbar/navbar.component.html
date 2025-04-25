@@ -26,48 +26,48 @@
     @if (isAuthenticated()) {
       <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open dashboard menu">
         <mat-icon>grid_view</mat-icon>
-        Collection
+        {{ "navbar.collection" | translate }}
       </button>
       <mat-menu #myCollectionMenu="matMenu">
         <a mat-menu-item routerLink="my-collection">
           <mat-icon>inventory_2</mat-icon>
-          {{ "dashboardFrame.myCollection" | translate }}
+          {{ "myCollectionDashboard.myCollection" | translate }}
         </a>
 
         <a mat-menu-item routerLink="/my-collection/wishlist">
           <mat-icon>star</mat-icon>
-          {{ "dashboardFrame.wishlist" | translate }}
+          {{ "myCollectionDashboard.wishlist" | translate }}
         </a>
       </mat-menu>
 
       <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open dashboard menu">
         <mat-icon>swap_horiz</mat-icon>
-        Trades
+        {{ "navbar.trades" | translate }}
       </button>
       <mat-menu #tradingMenu="matMenu">
         <a mat-menu-item routerLink="trades/find">
           <mat-icon>search</mat-icon>
-          find
+          {{ "tradingDashboard.find" | translate }}
         </a>
 
         <a mat-menu-item routerLink="trades/incoming">
           <mat-icon>call_received</mat-icon>
-          Incoming
+          {{ "tradingDashboard.incoming" | translate }}
         </a>
 
         <a mat-menu-item routerLink="trades/sent">
           <mat-icon>call_made</mat-icon>
-          Sent
+          {{ "tradingDashboard.sent" | translate }}
         </a>
 
         <a mat-menu-item routerLink="trades/ongoing">
           <mat-icon>schedule</mat-icon>
-          Ongoing
+          {{ "tradingDashboard.ongoing" | translate }}
         </a>
 
         <a mat-menu-item routerLink="trades/history">
           <mat-icon>history</mat-icon>
-          History
+          {{ "tradingDashboard.history" | translate }}
         </a>
       </mat-menu>
 
