@@ -1,0 +1,19 @@
+@use "global-variables" as *;
+
+.dashboard-tab-group {
+  width: 100%;
+}
+
+// .app-card-filterbar {
+//   position: sticky !important;
+//   top: 20px;
+// }
+
+// mobile styles
+@media screen and (max-width: #{$breakpoint}) {
+  // for this particuliar layout we don't want the padding
+  // or we wouldn't get tabs full width
+  main {
+    padding: 0;
+  }
+}

@@ -4,7 +4,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { firstValueFrom } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem, LanguageVersion } from "../../features/dashboard/models/collection-item.model";
+import { CollectionItem, LanguageVersion } from "../../features/my-collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
 import { ToastService } from "./toast.service";
 

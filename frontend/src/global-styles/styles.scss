@@ -1,15 +1,7 @@
 @use "@angular/material" as mat;
 @use "global-variables" as *;
 @use "toast-service.scss";
-
-// Custom colors
-$success-color: #4caf50;
-$error-color: #f44336;
-$warning-color: #ffc107;
-$info-color: #2196f3;
-
-// responsive design
-$breakpoint: 768px;
+@use "material-overrides";
 
 html {
   color-scheme: light dark;
@@ -20,7 +12,7 @@ html {
         tertiary: mat.$green-palette,
       ),
       typography: Roboto,
-      density: 0,
+      density: -1,
     )
   );
 }
@@ -74,6 +66,10 @@ main.justify-start {
   font-size: 80px !important;
   height: 80px !important;
   width: 80px !important;
+}
+
+.icon-margin-right-8px {
+  margin-right: 8px;
 }
 
 //color overrides

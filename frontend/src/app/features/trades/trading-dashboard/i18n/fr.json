@@ -1,0 +1,9 @@
+{
+  "tradingDashboard": {
+    "find": "Rechercher",
+    "incoming": "Propositions reçues",
+    "sent": "Propositions envoyées",
+    "ongoing": "En cours",
+    "history": "Historique"
+  }
+}

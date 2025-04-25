@@ -11,7 +11,14 @@ import { RouterLink } from "@angular/router";
   selector: "app-trade-opportunities",
   templateUrl: "./trade-opportunities.component.html",
   styleUrls: ["./trade-opportunities.component.scss"],
-  imports: [CommonModule, MatExpansionModule, RouterLink, TradeOpportunityComponent, ScrollListenerComponent, NoResultsComponent],
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    RouterLink,
+    TradeOpportunityComponent,
+    ScrollListenerComponent,
+    NoResultsComponent,
+  ],
 })
 export class TradeOpportunitiesComponent implements OnInit {
   noResults = computed(() => this.tradeService.opportunities().length === 0);

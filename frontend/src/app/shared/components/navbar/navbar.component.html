@@ -1,41 +1,88 @@
 <mat-toolbar color="primary" class="navbar">
   <h2 class="app-title" routerLink="">BulbaTrade</h2>
   <menu>
-    <button mat-button routerLink="">
+    <a mat-button routerLink="">
       <mat-icon>home</mat-icon>
       {{ "navbar.home" | translate }}
-    </button>
+    </a>
 
-    <button mat-button routerLink="cards">
-      <mat-icon>view_list</mat-icon>
+    <a mat-button routerLink="cards">
+      <mat-icon>content_copy</mat-icon>
       {{ "navbar.cards" | translate }}
-    </button>
+    </a>
 
     @if (!isAuthenticated()) {
-      <button mat-button routerLink="register">
+      <a mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
         {{ "navbar.register" | translate }}
-      </button>
+      </a>
 
-      <button mat-stroked-button routerLink="login">
+      <a mat-stroked-button routerLink="login">
         <mat-icon>login</mat-icon>
         {{ "navbar.login" | translate }}
-      </button>
+      </a>
     }
 
     @if (isAuthenticated()) {
-      <button mat-button routerLink="dashboard">
-        <mat-icon>dashboard</mat-icon>
-        {{ "navbar.dashboard" | translate }}
+      <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open dashboard menu">
+        <mat-icon>grid_view</mat-icon>
+        {{ "navbar.collection" | translate }}
       </button>
+      <mat-menu #myCollectionMenu="matMenu">
+        <a mat-menu-item routerLink="my-collection">
+          <mat-icon>inventory_2</mat-icon>
+          {{ "myCollectionDashboard.myCollection" | translate }}
+        </a>
 
-      <button mat-button [matMenuTriggerFor]="menu" aria-label="Open user menu">
+        <a mat-menu-item routerLink="/my-collection/wishlist">
+          <mat-icon>star</mat-icon>
+          {{ "myCollectionDashboard.wishlist" | translate }}
+        </a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open dashboard menu">
+        <mat-icon>swap_horiz</mat-icon>
+        {{ "navbar.trades" | translate }}
+      </button>
+      <mat-menu #tradingMenu="matMenu">
+        <a mat-menu-item routerLink="trades/find">
+          <mat-icon>search</mat-icon>
+          {{ "tradingDashboard.find" | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="trades/incoming">
+          <mat-icon>call_received</mat-icon>
+          {{ "tradingDashboard.incoming" | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="trades/sent">
+          <mat-icon>call_made</mat-icon>
+          {{ "tradingDashboard.sent" | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="trades/ongoing">
+          <mat-icon>schedule</mat-icon>
+          {{ "tradingDashboard.ongoing" | translate }}
+        </a>
+
+        <a mat-menu-item routerLink="trades/history">
+          <mat-icon>history</mat-icon>
+          {{ "tradingDashboard.history" | translate }}
+        </a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="userMenu" aria-label="Open user menu">
         {{ user?.username }}<mat-icon>person</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
           {{ "navbar.accountSettings" | translate }}
+        </button>
+
+        <button mat-menu-item (click)="changeLanguage($event)">
+          <mat-icon>translate</mat-icon>
+          Language : {{ languageService.getCurrentFlag() }}
         </button>
 
         <button mat-menu-item (click)="logout()">
@@ -44,9 +91,10 @@
         </button>
       </mat-menu>
     }
-
-    <button mat-button class="language-button" (click)="changeLanguage()">
-      {{ languageService.getCurrentFlag() }}
-    </button>
+    @if (!isAuthenticated()) {
+      <button mat-button class="language-button" (click)="changeLanguage($event)">
+        {{ languageService.getCurrentFlag() }}
+      </button>
+    }
   </menu>
 </mat-toolbar>

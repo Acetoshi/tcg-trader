@@ -8,6 +8,12 @@ dev:
 dev-build:
 	docker compose -f docker-compose.dev.yml up --build
 
+dev-restart-backend:
+	@echo "Stopping the backend container..."
+	@docker compose -f docker-compose.dev.yml stop backend
+	@echo "Starting the backend container..."
+	@docker compose -f docker-compose.dev.yml start backend
+
 lint:
 	@cd backend && venv/bin/pre-commit run --all-files
 	@cd frontend && npm run format+lint:fix

@@ -37,7 +37,8 @@ export class NavbarComponent {
     if (!success) this.toastService.showError("Error logging out, try again");
   }
 
-  protected changeLanguage(): void {
+  protected changeLanguage(event: MouseEvent): void {
+    event.stopPropagation(); // prevent menu from closing
     this.languageService.changeLanguage();
   }
 }

@@ -1,0 +1,9 @@
+{
+  "tradingDashboard": {
+    "find": "Find",
+    "incoming": "Incoming",
+    "sent": "Sent",
+    "ongoing": "Ongoing",
+    "history": "History"
+  }
+}

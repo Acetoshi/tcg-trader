@@ -4,7 +4,8 @@
     "cards": "Cartes",
     "register": "S'inscrire",
     "login": "Connexion",
-    "dashboard": "Tableau de bord",
+    "trades": "Échanges",
+    "collection": "Collection",
     "accountSettings": "Paramètres du compte",
     "logout": "Déconnexion"
   }

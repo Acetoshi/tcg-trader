@@ -4,7 +4,8 @@
     "cards": "Cards",
     "register": "Register",
     "login": "Login",
-    "dashboard": "Dashboard",
+    "trades": "Trades",
+    "collection": "Collection",
     "accountSettings": "Account Settings",
     "logout": "Logout"
   }
