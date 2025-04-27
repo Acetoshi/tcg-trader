@@ -61,6 +61,6 @@ export class FloatingCardsComponent implements OnInit {
 
     const randomIndex = Math.floor(Math.random() * cards.length)
 
-    return `${this.fileServerBaseUrl}/images/cards${cards[randomIndex]};
+    return `${this.fileServerBaseUrl}/images/cards${cards[randomIndex]}`;
   }
 }

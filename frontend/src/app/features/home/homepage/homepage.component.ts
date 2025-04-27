@@ -12,7 +12,7 @@ import { FloatingCardsComponent } from "../floating-cards/floating-cards.compone
 @Component({
   selector: "app-homepage",
   templateUrl: "./homepage.component.html",
-  styleUrls: ["./homepage.component.css"],
+  styleUrls: ["./homepage.component.scss"],
   imports: [
     CommonModule,
     MatButtonModule,

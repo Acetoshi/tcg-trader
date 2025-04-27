@@ -1,10 +1,9 @@
 .floating-container {
   position: relative;
   width: 99vw;
-  height: 90vh;
+  height: 100dvh;
   overflow: hidden;
   pointer-events: none;
-  transform: translateY(-90vh);
 }
 
 .floating-card {
