@@ -1,0 +1,87 @@
+<main>
+  <app-floating-cards class="floating-cards-background" />
+
+  <section class="hero mat-elevation-z4">
+    <div class="hero-content">
+      <h1>{{ "home.heroTitle" | translate }}</h1>
+      <p class="subtitle">{{ "home.heroSubtitle" | translate }}</p>
+      <div class="cta">
+        <button mat-flat-button color="primary" routerLink="register">
+          {{ "home.getStarted" | translate }}
+        </button>
+        <button mat-button color="accent" (click)="scrollToSection('how-it-works')">
+          {{ "home.learnHowItWorks" | translate }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Can Do Section -->
+  <section id="how-it-works" class="full-width how-it-works mat-elevation-z1">
+    <h2>{{ "home.startTradingTitle" | translate }}</h2>
+
+    <ol>
+      <li class="step">
+        <mat-icon class="icon-xl">star</mat-icon>
+        <h3>{{ "home.wishlistTitle" | translate }}</h3>
+        <p>{{ "home.wishlistDescription" | translate }}</p>
+      </li>
+
+      <li class="step">
+        <mat-icon class="icon-xl">handshake</mat-icon>
+        <h3>{{ "home.findPartnerTitle" | translate }}</h3>
+        <p>{{ "home.findPartnerDescription" | translate }}</p>
+      </li>
+
+      <li class="step">
+        <mat-icon class="icon-xl">swap_horiz</mat-icon>
+        <h3>{{ "home.startTradingActionTitle" | translate }}</h3>
+        <p>{{ "home.startTradingActionDescription" | translate }}</p>
+      </li>
+    </ol>
+
+    <div class="cta">
+      <button mat-flat-button color="primary" routerLink="register">
+        {{ "home.makeFirstTrade" | translate }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Section 4: Testimonials -->
+  <section class="full-width testimonials mat-elevation-z1">
+    <h2>{{ "home.testimonialsTitle" | translate }}</h2>
+    <div class="quotes-section">
+      <blockquote>
+        “{{ "home.testimonial1" | translate }}”<br />
+        <strong>— Solveig P.</strong>
+      </blockquote>
+      <blockquote>
+        “{{ "home.testimonial2" | translate }}”<br />
+        <strong>— Quentin C.</strong>
+      </blockquote>
+      <blockquote>
+        “{{ "home.testimonial3" | translate }}”<br />
+        <strong>— Marcel D.</strong>
+      </blockquote>
+    </div>
+
+    <div class="cta">
+      <button mat-raised-button color="accent" routerLink="register">
+        {{ "home.joinCommunity" | translate }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Section 5: Final CTA -->
+  <section class="full-width final-cta">
+    <h2>{{ "home.finalCtaTitle" | translate }}</h2>
+    <div class="cta">
+      <button mat-flat-button color="primary" routerLink="register">
+        {{ "home.signUpFree" | translate }}
+      </button>
+      <button mat-button color="accent" routerLink="cards">
+        {{ "home.browseCatalog" | translate }}
+      </button>
+    </div>
+  </section>
+</main>

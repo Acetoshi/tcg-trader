@@ -1,0 +1,73 @@
+.floating-container {
+  position: relative;
+  width: 98vw;
+  height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-card {
+  position: absolute;
+  z-index: 1000;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.floating-card.right {
+  left: -200px;
+  animation-name: floatRight;
+}
+
+.floating-card.left {
+  right: -200px;
+  animation-name: floatLeft;
+}
+
+img {
+  width: 300px;
+  border-radius: 5%/3.5%;
+}
+
+span {
+  width: 160px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+@keyframes floatRight {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0;
+  }
+}
+
+@keyframes floatLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-120vw);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,121 @@
+h1 {
+  font-size: xx-large;
+  margin-top: 0;
+}
+
+div.cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+section h2 {
+  text-align: center;
+}
+
+
+.floating-cards-background {
+  position: fixed;
+  top: 0px;
+  height: 100dvh;
+  z-index: 0;
+}
+
+.hero {
+  margin: 20px 0;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  padding: 64px;
+  border-radius: 16px;
+
+  & *{
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.hero-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--mat-sys-surface-dim);
+  opacity: 0.95;
+  filter: blur(50px);
+  z-index: 0;
+  border-radius: 16px;
+}
+
+section.full-width {
+  position: relative;
+  margin-bottom: 30dvh;
+  width: 99vw;
+  padding : 12dvh 0;
+  & * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+section.full-width::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--mat-sys-surface-dim);
+  opacity: 0.95;
+  z-index: 0;
+}
+
+
+section.how-it-works {
+  min-width: 70vw;
+  & ol {
+    margin-top: 48px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+
+    & li {
+      width:250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      & h3 {
+        text-align: center;
+        margin-bottom: 0px;
+      }
+
+      & p {
+        max-width: 75%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+section.testimonials {
+
+  & .quotes-section {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & blockquote {
+      width:200px;
+    }
+  }
+}
