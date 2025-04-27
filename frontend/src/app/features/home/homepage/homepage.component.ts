@@ -6,7 +6,6 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatDividerModule } from "@angular/material/divider";
 import { FloatingCardsComponent } from "../floating-cards/floating-cards.component";
 
 @Component({
@@ -20,7 +19,6 @@ import { FloatingCardsComponent } from "../floating-cards/floating-cards.compone
     MatToolbarModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDividerModule,
     RouterLink,
     FloatingCardsComponent,
   ],

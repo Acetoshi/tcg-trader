@@ -24,7 +24,7 @@
     }
 
     @if (isAuthenticated()) {
-      <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open dashboard menu">
+      <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open collection menu">
         <mat-icon>grid_view</mat-icon>
         {{ "navbar.collection" | translate }}
       </button>
@@ -40,7 +40,7 @@
         </a>
       </mat-menu>
 
-      <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open dashboard menu">
+      <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open tading menu">
         <mat-icon>swap_horiz</mat-icon>
         {{ "navbar.trades" | translate }}
       </button>

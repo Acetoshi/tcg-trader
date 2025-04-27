@@ -13,97 +13,62 @@
   </section>
 
   <div class="info-sections-background">
+    <!-- What You Can Do Section -->
+    <section id="how-it-works" class="how-it-works mat-elevation-z1">
+      <h2>Start Trading Cards in Minutes</h2>
 
-  <!-- What You Can Do Section -->
-  <section class="section">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>What You Can Do</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <div class="features">
-          <mat-card class="feature-card">
-            <mat-card-title>Home (Dashboard)</mat-card-title>
-            <ul>
-              <li>News & Highlights</li>
-              <li>Notifications</li>
-            </ul>
-          </mat-card>
-          <mat-card class="feature-card">
-            <mat-card-title>Card Catalog</mat-card-title>
-            <ul>
-              <li>Browse & Search</li>
-              <li>Card Details</li>
-            </ul>
-          </mat-card>
-          <mat-card class="feature-card">
-            <mat-card-title>My Collection</mat-card-title>
-            <ul>
-              <li>My Cards</li>
-              <li>My Wishlist</li>
-            </ul>
-          </mat-card>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </section>
+      <ol>
+        <li class="step">
+          <mat-icon class="icon-xl">star</mat-icon>
+          <h3>Add cards to your Wishlist</h3>
+          <p>Pick the cards you dream of having and those you're happy to exchange.</p>
+        </li>
 
-  <!-- How It Works Section -->
-  <section class="section">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>How It Works in 3 Steps</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <ol>
-          <li>
-            <h3>Sign Up</h3>
-            <p>Create your free account in under 30 seconds.</p>
-          </li>
-          <li>
-            <h3>Build Your Profile</h3>
-            <p>Add cards and wishlist easily.</p>
-          </li>
-          <li>
-            <h3>Trade & Connect</h3>
-            <p>Send offers, negotiate, and complete trades.</p>
-          </li>
-        </ol>
-        <button mat-raised-button color="accent">Create My Account</button>
-      </mat-card-content>
-    </mat-card>
-  </section>
+        <li class="step">
+          <mat-icon class="icon-xl">handshake</mat-icon>
+          <h3>Find a trade partner</h3>
+          <p>Use our smart matching engine to find perfect trade partners.</p>
+        </li>
 
-  <!-- Section 4: Testimonials -->
-  <section class="testimonials mat-elevation-z1">
-    <h2>Why Collectors Love BulbaTrade</h2>
-    <div class="quotes-section">
-      <blockquote>
-        “Finally, a single platform where I can manage my entire collection and swap cards with ease.”<br /><strong
-          >— Solveig P.</strong
-        >
-      </blockquote>
-      <blockquote>
-        “The real-time updates and built-in chat make trading feel seamless.”<br /><strong>— Marco P.</strong>
-      </blockquote>
-      <blockquote>“The real pet center is great.”<br /><strong>— Inspector D.</strong></blockquote>
-    </div>
+        <li class="step">
+          <mat-icon class="icon-xl">swap_horiz</mat-icon>
+          <h3>Start trading!</h3>
+          <p>Chat, negotiate, and finalize trades easily in our platform.</p>
+        </li>
+      </ol>
 
-    <div class="center-cta">
-      <button mat-raised-button color="accent" routerLink="register">Join the community</button>
-    </div>
-  </section>
+      <div class="cta">
+        <button mat-flat-button color="primary" routerLink="register">Make Your First Trade</button>
+      </div>
+    </section>
 
-  <!-- Section 5: Final CTA -->
-  <section class="final-cta">
-    <h2>Join BulbaTrade Today and Transform Your Card Trading Experience</h2>
-    <div class="cta-buttons">
-      <button mat-raised-button color="primary" routerLink="register">Sign Up for Free</button>
-      <button mat-button color="accent" routerLink="cards">Browse the Card Catalog</button>
-    </div>
-  </section>
+    <!-- Section 4: Testimonials -->
+    <section class="testimonials mat-elevation-z1">
+      <h2>Why Collectors Love BulbaTrade</h2>
+      <div class="quotes-section">
+        <blockquote>
+          “Finally, a single platform where I can manage my entire collection and swap cards with ease.”<br /><strong
+            >— Solveig P.</strong
+          >
+        </blockquote>
+        <blockquote>
+          “The real-time updates and built-in chat make trading feel seamless.”<br /><strong>— Marco P.</strong>
+        </blockquote>
+        <blockquote>“The real pet center is great.”<br /><strong>— Inspector D.</strong></blockquote>
+      </div>
 
-</div>
+      <div class="center-cta">
+        <button mat-raised-button color="accent" routerLink="register">Join the community</button>
+      </div>
+    </section>
+
+    <!-- Section 5: Final CTA -->
+    <section class="final-cta">
+      <h2>Join BulbaTrade Today and Transform Your Card Trading Experience</h2>
+      <div class="cta">
+        <button mat-flat-button color="primary" routerLink="register">Sign Up for Free</button>
+        <button mat-button color="accent" routerLink="cards">Browse the Card Catalog</button>
+      </div>
+    </section>
+  </div>
 </main>
