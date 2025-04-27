@@ -5,6 +5,7 @@ h1 {
 
 div.cta {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 32px;
 }
@@ -92,6 +93,7 @@ section.how-it-works {
       align-items: center;
 
       & h3 {
+        text-align: center;
         margin-bottom: 0px;
       }
 

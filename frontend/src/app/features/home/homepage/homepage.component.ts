@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { FloatingCardsComponent } from "../floating-cards/floating-cards.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-homepage",
@@ -21,6 +22,14 @@ import { FloatingCardsComponent } from "../floating-cards/floating-cards.compone
     MatSnackBarModule,
     RouterLink,
     FloatingCardsComponent,
+    TranslateModule
   ],
 })
-export class HomepageComponent {}
+export class HomepageComponent {
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block:"center" });
+    }
+  }
+}
