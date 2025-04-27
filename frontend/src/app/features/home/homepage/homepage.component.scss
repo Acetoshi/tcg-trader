@@ -1,3 +1,19 @@
+h1 {
+  font-size: xx-large;
+  margin-top: 0;
+}
+
+div.cta {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+section h2 {
+  text-align: center;
+}
+
+
 .floating-cards-background {
   position: fixed;
   top: 0px;
@@ -16,9 +32,13 @@
 
 .hero-content {
   position: relative;
-  padding: 32px;
+  padding: 64px;
   border-radius: 16px;
-  overflow: hidden;
+
+  & *{
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .hero-content::before {
@@ -26,65 +46,74 @@
   position: absolute;
   inset: 0;
   background-color: var(--mat-sys-surface-dim);
-  opacity: 0.85;
+  opacity: 0.95;
+  filter: blur(50px);
   z-index: 0;
   border-radius: 16px;
 }
 
-.hero-content > * {
+section.full-width {
   position: relative;
-  z-index: 1;
-}
-
-h1 {
-  font-size: xx-large;
-}
-
-.info-sections-background {
-  background-color: var(--mat-sys-surface-dim);
+  margin-bottom: 30dvh;
   width: 99vw;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 96px;
-  padding: 96px 0 96px 0;
+  padding : 12dvh 0;
+  & * {
+    position: relative;
+    z-index: 1;
+  }
 }
+
+section.full-width::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--mat-sys-surface-dim);
+  opacity: 0.95;
+  z-index: 0;
+}
+
 
 section.how-it-works {
   min-width: 70vw;
   & ol {
     margin-top: 48px;
+    padding: 0px;
     list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 32px;
 
     & li {
+      width:250px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
 
+      & h3 {
+        margin-bottom: 0px;
+      }
+
       & p {
         max-width: 75%;
+        text-align: center;
       }
     }
   }
 }
 
-div.cta {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-}
 
-section h2 {
-  text-align: center;
-}
+section.testimonials {
 
-.testimonials .quotes-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  & .quotes-section {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & blockquote {
+      width:200px;
+    }
+  }
 }
