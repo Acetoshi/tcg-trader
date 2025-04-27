@@ -38,5 +38,5 @@ mat-divider {
 
 .testimonials .quotes-section {
   display: grid;
-  grid-template: 1fr / 1fr 1fr;
+  grid-template: 1fr / 1fr 1fr 1fr;
 }

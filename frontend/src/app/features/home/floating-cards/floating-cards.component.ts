@@ -5,21 +5,7 @@ import { environment } from "../../../../environments/environment";
 @Component({
   selector: "app-floating-cards",
   imports: [CommonModule],
-  template: `
-    <div class="floating-container">
-      @for (card of cards; track card) {
-        <div
-          class="floating-card"
-          [ngClass]="card.direction"
-          [ngStyle]="{
-            top: card.top + '%',
-            animationDuration: card.duration + 'ms',
-          }">
-          <img [src]="card.imgUrl" />
-        </div>
-      }
-    </div>
-  `,
+  templateUrl:"./floating-cards.component.html",
   styleUrls: ["./floating-cards.component.scss"],
 })
 export class FloatingCardsComponent implements OnInit {
@@ -34,10 +20,16 @@ export class FloatingCardsComponent implements OnInit {
 
   spawnCards() {
     setInterval(() => {
+
+      let newImgUrl=this.getRandomCardImg()
+      while (this.cards.some(card=>card.imgUrl===newImgUrl)){
+        newImgUrl=this.getRandomCardImg()
+      }
+
       const newCard = {
-        imgUrl: `${this.fileServerBaseUrl}${this.getRandomCardImg()}`,
+        imgUrl: newImgUrl,
         direction: Math.random() > 0.5 ? "right" : "left",
-        duration: 4000 + Math.random() * 4000,
+        duration: 3000 + Math.random() * 2000,
         top: Math.random() * 80,
       };
 
@@ -52,15 +44,23 @@ export class FloatingCardsComponent implements OnInit {
 
   getRandomCardImg() {
     const cards = [
-      "/images/cards/fr/A1/A1-233.webp",
-      "/images/cards/fr/A1/A1-096.webp",
-      "/images/cards/fr/A2a/A2a-010.webp",
-      "/images/cards/fr/PROMO/PROMO-024.webp",
-      "/images/cards/fr/A1/A1-277.webp",
-      "/images/cards/fr/A1/A1-286.webp",
-      "/images/cards/fr/A1a/A1a-084.webp",
-      "/images/cards/fr/A2a/A2a-092.webp",
+      "/fr/A1/A1-233.webp",
+      "/fr/A1/A1-096.webp",
+      "/fr/A2a/A2a-010.webp",
+      "/fr/PROMO/PROMO-024.webp",
+      "/fr/A1/A1-277.webp",
+      "/en/A1/A1-286.webp",
+      "/fr/A1a/A1a-084.webp",
+      "/fr/A2a/A2a-092.webp",
+      "/en/A2/A2-084.webp",
+      "/fr/A1a/A1a-062.webp",
+      "/fr/PROMO/PROMO-001.webp",
+      "/en/PROMO/PROMO-007.webp",
+      "/fr/PROMO/PROMO-013.webp",
     ];
-    return cards[Math.floor(Math.random() * cards.length)];
+
+    const randomIndex = Math.floor(Math.random() * cards.length)
+
+    return `${this.fileServerBaseUrl}/images/cards${cards[randomIndex]};
   }
 }
