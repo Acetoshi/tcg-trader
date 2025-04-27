@@ -1,0 +1,13 @@
+<div class="floating-container">
+    @for (card of cards; track card) {
+      <div
+        class="floating-card"
+        [ngClass]="card.direction"
+        [ngStyle]="{
+          top: card.top + '%',
+          animationDuration: card.duration + 'ms',
+        }">
+        <img [src]="card.imgUrl" />
+      </div>
+    }
+  </div>

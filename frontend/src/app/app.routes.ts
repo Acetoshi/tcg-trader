@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { HomepageComponent } from "./features/homepage/homepage.component";
+import { HomepageComponent } from "./features/home/homepage/homepage.component";
 import { LoginComponent } from "./features/auth/login/login.component";
 import { RegisterComponent } from "./features/auth/register/register.component";
 import { ForgottenPasswordComponent } from "./features/auth/forgotten-password/forgotten-password.component";
