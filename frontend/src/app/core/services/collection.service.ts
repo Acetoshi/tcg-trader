@@ -47,7 +47,6 @@ export class CollectionService {
       .subscribe(response => {
         this.pagination.set({ next: response.next, previous: response.previous });
         this.myCollection.set(response.results);
-        console.log(this.myCollection())
       });
   }
 
@@ -99,7 +98,6 @@ export class CollectionService {
   updateFilters(newFilters: Partial<CardFilters>) {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
-    console.log(newFilters)
     this.filters.set({ ...this.filters(), ...newFilters });
     this.fetchMyCollection(this.filters());
   }

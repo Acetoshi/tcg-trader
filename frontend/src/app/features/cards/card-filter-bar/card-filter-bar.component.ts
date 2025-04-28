@@ -46,8 +46,8 @@ export class CardFilterBarComponent implements OnInit {
   @Input({ required: false }) collectionViewMode: "all" | "owned" | undefined = undefined;
   @Output() collectionViewModeChange = new EventEmitter<"all" | "owned">();
 
-  @Input({ required: false }) ownedFilter: boolean = true;
-  @Input({ required: false }) wishlistFilter: boolean = false;
+  @Input({ required: false }) ownedFilter = true;
+  @Input({ required: false }) wishlistFilter = false;
 
   showMoreFilters = signal(false);
 
@@ -137,7 +137,7 @@ export class CardFilterBarComponent implements OnInit {
 
   createForm() {
     this.filtersForm = this.fb.group(defaultFilters);
-    if (this.ownedFilter){
+    if (this.ownedFilter) {
       // TODO : Finish this
     }
   }
@@ -157,7 +157,6 @@ export class CardFilterBarComponent implements OnInit {
   }
 
   private emitFilters() {
-    console.log("dispatched event owned : ",this.filtersForm.get("owned")?.value)
     const updatedFilters: CardFilters = {
       search: this.filtersForm.get("search")?.value || "",
       setCodes: this.filtersForm.get("setCodes")?.value || [],

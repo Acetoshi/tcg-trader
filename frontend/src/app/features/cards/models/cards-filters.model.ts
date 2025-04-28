@@ -1,5 +1,3 @@
-import { BlockList } from "net";
-
 export interface CardFilters {
   search: string;
   setCodes: string[];
@@ -18,6 +16,6 @@ export const defaultFilters = {
   cardTypeCodes: [],
   colorCodes: [],
   weaknessCodes: [],
-  owned:false,
-  wishlist:false,
+  owned: false,
+  wishlist: false,
 };
