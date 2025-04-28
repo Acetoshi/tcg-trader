@@ -2,6 +2,7 @@ import { Component, computed, input, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
+import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { LanguageService } from "../../../core/services/language.service";
 import { environment } from "../../../../environments/environment";
@@ -15,7 +16,7 @@ import { MatSelectModule } from "@angular/material/select";
   selector: "app-collection-item",
   templateUrl: "./collection-item.component.html",
   styleUrls: ["./collection-item.component.scss"],
-  imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
 })
 export class CollectionItemComponent implements OnInit {
   collectionItem = input.required<CollectionItem>();

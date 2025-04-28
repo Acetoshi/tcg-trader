@@ -21,17 +21,17 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>Owned</mat-label>
+        <mat-label>{{ "collectionItem.owned" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="owned" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>For trade</mat-label>
+        <mat-label>{{ "collectionItem.forTrade" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="forTrade" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>Wishlist</mat-label>
+        <mat-label>{{ "collectionItem.wishlist" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="wishlist" />
       </mat-form-field>
     </form>

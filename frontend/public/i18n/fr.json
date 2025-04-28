@@ -214,6 +214,11 @@
       "alt": "votre avatar"
     }
   },
+  "collectionItem": {
+    "owned": "Obtenues",
+    "forTrade": "Échange",
+    "wishlist": "Souhaits"
+  },
   "myCollectionDashboard": {
     "myCollection": "Ma collection",
     "wishlist": "Liste de souhaits"
