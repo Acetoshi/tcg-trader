@@ -39,12 +39,15 @@ export class CollectionService {
     if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
     if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
     if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
+    if (filters.owned) params = params.set("owned", "true");
+    if (filters.wishlist) params = params.set("wishlist", "true");
 
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
       .subscribe(response => {
         this.pagination.set({ next: response.next, previous: response.previous });
         this.myCollection.set(response.results);
+        console.log(this.myCollection())
       });
   }
 
@@ -96,6 +99,7 @@ export class CollectionService {
   updateFilters(newFilters: Partial<CardFilters>) {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
+    console.log(newFilters)
     this.filters.set({ ...this.filters(), ...newFilters });
     this.fetchMyCollection(this.filters());
   }

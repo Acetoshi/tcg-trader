@@ -104,8 +104,23 @@
           </mat-form-field>
         </fieldset>
       }
+
+      @if (ownedFilter || wishlistFilter) {
+        <fieldset>
+          @if (ownedFilter) {
+            <mat-button-toggle-group
+              name="collectionView"
+              formControlName="owned"
+              aria-label="Collection view mode"
+              appearance="standard">
+              <mat-button-toggle [value]="false"> All Cards </mat-button-toggle>
+              <mat-button-toggle [value]="true"> Owned Only </mat-button-toggle>
+            </mat-button-toggle-group>
+          }
+        </fieldset>
+      }
     </form>
-    @if (collectionViewMode) {
+    <!-- @if (collectionViewMode) {
       <div class="ui-preferences">
         <mat-button-toggle-group
           name="collectionView"
@@ -117,6 +132,6 @@
           <mat-button-toggle value="owned" [checked]="collectionViewMode === 'owned'"> Owned Only </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-    }
+    } -->
   </mat-card-content>
 </mat-card>
