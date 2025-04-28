@@ -1,5 +1,6 @@
 <app-card-filter-bar
   [filters]="this.collectionService.filters()"
+  [collectionViewMode]="this.collectionViewMode()"
   (filterChange)="this.collectionService.updateFilters($event)"
   class="app-card-filter-bar" />
 <ul class="collection-items-list">

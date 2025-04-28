@@ -1,4 +1,4 @@
-import { Component, computed, OnInit } from "@angular/core";
+import { Component, computed, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
@@ -15,6 +15,8 @@ import { NoResultsComponent } from "../../../shared/components/no-results/no-res
 export class MyCollectionComponent implements OnInit {
   noResults = computed(() => this.collectionService.myCollection().length === 0);
   constructor(public collectionService: CollectionService) {}
+
+  collectionViewMode= signal<'all'|'owned'>('all');
 
   ngOnInit(): void {
     this.collectionService.fetchMyCollection(this.collectionService.filters());
