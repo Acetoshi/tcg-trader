@@ -19,7 +19,6 @@ export class MyCollectionComponent implements OnInit {
   viewMode = signal<"all" | "owned">("all");
 
   myCollection = computed(() => {
-    console.log("recomputing");
     if (this.viewMode() === "owned") {
       return this.collectionService.myCollection().filter(card => card.languageVersions.some(lv => lv.owned >= 1));
     } else {
@@ -32,7 +31,7 @@ export class MyCollectionComponent implements OnInit {
   }
 
   updateViewMode(newViewMode: "all" | "owned") {
-    console.log('event was emitted and caught')
     this.viewMode.set(newViewMode);
+    console.log('event was emitted and caught :', this.viewMode())
   }
 }

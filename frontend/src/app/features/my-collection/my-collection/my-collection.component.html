@@ -5,7 +5,7 @@
   (filterChange)="this.collectionService.updateFilters($event)"
   class="app-card-filter-bar" />
 <ul class="collection-items-list">
-  @for (collectionItem of this.collectionService.myCollection(); track collectionItem.id) {
+  @for (collectionItem of this.myCollection(); track collectionItem.id) {
     <li>
       <app-collection-item [collectionItem]="collectionItem" />
     </li>
