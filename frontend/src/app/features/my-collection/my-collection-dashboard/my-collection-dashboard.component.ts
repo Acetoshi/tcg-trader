@@ -1,17 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { filter } from "rxjs/operators";
+import { TranslateModule } from "@ngx-translate/core";
 import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
 import { MyCollectionComponent } from "../my-collection/my-collection.component";
-import { TranslateModule } from "@ngx-translate/core";
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { MyWishlistComponent } from "../my-wishlist/my-wishlist.component";
 
 @Component({
   selector: "app-my-collection-dashboard",
   templateUrl: "./my-collection-dashboard.component.html",
   styleUrls: ["./my-collection-dashboard.component.scss"],
-  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, MyCollectionComponent],
+  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, MyCollectionComponent, MyWishlistComponent],
 })
 export class MyCollectionDashboardComponent implements OnInit {
   selectedTabIndex = 0;

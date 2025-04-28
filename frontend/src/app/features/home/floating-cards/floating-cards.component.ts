@@ -2,14 +2,21 @@ import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 
+interface FloatingCard {
+  imgUrl: string;
+  direction: string;
+  duration: number;
+  top: number;
+}
+
 @Component({
   selector: "app-floating-cards",
   imports: [CommonModule],
-  templateUrl:"./floating-cards.component.html",
+  templateUrl: "./floating-cards.component.html",
   styleUrls: ["./floating-cards.component.scss"],
 })
 export class FloatingCardsComponent implements OnInit {
-  cards: any[] = [];
+  cards: FloatingCard[] = [];
   fileServerBaseUrl = environment.fileServerUrl;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {}
@@ -20,10 +27,9 @@ export class FloatingCardsComponent implements OnInit {
 
   spawnCards() {
     setInterval(() => {
-
-      let newImgUrl=this.getRandomCardImg()
-      while (this.cards.some(card=>card.imgUrl===newImgUrl)){
-        newImgUrl=this.getRandomCardImg()
+      let newImgUrl = this.getRandomCardImg();
+      while (this.cards.some(card => card.imgUrl === newImgUrl)) {
+        newImgUrl = this.getRandomCardImg();
       }
 
       const newCard = {
@@ -59,7 +65,7 @@ export class FloatingCardsComponent implements OnInit {
       "/fr/PROMO/PROMO-013.webp",
     ];
 
-    const randomIndex = Math.floor(Math.random() * cards.length)
+    const randomIndex = Math.floor(Math.random() * cards.length);
 
     return `${this.fileServerBaseUrl}/images/cards${cards[randomIndex]}`;
   }

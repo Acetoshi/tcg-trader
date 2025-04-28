@@ -7,16 +7,16 @@ import { ScrollListenerComponent } from "../../../shared/components/scroll-liste
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 
 @Component({
-  selector: "app-my-collection",
-  templateUrl: "./my-collection.component.html",
-  styleUrls: ["./my-collection.component.scss"],
+  selector: "app-my-wishlist",
+  templateUrl: "./my-wishlist.component.html",
+  styleUrls: ["./my-wishlist.component.scss"],
   imports: [CommonModule, CardFilterBarComponent, CollectionItemComponent, ScrollListenerComponent, NoResultsComponent],
 })
-export class MyCollectionComponent implements OnInit {
-  noResults = computed(() => this.collectionService.myCollection().length === 0);
+export class MyWishlistComponent implements OnInit {
+  noResults = computed(() => this.collectionService.myWishlist().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
+    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters(), wishlist: true });
   }
 }

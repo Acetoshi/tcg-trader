@@ -29,6 +29,11 @@
         "noWeakness": "No weakness"
       }
     },
+    "collectionFilters": {
+      "allCards": "All cards",
+      "owned": "Owned Only",
+      "wishlist": "Wishlist Only"
+    },
     "errors": {
       "fetchSets": "Error fetching Sets",
       "fetchRarities": "Error fetching Rarities",

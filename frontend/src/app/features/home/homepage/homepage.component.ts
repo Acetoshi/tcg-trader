@@ -22,14 +22,14 @@ import { TranslateModule } from "@ngx-translate/core";
     MatSnackBarModule,
     RouterLink,
     FloatingCardsComponent,
-    TranslateModule
+    TranslateModule,
   ],
 })
 export class HomepageComponent {
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block:"center" });
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
 }
