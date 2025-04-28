@@ -57,3 +57,8 @@ fieldset.advanced-filters {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
+
+div.ui-preferences{
+  margin-top: 8px;
+  display: flex;
+}

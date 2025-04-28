@@ -2,7 +2,7 @@
   "cardFilterBar": {
     "search": {
       "label": "Rechercher une carte",
-      "placeholder": "Ex. Pikachu, Rouge ..."
+      "placeholder": "Ex. Pikachu, Red ..."
     },
     "filters": {
       "toggle": {

@@ -1,37 +1,37 @@
-import { isPlatformBrowser } from "@angular/common";
 import { Component, OnInit, signal, PLATFORM_ID, Inject, Input, Output, EventEmitter } from "@angular/core";
-import { debounceTime } from "rxjs";
-import { environment } from "../../../../environments/environment";
-import { CommonModule } from "@angular/common";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MatInput } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
-import { MatOptionModule } from "@angular/material/core";
-import { MatIcon } from "@angular/material/icon";
-import { Set } from "../models/set.model";
-import { CardFilters, defaultFilters } from "../models/cards-filters.model";
-import { MatCardModule } from "@angular/material/card";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
+import { debounceTime } from "rxjs";
+// Services
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "../../../core/services/language.service";
+import { environment } from "../../../../environments/environment";
+// Models
+import { CardFilters, defaultFilters } from "../models/cards-filters.model";
+import { Set } from "../models/set.model";
 import { Rarity } from "../models/rarity.model";
 import { CardType } from "../models/card-type.model";
 import { Color } from "../models/color.model";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { LanguageService } from "../../../core/services/language.service";
+// UI
+import { MatInput } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatIcon } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 
 @Component({
   selector: "app-card-filter-bar",
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
     MatSelectModule,
-    MatOptionModule,
-    MatExpansionModule,
     MatIcon,
     MatInput,
     MatCardModule,
-    ReactiveFormsModule,
+    MatButtonToggleModule,
     MatButtonModule,
-    TranslateModule,
   ],
   templateUrl: "./card-filter-bar.component.html",
   styleUrl: "./card-filter-bar.component.scss",
@@ -42,6 +42,10 @@ export class CardFilterBarComponent implements OnInit {
 
   filtersForm!: FormGroup;
 
+  // UI preferences
+  collectionViewMode= signal<'all'|'owned'>('all');  // Default to 'all'
+  showMoreFilters = signal(false);
+
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
   loading = signal(false);
@@ -50,7 +54,7 @@ export class CardFilterBarComponent implements OnInit {
   rarities = signal<Rarity[]>([]);
   cardTypes = signal<CardType[]>([]);
   colors = signal<Color[]>([]);
-  showMoreFilters = signal(false);
+
 
   constructor(
     private languageService: LanguageService,
