@@ -27,13 +27,12 @@ export class CollectionItemComponent implements OnInit {
   selectedLanguageCode = signal("en");
   availableLanguageCodes = computed(() => this.collectionItem().languageVersions.map(version => version.languageCode));
 
-  // TODO : fallback to english if the default user's language isn't available
-  version = computed(
-    () =>
-      this.collectionItem().languageVersions.find(
-        version => version.languageCode.toLowerCase() === this.selectedLanguageCode().toLowerCase()
-      ) as LanguageVersion
-  );
+  version = computed(() => {
+    const found = this.collectionItem().languageVersions.find(
+      version => version.languageCode.toLowerCase() === this.selectedLanguageCode().toLowerCase()
+    );
+    return found ?? this.collectionItem().languageVersions[0];
+  });
 
   constructor(
     private languageService: LanguageService,
