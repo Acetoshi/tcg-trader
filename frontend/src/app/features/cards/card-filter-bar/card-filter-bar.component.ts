@@ -43,13 +43,9 @@ export class CardFilterBarComponent implements OnInit {
   filtersForm!: FormGroup;
 
   // UI preferences
-  @Input({ required: false }) collectionViewMode: "all" | "owned" | undefined = undefined;
-  @Output() collectionViewModeChange = new EventEmitter<"all" | "owned">();
-
-  @Input({ required: false }) ownedFilter = true;
-  @Input({ required: false }) wishlistFilter = false;
-
   showMoreFilters = signal(false);
+  @Input({ required: false }) ownedFilter = false;
+  @Input({ required: false }) wishlistFilter = false;
 
   private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
@@ -137,13 +133,14 @@ export class CardFilterBarComponent implements OnInit {
 
   createForm() {
     this.filtersForm = this.fb.group(defaultFilters);
-    if (this.ownedFilter) {
-      // TODO : Finish this
-    }
+    if (this.ownedFilter) this.filtersForm.patchValue({ owned: true });
+    if (this.wishlistFilter) this.filtersForm.patchValue({ wishlist: true });
   }
 
   resetFilters() {
     this.filtersForm.reset(defaultFilters);
+    if (this.ownedFilter) this.filtersForm.patchValue({ owned: true });
+    if (this.wishlistFilter) this.filtersForm.patchValue({ wishlist: true });
     this.emitFilters();
   }
 

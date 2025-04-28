@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, signal } from "@angular/core";
+import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
@@ -16,21 +16,7 @@ export class MyCollectionComponent implements OnInit {
   noResults = computed(() => this.collectionService.myCollection().length === 0);
   constructor(public collectionService: CollectionService) {}
 
-  viewMode = signal<"all" | "owned">("all");
-
-  myCollection = computed(() => {
-    if (this.viewMode() === "owned") {
-      return this.collectionService.myCollection().filter(card => card.languageVersions.some(lv => lv.owned >= 1));
-    } else {
-      return this.collectionService.myCollection();
-    }
-  });
-
   ngOnInit(): void {
-    this.collectionService.fetchMyCollection(this.collectionService.filters());
-  }
-
-  updateViewMode(newViewMode: "all" | "owned") {
-    this.viewMode.set(newViewMode);
+    this.collectionService.fetchMyCollection({ ...this.collectionService.filters(), owned: true });
   }
 }

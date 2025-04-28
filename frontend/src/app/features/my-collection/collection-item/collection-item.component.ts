@@ -42,6 +42,7 @@ export class CollectionItemComponent implements OnInit {
 
   ngOnInit() {
     //display cards in the user's language if possible
+    // TODO : it feels like i need to pipe this somehow both to currentLang AND to the languages avaible, when the view is filtered
     this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
@@ -61,6 +62,23 @@ export class CollectionItemComponent implements OnInit {
         },
         { emitEvent: false }
       );
+    });
+
+    // make sure owned card is for trade by default
+    // TODO : decide if this is a dark pattern or not, forcing people to list their cards for trade ?
+    this.collectionItemForm.get("owned")?.valueChanges.subscribe(owned => {
+      const forTrade = this.collectionItemForm.get("forTrade")?.value as number;
+      if (owned !== forTrade) {
+        this.collectionItemForm.patchValue({ forTrade: owned });
+      }
+    });
+
+    // make sure the user doesn't list cards for trade he doesn't have
+    this.collectionItemForm.get("forTrade")?.valueChanges.subscribe(forTrade => {
+      const owned = this.collectionItemForm.get("owned")?.value as number;
+      if (forTrade > owned) {
+        this.collectionItemForm.patchValue({ owned: forTrade });
+      }
     });
   }
 
