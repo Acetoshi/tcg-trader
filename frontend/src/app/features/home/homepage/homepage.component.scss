@@ -14,7 +14,6 @@ section h2 {
   text-align: center;
 }
 
-
 .floating-cards-background {
   position: fixed;
   top: 0px;
@@ -36,7 +35,7 @@ section h2 {
   padding: 64px;
   border-radius: 16px;
 
-  & *{
+  & * {
     position: relative;
     z-index: 1;
   }
@@ -57,7 +56,7 @@ section.full-width {
   position: relative;
   margin-bottom: 30dvh;
   width: 99vw;
-  padding : 12dvh 0;
+  padding: 12dvh 0;
   & * {
     position: relative;
     z-index: 1;
@@ -73,7 +72,6 @@ section.full-width::before {
   z-index: 0;
 }
 
-
 section.how-it-works {
   min-width: 70vw;
   & ol {
@@ -86,7 +84,7 @@ section.how-it-works {
     gap: 32px;
 
     & li {
-      width:250px;
+      width: 250px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -105,17 +103,14 @@ section.how-it-works {
   }
 }
 
-
 section.testimonials {
-
   & .quotes-section {
-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 
     & blockquote {
-      width:200px;
+      width: 200px;
     }
   }
 }

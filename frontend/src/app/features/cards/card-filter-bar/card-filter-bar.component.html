@@ -112,19 +112,9 @@
           (change)="collectionViewModeChange.emit($event.value)"
           aria-label="Collection view mode"
           appearance="standard">
+          <mat-button-toggle value="all" [checked]="collectionViewMode === 'all'"> All Cards </mat-button-toggle>
 
-          <mat-button-toggle
-            value="all"
-            [checked]="collectionViewMode === 'all'">
-            All Cards
-          </mat-button-toggle>
-
-          <mat-button-toggle
-            value="owned"
-            [checked]="collectionViewMode  === 'owned'">
-            Owned Only
-          </mat-button-toggle>
-
+          <mat-button-toggle value="owned" [checked]="collectionViewMode === 'owned'"> Owned Only </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     }

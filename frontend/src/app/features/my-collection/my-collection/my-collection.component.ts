@@ -32,6 +32,5 @@ export class MyCollectionComponent implements OnInit {
 
   updateViewMode(newViewMode: "all" | "owned") {
     this.viewMode.set(newViewMode);
-    console.log('event was emitted and caught :', this.viewMode())
   }
 }

@@ -1,15 +1,4 @@
-import {
-  Component,
-  OnInit,
-  signal,
-  PLATFORM_ID,
-  Inject,
-  Input,
-  Output,
-  EventEmitter,
-  Signal,
-  model,
-} from "@angular/core";
+import { Component, OnInit, signal, PLATFORM_ID, Inject, Input, Output, EventEmitter } from "@angular/core";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
