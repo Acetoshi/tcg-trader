@@ -16,11 +16,14 @@ export class CollectionService {
   private _loading = signal(false);
   loading = computed(() => this._loading());
 
-  filters = signal<CardFilters>(defaultFilters);
-  pagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
-
   // Signal for myCollection data
   myCollection = signal<CollectionItem[]>([]);
+  myCollectionFilters = signal<CardFilters>(defaultFilters);
+  myCollectionPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+
+  myWishlist = signal<CollectionItem[]>([]);
+  myWishlistFilters = signal<CardFilters>(defaultFilters);
+  myWishlistPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -45,17 +48,19 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
       .subscribe(response => {
-        this.pagination.set({ next: response.next, previous: response.previous });
+        this.myCollectionPagination.set({ next: response.next, previous: response.previous });
         this.myCollection.set(response.results);
       });
   }
 
   fetchMyCollectionNextPage(): void {
-    if (this.pagination().next) {
-      this.http.get<PaginatedResponse<CollectionItem>>(this.pagination().next as string).subscribe(response => {
-        this.pagination.set({ next: response.next, previous: response.previous });
-        this.myCollection.set([...this.myCollection(), ...response.results]);
-      });
+    if (this.myCollectionPagination().next) {
+      this.http
+        .get<PaginatedResponse<CollectionItem>>(this.myCollectionPagination().next as string)
+        .subscribe(response => {
+          this.myCollectionPagination.set({ next: response.next, previous: response.previous });
+          this.myCollection.set([...this.myCollection(), ...response.results]);
+        });
     }
   }
 
@@ -95,10 +100,50 @@ export class CollectionService {
     }
   }
 
-  updateFilters(newFilters: Partial<CardFilters>) {
+  updateMyCollectionFilters(newFilters: Partial<CardFilters>) {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
-    this.filters.set({ ...this.filters(), ...newFilters });
-    this.fetchMyCollection(this.filters());
+    this.myCollectionFilters.set({ ...this.myCollectionFilters(), ...newFilters });
+    this.fetchMyCollection(this.myCollectionFilters());
+  }
+
+  // Method to fetch collection data
+  fetchMyWishlist(filters: CardFilters): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    let params = new HttpParams();
+    if (filters.search) params = params.set("search", filters.search);
+    if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
+    if (filters.rarityCodes.length) params = params.set("rarity", filters.rarityCodes.join(","));
+    if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
+    if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
+    if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
+    if (filters.owned) params = params.set("owned", "true");
+    if (filters.wishlist) params = params.set("wishlist", "true");
+
+    this.http
+      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
+      .subscribe(response => {
+        this.myWishlistPagination.set({ next: response.next, previous: response.previous });
+        this.myWishlist.set(response.results);
+      });
+  }
+
+  fetchMyWishlistNextPage(): void {
+    if (this.myWishlistPagination().next) {
+      this.http
+        .get<PaginatedResponse<CollectionItem>>(this.myWishlistPagination().next as string)
+        .subscribe(response => {
+          this.myWishlistPagination.set({ next: response.next, previous: response.previous });
+          this.myWishlist.set([...this.myWishlist(), ...response.results]);
+        });
+    }
+  }
+
+  updateMyWishListFilters(newFilters: Partial<CardFilters>) {
+    //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
+    // Otherwise i'd get a weird behaviour when toggling filters
+    this.myWishlistFilters.set({ ...this.myWishlistFilters(), ...newFilters });
+    this.fetchMyWishlist(this.myWishlistFilters());
   }
 }

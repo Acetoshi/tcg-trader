@@ -1,0 +1,16 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.myWishlistFilters()"
+  (filterChange)="this.collectionService.updateMyWishListFilters($event)"
+  [wishlistFilter]="true"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (collectionItem of this.collectionService.myWishlist(); track collectionItem.id) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results />
+}
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchMyWishlistNextPage()" />
