@@ -1,4 +1,15 @@
-import { Component, OnInit, signal, PLATFORM_ID, Inject, Input, Output, EventEmitter, Signal, model } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  signal,
+  PLATFORM_ID,
+  Inject,
+  Input,
+  Output,
+  EventEmitter,
+  Signal,
+  model,
+} from "@angular/core";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
@@ -43,7 +54,8 @@ export class CardFilterBarComponent implements OnInit {
   filtersForm!: FormGroup;
 
   // UI preferences
-  collectionViewMode = model<'all' | 'owned' | null>(null);
+  @Input({ required: false }) collectionViewMode: "all" | "owned" | undefined = undefined;
+  @Output() collectionViewModeChange = new EventEmitter<"all" | "owned">();
 
   showMoreFilters = signal(false);
 
@@ -55,7 +67,6 @@ export class CardFilterBarComponent implements OnInit {
   rarities = signal<Rarity[]>([]);
   cardTypes = signal<CardType[]>([]);
   colors = signal<Color[]>([]);
-
 
   constructor(
     private languageService: LanguageService,

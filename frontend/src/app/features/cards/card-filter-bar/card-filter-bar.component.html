@@ -105,23 +105,23 @@
         </fieldset>
       }
     </form>
-    @if (collectionViewMode()) {
+    @if (collectionViewMode) {
       <div class="ui-preferences">
         <mat-button-toggle-group
           name="collectionView"
-          (change)="collectionViewMode.set($event.value)"
+          (change)="collectionViewModeChange.emit($event.value)"
           aria-label="Collection view mode"
           appearance="standard">
 
           <mat-button-toggle
             value="all"
-            [checked]="collectionViewMode() === 'all'">
+            [checked]="collectionViewMode === 'all'">
             All Cards
           </mat-button-toggle>
 
           <mat-button-toggle
             value="owned"
-            [checked]="collectionViewMode()  === 'owned'">
+            [checked]="collectionViewMode  === 'owned'">
             Owned Only
           </mat-button-toggle>
 

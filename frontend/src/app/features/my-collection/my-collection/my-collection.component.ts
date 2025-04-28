@@ -16,9 +16,23 @@ export class MyCollectionComponent implements OnInit {
   noResults = computed(() => this.collectionService.myCollection().length === 0);
   constructor(public collectionService: CollectionService) {}
 
-  collectionViewMode= signal<'all'|'owned'>('all');
+  viewMode = signal<"all" | "owned">("all");
+
+  myCollection = computed(() => {
+    console.log("recomputing");
+    if (this.viewMode() === "owned") {
+      return this.collectionService.myCollection().filter(card => card.languageVersions.some(lv => lv.owned >= 1));
+    } else {
+      return this.collectionService.myCollection();
+    }
+  });
 
   ngOnInit(): void {
     this.collectionService.fetchMyCollection(this.collectionService.filters());
+  }
+
+  updateViewMode(newViewMode: "all" | "owned") {
+    console.log('event was emitted and caught')
+    this.viewMode.set(newViewMode);
   }
 }
