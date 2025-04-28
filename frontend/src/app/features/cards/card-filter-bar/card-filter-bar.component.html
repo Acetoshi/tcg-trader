@@ -109,14 +109,22 @@
         <fieldset>
           @if (ownedFilter) {
             <mat-button-toggle-group name="collectionView" formControlName="owned" aria-label="Collection view mode">
-              <mat-button-toggle [value]="false"> All Cards </mat-button-toggle>
-              <mat-button-toggle [value]="true"> Owned Only </mat-button-toggle>
+              <mat-button-toggle [value]="false">
+                {{ "cardFilterBar.collectionFilters.allCards" | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle [value]="true">
+                {{ "cardFilterBar.collectionFilters.owned" | translate }}
+              </mat-button-toggle>
             </mat-button-toggle-group>
           }
           @if (wishlistFilter) {
             <mat-button-toggle-group name="collectionView" formControlName="wishlist" aria-label="Collection view mode">
-              <mat-button-toggle [value]="false"> All Cards </mat-button-toggle>
-              <mat-button-toggle [value]="true"> Wishlist Only </mat-button-toggle>
+              <mat-button-toggle [value]="false">
+                {{ "cardFilterBar.collectionFilters.allCards" | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle [value]="true">
+                {{ "cardFilterBar.collectionFilters.wishlist" | translate }}
+              </mat-button-toggle>
             </mat-button-toggle-group>
           }
         </fieldset>

@@ -29,6 +29,11 @@
         "noWeakness": "Aucune faiblesse"
       }
     },
+    "collectionFilters": {
+      "allCards": "Toutes les cartes",
+      "owned": "Seulement ma collection",
+      "wishlist": "Seulement mes souhaits"
+    },
     "errors": {
       "fetchSets": "Erreur lors de la récupération des extensions",
       "fetchRarities": "Erreur lors de la récupération des raretés",
