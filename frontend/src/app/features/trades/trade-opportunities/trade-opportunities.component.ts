@@ -6,6 +6,7 @@ import { TradeService } from "../../../core/services/trade.service";
 import { TradeOpportunityComponent } from "../trade-opportunity/trade-opportunity.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: "app-trade-opportunities",
@@ -14,6 +15,7 @@ import { RouterLink } from "@angular/router";
   imports: [
     CommonModule,
     MatExpansionModule,
+    MatIcon,
     RouterLink,
     TradeOpportunityComponent,
     ScrollListenerComponent,

@@ -1,3 +1,13 @@
+<!-- UX : this part is helpful to explain to the user how smart matching works -->
+<div class="smart-matching-info">
+  <mat-icon color="primary" class="info-icon">info</mat-icon>
+  <span>
+    These are smart trade suggestions based on matches between your
+    <a routerLink="/my-collection/wishlist"> wishlist</a> and cards in your
+    <a routerLink="/my-collection/owned">collection</a> others want.
+  </span>
+</div>
+
 <mat-accordion multi="true">
   @for (partnerOpps of tradeService.opportunities(); track partnerOpps.partnerUsername) {
     <mat-expansion-panel [expanded]="true">

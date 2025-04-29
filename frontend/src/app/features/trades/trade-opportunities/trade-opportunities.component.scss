@@ -11,3 +11,10 @@
   margin-inline-end: 0px;
   padding-inline-start: 0px;
 }
+
+div.smart-matching-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
