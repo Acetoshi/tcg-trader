@@ -8,14 +8,14 @@
 
   <div class="trade-overview">
     <figure>
-      <figcaption>You wil send #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
+      <figcaption>You give #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
       <img class="trade-opportunity-image" [src]="fileServerBaseUrl + data.myCard.imgUrl" alt="Your card" />
     </figure>
 
     <mat-icon class="icon-xl">swap_horiz</mat-icon>
 
     <figure>
-      <figcaption>You want to receive #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
+      <figcaption>You receive #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
       <img class="trade-opportunity-image" [src]="fileServerBaseUrl + data.theirCard.imgUrl" alt="Their card" />
     </figure>
   </div>
