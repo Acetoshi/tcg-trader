@@ -1,12 +1,14 @@
 import { Component, computed, input } from "@angular/core";
+import { TradeService } from "../../../core/services/trade.service";
+import { ToastService } from "../../../core/services/toast.service";
 import { environment } from "../../../../environments/environment";
 import { TradeOpportunity } from "../../../core/services/trade.models";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { SendTradeOfferDialogComponent } from "../send-trade-offer-dialog/send-trade-offer-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { SendTradeOfferDialogComponent } from "../send-trade-offer-dialog/send-trade-offer-dialog.component";
 
 @Component({
   standalone: true,
@@ -24,13 +26,17 @@ export class TradeOpportunityComponent {
 
   fileServerBaseUrl = environment.fileServerUrl;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private tradeService: TradeService,
+    private toastService: ToastService,
+    private dialog: MatDialog
+  ) {}
 
   openConfirmationDialog() {
     const dialogRef = this.dialog.open(SendTradeOfferDialogComponent, {
-      maxWidth: '95vw',
+      maxWidth: "95vw",
       autoFocus: false,
-      backdropClass: 'blurred-dialog-backdrop',
+      backdropClass: "blurred-dialog-backdrop",
       data: {
         myCard: this.myCard(),
         theirCard: this.theirCard(),
@@ -40,9 +46,19 @@ export class TradeOpportunityComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
-        console.group("offer was validated")
-        //this.sendOffer(); // Your method to actually create the trade
+        const offerData = {
+          partnerUsername: this.partnerUsername(),
+          offeredCardCollectionId: this.myCard().collectionId,
+          requestedCardCollectionId: this.theirCard().collectionId,
+        };
+        this.tradeService.sendOffer(offerData).subscribe({
+          next: () => {
+            this.toastService.showSuccess(`Offer sent to ${this.partnerUsername()}`);
+          },
+          error: () => {
+            this.toastService.showError(`Error when sending offer to ${this.partnerUsername()}`);
+          },
+        });
       }
     });
   }

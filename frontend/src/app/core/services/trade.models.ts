@@ -14,3 +14,9 @@ export interface TradePart {
   cardRef: string;
   imgUrl: string;
 }
+
+export interface TradeOffer {
+  partnerUsername: string;
+  offeredCardCollectionId: number;
+  requestedCardCollectionId: number;
+}

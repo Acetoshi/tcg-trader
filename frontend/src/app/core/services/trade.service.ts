@@ -3,7 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../environments/environment";
 import { PaginatedResponse } from "./pagination.model";
-import { GroupedTradeOpportunities } from "./trade.models";
+import { GroupedTradeOpportunities, TradeOffer } from "./trade.models";
+import { Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +24,7 @@ export class TradeService {
     private http: HttpClient
   ) {}
 
-  // Method to fetch collection data
+  // Method to fetch opportunities
   fetchTradeOpportunities(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     this.http
@@ -48,5 +49,34 @@ export class TradeService {
   // Method to get the current collection data (signal)
   getOpportunities(): Signal<GroupedTradeOpportunities[]> {
     return this.opportunities;
+  }
+
+  sendOffer(tradeOfferData: TradeOffer): Observable<{ id: string }> {
+    return this.http
+      .post<{ id: string }>(`${this.apiUrl}/trades`, tradeOfferData)
+      .pipe(tap(() => this.removeOpportunity(tradeOfferData)));
+  }
+
+  // this method is needed for send offer
+  private removeOpportunity(tradeOfferData: TradeOffer): void {
+    const updatedOpportunities = this.opportunities().reduce<GroupedTradeOpportunities[]>((acc, group) => {
+      if (group.partnerUsername === tradeOfferData.partnerUsername) {
+        // remove the opportunity whe the offer was successfully sent
+        const remaining = group.opportunities.filter(
+          op =>
+            !(
+              op.offeredCard.collectionId === tradeOfferData.offeredCardCollectionId &&
+              op.requestedCard.collectionId === tradeOfferData.requestedCardCollectionId
+            )
+        );
+        if (remaining.length) {
+          acc.push({ ...group, opportunities: remaining });
+        }
+      } else {
+        acc.push(group);
+      }
+      return acc;
+    }, []);
+    this.opportunities.set(updatedOpportunities);
   }
 }
