@@ -1,0 +1,27 @@
+<h2 mat-dialog-title id="dialog-title">Confirm Trade Offer</h2>
+
+<mat-dialog-content role="dialog" aria-labelledby="dialog-title">
+  <p>
+    You’re about to send the following trade offer to <strong>{{ data.partnerUsername }}</strong
+    >.
+  </p>
+
+  <div class="trade-overview">
+    <figure>
+      <figcaption>You wil send #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
+      <img class="trade-opportunity-image" [src]="fileServerBaseUrl + data.myCard.imgUrl" alt="Your card" />
+    </figure>
+
+    <mat-icon class="icon-xl">swap_horiz</mat-icon>
+
+    <figure>
+      <figcaption>You want to receive #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
+      <img class="trade-opportunity-image" [src]="fileServerBaseUrl + data.theirCard.imgUrl" alt="Their card" />
+    </figure>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="confirm()">SEND OFFER</button>
+</mat-dialog-actions>

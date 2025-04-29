@@ -20,3 +20,7 @@
     padding: 0px 16px 64px 16px;
   }
 }
+
+.blurred-dialog-backdrop{
+  backdrop-filter: blur(10px);
+}

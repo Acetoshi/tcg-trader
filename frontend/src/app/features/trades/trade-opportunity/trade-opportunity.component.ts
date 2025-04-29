@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { SendTradeOfferDialogComponent } from "../send-trade-offer-dialog/send-trade-offer-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   standalone: true,
@@ -15,9 +17,33 @@ import { MatButtonModule } from "@angular/material/button";
 })
 export class TradeOpportunityComponent {
   opportunity = input.required<TradeOpportunity>();
+  partnerUsername = input.required<string>();
 
   myCard = computed(() => this.opportunity().offeredCard);
   theirCard = computed(() => this.opportunity().requestedCard);
 
   fileServerBaseUrl = environment.fileServerUrl;
+
+  constructor(private dialog: MatDialog) {}
+
+  openConfirmationDialog() {
+    const dialogRef = this.dialog.open(SendTradeOfferDialogComponent, {
+      maxWidth: '95vw',
+      autoFocus: false,
+      backdropClass: 'blurred-dialog-backdrop',
+      data: {
+        myCard: this.myCard(),
+        theirCard: this.theirCard(),
+        partnerUsername: this.partnerUsername(),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+        console.group("offer was validated")
+        //this.sendOffer(); // Your method to actually create the trade
+      }
+    });
+  }
 }

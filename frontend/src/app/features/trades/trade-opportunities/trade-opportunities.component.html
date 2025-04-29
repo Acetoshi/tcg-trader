@@ -30,7 +30,7 @@
       <ul class="collection-items-list">
         @for (opportunity of partnerOpps.opportunities; track opportunity) {
           <li>
-            <app-trade-opportunity [opportunity]="opportunity" />
+            <app-trade-opportunity [opportunity]="opportunity" [partnerUsername]="partnerOpps.partnerUsername" />
           </li>
         }
       </ul>
