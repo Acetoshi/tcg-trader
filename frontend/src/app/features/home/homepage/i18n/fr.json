@@ -1,24 +1,24 @@
 {
-    "home": {
-      "heroTitle": "Collectionnez, échangez, discutez — Au même endroit",
-      "heroSubtitle": "Découvrez les cartes, gérez votre collection et échangez dans le monde entier.",
-      "getStarted": "S'inscrire — C'est gratuit",
-      "learnHowItWorks": "Comment ça marche",
-      "startTradingTitle": "Commencez à échanger en quelques minutes",
-      "wishlistTitle": "Ajoutez des cartes à votre liste de souhaits",
-      "wishlistDescription": "Choisissez les cartes que vous rêvez d’avoir et celles que vous êtes prêt à échanger.",
-      "findPartnerTitle": "Trouvez un partenaire d’échange",
-      "findPartnerDescription": "Utilisez notre moteur de trade matching pour trouver d'autres collectionneurs.",
-      "startTradingActionTitle": "Commencez à échanger !",
-      "startTradingActionDescription": "Discutez, négociez et finalisez vos échanges facilement.",
-      "makeFirstTrade": "Réalisez votre premier échange",
-      "testimonialsTitle": "Pourquoi les collectionneurs adorent BulbaTrade",
-      "testimonial1": "Enfin, une plateforme unique pour gérer toute ma collection et échanger mes cartes facilement.",
-      "testimonial2": "Les mises à jour en temps réel rendent l’échange fluide.",
-      "testimonial3": "J'ai enfin trouvé un partenaire pour compléter mon set, LET'S GO !",
-      "joinCommunity": "Rejoindre la communauté",
-      "finalCtaTitle": "Rejoignez BulbaTrade aujourd'hui et transformez votre façon de collectionner",
-      "signUpFree": "Inscrivez-vous gratuitement",
-      "browseCatalog": "Parcourir le catalogue de cartes"
-    }
+  "home": {
+    "heroTitle": "Collectionnez, échangez, discutez — Au même endroit",
+    "heroSubtitle": "Découvrez les cartes, gérez votre collection et échangez dans le monde entier.",
+    "getStarted": "S'inscrire — C'est gratuit",
+    "learnHowItWorks": "Comment ça marche",
+    "startTradingTitle": "Commencez à échanger en quelques minutes",
+    "wishlistTitle": "Ajoutez des cartes à votre liste de souhaits",
+    "wishlistDescription": "Choisissez les cartes que vous rêvez d’avoir et celles que vous êtes prêt à échanger.",
+    "findPartnerTitle": "Trouvez un partenaire d’échange",
+    "findPartnerDescription": "Utilisez notre moteur de trade matching pour trouver d'autres collectionneurs.",
+    "startTradingActionTitle": "Commencez à échanger !",
+    "startTradingActionDescription": "Discutez, négociez et finalisez vos échanges facilement.",
+    "makeFirstTrade": "Réalisez votre premier échange",
+    "testimonialsTitle": "Pourquoi les collectionneurs adorent BulbaTrade",
+    "testimonial1": "Enfin, une plateforme unique pour gérer toute ma collection et échanger mes cartes facilement.",
+    "testimonial2": "Les mises à jour en temps réel rendent l’échange fluide.",
+    "testimonial3": "J'ai enfin trouvé un partenaire pour compléter mon set, LET'S GO !",
+    "joinCommunity": "Rejoindre la communauté",
+    "finalCtaTitle": "Rejoignez BulbaTrade aujourd'hui et transformez votre façon de collectionner",
+    "signUpFree": "Inscrivez-vous gratuitement",
+    "browseCatalog": "Parcourir le catalogue de cartes"
   }
+}

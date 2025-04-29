@@ -4,7 +4,7 @@
     "verifying": "Vérification de votre e-mail ...",
     "success": {
       "message": "Votre e-mail a été vérifié avec succès, vous êtes connecté !",
-      "dashboard": "Aller à mon tableau de bord"
+      "myCollection": "Aller à ma collection"
     },
     "error": {
       "message": "Votre e-mail n'a pas pu être vérifié, vérifiez votre lien."

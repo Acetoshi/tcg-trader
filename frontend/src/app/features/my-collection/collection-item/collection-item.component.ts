@@ -1,21 +1,22 @@
 import { Component, computed, input, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { debounceTime } from "rxjs";
+import { TranslateModule } from "@ngx-translate/core";
+import { CollectionService } from "../../../core/services/collection.service";
+import { LanguageService } from "../../../core/services/language.service";
+import { environment } from "../../../../environments/environment";
+import { CollectionItem } from "../models/collection-item.model";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { CollectionItem, LanguageVersion } from "../models/collection-item.model";
-import { environment } from "../../../../environments/environment";
-import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { debounceTime } from "rxjs";
-import { CollectionService } from "../../../core/services/collection.service";
-import { LanguageService } from "../../../core/services/language.service";
 
 @Component({
   standalone: true,
   selector: "app-collection-item",
   templateUrl: "./collection-item.component.html",
   styleUrls: ["./collection-item.component.scss"],
-  imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
 })
 export class CollectionItemComponent implements OnInit {
   collectionItem = input.required<CollectionItem>();
@@ -27,13 +28,12 @@ export class CollectionItemComponent implements OnInit {
   selectedLanguageCode = signal("en");
   availableLanguageCodes = computed(() => this.collectionItem().languageVersions.map(version => version.languageCode));
 
-  // TODO : fallback to english if the default user's language isn't available
-  version = computed(
-    () =>
-      this.collectionItem().languageVersions.find(
-        version => version.languageCode.toLowerCase() === this.selectedLanguageCode().toLowerCase()
-      ) as LanguageVersion
-  );
+  version = computed(() => {
+    const found = this.collectionItem().languageVersions.find(
+      version => version.languageCode.toLowerCase() === this.selectedLanguageCode().toLowerCase()
+    );
+    return found ?? this.collectionItem().languageVersions[0];
+  });
 
   constructor(
     private languageService: LanguageService,
@@ -43,6 +43,7 @@ export class CollectionItemComponent implements OnInit {
 
   ngOnInit() {
     //display cards in the user's language if possible
+    // TODO : it feels like i need to pipe this somehow both to currentLang AND to the languages avaible, when the view is filtered
     this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
@@ -62,6 +63,23 @@ export class CollectionItemComponent implements OnInit {
         },
         { emitEvent: false }
       );
+    });
+
+    // make sure owned card is for trade by default
+    // TODO : decide if this is a dark pattern or not, forcing people to list their cards for trade ?
+    this.collectionItemForm.get("owned")?.valueChanges.subscribe(owned => {
+      const forTrade = this.collectionItemForm.get("forTrade")?.value as number;
+      if (owned !== forTrade) {
+        this.collectionItemForm.patchValue({ forTrade: owned });
+      }
+    });
+
+    // make sure the user doesn't list cards for trade he doesn't have
+    this.collectionItemForm.get("forTrade")?.valueChanges.subscribe(forTrade => {
+      const owned = this.collectionItemForm.get("owned")?.value as number;
+      if (forTrade > owned) {
+        this.collectionItemForm.patchValue({ owned: forTrade });
+      }
     });
   }
 

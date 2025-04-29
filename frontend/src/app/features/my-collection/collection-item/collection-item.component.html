@@ -3,7 +3,8 @@
     mat-card-image
     [src]="fileServerBaseUrl + version().imageUrl"
     alt="version().name"
-    [ngClass]="{ unobtained: version().owned === 0, 'card-image': true }" />
+    [ngClass]="{ unobtained: version().owned === 0, 'card-image': true }"
+    loading="lazy" />
   <mat-card-content>
     <form class="quantities-form" [formGroup]="collectionItemForm">
       <span
@@ -20,17 +21,17 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>Owned</mat-label>
+        <mat-label>{{ "collectionItem.owned" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="owned" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>For trade</mat-label>
+        <mat-label>{{ "collectionItem.forTrade" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="forTrade" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="quantity-input" subscriptSizing="dynamic">
-        <mat-label>Wishlist</mat-label>
+        <mat-label>{{ "collectionItem.wishlist" | translate }}</mat-label>
         <input matInput type="number" min="0" formControlName="wishlist" />
       </mat-form-field>
     </form>

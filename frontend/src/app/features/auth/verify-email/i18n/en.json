@@ -4,7 +4,7 @@
     "verifying": "Verifying your email ...",
     "success": {
       "message": "Your email has been successfully verified, you are logged in !",
-      "dashboard": "Go to my dashboard"
+      "myCollection": "Go to my collection"
     },
     "error": {
       "message": "Your email couldn't be verified, check your link."

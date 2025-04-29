@@ -116,7 +116,7 @@
     "verifying": "Vérification de votre e-mail ...",
     "success": {
       "message": "Votre e-mail a été vérifié avec succès, vous êtes connecté !",
-      "dashboard": "Aller à mon tableau de bord"
+      "myCollection": "Aller à ma collection"
     },
     "error": {
       "message": "Votre e-mail n'a pas pu être vérifié, vérifiez votre lien."
@@ -125,7 +125,7 @@
   "cardFilterBar": {
     "search": {
       "label": "Rechercher une carte",
-      "placeholder": "Ex. Pikachu, Rouge ..."
+      "placeholder": "Ex. Pikachu, Red ..."
     },
     "filters": {
       "toggle": {
@@ -151,6 +151,11 @@
         "label": "Faiblesse",
         "noWeakness": "Aucune faiblesse"
       }
+    },
+    "collectionFilters": {
+      "allCards": "Toutes les cartes",
+      "owned": "Seulement ma collection",
+      "wishlist": "Seulement mes souhaits"
     },
     "errors": {
       "fetchSets": "Erreur lors de la récupération des extensions",
@@ -208,6 +213,11 @@
     "avatar": {
       "alt": "votre avatar"
     }
+  },
+  "collectionItem": {
+    "owned": "Obtenues",
+    "forTrade": "Échange",
+    "wishlist": "Souhaits"
   },
   "myCollectionDashboard": {
     "myCollection": "Ma collection",

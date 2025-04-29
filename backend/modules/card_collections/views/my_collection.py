@@ -23,6 +23,8 @@ class MyCollectionView(SlidingAuthBaseView):
                     "card_type_codes": request.query_params.get("type"),
                     "color_codes": request.query_params.get("color"),
                     "weakness_codes": request.query_params.get("weakness"),
+                    "owned_only": request.query_params.get("owned"),
+                    "wishlist_only": request.query_params.get("wishlist"),
                 }
             )
             cursor.execute(sql_request, params)
@@ -102,6 +104,12 @@ class MyCollectionView(SlidingAuthBaseView):
         if filters.get("search"):
             where_clauses.append("unaccent(name_trans.name) ILIKE unaccent(%(search)s)")
             params["search"] = f"%{filters['search']}%"
+
+        if filters.get("owned_only") and filters["owned_only"] == "true":
+            where_clauses.append("ucc.quantity_owned >= 1")
+
+        if filters.get("wishlist_only") and filters["wishlist_only"] == "true":
+            where_clauses.append("ucc.desired_quantity >= 1")
 
         if where_clauses:
             base_sql += " WHERE " + " AND ".join(where_clauses)

@@ -116,7 +116,7 @@
     "verifying": "Verifying your email ...",
     "success": {
       "message": "Your email has been successfully verified, you are logged in !",
-      "dashboard": "Go to my dashboard"
+      "myCollection": "Go to my collection"
     },
     "error": {
       "message": "Your email couldn't be verified, check your link."
@@ -151,6 +151,11 @@
         "label": "Weakness",
         "noWeakness": "No weakness"
       }
+    },
+    "collectionFilters": {
+      "allCards": "All cards",
+      "owned": "Owned Only",
+      "wishlist": "Wishlist Only"
     },
     "errors": {
       "fetchSets": "Error fetching Sets",
@@ -208,6 +213,11 @@
     "avatar": {
       "alt": "your avatar"
     }
+  },
+  "collectionItem": {
+    "owned": "Owned",
+    "forTrade": "For trade",
+    "wishlist": "Wishlist"
   },
   "myCollectionDashboard": {
     "myCollection": "My Collection",
