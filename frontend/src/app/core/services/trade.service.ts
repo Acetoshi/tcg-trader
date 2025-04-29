@@ -79,4 +79,14 @@ export class TradeService {
     }, []);
     this.opportunities.set(updatedOpportunities);
   }
+
+  // fetchSentTradeOffers(): void {
+  //   if (!isPlatformBrowser(this.platformId)) return;
+  //   this.http
+  //     .get<PaginatedResponse<GroupedTradeOpportunities>>(`${this.apiUrl}/trades/opportunities`)
+  //     .subscribe(response => {
+  //       this.pagination.set({ next: response.next, previous: response.previous });
+  //       this.opportunities.set(response.results);
+  //     });
+  // }
 }

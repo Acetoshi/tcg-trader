@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 
 
-class SentTradeOffersView(SlidingAuthBaseView):
+class ReceivedTradeOffersView(SlidingAuthBaseView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -31,7 +31,7 @@ class SentTradeOffersView(SlidingAuthBaseView):
                                 'imgUrl', their_img.url
                             )
                         )
-                    ) AS "sentOffers"
+                    ) AS "receivedOffers"
                 FROM trades_tradetransaction trans
                 INNER JOIN accounts_customuser u
                     ON partner_id = u.id
@@ -62,7 +62,7 @@ class SentTradeOffersView(SlidingAuthBaseView):
                 JOIN cards_set their_set
                     ON their_set.id = their_card.set_id
 
-                WHERE trans.initiator_id = %s
+                WHERE trans.partner_id = %s
 
                 GROUP BY u.username
             """,
