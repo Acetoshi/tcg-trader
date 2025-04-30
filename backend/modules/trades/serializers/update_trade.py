@@ -24,11 +24,16 @@ class UpdateTradeSerializer(serializers.ModelSerializer):
         if trade.initiator_id != user.id and trade.partner_id != user.id:
             raise serializers.ValidationError("You are not authorized to modify this transaction.")
 
-        # Make sure the requested status exists
+        # Make sure the requested status exists and needs updating
         try:
             status_obj = TradeStatus.objects.get(code=attrs["status"]["code"])
         except TradeStatus.DoesNotExist:
             raise serializers.ValidationError({"newStatusCode": "Invalid status code."})
+
+        if trade.status.code == status_obj.code:
+            raise serializers.ValidationError(
+                {"newStatusCode": "Transaction already has this status code, updating not needed"}
+            )
 
         attrs["trade_instance"] = trade
         attrs["status_instance"] = status_obj

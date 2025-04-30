@@ -49,5 +49,5 @@ export interface TradeStatusUpdateRequestBody {
 }
 
 export interface TradeStatusUpdateResponse {
-  status: TradeStatusCode;
+  statusCode: TradeStatusCode;
 }

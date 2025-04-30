@@ -45,17 +45,17 @@ export class SenttradeOfferComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const tradeData:TradeStatusUpdateRequestBody= {
-        tradeId:this.sentOffer().tradeId,
-        newStatusCode:"Cancelled"
-      }
+      const tradeData: TradeStatusUpdateRequestBody = {
+        tradeId: this.sentOffer().tradeId,
+        newStatusCode: "Cancelled",
+      };
       if (result) {
         this.tradeService.updateTrade(tradeData).subscribe({
           next: () => {
-            this.toastService.showSuccess(`Offer sent to ${this.partnerUsername()}`);
+            this.toastService.showSuccess(`Offer cancelled with success`);
           },
           error: () => {
-            this.toastService.showError(`Error when sending offer to ${this.partnerUsername()}`);
+            this.toastService.showError(`Error cancelling the offer, try again`);
           },
         });
       }

@@ -3,7 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
-import { CreateTradeOfferRequestBody, GroupedSentTradeOffers, GroupedTradeOpportunities, TradeStatusUpdateRequestBody, TradeStatusUpdateResponse } from "./trade.models";
+import {
+  CreateTradeOfferRequestBody,
+  GroupedSentTradeOffers,
+  GroupedTradeOpportunities,
+  TradeStatusUpdateRequestBody,
+  TradeStatusUpdateResponse,
+} from "./trade.models";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
@@ -90,9 +96,31 @@ export class TradeService {
     });
   }
 
-  updateTrade(tradeOfferData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
+  updateTrade(tradeData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
     return this.http
-      .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeOfferData)
-      // TODO : add a pipe here to remove the trade from sent;
+      .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData)
+      .pipe(tap(responseData => console.log("new status", responseData.statusCode)));
   }
+
+  // private removeSentOffer(tradeOfferData: TradeStatusUpdateRequestBody): void {
+  //   const updatedOpportunities = this.opportunities().reduce<GroupedTradeOpportunities[]>((acc, group) => {
+  //     if (group.partnerUsername === tradeOfferData.partnerUsername) {
+  //       // remove the opportunity whe the offer was successfully sent
+  //       const remaining = group.opportunities.filter(
+  //         op =>
+  //           !(
+  //             op.offeredCard.collectionId === tradeOfferData.offeredCardCollectionId &&
+  //             op.requestedCard.collectionId === tradeOfferData.requestedCardCollectionId
+  //           )
+  //       );
+  //       if (remaining.length) {
+  //         acc.push({ ...group, opportunities: remaining });
+  //       }
+  //     } else {
+  //       acc.push(group);
+  //     }
+  //     return acc;
+  //   }, []);
+  //   this.opportunities.set(updatedOpportunities);
+  // }
 }
