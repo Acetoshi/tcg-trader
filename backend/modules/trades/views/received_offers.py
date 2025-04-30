@@ -1,7 +1,6 @@
 from django.db import connection
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 
 
@@ -33,8 +32,10 @@ class ReceivedTradeOffersView(SlidingAuthBaseView):
                         )
                     ) AS "receivedOffers"
                 FROM trades_tradetransaction trans
+                INNER JOIN trades_tradestatus status
+                    ON trans.status_id=status.id
                 INNER JOIN accounts_customuser u
-                    ON partner_id = u.id
+                    ON initiator_id = u.id
 
                 -- your card details
                 INNER JOIN card_collections_usercardcollection your_ucc
@@ -63,6 +64,7 @@ class ReceivedTradeOffersView(SlidingAuthBaseView):
                     ON their_set.id = their_card.set_id
 
                 WHERE trans.partner_id = %s
+                AND status.code='Pending'
 
                 GROUP BY u.username
             """,
@@ -71,4 +73,8 @@ class ReceivedTradeOffersView(SlidingAuthBaseView):
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
-        return Response(results, status=status.HTTP_200_OK)
+            paginator = PageNumberPagination()
+            paginated_page = paginator.paginate_queryset(results, request)
+            page = paginator.get_paginated_response(paginated_page)
+
+        return page

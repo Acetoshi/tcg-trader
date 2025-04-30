@@ -32,7 +32,6 @@ class SentTradeOffersView(SlidingAuthBaseView):
                         )
                     ) AS "sentOffers"
                 FROM trades_tradetransaction trans
-
                 INNER JOIN trades_tradestatus status
                     ON trans.status_id=status.id
 
