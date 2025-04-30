@@ -1,0 +1,24 @@
+
+.trade-preview {
+  display: grid;
+  grid-template: 1fr / 2fr auto 2fr;
+  justify-content: center;
+  align-items: center;
+
+  & figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    //override defaults
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+
+    & img {
+      width: 128px;
+      border-radius: 5%/3.5%;
+    }
+  }
+}
