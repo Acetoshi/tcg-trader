@@ -1,4 +1,5 @@
 @use "global-variables" as *;
+@use '@angular/material' as mat;
 
 .dashboard-tab-group .mat-mdc-tab-header {
   position: sticky;
@@ -8,6 +9,14 @@
   margin-bottom: 16px;
   overflow: unset;
   background-color: var(--mat-sys-surface-dim) !important;
+}
+
+// info badge is used when a badge represents just an information, as opposed to requiring an action from the user
+.info-badge {
+  @include mat.badge-overrides((
+    background-color: var(--mat-sys-primary),
+    text-color: var(--mat-sys-on-primary),
+  ));
 }
 
 // Responsive (mobile)

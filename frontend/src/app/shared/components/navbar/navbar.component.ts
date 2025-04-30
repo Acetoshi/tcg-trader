@@ -1,27 +1,44 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
+import { TradeService } from "../../../core/services/trade.service";
+import { AuthService } from "../../../core/services/auth.service";
+import { ToastService } from "../../../core/services/toast.service";
+import { LanguageService } from "../../../core/services/language.service";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
-import { AuthService } from "../../../core/services/auth.service";
-import { ToastService } from "../../../core/services/toast.service";
-import { TranslateModule } from "@ngx-translate/core";
-import { LanguageService } from "../../../core/services/language.service";
+import { MatBadgeModule } from "@angular/material/badge";
 
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
-  imports: [CommonModule, TranslateModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterLink],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterLink,
+    MatBadgeModule
+  ],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   constructor(
     public languageService: LanguageService,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private tradeService: TradeService
   ) {}
+
+  ngOnInit(): void {
+    // needed to display a badge
+    this.tradeService.fetchReceivedTradeOffers()
+  }
 
   get isAuthenticated() {
     return this.authService.isAuthenticated;
@@ -40,5 +57,9 @@ export class NavbarComponent {
   protected changeLanguage(event: MouseEvent): void {
     event.stopPropagation(); // prevent menu from closing
     this.languageService.changeLanguage();
+  }
+
+  getReceivedOffersCount(): number {
+    return this.tradeService.receivedOffersCount();
   }
 }

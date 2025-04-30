@@ -6,12 +6,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">search</mat-icon>
-        <span
-          [matBadge]="getOpportunitiesCount()"
-          [matBadgeHidden]="!getOpportunitiesCount()"
-          matBadgeOverlap="false"
-          matBadgeDescription="you have {{ getOpportunitiesCount() }} trade opportunities"
-          >{{ "tradingDashboard.find" | translate }}</span
+        <span>{{ "tradingDashboard.find" | translate }} ({{getOpportunitiesCount()}})</span
         >
       </ng-template>
       <app-trade-opportunities />
@@ -21,6 +16,7 @@
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_received</mat-icon>
         <span
+          class="info-badge"
           [matBadge]="getReceivedOffersCount()"
           [matBadgeHidden]="!getReceivedOffersCount()"
           matBadgeOverlap="false"
@@ -34,12 +30,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_made</mat-icon>
-        <span
-          [matBadge]="getSentOffersCount()"
-          [matBadgeHidden]="!getSentOffersCount()"
-          matBadgeOverlap="false"
-          matBadgeDescription="you have sent {{ getSentOffersCount() }} trade offers"
-          >{{ "tradingDashboard.sent" | translate }}</span
+        <span>{{ "tradingDashboard.sent" | translate }} ({{getSentOffersCount()}})</span
         >
       </ng-template>
       <app-sent-trade-offers />

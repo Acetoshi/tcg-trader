@@ -42,7 +42,15 @@
 
       <button mat-button [matMenuTriggerFor]="tradingMenu" aria-label="Open tading menu">
         <mat-icon>swap_horiz</mat-icon>
-        {{ "navbar.trades" | translate }}
+        <span
+          class="info-badge"
+          [matBadge]="getReceivedOffersCount()"
+          [matBadgeHidden]="!getReceivedOffersCount()"
+          matBadgeSize="small"
+          matBadgeOverlap="false"
+          matBadgeDescription="new trade information needs your attention"
+          >{{ "navbar.trades" | translate }}</span
+        >
       </button>
       <mat-menu #tradingMenu="matMenu">
         <a mat-menu-item routerLink="trades/find">
@@ -52,7 +60,13 @@
 
         <a mat-menu-item routerLink="trades/received">
           <mat-icon>call_received</mat-icon>
-          {{ "tradingDashboard.incoming" | translate }}
+          <span
+          class="info-badge"
+          [matBadge]="getReceivedOffersCount()"
+          [matBadgeHidden]="!getReceivedOffersCount()"
+          matBadgeOverlap="false"
+          matBadgeDescription="you have {{ getReceivedOffersCount() }} trade opportunities"
+          >{{ "tradingDashboard.incoming" | translate }}</span>
         </a>
 
         <a mat-menu-item routerLink="trades/sent">
