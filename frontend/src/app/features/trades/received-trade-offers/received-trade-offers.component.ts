@@ -5,7 +5,6 @@ import { NoResultsComponent } from "../../../shared/components/no-results/no-res
 import { TradeService } from "../../../core/services/trade.service";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
-import { MatIcon } from "@angular/material/icon";
 import { ReceivedTradeOfferComponent } from "../received-trade-offer/received-trade-offer.component";
 
 @Component({
@@ -15,7 +14,6 @@ import { ReceivedTradeOfferComponent } from "../received-trade-offer/received-tr
   imports: [
     CommonModule,
     MatExpansionModule,
-    MatIcon,
     RouterLink,
     ReceivedTradeOfferComponent,
     ScrollListenerComponent,

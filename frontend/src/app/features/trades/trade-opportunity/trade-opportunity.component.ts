@@ -8,7 +8,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
-import { SendTradeOfferDialogComponent } from "../send-trade-offer-dialog/send-trade-offer-dialog.component";
+import { ConfirmTradeActionDialogComponent } from "../confirm-trade-action-dialog/confirm-trade-action-dialog.component";
 
 @Component({
   standalone: true,
@@ -33,11 +33,15 @@ export class TradeOpportunityComponent {
   ) {}
 
   openConfirmationDialog() {
-    const dialogRef = this.dialog.open(SendTradeOfferDialogComponent, {
+    const dialogRef = this.dialog.open(ConfirmTradeActionDialogComponent, {
       maxWidth: "95vw",
       autoFocus: false,
       backdropClass: "blurred-dialog-backdrop",
       data: {
+        title: "Send Trade Offer",
+        message: `You’re about to send this offer to ${this.partnerUsername()}.`,
+        confirmButtonLabel: "SEND OFFER",
+        cancelButtonLabel:"Cancel",
         myCard: this.myCard(),
         theirCard: this.theirCard(),
         partnerUsername: this.partnerUsername(),
