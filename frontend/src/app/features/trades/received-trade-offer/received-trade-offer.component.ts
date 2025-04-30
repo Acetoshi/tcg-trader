@@ -9,20 +9,18 @@ import { ConfirmTradeActionDialogComponent } from "../confirm-trade-action-dialo
 import { TradeService } from "../../../core/services/trade.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { MatDialog } from "@angular/material/dialog";
+import { TradePreviewComponent } from "../trade-preview/trade-previewcomponent";
 
 @Component({
   standalone: true,
   selector: "app-received-trade-offer",
   templateUrl: "./received-trade-offer.component.html",
   styleUrls: ["./received-trade-offer.component.scss"],
-  imports: [CommonModule, MatCardModule, MatIcon, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatIcon, MatButtonModule, MatIcon, TradePreviewComponent],
 })
 export class ReceivedTradeOfferComponent {
   receivedOffer = input.required<TradeTransaction>();
   partnerUsername = input.required<string>();
-
-  myCard = computed(() => this.receivedOffer().offeredCard);
-  theirCard = computed(() => this.receivedOffer().requestedCard);
 
   fileServerBaseUrl = environment.fileServerUrl;
 
@@ -42,8 +40,8 @@ export class ReceivedTradeOfferComponent {
         message: `You're about to accept the offer ${this.partnerUsername()} sent you.`,
         confirmButtonLabel: "ACCEPT OFFER",
         cancelButtonLabel:"Cancel",
-        myCard: this.myCard(),
-        theirCard: this.theirCard(),
+        myCard: this.receivedOffer().offeredCard,
+        theirCard: this.receivedOffer().requestedCard,
         partnerUsername: this.partnerUsername(),
       },
     });
@@ -51,15 +49,15 @@ export class ReceivedTradeOfferComponent {
     dialogRef.afterClosed().subscribe(result => {
       const tradeData: TradeStatusUpdateRequestBody = {
         tradeId: this.receivedOffer().tradeId,
-        newStatusCode: "Cancelled", // here we need to decide Accepted/Refused
+        newStatusCode: "Accepted",
       };
       if (result) {
         this.tradeService.updateTrade(tradeData).subscribe({
           next: () => {
-            this.toastService.showSuccess(`Offer cancelled with success`);
+            this.toastService.showSuccess(`Offer accepted, proceed with the trade`);
           },
           error: () => {
-            this.toastService.showError(`Error cancelling the offer, try again`);
+            this.toastService.showError(`Error accepting the offer, try again`);
           },
         });
       }
@@ -76,8 +74,8 @@ export class ReceivedTradeOfferComponent {
         message: `You're about to refuse the offer ${this.partnerUsername()} sent you.`,
         confirmButtonLabel: "REFUSE OFFER",
         cancelButtonLabel:"Cancel",
-        myCard: this.myCard(),
-        theirCard: this.theirCard(),
+        myCard: this.receivedOffer().offeredCard,
+        theirCard: this.receivedOffer().requestedCard,
         partnerUsername: this.partnerUsername(),
       },
     });
@@ -85,15 +83,15 @@ export class ReceivedTradeOfferComponent {
     dialogRef.afterClosed().subscribe(result => {
       const tradeData: TradeStatusUpdateRequestBody = {
         tradeId: this.receivedOffer().tradeId,
-        newStatusCode: "Cancelled", // here we need to decide Accepted/Refused
+        newStatusCode: "Refused",
       };
       if (result) {
         this.tradeService.updateTrade(tradeData).subscribe({
           next: () => {
-            this.toastService.showSuccess(`Offer cancelled with success`);
+            this.toastService.showSuccess(`Offer refused`);
           },
           error: () => {
-            this.toastService.showError(`Error cancelling the offer, try again`);
+            this.toastService.showError(`Error refusing the offer, try again`);
           },
         });
       }

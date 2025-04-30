@@ -9,20 +9,18 @@ import { ConfirmTradeActionDialogComponent } from "../confirm-trade-action-dialo
 import { TradeService } from "../../../core/services/trade.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { MatDialog } from "@angular/material/dialog";
+import { TradePreviewComponent } from "../trade-preview/trade-previewcomponent";
 
 @Component({
   standalone: true,
   selector: "app-sent-trade-offer",
   templateUrl: "./sent-trade-offer.component.html",
   styleUrls: ["./sent-trade-offer.component.scss"],
-  imports: [CommonModule, MatCardModule, MatIcon, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatIcon, MatButtonModule, TradePreviewComponent],
 })
 export class SentTradeOfferComponent {
   sentOffer = input.required<TradeTransaction>();
   partnerUsername = input.required<string>();
-
-  myCard = computed(() => this.sentOffer().offeredCard);
-  theirCard = computed(() => this.sentOffer().requestedCard);
 
   fileServerBaseUrl = environment.fileServerUrl;
 
@@ -42,8 +40,8 @@ export class SentTradeOfferComponent {
         message: `You’re about to revoke the offer you made to ${this.partnerUsername()}.`,
         confirmButtonLabel: "CANCEL OFFER",
         cancelButtonLabel:"I changed my mind",
-        myCard: this.myCard(),
-        theirCard: this.theirCard(),
+        myCard: this.sentOffer().offeredCard,
+        theirCard: this.sentOffer().requestedCard,
         partnerUsername: this.partnerUsername(),
       },
     });

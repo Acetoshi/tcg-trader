@@ -20,7 +20,6 @@
       <ul class="collection-items-list">
         @for (receivedOffer of groupedReceivedOffers.receivedOffers; track receivedOffer) {
           <li>
-            one offer
             <app-received-trade-offer [receivedOffer]="receivedOffer" [partnerUsername]="groupedReceivedOffers.partnerUsername" />
           </li>
         }
