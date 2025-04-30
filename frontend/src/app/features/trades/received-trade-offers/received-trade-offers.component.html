@@ -1,0 +1,35 @@
+<mat-accordion multi="true">
+  @for (groupedReceivedOffers of tradeService.receivedOffers(); track groupedReceivedOffers.partnerUsername) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span
+            >{{ groupedReceivedOffers.receivedOffers.length }}
+            @if (groupedReceivedOffers.receivedOffers.length > 1) {
+              trade offers
+            } @else {
+              trade offer
+            }
+            awaiting response from&nbsp;
+            <a routerLink="/profiles/{{ groupedReceivedOffers.partnerUsername }}">
+              {{ groupedReceivedOffers.partnerUsername }}
+            </a></span
+          >
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="collection-items-list">
+        @for (receivedOffer of groupedReceivedOffers.receivedOffers; track receivedOffer) {
+          <li>
+            <app-received-trade-offer [receivedOffer]="receivedOffer" [partnerUsername]="groupedReceivedOffers.partnerUsername" />
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
+  }
+</mat-accordion>
+
+@if (noResults()) {
+  <app-no-results />
+  <!-- TODO : add a CTA to go to smart matcher -->
+}
+<app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

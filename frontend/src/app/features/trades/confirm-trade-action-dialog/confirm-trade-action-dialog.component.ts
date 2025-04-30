@@ -6,30 +6,32 @@ import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 
 export interface TradeDialogData {
-  myCard: {
-    cardRef: string;
-    languageCode: string;
-    imgUrl: string;
-  };
-  theirCard: {
-    cardRef: string;
-    languageCode: string;
-    imgUrl: string;
-  };
+  title: string;
+  message: string;
+  confirmButtonLabel: string;
+  cancelButtonLabel?: string;
+  myCard: CardInfo;
+  theirCard: CardInfo;
   partnerUsername: string;
 }
 
+interface CardInfo {
+  cardRef: string;
+  languageCode: string;
+  imgUrl: string;
+}
+
 @Component({
-  selector: "app-delete-sent-trade-offer-dialog",
-  templateUrl: "./delete-sent-trade-offer-dialog.component.html",
-  styleUrls: ["./delete-sent-trade-offer-dialog.component.scss"],
+  selector: "app-confirm-trade-action-dialog",
+  templateUrl: "./confirm-trade-action-dialog.component.html",
+  styleUrls: ["./confirm-trade-action-dialog.component.scss"],
   imports: [CommonModule, MatDialogModule, MatIcon, MatButtonModule],
 })
-export class CancelSentTradeOfferDialogComponent {
+export class ConfirmTradeActionDialogComponent {
   fileServerBaseUrl = environment.fileServerUrl;
 
   constructor(
-    public dialogRef: MatDialogRef<CancelSentTradeOfferDialogComponent>,
+    public dialogRef: MatDialogRef<ConfirmTradeActionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TradeDialogData
   ) {}
 

@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 import {
   CreateTradeOfferRequestBody,
+  GroupedReceivedTradeOffers,
   GroupedSentTradeOffers,
   GroupedTradeOpportunities,
   TradeStatusUpdateRequestBody,
@@ -23,9 +24,15 @@ export class TradeService {
   // Signal for myCollection data
   opportunities = signal<GroupedTradeOpportunities[]>([]);
   opportunitiesPagination = signal<PaginationObject>(PaginationDefault);
+  opportunitiesCount = computed(()=>this.opportunities().reduce((acc, group) => acc + group.opportunities.length,0))
 
   sentOffers = signal<GroupedSentTradeOffers[]>([]);
   sentOffersPagination = signal<PaginationObject>(PaginationDefault);
+  sentOffersCount = computed(()=>this.sentOffers().reduce((acc, group) => acc + group.sentOffers.length,0))
+
+  receivedOffers = signal<GroupedReceivedTradeOffers[]>([]);
+  receivedOffersPagination = signal<PaginationObject>(PaginationDefault);
+  receivedOffersCount = computed(()=>this.receivedOffers().reduce((acc, group) => acc + group.receivedOffers.length,0))
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -100,8 +107,22 @@ export class TradeService {
   }
 
   updateTrade(tradeData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
-    return this.http
-      .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData)
-      .pipe(tap(() => this.fetchSentTradeOffers())); // refetch sent offers to stay up to date, it would be efficient to edit the signals without refteching, this is more reliable, and works.
+    return this.http.patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData).pipe(
+      tap(responseData => {
+        if (responseData.statusCode == "Cancelled") this.fetchSentTradeOffers();
+        if (responseData.statusCode == "Refused" || responseData.statusCode == "Accepted")
+          this.fetchReceivedTradeOffers();
+      })
+    ); // refetch to stay up to date, it would be more efficient to edit the signals without refteching, but this works for now.
+  }
+
+  fetchReceivedTradeOffers(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.http
+      .get<PaginatedResponse<GroupedReceivedTradeOffers>>(`${this.apiUrl}/trades/received`)
+      .subscribe(response => {
+        this.receivedOffersPagination.set({ next: response.next, previous: response.previous });
+        this.receivedOffers.set(response.results);
+      });
   }
 }

@@ -1,26 +1,3 @@
-.trade-opportunity-image {
-  width: 128px;
-  border-radius: 5%/3.5%;
-}
-
-.trade-overview {
-  display: grid;
-  grid-template: 1fr / 2fr 1fr 2fr;
-  justify-content: center;
-  align-items: center;
-}
-
-.trade-overview figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //override defaults
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-}
 
 .trade-actions {
   display: flex;

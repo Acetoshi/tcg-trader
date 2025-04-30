@@ -1,0 +1,15 @@
+<div class="trade-preview">
+  <figure>
+    <span>You give</span>
+    <img mat-card-image [src]="fileServerBaseUrl + myCard().imgUrl" alt="" />
+    <figcaption>#{{ myCard().cardRef }} ({{ myCard().languageCode }})</figcaption>
+  </figure>
+  <span class="text-centered">
+    <mat-icon class="icon-xl">swap_horiz</mat-icon>
+  </span>
+  <figure>
+    <span>You receive</span>
+    <img mat-card-image [src]="fileServerBaseUrl + theirCard().imgUrl" alt="" />
+    <figcaption>#{{ theirCard().cardRef }} ({{ theirCard().languageCode }})</figcaption>
+  </figure>
+</div>

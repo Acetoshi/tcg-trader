@@ -5,8 +5,11 @@ import { filter } from "rxjs/operators";
 import { TranslateModule } from "@ngx-translate/core";
 import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
+import { MatBadgeModule } from "@angular/material/badge";
 import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
 import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers.component";
+import { ReceivedTadeOffersComponent } from "../received-trade-offers/received-trade-offers.component";
+import { TradeService } from "../../../core/services/trade.service";
 
 @Component({
   selector: "app-trading-dashboard",
@@ -17,7 +20,9 @@ import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers
     TranslateModule,
     MatTabsModule,
     MatIcon,
+    MatBadgeModule,
     TradeOpportunitiesComponent,
+    ReceivedTadeOffersComponent,
     SentTradeOffersComponent,
   ],
 })
@@ -25,11 +30,12 @@ export class TradingDashboardComponent implements OnInit {
   selectedTabIndex = 0;
 
   // map index → child route
-  private tabs = ["find", "incoming", "sent", "ongoing", "history"];
+  private tabs = ["find", "received", "sent", "ongoing", "history"];
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tradeService: TradeService
   ) {}
 
   ngOnInit() {
@@ -48,5 +54,17 @@ export class TradingDashboardComponent implements OnInit {
   onTabChange(event: MatTabChangeEvent) {
     const tabPath = this.tabs[event.index];
     this.router.navigate([tabPath], { relativeTo: this.route });
+  }
+
+  getOpportunitiesCount():number{
+    return this.tradeService.opportunitiesCount()
+  }
+
+  getSentOffersCount():number{
+    return this.tradeService.sentOffersCount()
+  }
+
+  getReceivedOffersCount():number{
+    return this.tradeService.receivedOffersCount()
   }
 }

@@ -24,7 +24,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: "find", component: TradingDashboardComponent }, //This looks stupid but is needed to route to mat-tabs
-      { path: "incoming", component: TradingDashboardComponent },
+      { path: "received", component: TradingDashboardComponent },
       { path: "sent", component: TradingDashboardComponent },
       { path: "ongoing", component: TradingDashboardComponent },
       { path: "history", component: TradingDashboardComponent },
