@@ -10,11 +10,16 @@ export interface GroupedSentTradeOffers {
 
 export interface GroupedReceivedTradeOffers {
   partnerUsername: string;
-  sentOffers: TradeOpportunity[];
+  sentOffers: TradeTransaction[];
 }
 
-// TODO : this naming is somewhat confusing.
 export interface TradeOpportunity {
+  offeredCard: TradePart;
+  requestedCard: TradePart;
+}
+
+export interface TradeTransaction {
+  tradeId: string;
   offeredCard: TradePart;
   requestedCard: TradePart;
 }

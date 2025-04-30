@@ -5,6 +5,10 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { CancelSentTradeOfferDialogComponent } from "../delete-sent-trade-offer-dialog/delete-sent-trade-offer-dialog.component";
+import { TradeService } from "../../../core/services/trade.service";
+import { ToastService } from "../../../core/services/toast.service";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   standalone: true,
@@ -21,4 +25,29 @@ export class SenttradeOfferComponent {
   theirCard = computed(() => this.sentOffer().requestedCard);
 
   fileServerBaseUrl = environment.fileServerUrl;
+
+  constructor(
+    private tradeService: TradeService,
+    private toastService: ToastService,
+    private dialog: MatDialog
+  ) {}
+
+  openConfirmationDialog() {
+    const dialogRef = this.dialog.open(CancelSentTradeOfferDialogComponent, {
+      maxWidth: "95vw",
+      autoFocus: false,
+      backdropClass: "blurred-dialog-backdrop",
+      data: {
+        myCard: this.myCard(),
+        theirCard: this.theirCard(),
+        partnerUsername: this.partnerUsername(),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // delete offer goes here
+      }
+    });
+  }
 }
