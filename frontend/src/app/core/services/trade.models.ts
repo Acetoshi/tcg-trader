@@ -5,7 +5,7 @@ export interface GroupedTradeOpportunities {
 
 export interface GroupedSentTradeOffers {
   partnerUsername: string;
-  sentOffers: TradeOpportunity[];
+  sentOffers: TradeTransaction[];
 }
 
 export interface GroupedReceivedTradeOffers {
@@ -36,3 +36,5 @@ export interface TradeOffer {
   offeredCardCollectionId: number;
   requestedCardCollectionId: number;
 }
+
+export type TradeStatusCode = "Pending" | "Accepted" | "Completed" | "Cancelled" | "Refused";
