@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 import {
   CreateTradeOfferRequestBody,
+  GroupedReceivedTradeOffers,
   GroupedSentTradeOffers,
   GroupedTradeOpportunities,
   TradeStatusUpdateRequestBody,
@@ -26,6 +27,9 @@ export class TradeService {
 
   sentOffers = signal<GroupedSentTradeOffers[]>([]);
   sentOffersPagination = signal<PaginationObject>(PaginationDefault);
+
+  receivedOffers = signal<GroupedReceivedTradeOffers[]>([]);
+  receivedOffersPagination = signal<PaginationObject>(PaginationDefault);
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -103,5 +107,13 @@ export class TradeService {
     return this.http
       .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData)
       .pipe(tap(() => this.fetchSentTradeOffers())); // refetch sent offers to stay up to date, it would be efficient to edit the signals without refteching, this is more reliable, and works.
+  }
+
+  fetchReceivedTradeOffers(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.http.get<PaginatedResponse<GroupedReceivedTradeOffers>>(`${this.apiUrl}/trades/received`).subscribe(response => {
+      this.receivedOffersPagination.set({ next: response.next, previous: response.previous });
+      this.receivedOffers.set(response.results);
+    });
   }
 }

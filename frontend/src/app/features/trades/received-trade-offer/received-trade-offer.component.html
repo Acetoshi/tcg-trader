@@ -1,0 +1,26 @@
+<mat-card class="trade-opportunity-card">
+  <!-- <mat-card-header> Trade with : {{ opportunity().partnerUsername }} </mat-card-header> -->
+  <mat-card-content class="trade-overview">
+    <figure>
+      <span>You give</span>
+      <img mat-card-image [src]="fileServerBaseUrl + myCard().imgUrl" alt="card ref" class="trade-opportunity-image" />
+      <figcaption>#{{ myCard().cardRef }} ({{ myCard().languageCode }})</figcaption>
+    </figure>
+    <span class="text-centered">
+      <mat-icon class="icon-xl">swap_horiz</mat-icon>
+    </span>
+    <figure>
+      <span>You receive</span>
+      <img
+        mat-card-image
+        [src]="fileServerBaseUrl + theirCard().imgUrl"
+        alt="card ref"
+        class="trade-opportunity-image" />
+      <figcaption>#{{ theirCard().cardRef }} ({{ theirCard().languageCode }})</figcaption>
+    </figure>
+  </mat-card-content>
+  <mat-card-actions class="trade-actions high-density">
+    <button mat-raised-button (click)="openRefuseDialog()">Refuse offer</button>
+    <button mat-flat-button (click)="openAcceptDialog()">ACCEPT OFFER</button>
+  </mat-card-actions>
+</mat-card>

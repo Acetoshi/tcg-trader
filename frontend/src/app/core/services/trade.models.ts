@@ -10,7 +10,7 @@ export interface GroupedSentTradeOffers {
 
 export interface GroupedReceivedTradeOffers {
   partnerUsername: string;
-  sentOffers: TradeTransaction[];
+  receivedOffers: TradeTransaction[];
 }
 
 export interface TradeOpportunity {

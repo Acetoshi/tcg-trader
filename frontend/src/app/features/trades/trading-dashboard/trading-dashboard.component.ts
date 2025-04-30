@@ -7,6 +7,7 @@ import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
 import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
 import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers.component";
+import { ReceivedTadeOffersComponent } from "../received-trade-offers/received-trade-offers.component";
 
 @Component({
   selector: "app-trading-dashboard",
@@ -18,6 +19,7 @@ import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers
     MatTabsModule,
     MatIcon,
     TradeOpportunitiesComponent,
+    ReceivedTadeOffersComponent,
     SentTradeOffersComponent,
   ],
 })

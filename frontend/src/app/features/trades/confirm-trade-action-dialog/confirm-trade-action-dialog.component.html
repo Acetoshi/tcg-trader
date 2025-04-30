@@ -1,0 +1,30 @@
+<h2 mat-dialog-title id="dialog-title">{{ data.title }}</h2>
+
+<mat-dialog-content role="dialog" aria-labelledby="dialog-title">
+  <p>
+    {{ data.message }}
+  </p>
+
+  <div class="trade-preview">
+    <figure>
+      <figcaption>You give #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
+      <img [src]="fileServerBaseUrl + data.myCard.imgUrl" alt="" />
+    </figure>
+
+    <mat-icon class="icon-xl">swap_horiz</mat-icon>
+
+    <figure>
+      <figcaption>You receive #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
+      <img [src]="fileServerBaseUrl + data.theirCard.imgUrl" alt="" />
+    </figure>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">
+    {{ data.cancelButtonLabel || "Cancel" }}
+  </button>
+  <button mat-flat-button color="primary" (click)="confirm()">
+    {{ data.confirmButtonLabel }}
+  </button>
+</mat-dialog-actions>
