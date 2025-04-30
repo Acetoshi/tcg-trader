@@ -1,7 +1,6 @@
 from django.db import connection
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 
 
@@ -67,8 +66,12 @@ class SentTradeOffersView(SlidingAuthBaseView):
                 GROUP BY u.username
             """,
                 [user_id],
-            )
+            )  # TODO : for now it returns all trades, need to filter by status as well
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
-        return Response(results, status=status.HTTP_200_OK)
+            paginator = PageNumberPagination()
+            paginated_page = paginator.paginate_queryset(results, request)
+            page = paginator.get_paginated_response(paginated_page)
+
+        return page

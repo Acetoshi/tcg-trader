@@ -2,8 +2,8 @@ import { computed, Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angu
 import { HttpClient } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../environments/environment";
-import { PaginatedResponse } from "./pagination.model";
-import { GroupedTradeOpportunities, TradeOffer } from "./trade.models";
+import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
+import { GroupedSentTradeOffers, GroupedTradeOpportunities, TradeOffer } from "./trade.models";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
@@ -14,10 +14,12 @@ export class TradeService {
   private _loading = signal(false);
   loading = computed(() => this._loading());
 
-  pagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
-
   // Signal for myCollection data
   opportunities = signal<GroupedTradeOpportunities[]>([]);
+  opportunitiesPagination = signal<PaginationObject>(PaginationDefault);
+
+  sentOffers = signal<GroupedSentTradeOffers[]>([]);
+  sentOffersPagination = signal<PaginationObject>(PaginationDefault);
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -30,17 +32,17 @@ export class TradeService {
     this.http
       .get<PaginatedResponse<GroupedTradeOpportunities>>(`${this.apiUrl}/trades/opportunities`)
       .subscribe(response => {
-        this.pagination.set({ next: response.next, previous: response.previous });
+        this.opportunitiesPagination.set({ next: response.next, previous: response.previous });
         this.opportunities.set(response.results);
       });
   }
 
   fetchTradeOpportunitiesNextPage(): void {
-    if (this.pagination().next) {
+    if (this.opportunitiesPagination().next) {
       this.http
-        .get<PaginatedResponse<GroupedTradeOpportunities>>(this.pagination().next as string)
+        .get<PaginatedResponse<GroupedTradeOpportunities>>(this.opportunitiesPagination().next as string)
         .subscribe(response => {
-          this.pagination.set({ next: response.next, previous: response.previous });
+          this.opportunitiesPagination.set({ next: response.next, previous: response.previous });
           this.opportunities.set([...this.opportunities(), ...response.results]);
         });
     }
@@ -80,13 +82,11 @@ export class TradeService {
     this.opportunities.set(updatedOpportunities);
   }
 
-  // fetchSentTradeOffers(): void {
-  //   if (!isPlatformBrowser(this.platformId)) return;
-  //   this.http
-  //     .get<PaginatedResponse<GroupedTradeOpportunities>>(`${this.apiUrl}/trades/opportunities`)
-  //     .subscribe(response => {
-  //       this.pagination.set({ next: response.next, previous: response.previous });
-  //       this.opportunities.set(response.results);
-  //     });
-  // }
+  fetchSentTradeOffers(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.http.get<PaginatedResponse<GroupedSentTradeOffers>>(`${this.apiUrl}/trades/sent`).subscribe(response => {
+      this.sentOffersPagination.set({ next: response.next, previous: response.previous });
+      this.sentOffers.set(response.results);
+    });
+  }
 }

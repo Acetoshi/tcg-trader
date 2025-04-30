@@ -1,17 +1,25 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { filter } from "rxjs/operators";
+import { TranslateModule } from "@ngx-translate/core";
 import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
-import { TranslateModule } from "@ngx-translate/core";
 import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers.component";
 
 @Component({
   selector: "app-trading-dashboard",
   templateUrl: "./trading-dashboard.component.html",
   styleUrls: ["./trading-dashboard.component.scss"],
-  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, TradeOpportunitiesComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatTabsModule,
+    MatIcon,
+    TradeOpportunitiesComponent,
+    SentTradeOffersComponent,
+  ],
 })
 export class TradingDashboardComponent implements OnInit {
   selectedTabIndex = 0;

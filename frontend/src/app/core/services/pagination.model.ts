@@ -4,3 +4,13 @@ export interface PaginatedResponse<T> {
   previous: string | null;
   results: T[];
 }
+
+export interface PaginationObject {
+  next: string | null;
+  previous: string | null;
+}
+
+export const PaginationDefault = {
+  next: null,
+  previous: null,
+};
