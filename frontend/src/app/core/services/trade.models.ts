@@ -3,7 +3,23 @@ export interface GroupedTradeOpportunities {
   opportunities: TradeOpportunity[];
 }
 
+export interface GroupedSentTradeOffers {
+  partnerUsername: string;
+  sentOffers: TradeTransaction[];
+}
+
+export interface GroupedReceivedTradeOffers {
+  partnerUsername: string;
+  sentOffers: TradeTransaction[];
+}
+
 export interface TradeOpportunity {
+  offeredCard: TradePart;
+  requestedCard: TradePart;
+}
+
+export interface TradeTransaction {
+  tradeId: string;
   offeredCard: TradePart;
   requestedCard: TradePart;
 }
@@ -13,4 +29,25 @@ export interface TradePart {
   languageCode: string;
   cardRef: string;
   imgUrl: string;
+}
+
+export interface CreateTradeOfferRequestBody {
+  partnerUsername: string;
+  offeredCardCollectionId: number;
+  requestedCardCollectionId: number;
+}
+
+////////////////////
+// Trade Statuses //
+////////////////////
+
+export type TradeStatusCode = "Pending" | "Accepted" | "Completed" | "Cancelled" | "Refused";
+
+export interface TradeStatusUpdateRequestBody {
+  tradeId: string;
+  newStatusCode: TradeStatusCode;
+}
+
+export interface TradeStatusUpdateResponse {
+  statusCode: TradeStatusCode;
 }

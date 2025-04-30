@@ -1,0 +1,44 @@
+<!-- UX : this part is helpful to explain to the user how smart matching works -->
+<div class="smart-matching-info">
+  <mat-icon color="primary" class="info-icon">info</mat-icon>
+  <span>
+    These are the offers you sent from the
+    <a routerLink="/trades/find">smart finder</a>.
+  </span>
+</div>
+
+<mat-accordion multi="true">
+  @for (groupedSentOffers of tradeService.sentOffers(); track groupedSentOffers.partnerUsername) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span
+            >{{ groupedSentOffers.sentOffers.length }}
+            @if (groupedSentOffers.sentOffers.length > 1) {
+              trade offers
+            } @else {
+              trade offer
+            }
+            awaiting response from&nbsp;
+            <a routerLink="/profiles/{{ groupedSentOffers.partnerUsername }}">
+              {{ groupedSentOffers.partnerUsername }}
+            </a></span
+          >
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="collection-items-list">
+        @for (sentOffer of groupedSentOffers.sentOffers; track sentOffer) {
+          <li>
+            <app-sent-trade-offer [sentOffer]="sentOffer" [partnerUsername]="groupedSentOffers.partnerUsername" />
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
+  }
+</mat-accordion>
+
+@if (noResults()) {
+  <app-no-results />
+  <!-- TODO : add a CTA to go to smart matcher -->
+}
+<app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

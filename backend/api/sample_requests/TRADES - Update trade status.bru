@@ -1,15 +1,22 @@
 meta {
-  name: TRADES / Get opportunities
+  name: TRADES / Update trade status
   type: http
-  seq: 9
+  seq: 13
 }
 
-get {
-  url: http://localhost:5000/api/trades/opportunities
-  body: none
+post {
+  url: http://localhost:5000/api/trades
+  body: json
   auth: inherit
 }
 
 headers {
   Set-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzYzODM2MzctMDEwOC00ZTc2LTlhZDItNDRkMWJhMjQwNjA3IiwiZXhwIjoxNzQ1NzE3MTI5LCJpYXQiOjE3NDU1ODc1Mjl9.x7QAKOyqJbIXUz3sQExU_H7Xd9lhvd_PfXNn8REtaG8; expires=Sun, 27 Apr 2025 01:25:29 GMT; HttpOnly; Max-Age=129600; Path=/; SameSite=Strict
+}
+
+body:json {
+  {
+    "tradeId": "7b9516a2-2691-4491-9ad6-98a200cdda7d",
+    "newStatus":"MON CON"
+  }
 }

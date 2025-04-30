@@ -23,7 +23,7 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
 
         return paginator.get_paginated_response(paginated_page)
 
-    # This complex query COULD be optimized by using a CTE. (WITH matches AS ... SELECT )
+    # TODO : this query needs to filter out pending opportunities
     def build_get_opportunities_query(self, filters):
         base_sql = """
         WITH matches AS (
@@ -110,7 +110,7 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
 
         GROUP BY u.username
         ;"""
-
+        # TODO : need to NOT give the opportunities that were already sent
         params = {"user_id": filters["user_id"]}
 
         return base_sql, params

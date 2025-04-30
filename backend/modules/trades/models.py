@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 from modules.card_collections.models import UserCardCollection
@@ -6,15 +7,16 @@ User = get_user_model()
 
 
 class TradeStatus(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return self.name
+        return self.code
 
 
 class TradeTransaction(models.Model):
-    id = models.UUIDField(primary_key=True, default=models.UUIDField, editable=False)
-    initiator = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    initiator = models.ForeignKey(User, related_name="initiator", on_delete=models.CASCADE)
+    partner = models.ForeignKey(User, related_name="partner", on_delete=models.CASCADE)
     offered = models.ForeignKey(
         UserCardCollection, related_name="offered_card", on_delete=models.CASCADE
     )

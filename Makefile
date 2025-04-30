@@ -75,6 +75,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_types_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder_fr
+	@docker exec -it tcg-trader-backend python manage.py statuses_seeder
 
 db-reset:
 	@echo "Stopping the backend container..."
