@@ -39,7 +39,7 @@ class ReceivedTradeOffersView(SlidingAuthBaseView):
 
                 -- your card details
                 INNER JOIN card_collections_usercardcollection your_ucc
-                    ON trans.offered_id = your_ucc.id
+                    ON trans.requested_id = your_ucc.id
                 INNER JOIN cards_card your_card
                     ON your_ucc.card_id = your_card.id
                 JOIN cards_cardimage your_img
@@ -52,7 +52,7 @@ class ReceivedTradeOffersView(SlidingAuthBaseView):
 
                 -- their card details
                 INNER JOIN card_collections_usercardcollection their_ucc
-                    ON trans.requested_id = their_ucc.id
+                    ON trans.offered_id = their_ucc.id
                 INNER JOIN cards_card their_card
                     ON their_ucc.card_id = their_card.id
                 JOIN cards_cardimage their_img
