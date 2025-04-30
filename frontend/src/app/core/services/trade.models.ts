@@ -31,10 +31,23 @@ export interface TradePart {
   imgUrl: string;
 }
 
-export interface TradeOffer {
+export interface CreateTradeOfferRequestBody {
   partnerUsername: string;
   offeredCardCollectionId: number;
   requestedCardCollectionId: number;
 }
 
+////////////////////
+// Trade Statuses //
+////////////////////
+
 export type TradeStatusCode = "Pending" | "Accepted" | "Completed" | "Cancelled" | "Refused";
+
+export interface TradeStatusUpdateRequestBody {
+  tradeId: string;
+  newStatusCode: TradeStatusCode;
+}
+
+export interface TradeStatusUpdateResponse {
+  status: TradeStatusCode;
+}

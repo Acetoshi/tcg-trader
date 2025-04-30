@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
-import { GroupedSentTradeOffers, GroupedTradeOpportunities, TradeOffer } from "./trade.models";
+import { CreateTradeOfferRequestBody, GroupedSentTradeOffers, GroupedTradeOpportunities, TradeStatusUpdateRequestBody, TradeStatusUpdateResponse } from "./trade.models";
 import { Observable, tap } from "rxjs";
 
 @Injectable({
@@ -53,14 +53,14 @@ export class TradeService {
     return this.opportunities;
   }
 
-  sendOffer(tradeOfferData: TradeOffer): Observable<{ id: string }> {
+  sendOffer(tradeOfferData: CreateTradeOfferRequestBody): Observable<{ id: string }> {
     return this.http
       .post<{ id: string }>(`${this.apiUrl}/trades`, tradeOfferData)
       .pipe(tap(() => this.removeOpportunity(tradeOfferData)));
   }
 
   // this method is needed for send offer
-  private removeOpportunity(tradeOfferData: TradeOffer): void {
+  private removeOpportunity(tradeOfferData: CreateTradeOfferRequestBody): void {
     const updatedOpportunities = this.opportunities().reduce<GroupedTradeOpportunities[]>((acc, group) => {
       if (group.partnerUsername === tradeOfferData.partnerUsername) {
         // remove the opportunity whe the offer was successfully sent
@@ -88,5 +88,11 @@ export class TradeService {
       this.sentOffersPagination.set({ next: response.next, previous: response.previous });
       this.sentOffers.set(response.results);
     });
+  }
+
+  updateTrade(tradeOfferData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
+    return this.http
+      .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeOfferData)
+      // TODO : add a pipe here to remove the trade from sent;
   }
 }

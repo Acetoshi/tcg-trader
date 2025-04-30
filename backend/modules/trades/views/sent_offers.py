@@ -32,6 +32,10 @@ class SentTradeOffersView(SlidingAuthBaseView):
                         )
                     ) AS "sentOffers"
                 FROM trades_tradetransaction trans
+
+                INNER JOIN trades_tradestatus status
+                    ON trans.status_id=status.id
+
                 INNER JOIN accounts_customuser u
                     ON partner_id = u.id
 
@@ -62,11 +66,12 @@ class SentTradeOffersView(SlidingAuthBaseView):
                     ON their_set.id = their_card.set_id
 
                 WHERE trans.initiator_id = %s
+                AND status.code='Pending'
 
                 GROUP BY u.username
             """,
                 [user_id],
-            )  # TODO : for now it returns all trades, need to filter by status as well
+            )  # TODO : need to NOT give the opportunities that were already sent
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
 

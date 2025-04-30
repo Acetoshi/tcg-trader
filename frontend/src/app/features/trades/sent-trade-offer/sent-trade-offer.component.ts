@@ -1,6 +1,6 @@
 import { Component, computed, input } from "@angular/core";
 import { environment } from "../../../../environments/environment";
-import { TradeOpportunity } from "../../../core/services/trade.models";
+import { TradeStatusUpdateRequestBody, TradeTransaction } from "../../../core/services/trade.models";
 import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIcon } from "@angular/material/icon";
@@ -18,7 +18,7 @@ import { MatDialog } from "@angular/material/dialog";
   imports: [CommonModule, MatCardModule, MatIcon, MatButtonModule],
 })
 export class SenttradeOfferComponent {
-  sentOffer = input.required<TradeOpportunity>();
+  sentOffer = input.required<TradeTransaction>();
   partnerUsername = input.required<string>();
 
   myCard = computed(() => this.sentOffer().offeredCard);
@@ -45,8 +45,19 @@ export class SenttradeOfferComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      const tradeData:TradeStatusUpdateRequestBody= {
+        tradeId:this.sentOffer().tradeId,
+        newStatusCode:"Cancelled"
+      }
       if (result) {
-        // delete offer goes here
+        this.tradeService.updateTrade(tradeData).subscribe({
+          next: () => {
+            this.toastService.showSuccess(`Offer sent to ${this.partnerUsername()}`);
+          },
+          error: () => {
+            this.toastService.showError(`Error when sending offer to ${this.partnerUsername()}`);
+          },
+        });
       }
     });
   }
