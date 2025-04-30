@@ -24,12 +24,15 @@ export class TradeService {
   // Signal for myCollection data
   opportunities = signal<GroupedTradeOpportunities[]>([]);
   opportunitiesPagination = signal<PaginationObject>(PaginationDefault);
+  opportunitiesCount = computed(()=>this.opportunities().reduce((acc, group) => acc + group.opportunities.length,0))
 
   sentOffers = signal<GroupedSentTradeOffers[]>([]);
   sentOffersPagination = signal<PaginationObject>(PaginationDefault);
+  sentOffersCount = computed(()=>this.sentOffers().reduce((acc, group) => acc + group.sentOffers.length,0))
 
   receivedOffers = signal<GroupedReceivedTradeOffers[]>([]);
   receivedOffersPagination = signal<PaginationObject>(PaginationDefault);
+  receivedOffersCount = computed(()=>this.receivedOffers().reduce((acc, group) => acc + group.receivedOffers.length,0))
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
