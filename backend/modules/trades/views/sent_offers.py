@@ -71,7 +71,7 @@ class SentTradeOffersView(SlidingAuthBaseView):
                 GROUP BY u.username
             """,
                 [user_id],
-            )  # TODO : need to NOT give the opportunities that were already sent
+            )
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
 

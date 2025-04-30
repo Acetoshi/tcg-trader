@@ -60,9 +60,12 @@ export class TradeService {
   }
 
   sendOffer(tradeOfferData: CreateTradeOfferRequestBody): Observable<{ id: string }> {
-    return this.http
-      .post<{ id: string }>(`${this.apiUrl}/trades`, tradeOfferData)
-      .pipe(tap(() => this.removeOpportunity(tradeOfferData)));
+    return this.http.post<{ id: string }>(`${this.apiUrl}/trades`, tradeOfferData).pipe(
+      tap(() => {
+        this.removeOpportunity(tradeOfferData);
+        this.fetchSentTradeOffers();
+      })
+    );
   }
 
   // this method is needed for send offer
@@ -99,28 +102,6 @@ export class TradeService {
   updateTrade(tradeData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
     return this.http
       .patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData)
-      .pipe(tap(responseData => console.log("new status", responseData.statusCode)));
+      .pipe(tap(() => this.fetchSentTradeOffers())); // refetch sent offers to stay up to date, it would be efficient to edit the signals without refteching, this is more reliable, and works.
   }
-
-  // private removeSentOffer(tradeOfferData: TradeStatusUpdateRequestBody): void {
-  //   const updatedOpportunities = this.opportunities().reduce<GroupedTradeOpportunities[]>((acc, group) => {
-  //     if (group.partnerUsername === tradeOfferData.partnerUsername) {
-  //       // remove the opportunity whe the offer was successfully sent
-  //       const remaining = group.opportunities.filter(
-  //         op =>
-  //           !(
-  //             op.offeredCard.collectionId === tradeOfferData.offeredCardCollectionId &&
-  //             op.requestedCard.collectionId === tradeOfferData.requestedCardCollectionId
-  //           )
-  //       );
-  //       if (remaining.length) {
-  //         acc.push({ ...group, opportunities: remaining });
-  //       }
-  //     } else {
-  //       acc.push(group);
-  //     }
-  //     return acc;
-  //   }, []);
-  //   this.opportunities.set(updatedOpportunities);
-  // }
 }

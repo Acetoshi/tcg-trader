@@ -110,7 +110,7 @@ class TradeOpportunitiesView(SlidingAuthBaseView):
 
         GROUP BY u.username
         ;"""
-
+        # TODO : need to NOT give the opportunities that were already sent
         params = {"user_id": filters["user_id"]}
 
         return base_sql, params
