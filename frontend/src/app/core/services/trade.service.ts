@@ -116,14 +116,13 @@ export class TradeService {
   updateTrade(tradeData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
     return this.http.patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData).pipe(
       tap(responseData => {
-        if (responseData.statusCode == "Cancelled"){
+        if (responseData.statusCode == "Cancelled") {
           this.fetchSentTradeOffers();
           this.fetchOngoingTrades();
         }
         if (responseData.statusCode == "Refused" || responseData.statusCode == "Accepted")
           this.fetchReceivedTradeOffers();
-        if (responseData.statusCode == "Accepted")
-          this.fetchOngoingTrades();
+        if (responseData.statusCode == "Accepted") this.fetchOngoingTrades();
       })
     ); // refetch to stay up to date, it would be more efficient to edit the signals without refteching, but this works for now.
   }

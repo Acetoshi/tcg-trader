@@ -11,12 +11,16 @@ WITH card_info AS (
         rarity.code AS rarity_code
     FROM
         cards_card card
-        INNER JOIN cards_cardimage image ON card.id = image.card_id
+        INNER JOIN cards_cardimage image
+            ON card.id = image.card_id
         INNER JOIN cards_set card_set
-        ON card_set.id = card.set_id
-        INNER JOIN cards_cardnametranslation translation ON translation.card_id = card.id
-        INNER JOIN cards_language language ON language.id = translation.language_id
-        INNER JOIN cards_rarity rarity ON rarity.id = card.rarity_id
+            ON card_set.id = card.set_id
+        INNER JOIN cards_cardnametranslation translation
+            ON translation.card_id = card.id
+        INNER JOIN cards_language language
+            ON language.id = translation.language_id
+        INNER JOIN cards_rarity rarity
+            ON rarity.id = card.rarity_id
 ),
 
 collection_card_info AS (
@@ -37,6 +41,7 @@ collection_card_info AS (
 trades_as_initiator AS (
     SELECT
         partner.username AS partner_username,
+        trans.id as trans_id,
         json_build_object(
             'tradeId',trans.id,
             'offeredCard',initiator_card.info,
@@ -64,60 +69,51 @@ trades_as_initiator AS (
 trades_as_partner AS (
     SELECT
         initiator.username AS partner_username,
+        trans.id as trans_id,
         json_build_object(
-            'tradeId',
-            trans.id,
-            'requestedCard',
-            json_build_object(
-                'collectionId',
-                initiator_ucc.id,
-                'languageCode',
-                initiator_card.language_code,
-                'cardRef',
-                initiator_card.reference,
-                'imgUrl',
-                initiator_card.img_url
-            ),
-            'offeredCard',
-            json_build_object(
-                'collectionId',
-                partner_ucc.id,
-                'languageCode',
-                partner_card.language_code,
-                'cardRef',
-                partner_card.reference,
-                'imgUrl',
-                partner_card.img_url
-            )
+            'tradeId',trans.id,
+            'offeredCard',partner_card.info,
+            'requestedCard',initiator_card.info
         ) AS ongoing_trade
     FROM
         trades_tradetransaction trans
-        INNER JOIN trades_tradestatus status ON trans.status_id = status.id
-        INNER JOIN accounts_customuser initiator ON initiator_id = initiator.id -- initiator card details
-        INNER JOIN card_collections_usercardcollection initiator_ucc ON trans.offered_id = initiator_ucc.id
-        INNER JOIN card_info initiator_card ON initiator_ucc.card_id = initiator_card.id
-        AND initiator_ucc.language_id = initiator_card.language_id -- partner card details
-        INNER JOIN card_collections_usercardcollection partner_ucc ON trans.offered_id = partner_ucc.id
-        INNER JOIN card_info partner_card ON partner_ucc.card_id = partner_card.id
-        AND partner_ucc.language_id = partner_card.language_id
+        INNER JOIN trades_tradestatus status
+            ON trans.status_id = status.id
+
+        INNER JOIN accounts_customuser initiator
+            ON initiator_id = initiator.id
+
+        INNER JOIN collection_card_info initiator_card
+            ON trans.offered_id = initiator_card.id
+
+        INNER JOIN collection_card_info partner_card
+            ON trans.requested_id = partner_card.id
     WHERE
         trans.partner_id = %s
         AND status.code = 'Accepted'
 ),
+-- this basically joins the two previous tables and the distinct on act as a de-duplicating step.
 all_trades AS (
-    SELECT
+    SELECT DISTINCT ON (trans_id)
         partner_username,
         ongoing_trade
-    FROM
-        trades_as_initiator
-    -- UNION
-    -- ALL
-    -- SELECT
-    --     partner_username,
-    --     ongoing_trade
-    -- FROM
-    --     trades_as_partner
+    FROM (
+        SELECT
+            partner_username,
+            trans_id,
+            ongoing_trade
+        FROM
+            trades_as_initiator
+        UNION ALL
+        SELECT
+            partner_username,
+            trans_id,
+            ongoing_trade
+        FROM
+            trades_as_partner
+    ) combined
 )
+
 SELECT
     partner_username AS "partnerUsername",
     json_agg(ongoing_trade) AS "ongoingTrades"
