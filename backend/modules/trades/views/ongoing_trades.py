@@ -9,10 +9,11 @@ class OngoingtradesView(SlidingAuthBaseView):
 
     def get(self, request):
         user_id = request.user.id
-        user_username = request.user.username
         with connection.cursor() as cursor:
             cursor.execute(
                 """
+                -- card_info
+
                 WITH card_info AS (
                     SELECT
                         card.id AS id,
@@ -35,83 +36,119 @@ class OngoingtradesView(SlidingAuthBaseView):
                         ON language.id = translation.language_id
                     INNER JOIN cards_rarity rarity
                         ON rarity.id = card.rarity_id
+                ),
+                trades_as_initiator AS (
+                    SELECT
+                        partner.username AS partner_username,
+                        json_agg(
+                                json_build_object(
+                                    'tradeId', trans.id,
+                                    'offeredCard', json_build_object(
+                                        'collectionId', initiator_ucc.id,
+                                        'languageCode', initiator_card.language_code,
+                                        'cardRef', initiator_card.reference,
+                                        'imgUrl', initiator_card.img_url
+                                    ),
+                                    'requestedCard', json_build_object(
+                                        'collectionId', partner_ucc.id,
+                                        'languageCode', partner_card.language_code,
+                                        'cardRef', partner_card.reference,
+                                        'imgUrl', partner_card.img_url
+                                    )
+                                )
+                            ) AS ongoing_trades
+                    FROM trades_tradetransaction trans
+                    INNER JOIN trades_tradestatus status
+                        ON trans.status_id=status.id
+
+                    INNER JOIN accounts_customuser partner
+                        ON partner_id = partner.id
+
+                    -- initiator card details
+                    INNER JOIN card_collections_usercardcollection initiator_ucc
+                        ON trans.offered_id = initiator_ucc.id
+                    INNER JOIN card_info initiator_card
+                        ON initiator_ucc.card_id = initiator_card.id
+                        AND initiator_ucc.language_id = initiator_card.language_id
+
+                    -- partner card details
+                    INNER JOIN card_collections_usercardcollection partner_ucc
+                        ON trans.offered_id = partner_ucc.id
+                    INNER JOIN card_info partner_card
+                        ON partner_ucc.card_id = partner_card.id
+                        AND partner_ucc.language_id = partner_card.language_id
+
+                    WHERE trans.initiator_id = %s
+                        AND status.code = 'Accepted'
+
+                    GROUP BY partner.username
+                ),
+
+                -- basically when the user is not the initiator, he's the partner, but then the initiator becomes the user's partner.
+                -- maybe my DB structure choices are to blame here, but just maybe.
+
+                trades_as_partner AS (
+                    SELECT
+                        initiator.username AS partner_username,
+                        json_agg(
+                                json_build_object(
+                                    'tradeId', trans.id,
+                                    'requestedCard', json_build_object(
+                                        'collectionId', initiator_ucc.id,
+                                        'languageCode', initiator_card.language_code,
+                                        'cardRef', initiator_card.reference,
+                                        'imgUrl', initiator_card.img_url
+                                    ),
+                                    'offeredCard', json_build_object(
+                                        'collectionId', partner_ucc.id,
+                                        'languageCode', partner_card.language_code,
+                                        'cardRef', partner_card.reference,
+                                        'imgUrl', partner_card.img_url
+                                    )
+                                )
+                            ) AS ongoing_trades
+                    FROM trades_tradetransaction trans
+                    INNER JOIN trades_tradestatus status
+                        ON trans.status_id=status.id
+
+                    INNER JOIN accounts_customuser initiator
+                        ON initiator_id = initiator.id
+
+                    -- initiator card details
+                    INNER JOIN card_collections_usercardcollection initiator_ucc
+                        ON trans.offered_id = initiator_ucc.id
+                    INNER JOIN card_info initiator_card
+                        ON initiator_ucc.card_id = initiator_card.id
+                        AND initiator_ucc.language_id = initiator_card.language_id
+
+                    -- partner card details
+                    INNER JOIN card_collections_usercardcollection partner_ucc
+                        ON trans.offered_id = partner_ucc.id
+                    INNER JOIN card_info partner_card
+                        ON partner_ucc.card_id = partner_card.id
+                        AND partner_ucc.language_id = partner_card.language_id
+
+                    WHERE trans.partner_id = %s
+                        AND status.code = 'Accepted'
+
+                    GROUP BY initiator.username
+                ),
+
+                  all_trades AS (
+                    SELECT partner_username, ongoing_trades
+                    FROM trades_as_initiator
+                    UNION ALL
+                    SELECT partner_username, ongoing_trades
+                    FROM trades_as_partner
                 )
+
                 SELECT
-                    CASE
-                        WHEN initiator.username = %s
-                        THEN partner.username
-                        ELSE initiator.username
-                    END AS "partnerUsername",
-
-                    CASE
-                        WHEN initiator.username = %s
-                        --when the user is the initiator
-                        THEN json_agg(
-                                json_build_object(
-                                    'tradeId', trans.id,
-                                    'offeredCard', json_build_object(
-                                        'collectionId', initiator_ucc.id,
-                                        'languageCode', initiator_card.language_code,
-                                        'cardRef', initiator_card.reference,
-                                        'imgUrl', initiator_card.img_url
-                                    ),
-                                    'requestedCard', json_build_object(
-                                        'collectionId', partner_ucc.id,
-                                        'languageCode', partner_card.language_code,
-                                        'cardRef', partner_card.reference,
-                                        'imgUrl', partner_card.img_url
-                                    )
-                                )
-                            )
-                        -- when the user is the partner, basically the same thing but requestedCard and offeredCard are reversed
-                        ELSE json_agg(
-                                json_build_object(
-                                    'tradeId', trans.id,
-                                    'requestedCard', json_build_object(
-                                        'collectionId', initiator_ucc.id,
-                                        'languageCode', initiator_card.language_code,
-                                        'cardRef', initiator_card.reference,
-                                        'imgUrl', initiator_card.img_url
-                                    ),
-                                    'offeredCard', json_build_object(
-                                        'collectionId', partner_ucc.id,
-                                        'languageCode', partner_card.language_code,
-                                        'cardRef', partner_card.reference,
-                                        'imgUrl', partner_card.img_url
-                                    )
-                                )
-                            )
-                    END AS "ongoingTrades"
-
-                FROM trades_tradetransaction trans
-                INNER JOIN trades_tradestatus status
-                    ON trans.status_id=status.id
-
-                INNER JOIN accounts_customuser initiator
-                    ON initiator_id = initiator.id
-                INNER JOIN accounts_customuser partner
-                    ON partner_id = partner.id
-
-                -- initiator card details
-                INNER JOIN card_collections_usercardcollection initiator_ucc
-                    ON trans.offered_id = initiator_ucc.id
-                INNER JOIN card_info initiator_card
-                    ON initiator_ucc.card_id = initiator_card.id
-                    AND initiator_ucc.language_id = initiator_card.language_id
-
-                -- partner card details
-                INNER JOIN card_collections_usercardcollection partner_ucc
-                    ON trans.offered_id = partner_ucc.id
-                INNER JOIN card_info partner_card
-                    ON partner_ucc.card_id = partner_card.id
-                    AND partner_ucc.language_id = partner_card.language_id
-
-                WHERE (trans.initiator_id = %s OR trans.partner_id = %s)
-                AND status.code='Accepted'
-
-                GROUP BY partner.username, initiator.username ;
+                partner_username AS "partnerUsername",
+                json_agg(ongoing_trades) AS "ongoingTrades"
+                FROM all_trades
+                GROUP BY partner_username;
             """,
-                [user_username, user_username, user_id, user_id],
+                [user_id, user_id],
             )
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
