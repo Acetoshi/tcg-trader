@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
@@ -39,9 +39,20 @@ export class NavbarComponent implements OnInit {
     private collectionService: CollectionService
   ) {}
 
+  myWishlistCount = computed<number>(() => 1);
+  myCollectionCount = computed<number>(() => 1);
+  receivedOffersCount = computed<number>(() => 1);
+
   ngOnInit(): void {
     // needed to display a badge
     this.tradeService.fetchReceivedTradeOffers();
+
+    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
+    this.collectionService.fetchMyWishlist({ ...this.collectionService.myCollectionFilters(), wishlist: true });
+
+    this.myWishlistCount = this.collectionService.myWishlistCount;
+    this.myCollectionCount = this.collectionService.myCollectionCount;
+    this.receivedOffersCount = this.tradeService.receivedOffersCount;
   }
 
   get isAuthenticated() {
@@ -61,17 +72,5 @@ export class NavbarComponent implements OnInit {
   protected changeLanguage(event: MouseEvent): void {
     event.stopPropagation(); // prevent menu from closing
     this.languageService.changeLanguage();
-  }
-
-  getReceivedOffersCount(): number {
-    return this.tradeService.receivedOffersCount();
-  }
-
-  getMyCollectionCount(): number {
-    return this.collectionService.myCollection().length;
-  }
-
-  getMyWishlistCount(): number {
-    return this.collectionService.myWishlist().length;
   }
 }

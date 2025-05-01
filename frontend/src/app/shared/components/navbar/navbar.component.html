@@ -28,7 +28,7 @@
         <mat-icon>grid_view</mat-icon>
         <span
           matBadge="!"
-          [matBadgeHidden]="getMyCollectionCount() > 1 && getMyWishlistCount() > 1"
+          [matBadgeHidden]="myCollectionCount() !== 0 && myWishlistCount() !== 0"
           matBadgeSize="small"
           matBadgeOverlap="false"
           matBadgeDescription="Problems with your collection"
@@ -40,11 +40,11 @@
           mat-menu-item
           routerLink="my-collection"
           matTooltip="Your collection is empty, you need cards to trade"
-          [matTooltipDisabled]="getMyCollectionCount() > 1">
+          [matTooltipDisabled]="myCollectionCount() !== 0">
           <mat-icon>inventory_2</mat-icon>
           <span
             matBadge="!"
-            [matBadgeHidden]="getMyCollectionCount() > 1"
+            [matBadgeHidden]="myCollectionCount() !== 0"
             matBadgeSize="large"
             matBadgeOverlap="false"
             matBadgeDescription="your collection is empty"
@@ -56,11 +56,11 @@
           mat-menu-item
           routerLink="/my-collection/wishlist"
           matTooltip="Your wishlist is empty, you need it to trade"
-          [matTooltipDisabled]="getMyWishlistCount() > 1">
+          [matTooltipDisabled]="myWishlistCount() !== 0">
           <mat-icon>star</mat-icon>
           <span
             matBadge="!"
-            [matBadgeHidden]="getMyWishlistCount() > 1"
+            [matBadgeHidden]="myWishlistCount() !== 0"
             matBadgeSize="large"
             matBadgeOverlap="false"
             matBadgeDescription="your wishlist is empty"
@@ -73,8 +73,8 @@
         <mat-icon>swap_horiz</mat-icon>
         <span
           class="info-badge"
-          [matBadge]="getReceivedOffersCount()"
-          [matBadgeHidden]="!getReceivedOffersCount()"
+          [matBadge]="receivedOffersCount()"
+          [matBadgeHidden]="!receivedOffersCount()"
           matBadgeSize="small"
           matBadgeOverlap="false"
           matBadgeDescription="new trade information needs your attention"
@@ -91,10 +91,10 @@
           <mat-icon>call_received</mat-icon>
           <span
             class="info-badge"
-            [matBadge]="getReceivedOffersCount()"
-            [matBadgeHidden]="!getReceivedOffersCount()"
+            [matBadge]="receivedOffersCount()"
+            [matBadgeHidden]="!receivedOffersCount()"
             matBadgeOverlap="false"
-            matBadgeDescription="you have {{ getReceivedOffersCount() }} trade opportunities"
+            matBadgeDescription="you have {{ receivedOffersCount() }} trade opportunities"
             >{{ "tradingDashboard.incoming" | translate }}</span
           >
         </a>

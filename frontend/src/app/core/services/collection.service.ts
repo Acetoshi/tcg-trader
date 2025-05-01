@@ -20,10 +20,12 @@ export class CollectionService {
   myCollection = signal<CollectionItem[]>([]);
   myCollectionFilters = signal<CardFilters>(defaultFilters);
   myCollectionPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+  myCollectionCount = computed(() => this.myCollection().length);
 
   myWishlist = signal<CollectionItem[]>([]);
   myWishlistFilters = signal<CardFilters>(defaultFilters);
   myWishlistPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+  myWishlistCount = computed(() => this.myWishlist().length);
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
