@@ -1,0 +1,35 @@
+<mat-accordion multi="true">
+  @for (groupedOngoingTrades of tradeService.ongoingTrades(); track groupedOngoingTrades.partnerUsername) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span
+            >{{ groupedOngoingTrades.ongoingTrades.length }}
+            @if (groupedOngoingTrades.ongoingTrades.length > 1) {
+              trades
+            } @else {
+              trade
+            }
+            in progress with&nbsp;
+            <a routerLink="/profiles/{{ groupedOngoingTrades.partnerUsername }}">
+              {{ groupedOngoingTrades.partnerUsername }}
+            </a></span
+          >
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul class="collection-items-list">
+        @for (ongoingTrade of groupedOngoingTrades.ongoingTrades; track ongoingTrade) {
+          <li>
+            <app-ongoing-trade [ongoingTrade]="ongoingTrade" [partnerUsername]="groupedOngoingTrades.partnerUsername" />
+          </li>
+        }
+      </ul>
+    </mat-expansion-panel>
+  }
+</mat-accordion>
+
+@if (noResults()) {
+  <app-no-results />
+  <!-- TODO : add a CTA to go to smart matcher -->
+}
+<app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

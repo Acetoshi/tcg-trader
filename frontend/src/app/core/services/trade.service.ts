@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 import {
   CreateTradeOfferRequestBody,
+  GroupedOngoingTrades,
   GroupedReceivedTradeOffers,
   GroupedSentTradeOffers,
   GroupedTradeOpportunities,
@@ -35,6 +36,10 @@ export class TradeService {
   receivedOffersCount = computed(() =>
     this.receivedOffers().reduce((acc, group) => acc + group.receivedOffers.length, 0)
   );
+
+  ongoingTrades = signal<GroupedOngoingTrades[]>([]);
+  ongoingTradesPagination = signal<PaginationObject>(PaginationDefault);
+  ongoingTradesCount = computed(() => this.ongoingTrades().reduce((acc, group) => acc + group.ongoingTrades.length, 0));
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -111,9 +116,13 @@ export class TradeService {
   updateTrade(tradeData: TradeStatusUpdateRequestBody): Observable<TradeStatusUpdateResponse> {
     return this.http.patch<TradeStatusUpdateResponse>(`${this.apiUrl}/trades`, tradeData).pipe(
       tap(responseData => {
-        if (responseData.statusCode == "Cancelled") this.fetchSentTradeOffers();
+        if (responseData.statusCode == "Cancelled") {
+          this.fetchSentTradeOffers();
+          this.fetchOngoingTrades();
+        }
         if (responseData.statusCode == "Refused" || responseData.statusCode == "Accepted")
           this.fetchReceivedTradeOffers();
+        if (responseData.statusCode == "Accepted") this.fetchOngoingTrades();
       })
     ); // refetch to stay up to date, it would be more efficient to edit the signals without refteching, but this works for now.
   }
@@ -126,5 +135,13 @@ export class TradeService {
         this.receivedOffersPagination.set({ next: response.next, previous: response.previous });
         this.receivedOffers.set(response.results);
       });
+  }
+
+  fetchOngoingTrades(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.http.get<PaginatedResponse<GroupedOngoingTrades>>(`${this.apiUrl}/trades/ongoing`).subscribe(response => {
+      this.ongoingTradesPagination.set({ next: response.next, previous: response.previous });
+      this.ongoingTrades.set(response.results);
+    });
   }
 }

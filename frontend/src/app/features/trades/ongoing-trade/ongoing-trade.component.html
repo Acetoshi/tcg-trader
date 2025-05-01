@@ -1,0 +1,9 @@
+<mat-card class="trade-opportunity-card">
+  <mat-card-content>
+    <app-trade-preview [myCard]="this.ongoingTrade().offeredCard" [theirCard]="this.ongoingTrade().requestedCard" />
+  </mat-card-content>
+  <mat-card-actions class="trade-actions high-density">
+    <button mat-button (click)="openRefuseDialog()">Cancel trade<mat-icon>block</mat-icon></button>
+    <button mat-flat-button (click)="openAcceptDialog()">MARK SENT<mat-icon>check</mat-icon></button>
+  </mat-card-actions>
+</mat-card>
