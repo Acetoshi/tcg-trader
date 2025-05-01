@@ -13,7 +13,10 @@ class OngoingtradesView(SlidingAuthBaseView):
             cursor.execute(
                 """
                 SELECT
-                    u.username AS "partnerUsername",
+                    CASE
+                        WHEN trans.initiator_id = %s THEN partner.username
+                        ELSE initiator.username
+                    END AS "partnerUsername",
                     json_agg(
                         json_build_object(
                             'tradeId', trans.id,
@@ -35,8 +38,10 @@ class OngoingtradesView(SlidingAuthBaseView):
                 INNER JOIN trades_tradestatus status
                     ON trans.status_id=status.id
 
-                INNER JOIN accounts_customuser u
-                    ON partner_id = u.id
+                INNER JOIN accounts_customuser initiator
+                    ON initiator_id = initiator.id
+                INNER JOIN accounts_customuser partner
+                    ON partner_id = partner.id
 
                 -- your card details
                 INNER JOIN card_collections_usercardcollection your_ucc
@@ -64,12 +69,13 @@ class OngoingtradesView(SlidingAuthBaseView):
                 JOIN cards_set their_set
                     ON their_set.id = their_card.set_id
 
-                WHERE trans.initiator_id = %s
+                WHERE (trans.initiator_id = %s OR trans.partner_id = %s)
                 AND status.code='Accepted'
 
-                GROUP BY u.username
+                GROUP BY
+                    CASE WHEN trans.initiator_id = %s THEN partner.username ELSE initiator.username END
             """,
-                [user_id],
+                [user_id, user_id, user_id, user_id],
             )
             columns = [col[0] for col in cursor.description]
             results = [dict(zip(columns, row)) for row in cursor.fetchall()]
