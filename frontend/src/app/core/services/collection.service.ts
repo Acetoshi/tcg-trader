@@ -87,13 +87,22 @@ export class CollectionService {
 
       //if successful, we need to update the collection signal
       const myUpdatedCollection = [...this.myCollection()];
-      const updatedItem = myUpdatedCollection.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
-      const languageVersion = updatedItem.languageVersions.find(
+      const updatedCollectionItem = myUpdatedCollection.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
+      const MyCollectionLanguageVersion = updatedCollectionItem.languageVersions.find(
         languageVersion => languageVersion.languageCode === data.languageCode
       ) as LanguageVersion;
-      Object.assign(languageVersion, updatedLanguageVersion);
+      Object.assign(MyCollectionLanguageVersion, updatedLanguageVersion);
 
       this.myCollection.set(myUpdatedCollection);
+
+      const myUpdatedWishlist = [...this.myWishlist()];
+      const updatedWishlistItem = myUpdatedWishlist.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
+      const MyWishlistLanguageVersion = updatedWishlistItem.languageVersions.find(
+        languageVersion => languageVersion.languageCode === data.languageCode
+      ) as LanguageVersion;
+      Object.assign(MyWishlistLanguageVersion, updatedLanguageVersion);
+
+      this.myWishlist.set(myUpdatedWishlist);
 
       return true;
     } catch {
