@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { TradeService } from "../../../core/services/trade.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { environment } from "../../../../environments/environment";
@@ -39,7 +39,7 @@ export class TradeOpportunityComponent {
         title: "Send Trade Offer",
         message: `You’re about to send this offer to ${this.partnerUsername()}.`,
         confirmButtonLabel: "SEND OFFER",
-        cancelButtonLabel:"Cancel",
+        cancelButtonLabel: "Cancel",
         myCard: this.opportunity().offeredCard,
         theirCard: this.opportunity().requestedCard,
         partnerUsername: this.partnerUsername(),

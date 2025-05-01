@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { TradeStatusUpdateRequestBody, TradeTransaction } from "../../../core/services/trade.models";
 import { CommonModule } from "@angular/common";
@@ -31,7 +31,7 @@ export class SentTradeOfferComponent {
   ) {}
 
   openConfirmationDialog() {
-    const dialogRef = this.dialog.open(ConfirmTradeActionDialogComponent , {
+    const dialogRef = this.dialog.open(ConfirmTradeActionDialogComponent, {
       maxWidth: "95vw",
       autoFocus: false,
       backdropClass: "blurred-dialog-backdrop",
@@ -39,7 +39,7 @@ export class SentTradeOfferComponent {
         title: "Cancel Trade Offer",
         message: `You’re about to revoke the offer you made to ${this.partnerUsername()}.`,
         confirmButtonLabel: "CANCEL OFFER",
-        cancelButtonLabel:"I changed my mind",
+        cancelButtonLabel: "I changed my mind",
         myCard: this.sentOffer().offeredCard,
         theirCard: this.sentOffer().requestedCard,
         partnerUsername: this.partnerUsername(),
