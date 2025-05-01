@@ -5,12 +5,20 @@ import { NoResultsComponent } from "../../../shared/components/no-results/no-res
 import { TradeService } from "../../../core/services/trade.service";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
+import { OngoingTradeComponent } from "../ongoing-trade/ongoing-trade.component";
 
 @Component({
   selector: "app-ongoing-trades",
   templateUrl: "./ongoing-trades.component.html",
   styleUrls: ["./ongoing-trades.component.scss"],
-  imports: [CommonModule, MatExpansionModule, RouterLink, ScrollListenerComponent, NoResultsComponent],
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    RouterLink,
+    OngoingTradeComponent,
+    ScrollListenerComponent,
+    NoResultsComponent,
+  ],
 })
 export class OngoingTradesComponent implements OnInit {
   noResults = computed(() => this.tradeService.ongoingTrades().length === 0);

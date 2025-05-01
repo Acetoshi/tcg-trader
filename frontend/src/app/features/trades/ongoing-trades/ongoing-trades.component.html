@@ -20,10 +20,7 @@
       <ul class="collection-items-list">
         @for (ongoingTrade of groupedOngoingTrades.ongoingTrades; track ongoingTrade) {
           <li>
-            one trade offer
-            <!-- <app-received-trade-offer
-              [receivedOffer]="receivedOffer"
-              [partnerUsername]="groupedOngoingTrades.partnerUsername" /> -->
+            <app-ongoing-trade [ongoingTrade]="ongoingTrade" [partnerUsername]="groupedOngoingTrades.partnerUsername" />
           </li>
         }
       </ul>
