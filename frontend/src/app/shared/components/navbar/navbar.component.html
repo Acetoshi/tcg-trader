@@ -26,17 +26,46 @@
     @if (isAuthenticated()) {
       <button mat-button [matMenuTriggerFor]="myCollectionMenu" aria-label="Open collection menu">
         <mat-icon>grid_view</mat-icon>
-        {{ "navbar.collection" | translate }}
+        <span
+          matBadge="!"
+          [matBadgeHidden]="getMyCollectionCount() > 1 && getMyWishlistCount() > 1"
+          matBadgeSize="small"
+          matBadgeOverlap="false"
+          matBadgeDescription="Problems with your collection"
+          >{{ "navbar.collection" | translate }}</span
+        >
       </button>
       <mat-menu #myCollectionMenu="matMenu">
-        <a mat-menu-item routerLink="my-collection">
+        <a
+          mat-menu-item
+          routerLink="my-collection"
+          matTooltip="Your collection is empty, you need cards to trade"
+          [matTooltipDisabled]="getMyCollectionCount() > 1">
           <mat-icon>inventory_2</mat-icon>
-          {{ "myCollectionDashboard.myCollection" | translate }}
+          <span
+            matBadge="!"
+            [matBadgeHidden]="getMyCollectionCount() > 1"
+            matBadgeSize="large"
+            matBadgeOverlap="false"
+            matBadgeDescription="your collection is empty"
+            >{{ "myCollectionDashboard.myCollection" | translate }}</span
+          >
         </a>
 
-        <a mat-menu-item routerLink="/my-collection/wishlist">
+        <a
+          mat-menu-item
+          routerLink="/my-collection/wishlist"
+          matTooltip="Your wishlist is empty, you need it to trade"
+          [matTooltipDisabled]="getMyWishlistCount() > 1">
           <mat-icon>star</mat-icon>
-          {{ "myCollectionDashboard.wishlist" | translate }}
+          <span
+            matBadge="!"
+            [matBadgeHidden]="getMyWishlistCount() > 1"
+            matBadgeSize="large"
+            matBadgeOverlap="false"
+            matBadgeDescription="your wishlist is empty"
+            >{{ "myCollectionDashboard.wishlist" | translate }}</span
+          >
         </a>
       </mat-menu>
 
@@ -61,12 +90,13 @@
         <a mat-menu-item routerLink="trades/received">
           <mat-icon>call_received</mat-icon>
           <span
-          class="info-badge"
-          [matBadge]="getReceivedOffersCount()"
-          [matBadgeHidden]="!getReceivedOffersCount()"
-          matBadgeOverlap="false"
-          matBadgeDescription="you have {{ getReceivedOffersCount() }} trade opportunities"
-          >{{ "tradingDashboard.incoming" | translate }}</span>
+            class="info-badge"
+            [matBadge]="getReceivedOffersCount()"
+            [matBadgeHidden]="!getReceivedOffersCount()"
+            matBadgeOverlap="false"
+            matBadgeDescription="you have {{ getReceivedOffersCount() }} trade opportunities"
+            >{{ "tradingDashboard.incoming" | translate }}</span
+          >
         </a>
 
         <a mat-menu-item routerLink="trades/sent">

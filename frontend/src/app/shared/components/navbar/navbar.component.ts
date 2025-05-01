@@ -6,11 +6,13 @@ import { TradeService } from "../../../core/services/trade.service";
 import { AuthService } from "../../../core/services/auth.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { LanguageService } from "../../../core/services/language.service";
+import { CollectionService } from "../../../core/services/collection.service";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatBadgeModule } from "@angular/material/badge";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @Component({
   selector: "app-navbar",
@@ -24,20 +26,22 @@ import { MatBadgeModule } from "@angular/material/badge";
     MatIconModule,
     MatMenuModule,
     RouterLink,
-    MatBadgeModule
+    MatBadgeModule,
+    MatTooltipModule,
   ],
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   constructor(
     public languageService: LanguageService,
     private authService: AuthService,
     private toastService: ToastService,
-    private tradeService: TradeService
+    private tradeService: TradeService,
+    private collectionService: CollectionService
   ) {}
 
   ngOnInit(): void {
     // needed to display a badge
-    this.tradeService.fetchReceivedTradeOffers()
+    this.tradeService.fetchReceivedTradeOffers();
   }
 
   get isAuthenticated() {
@@ -61,5 +65,13 @@ export class NavbarComponent implements OnInit{
 
   getReceivedOffersCount(): number {
     return this.tradeService.receivedOffersCount();
+  }
+
+  getMyCollectionCount(): number {
+    return this.collectionService.myCollection().length;
+  }
+
+  getMyWishlistCount(): number {
+    return this.collectionService.myWishlist().length;
   }
 }
