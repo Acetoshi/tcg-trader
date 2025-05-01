@@ -56,15 +56,15 @@ export class TradingDashboardComponent implements OnInit {
     this.router.navigate([tabPath], { relativeTo: this.route });
   }
 
-  getOpportunitiesCount():number{
-    return this.tradeService.opportunitiesCount()
+  getOpportunitiesCount(): number {
+    return this.tradeService.opportunitiesCount();
   }
 
-  getSentOffersCount():number{
-    return this.tradeService.sentOffersCount()
+  getSentOffersCount(): number {
+    return this.tradeService.sentOffersCount();
   }
 
-  getReceivedOffersCount():number{
-    return this.tradeService.receivedOffersCount()
+  getReceivedOffersCount(): number {
+    return this.tradeService.receivedOffersCount();
   }
 }

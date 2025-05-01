@@ -1,4 +1,4 @@
-import { Component, computed, input } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { TradeStatusUpdateRequestBody, TradeTransaction } from "../../../core/services/trade.models";
 import { CommonModule } from "@angular/common";
@@ -39,7 +39,7 @@ export class ReceivedTradeOfferComponent {
         title: "Accept Trade Offer",
         message: `You're about to accept the offer ${this.partnerUsername()} sent you.`,
         confirmButtonLabel: "ACCEPT OFFER",
-        cancelButtonLabel:"Cancel",
+        cancelButtonLabel: "Cancel",
         myCard: this.receivedOffer().offeredCard,
         theirCard: this.receivedOffer().requestedCard,
         partnerUsername: this.partnerUsername(),
@@ -73,7 +73,7 @@ export class ReceivedTradeOfferComponent {
         title: "Refuse Trade Offer",
         message: `You're about to refuse the offer ${this.partnerUsername()} sent you.`,
         confirmButtonLabel: "REFUSE OFFER",
-        cancelButtonLabel:"Cancel",
+        cancelButtonLabel: "Cancel",
         myCard: this.receivedOffer().offeredCard,
         theirCard: this.receivedOffer().requestedCard,
         partnerUsername: this.partnerUsername(),

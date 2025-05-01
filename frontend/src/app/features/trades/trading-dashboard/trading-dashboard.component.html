@@ -6,8 +6,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">search</mat-icon>
-        <span>{{ "tradingDashboard.find" | translate }} ({{getOpportunitiesCount()}})</span
-        >
+        <span>{{ "tradingDashboard.find" | translate }} ({{ getOpportunitiesCount() }})</span>
       </ng-template>
       <app-trade-opportunities />
     </mat-tab>
@@ -30,8 +29,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_made</mat-icon>
-        <span>{{ "tradingDashboard.sent" | translate }} ({{getSentOffersCount()}})</span
-        >
+        <span>{{ "tradingDashboard.sent" | translate }} ({{ getSentOffersCount() }})</span>
       </ng-template>
       <app-sent-trade-offers />
     </mat-tab>

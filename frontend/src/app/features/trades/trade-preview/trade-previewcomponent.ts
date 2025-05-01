@@ -4,7 +4,6 @@ import { environment } from "../../../../environments/environment";
 import { TradePart } from "../../../core/services/trade.models";
 import { MatIcon } from "@angular/material/icon";
 
-
 @Component({
   standalone: true,
   selector: "app-trade-preview",
