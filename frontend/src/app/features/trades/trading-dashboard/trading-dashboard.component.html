@@ -6,7 +6,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">search</mat-icon>
-        <span>{{ "tradingDashboard.find" | translate }} ({{ getOpportunitiesCount() }})</span>
+        <span>{{ "tradingDashboard.find" | translate }} <span class="low-emphasis">({{ getOpportunitiesCount() }})</span></span>
       </ng-template>
       <app-trade-opportunities />
     </mat-tab>
@@ -29,7 +29,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">call_made</mat-icon>
-        <span>{{ "tradingDashboard.sent" | translate }} ({{ getSentOffersCount() }})</span>
+        <span>{{ "tradingDashboard.sent" | translate }} <span class="low-emphasis">({{ getSentOffersCount() }})</span></span>
       </ng-template>
       <app-sent-trade-offers />
     </mat-tab>
@@ -37,7 +37,13 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">schedule</mat-icon>
-        {{ "tradingDashboard.ongoing" | translate }}
+        <span
+          class="info-badge"
+          [matBadge]="getOngoingTradesCount()"
+          [matBadgeHidden]="!getOngoingTradesCount()"
+          matBadgeOverlap="false"
+          matBadgeDescription="you have received {{ getOngoingTradesCount() }} trade offers"
+          >{{ "tradingDashboard.ongoing" | translate }}</span>
       </ng-template>
       - Accepted trades in progress (shipping/confirmation) - Actions: Track shipment, Mark as received
       <app-ongoing-trades />

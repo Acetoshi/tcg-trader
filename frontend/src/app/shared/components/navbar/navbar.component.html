@@ -74,7 +74,7 @@
         <span
           class="info-badge"
           [matBadge]="receivedOffersCount()"
-          [matBadgeHidden]="!receivedOffersCount()"
+          [matBadgeHidden]="!receivedOffersCount() && !ongoingTradesCount()"
           matBadgeSize="small"
           matBadgeOverlap="false"
           matBadgeDescription="new trade information needs your attention"
@@ -106,7 +106,13 @@
 
         <a mat-menu-item routerLink="trades/ongoing">
           <mat-icon>schedule</mat-icon>
-          {{ "tradingDashboard.ongoing" | translate }}
+          <span
+            class="info-badge"
+            [matBadge]="ongoingTradesCount()"
+            [matBadgeHidden]="!ongoingTradesCount()"
+            matBadgeOverlap="false"
+            matBadgeDescription="you have {{ ongoingTradesCount() }} trade opportunities"
+            >{{ "tradingDashboard.ongoing" | translate }}</span>
         </a>
 
         <a mat-menu-item routerLink="trades/history">

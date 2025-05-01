@@ -69,4 +69,8 @@ export class TradingDashboardComponent implements OnInit {
   getReceivedOffersCount(): number {
     return this.tradeService.receivedOffersCount();
   }
+
+  getOngoingTradesCount(): number {
+    return this.tradeService.ongoingTradesCount();
+  }
 }

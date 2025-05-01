@@ -41,7 +41,8 @@ export class NavbarComponent implements OnInit {
 
   myWishlistCount = computed<number>(() => 1);
   myCollectionCount = computed<number>(() => 1);
-  receivedOffersCount = computed<number>(() => 1);
+  receivedOffersCount = computed<number>(() => 0);
+  ongoingTradesCount = computed<number>(() => 0);
 
   ngOnInit(): void {
     // needed to display a badge
@@ -53,6 +54,7 @@ export class NavbarComponent implements OnInit {
     this.myWishlistCount = this.collectionService.myWishlistCount;
     this.myCollectionCount = this.collectionService.myCollectionCount;
     this.receivedOffersCount = this.tradeService.receivedOffersCount;
+    this.ongoingTradesCount = this.tradeService.ongoingTradesCount;
   }
 
   get isAuthenticated() {

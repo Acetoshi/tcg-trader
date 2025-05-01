@@ -49,7 +49,7 @@ export class OngoingTradeComponent {
     dialogRef.afterClosed().subscribe(result => {
       const tradeData: TradeStatusUpdateRequestBody = {
         tradeId: this.ongoingTrade().tradeId,
-        newStatusCode: "Accepted",
+        newStatusCode: "Accepted", // TODO : i need to figure ut how to handle "sent by A", "sent by B", "reception confirmed by A", "reception confirmed by B" ...
       };
       if (result) {
         this.tradeService.updateTrade(tradeData).subscribe({
