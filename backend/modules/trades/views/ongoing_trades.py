@@ -20,6 +20,7 @@ class OngoingtradesView(SlidingAuthBaseView):
                         translation.name AS name,
                         image.url AS img_url,
                         set.code AS set_code,
+                        language.id AS language_id,
                         language.code AS language_code,
                         rarity.code AS rarity_code
 
@@ -34,7 +35,7 @@ class OngoingtradesView(SlidingAuthBaseView):
                         ON language.id = translation.language_id
                     INNER JOIN cards_rarity rarity
                         ON rarity.id = card.rarity_id
-                ) SELECT * FROM card_info;
+                )
                 SELECT
                     CASE
                         WHEN initiator.username = %s
@@ -50,15 +51,15 @@ class OngoingtradesView(SlidingAuthBaseView):
                                     'tradeId', trans.id,
                                     'offeredCard', json_build_object(
                                         'collectionId', initiator_ucc.id,
-                                        'languageCode', initiator_lang.code,
-                                        'cardRef', initiator_set.code || '-' || LPAD(initiator_card.number::text, 3, '0'),
-                                        'imgUrl', initiator_img.url
+                                        'languageCode', initiator_card.language_code,
+                                        'cardRef', initiator_card.reference,
+                                        'imgUrl', initiator_card.img_url
                                     ),
                                     'requestedCard', json_build_object(
                                         'collectionId', partner_ucc.id,
-                                        'languageCode', partner_lang.code,
-                                        'cardRef', partner_set.code || '-' || LPAD(partner_card.number::text, 3, '0'),
-                                        'imgUrl', partner_img.url
+                                        'languageCode', partner_card.language_code,
+                                        'cardRef', partner_card.reference,
+                                        'imgUrl', partner_card.img_url
                                     )
                                 )
                             )
@@ -68,15 +69,15 @@ class OngoingtradesView(SlidingAuthBaseView):
                                     'tradeId', trans.id,
                                     'requestedCard', json_build_object(
                                         'collectionId', initiator_ucc.id,
-                                        'languageCode', initiator_lang.code,
-                                        'cardRef', initiator_set.code || '-' || LPAD(initiator_card.number::text, 3, '0'),
-                                        'imgUrl', initiator_img.url
+                                        'languageCode', initiator_card.language_code,
+                                        'cardRef', initiator_card.reference,
+                                        'imgUrl', initiator_card.img_url
                                     ),
                                     'offeredCard', json_build_object(
                                         'collectionId', partner_ucc.id,
-                                        'languageCode', partner_lang.code,
-                                        'cardRef', partner_set.code || '-' || LPAD(partner_card.number::text, 3, '0'),
-                                        'imgUrl', partner_img.url
+                                        'languageCode', partner_card.language_code,
+                                        'cardRef', partner_card.reference,
+                                        'imgUrl', partner_card.img_url
                                     )
                                 )
                             )
@@ -94,28 +95,16 @@ class OngoingtradesView(SlidingAuthBaseView):
                 -- initiator card details
                 INNER JOIN card_collections_usercardcollection initiator_ucc
                     ON trans.offered_id = initiator_ucc.id
-                INNER JOIN cards_card initiator_card
+                INNER JOIN card_info initiator_card
                     ON initiator_ucc.card_id = initiator_card.id
-                JOIN cards_cardimage initiator_img
-                    ON initiator_card.id = initiator_img.card_id
-                    AND initiator_ucc.language_id = initiator_img.language_id
-                JOIN cards_language initiator_lang
-                    ON initiator_lang.id = initiator_ucc.language_id
-                JOIN cards_set initiator_set
-                    ON initiator_set.id = initiator_card.set_id
+                    AND initiator_ucc.language_id = initiator_card.language_id
 
                 -- partner card details
                 INNER JOIN card_collections_usercardcollection partner_ucc
-                    ON trans.requested_id = partner_ucc.id
-                INNER JOIN cards_card partner_card
+                    ON trans.offered_id = partner_ucc.id
+                INNER JOIN card_info partner_card
                     ON partner_ucc.card_id = partner_card.id
-                JOIN cards_cardimage partner_img
-                    ON partner_card.id = partner_img.card_id
-                    AND partner_ucc.language_id = partner_img.language_id
-                JOIN cards_language partner_lang
-                    ON partner_lang.id = partner_ucc.language_id
-                JOIN cards_set partner_set
-                    ON partner_set.id = partner_card.set_id
+                    AND partner_ucc.language_id = partner_card.language_id
 
                 WHERE (trans.initiator_id = %s OR trans.partner_id = %s)
                 AND status.code='Accepted'
