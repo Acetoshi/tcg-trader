@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     // needed to display a badge
     this.tradeService.fetchReceivedTradeOffers();
+    this.tradeService.fetchOngoingTrades();
 
     this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
     this.collectionService.fetchMyWishlist({ ...this.collectionService.myCollectionFilters(), wishlist: true });

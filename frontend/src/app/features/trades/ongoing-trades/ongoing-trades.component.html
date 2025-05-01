@@ -6,11 +6,11 @@
           <span
             >{{ groupedOngoingTrades.ongoingTrades.length }}
             @if (groupedOngoingTrades.ongoingTrades.length > 1) {
-              trade offers
+              trades
             } @else {
-              trade offer
+              trade
             }
-            awaiting response from&nbsp;
+            in progress with&nbsp;
             <a routerLink="/profiles/{{ groupedOngoingTrades.partnerUsername }}">
               {{ groupedOngoingTrades.partnerUsername }}
             </a></span
