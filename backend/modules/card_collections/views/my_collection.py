@@ -134,7 +134,12 @@ class MyCollectionView(SlidingAuthBaseView):
             user=user, card=card, language=language
         )
 
-        updated = serializer.update(obj, serializer.validated_data)
+        serializer.update(obj, serializer.validated_data)
+
+        updated = serializer.build_response_object([serializer.validated_data["card"]])
+
+        print(updated)
+
         if created:
             return Response(PatchMyCollectionSerializer(updated).data, status.HTTP_201_CREATED)
         else:

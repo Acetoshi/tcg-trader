@@ -10,6 +10,7 @@ import { CollectionItem } from "../models/collection-item.model";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { ToastService } from "../../../core/services/toast.service";
 
 @Component({
   standalone: true,
@@ -38,6 +39,7 @@ export class CollectionItemComponent implements OnInit {
   constructor(
     private languageService: LanguageService,
     private collectionService: CollectionService,
+    private toastService: ToastService,
     private fb: FormBuilder
   ) {}
 
@@ -51,7 +53,7 @@ export class CollectionItemComponent implements OnInit {
     ["owned", "forTrade", "wishlist"].forEach(controlName => {
       this.debounceFormControl(controlName);
     });
-    // subscribe the signal to the formControl value
+    // Change the language version when the language select changes value
     this.collectionItemForm.get("languageCode")?.valueChanges.subscribe(code => {
       this.selectedLanguageCode.set(code);
 
@@ -103,6 +105,10 @@ export class CollectionItemComponent implements OnInit {
           owned: this.collectionItemForm.value.owned,
           forTrade: this.collectionItemForm.value.forTrade,
           wishlist: this.collectionItemForm.value.wishlist,
+        }).subscribe({
+          error: () => {
+            this.toastService.showError("There was an error updating your collection, refresh the page and try again");
+          }
         });
       });
   }

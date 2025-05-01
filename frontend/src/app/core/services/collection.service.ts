@@ -1,12 +1,11 @@
 import { computed, Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
-import { firstValueFrom } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem, LanguageVersion } from "../../features/my-collection/models/collection-item.model";
+import { CollectionItem, LanguageVersion, UpdateCollectionItemResponse } from "../../features/my-collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
-import { ToastService } from "./toast.service";
 
 @Injectable({
   providedIn: "root",
@@ -29,8 +28,7 @@ export class CollectionService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private http: HttpClient,
-    private toastService: ToastService
+    private http: HttpClient
   ) {}
 
   // Method to fetch collection data
@@ -71,43 +69,53 @@ export class CollectionService {
     return this.myCollection;
   }
 
-  async updateCollectionItem(data: {
+  updateCollectionItem(data: {
     cardId: number;
     languageCode: string;
     owned: number;
     forTrade: number;
     wishlist: number;
-  }): Promise<boolean> {
-    if (!isPlatformBrowser(this.platformId)) return false;
+  }): Observable<UpdateCollectionItemResponse> {
+    // if (!isPlatformBrowser(this.platformId)) return false;
+    return this.http.patch<UpdateCollectionItemResponse>(`${this.apiUrl}/user/collection`, data).pipe(
+      tap(newLanguageVersion => {
+        console.log("new varsion received:", newLanguageVersion);
+        this.upsertCollectionItem(newLanguageVersion);
+      })
+    );
+  }
 
-    try {
-      const updatedLanguageVersion = (await firstValueFrom(
-        this.http.patch(`${this.apiUrl}/user/collection`, data)
-      )) as LanguageVersion;
+  upsertCollectionItem(updatedLanguageVersion: UpdateCollectionItemResponse): void {
+    const { owned, wishlist } = updatedLanguageVersion;
 
-      //if successful, we need to update the collection signal
+    if (owned) {
       const myUpdatedCollection = [...this.myCollection()];
-      const updatedCollectionItem = myUpdatedCollection.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
+      const updatedCollectionItem = myUpdatedCollection.find(
+        (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
+      ) as CollectionItem;
       const MyCollectionLanguageVersion = updatedCollectionItem.languageVersions.find(
-        languageVersion => languageVersion.languageCode === data.languageCode
+        languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
       ) as LanguageVersion;
       Object.assign(MyCollectionLanguageVersion, updatedLanguageVersion);
 
       this.myCollection.set(myUpdatedCollection);
+    }
 
+    if (wishlist) {
       const myUpdatedWishlist = [...this.myWishlist()];
-      const updatedWishlistItem = myUpdatedWishlist.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
+      const updatedWishlistItem = myUpdatedWishlist.find(
+        (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
+      ) as CollectionItem;
+      console.log("updated wishlist Item :", updatedWishlistItem);
+      if(updatedWishlistItem){
+
+      }
       const MyWishlistLanguageVersion = updatedWishlistItem.languageVersions.find(
-        languageVersion => languageVersion.languageCode === data.languageCode
+        languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
       ) as LanguageVersion;
       Object.assign(MyWishlistLanguageVersion, updatedLanguageVersion);
 
       this.myWishlist.set(myUpdatedWishlist);
-
-      return true;
-    } catch {
-      this.toastService.showError("There was an error updating your collection, refresh the page and try again");
-      return false;
     }
   }
 
