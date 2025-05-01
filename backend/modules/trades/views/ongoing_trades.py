@@ -30,7 +30,7 @@ class OngoingtradesView(SlidingAuthBaseView):
                                 'imgUrl', their_img.url
                             )
                         )
-                    ) AS "sentOffers"
+                    ) AS "ongoingTrades"
                 FROM trades_tradetransaction trans
                 INNER JOIN trades_tradestatus status
                     ON trans.status_id=status.id

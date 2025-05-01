@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 import {
   CreateTradeOfferRequestBody,
+  GroupedOngoingTrades,
   GroupedReceivedTradeOffers,
   GroupedSentTradeOffers,
   GroupedTradeOpportunities,
@@ -35,6 +36,10 @@ export class TradeService {
   receivedOffersCount = computed(() =>
     this.receivedOffers().reduce((acc, group) => acc + group.receivedOffers.length, 0)
   );
+
+  ongoingTrades = signal<GroupedOngoingTrades[]>([]);
+  ongoingTradesPagination = signal<PaginationObject>(PaginationDefault);
+  ongoingTradesCount = computed(() => this.ongoingTrades().reduce((acc, group) => acc + group.ongoingTrades.length, 0));
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -126,5 +131,13 @@ export class TradeService {
         this.receivedOffersPagination.set({ next: response.next, previous: response.previous });
         this.receivedOffers.set(response.results);
       });
+  }
+
+  fetchOngoingTrades(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.http.get<PaginatedResponse<GroupedOngoingTrades>>(`${this.apiUrl}/trades/ongoing`).subscribe(response => {
+      this.ongoingTradesPagination.set({ next: response.next, previous: response.previous });
+      this.ongoingTrades.set(response.results);
+    });
   }
 }

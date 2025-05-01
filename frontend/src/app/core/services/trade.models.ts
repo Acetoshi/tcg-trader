@@ -13,6 +13,11 @@ export interface GroupedReceivedTradeOffers {
   receivedOffers: TradeTransaction[];
 }
 
+export interface GroupedOngoingTrades {
+  partnerUsername: string;
+  ongoingTrades: TradeTransaction[];
+}
+
 export interface TradeOpportunity {
   offeredCard: TradePart;
   requestedCard: TradePart;

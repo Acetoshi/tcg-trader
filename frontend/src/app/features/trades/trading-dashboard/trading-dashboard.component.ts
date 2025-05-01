@@ -3,13 +3,14 @@ import { CommonModule } from "@angular/common";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { filter } from "rxjs/operators";
 import { TranslateModule } from "@ngx-translate/core";
+import { TradeService } from "../../../core/services/trade.service";
 import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
 import { MatBadgeModule } from "@angular/material/badge";
 import { TradeOpportunitiesComponent } from "../trade-opportunities/trade-opportunities.component";
 import { SentTradeOffersComponent } from "../sent-trade-offers/sent-trade-offers.component";
 import { ReceivedTadeOffersComponent } from "../received-trade-offers/received-trade-offers.component";
-import { TradeService } from "../../../core/services/trade.service";
+import { OngoingTradesComponent } from "../ongoing-trades/ongoing-trades.component";
 
 @Component({
   selector: "app-trading-dashboard",
@@ -24,6 +25,7 @@ import { TradeService } from "../../../core/services/trade.service";
     TradeOpportunitiesComponent,
     ReceivedTadeOffersComponent,
     SentTradeOffersComponent,
+    OngoingTradesComponent,
   ],
 })
 export class TradingDashboardComponent implements OnInit {
