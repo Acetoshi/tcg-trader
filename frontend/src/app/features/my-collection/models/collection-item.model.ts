@@ -13,11 +13,3 @@ export interface CollectionItem {
   setCode: string;
   languageVersions: LanguageVersion[];
 }
-
-export interface UpdateCollectionItemResponse {
-  cardId: number;
-  languageCode: string;
-  owned: number;
-  forTrade: number;
-  wishlist: number;
-}

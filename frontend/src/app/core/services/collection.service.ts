@@ -4,7 +4,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem, LanguageVersion, UpdateCollectionItemResponse } from "../../features/my-collection/models/collection-item.model";
+import { CollectionItem } from "../../features/my-collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
 
 @Injectable({
@@ -75,48 +75,65 @@ export class CollectionService {
     owned: number;
     forTrade: number;
     wishlist: number;
-  }): Observable<UpdateCollectionItemResponse> {
+  }): Observable<CollectionItem> {
     // if (!isPlatformBrowser(this.platformId)) return false;
-    return this.http.patch<UpdateCollectionItemResponse>(`${this.apiUrl}/user/collection`, data).pipe(
-      tap(newLanguageVersion => {
-        console.log("new varsion received:", newLanguageVersion);
-        this.upsertCollectionItem(newLanguageVersion);
+    return this.http.patch<CollectionItem>(`${this.apiUrl}/user/collection`, data).pipe(
+      tap(newCollectionItem => {
+        console.log("new varsion received:", newCollectionItem);
+        this.upsertCollectionItem(newCollectionItem);
       })
     );
   }
 
-  upsertCollectionItem(updatedLanguageVersion: UpdateCollectionItemResponse): void {
-    const { owned, wishlist } = updatedLanguageVersion;
+  upsertCollectionItem(newCollectionItem: CollectionItem): void {
+    // upsert myCollection
+    const existingIndex = this.myCollection().findIndex(
+      (item: CollectionItem) => item.id === newCollectionItem.id
+    );
+    let myUpdatedCollection: CollectionItem[];
 
-    if (owned) {
-      const myUpdatedCollection = [...this.myCollection()];
-      const updatedCollectionItem = myUpdatedCollection.find(
-        (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
-      ) as CollectionItem;
-      const MyCollectionLanguageVersion = updatedCollectionItem.languageVersions.find(
-        languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
-      ) as LanguageVersion;
-      Object.assign(MyCollectionLanguageVersion, updatedLanguageVersion);
-
-      this.myCollection.set(myUpdatedCollection);
+    if (existingIndex !== -1) { //Replace
+      myUpdatedCollection = [...this.myCollection()];
+      myUpdatedCollection[existingIndex] = newCollectionItem;
+    } else { // Add new
+      myUpdatedCollection = [...this.myCollection(), newCollectionItem];
     }
+    this.myCollection.set(myUpdatedCollection);
 
-    if (wishlist) {
-      const myUpdatedWishlist = [...this.myWishlist()];
-      const updatedWishlistItem = myUpdatedWishlist.find(
-        (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
-      ) as CollectionItem;
-      console.log("updated wishlist Item :", updatedWishlistItem);
-      if(updatedWishlistItem){
+    const myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
+    this.myWishlist.set(myUpdatedWishlist);
 
-      }
-      const MyWishlistLanguageVersion = updatedWishlistItem.languageVersions.find(
-        languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
-      ) as LanguageVersion;
-      Object.assign(MyWishlistLanguageVersion, updatedLanguageVersion);
+    // upsert myWishlist
+    console.log(this.myCollection())
 
-      this.myWishlist.set(myUpdatedWishlist);
-    }
+    // if (owned) {
+    //   const myUpdatedCollection = [...this.myCollection()];
+    //   const updatedCollectionItem = myUpdatedCollection.find(
+    //     (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
+    //   ) as CollectionItem;
+    //   const MyCollectionLanguageVersion = updatedCollectionItem.languageVersions.find(
+    //     languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
+    //   ) as LanguageVersion;
+    //   Object.assign(MyCollectionLanguageVersion, updatedLanguageVersion);
+
+    //   this.myCollection.set(myUpdatedCollection);
+    // }
+
+    // if (wishlist) {
+    //   const myUpdatedWishlist = [...this.myWishlist()];
+    //   const updatedWishlistItem = myUpdatedWishlist.find(
+    //     (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
+    //   ) as CollectionItem;
+    //   console.log("updated wishlist Item :", updatedWishlistItem);
+    //   if (updatedWishlistItem) {
+    //   }
+    //   const MyWishlistLanguageVersion = updatedWishlistItem.languageVersions.find(
+    //     languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
+    //   ) as LanguageVersion;
+    //   Object.assign(MyWishlistLanguageVersion, updatedLanguageVersion);
+
+    //   this.myWishlist.set(myUpdatedWishlist);
+    // }
   }
 
   updateMyCollectionFilters(newFilters: Partial<CardFilters>) {
