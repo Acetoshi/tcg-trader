@@ -114,6 +114,7 @@ export class CollectionItemComponent implements OnInit {
   }
 
   ngOnChanges() {
+    if (!this.collectionItemForm) return; // ngOnChanges CAN run before ngOnInit, so just making sure the form does exist
     this.collectionItemForm.patchValue(
       {
         owned: this.version().owned,
