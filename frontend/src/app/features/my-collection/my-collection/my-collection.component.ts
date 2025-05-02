@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, signal } from "@angular/core";
+import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";

@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit, signal } from "@angular/core";
+import { Component, computed, input, OnInit, signal, OnChanges } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
@@ -19,7 +19,7 @@ import { ToastService } from "../../../core/services/toast.service";
   styleUrls: ["./collection-item.component.scss"],
   imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
 })
-export class CollectionItemComponent implements OnInit {
+export class CollectionItemComponent implements OnInit, OnChanges {
   collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;
@@ -99,17 +99,21 @@ export class CollectionItemComponent implements OnInit {
       .get(controlName)
       ?.valueChanges.pipe(debounceTime(600))
       .subscribe(() => {
-        this.collectionService.updateCollectionItem({
-          cardId: this.collectionItem().id,
-          languageCode: this.collectionItemForm.value.languageCode,
-          owned: this.collectionItemForm.value.owned,
-          forTrade: this.collectionItemForm.value.forTrade,
-          wishlist: this.collectionItemForm.value.wishlist,
-        }).subscribe({
-          error: () => {
-            this.toastService.showError("There was an error updating your collection, refresh the page and try again");
-          }
-        });
+        this.collectionService
+          .updateCollectionItem({
+            cardId: this.collectionItem().id,
+            languageCode: this.collectionItemForm.value.languageCode,
+            owned: this.collectionItemForm.value.owned,
+            forTrade: this.collectionItemForm.value.forTrade,
+            wishlist: this.collectionItemForm.value.wishlist,
+          })
+          .subscribe({
+            error: () => {
+              this.toastService.showError(
+                "There was an error updating your collection, refresh the page and try again"
+              );
+            },
+          });
       });
   }
 
