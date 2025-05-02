@@ -48,13 +48,15 @@ class PatchMyCollectionSerializer(serializers.ModelSerializer):
     def created(self):
         return getattr(self, "_created", False)
 
+    # This method enables the forntend to get a full picture of the card that was updated
     def build_response_object(self, params):
         with connection.cursor() as cursor:
             sql_request = """
             SELECT
                 c.id AS "id",
                 c.number AS "setNumber",
-                set.code AS "setCode",
+                s.code AS "setCode",
+                s.code || '-' || LPAD(c.number :: text, 3, '0') AS reference,
                 json_agg(
                     json_build_object(
                         'languageCode', lang.code,
@@ -71,8 +73,8 @@ class PatchMyCollectionSerializer(serializers.ModelSerializer):
                 ON name_trans.card_id = c.id
             INNER JOIN cards_language lang
                 ON lang.id = name_trans.language_id
-            INNER JOIN cards_set set
-                ON set.id = c.set_id
+            INNER JOIN cards_set s
+                ON s.id = c.set_id
             LEFT JOIN cards_cardimage img
                 ON img.card_id = c.id
                 AND img.language_id = lang.id
@@ -81,6 +83,17 @@ class PatchMyCollectionSerializer(serializers.ModelSerializer):
 
             WHERE c.id = %(card_id)s
 
-            GROUP BY c.id, c.number, c.set_id, set.code
+            GROUP BY c.id, c.number, c.set_id, s.code
             """
             cursor.execute(sql_request, params)
+            row = cursor.fetchone()
+
+            new_collection_card = {
+                "id": row[0],
+                "setNumber": row[1],
+                "setCode": row[2],
+                "reference": row[3],
+                "languageVersions": row[4],
+            }
+
+            return new_collection_card

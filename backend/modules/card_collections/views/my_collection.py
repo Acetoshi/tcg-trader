@@ -126,7 +126,11 @@ class MyCollectionView(SlidingAuthBaseView):
         serializer.is_valid(raise_exception=True)
         obj = serializer.save()
 
+        response_data = serializer.build_response_object(
+            {"user_id": request.user.id, "card_id": obj.card.id}
+        )
+
         if serializer.created:
-            return Response(PatchMyCollectionSerializer(obj).data, status.HTTP_201_CREATED)
+            return Response(response_data, status.HTTP_201_CREATED)
         else:
-            return Response(PatchMyCollectionSerializer(obj).data, status.HTTP_200_OK)
+            return Response(response_data, status.HTTP_200_OK)
