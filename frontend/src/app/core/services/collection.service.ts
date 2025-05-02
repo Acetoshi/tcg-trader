@@ -1,12 +1,11 @@
 import { computed, Inject, Injectable, PLATFORM_ID, Signal, signal } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
-import { firstValueFrom } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem, LanguageVersion } from "../../features/my-collection/models/collection-item.model";
+import { CollectionItem } from "../../features/my-collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
-import { ToastService } from "./toast.service";
 
 @Injectable({
   providedIn: "root",
@@ -29,8 +28,7 @@ export class CollectionService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-    private http: HttpClient,
-    private toastService: ToastService
+    private http: HttpClient
   ) {}
 
   // Method to fetch collection data
@@ -71,35 +69,55 @@ export class CollectionService {
     return this.myCollection;
   }
 
-  async updateCollectionItem(data: {
+  updateCollectionItem(data: {
     cardId: number;
     languageCode: string;
     owned: number;
     forTrade: number;
     wishlist: number;
-  }): Promise<boolean> {
-    if (!isPlatformBrowser(this.platformId)) return false;
+  }): Observable<CollectionItem> {
+    // if (!isPlatformBrowser(this.platformId)) return false;
+    return this.http.patch<CollectionItem>(`${this.apiUrl}/user/collection`, data).pipe(
+      tap(newCollectionItem => {
+        console.log("new varsion received:", newCollectionItem);
+        this.upsertCollectionItem(newCollectionItem);
+      })
+    );
+  }
 
-    try {
-      const updatedLanguageVersion = (await firstValueFrom(
-        this.http.patch(`${this.apiUrl}/user/collection`, data)
-      )) as LanguageVersion;
+  upsertCollectionItem(newCollectionItem: CollectionItem): void {
+    // upsert myCollection
+    const myCollectionIndex = this.myCollection().findIndex(
+      (item: CollectionItem) => item.id === newCollectionItem.id
+    );
+    let myUpdatedCollection: CollectionItem[];
 
-      //if successful, we need to update the collection signal
-      const myUpdatedCollection = [...this.myCollection()];
-      const updatedItem = myUpdatedCollection.find((item: CollectionItem) => item.id === data.cardId) as CollectionItem;
-      const languageVersion = updatedItem.languageVersions.find(
-        languageVersion => languageVersion.languageCode === data.languageCode
-      ) as LanguageVersion;
-      Object.assign(languageVersion, updatedLanguageVersion);
-
-      this.myCollection.set(myUpdatedCollection);
-
-      return true;
-    } catch {
-      this.toastService.showError("There was an error updating your collection, refresh the page and try again");
-      return false;
+    if (myCollectionIndex !== -1) { //Replace
+      const updated = { ...this.myCollection()[myCollectionIndex], ...newCollectionItem };
+      myUpdatedCollection = [...this.myCollection()];
+      myUpdatedCollection[myCollectionIndex] = updated;
+    } else { // Add new
+      myUpdatedCollection = [...this.myCollection(), newCollectionItem];
     }
+    this.myCollection.set(myUpdatedCollection);
+
+
+    const myWishlist = this.myCollection().findIndex(
+      (item: CollectionItem) => item.id === newCollectionItem.id
+    );
+    let myUpdatedWishlist: CollectionItem[];
+
+    if (myWishlist !== -1) { //Replace
+      const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
+      myUpdatedWishlist = [...this.myWishlist()];
+      myUpdatedWishlist[myWishlist] = updated;
+    } else { // Add new
+      myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
+    }
+    this.myWishlist.set(myUpdatedWishlist);
+
+    // upsert myWishlist
+    console.log(this.myCollection())
   }
 
   updateMyCollectionFilters(newFilters: Partial<CardFilters>) {
