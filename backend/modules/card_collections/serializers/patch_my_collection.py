@@ -25,6 +25,29 @@ class PatchMyCollectionSerializer(serializers.ModelSerializer):
             "wishlist",
         ]
 
+    def save(self, **kwargs):
+        user = self.context["user"]
+        card = self.validated_data["card"]
+        language = self.validated_data["language"]
+
+        obj, created = UserCardCollection.objects.get_or_create(
+            user=user, card=card, language=language
+        )
+
+        # update fields if they are present in validated_data
+        for field in ["quantity_owned", "quantity_for_trade", "desired_quantity"]:
+            if field in self.validated_data:
+                setattr(obj, field, self.validated_data[field])
+
+        obj.save()
+        self.instance = obj  # important for .data to work
+        self._created = created
+        return obj
+
+    @property
+    def created(self):
+        return getattr(self, "_created", False)
+
     def build_response_object(self, params):
         with connection.cursor() as cursor:
             sql_request = """

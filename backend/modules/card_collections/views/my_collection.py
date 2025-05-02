@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
-from modules.card_collections.models import UserCardCollection
 from modules.card_collections.serializers.patch_my_collection import PatchMyCollectionSerializer
 
 
@@ -123,24 +122,11 @@ class MyCollectionView(SlidingAuthBaseView):
         return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
     def patch(self, request):
-        user = request.user
-        serializer = PatchMyCollectionSerializer(data=request.data)
+        serializer = PatchMyCollectionSerializer(data=request.data, context={"user": request.user})
         serializer.is_valid(raise_exception=True)
+        obj = serializer.save()
 
-        card = serializer.validated_data["card"]
-        language = serializer.validated_data.get("language")
-
-        obj, created = UserCardCollection.objects.get_or_create(
-            user=user, card=card, language=language
-        )
-
-        serializer.update(obj, serializer.validated_data)
-
-        updated = serializer.build_response_object([serializer.validated_data["card"]])
-
-        print(updated)
-
-        if created:
-            return Response(PatchMyCollectionSerializer(updated).data, status.HTTP_201_CREATED)
+        if serializer.created:
+            return Response(PatchMyCollectionSerializer(obj).data, status.HTTP_201_CREATED)
         else:
-            return Response(PatchMyCollectionSerializer(updated).data, status.HTTP_200_OK)
+            return Response(PatchMyCollectionSerializer(obj).data, status.HTTP_200_OK)
