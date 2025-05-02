@@ -112,4 +112,15 @@ export class CollectionItemComponent implements OnInit {
         });
       });
   }
+
+  ngOnChanges() {
+    this.collectionItemForm.patchValue(
+      {
+        owned: this.version().owned,
+        forTrade: this.version().forTrade,
+        wishlist: this.version().wishlist,
+      },
+      { emitEvent: false }
+    );
+  }
 }

@@ -87,53 +87,37 @@ export class CollectionService {
 
   upsertCollectionItem(newCollectionItem: CollectionItem): void {
     // upsert myCollection
-    const existingIndex = this.myCollection().findIndex(
+    const myCollectionIndex = this.myCollection().findIndex(
       (item: CollectionItem) => item.id === newCollectionItem.id
     );
     let myUpdatedCollection: CollectionItem[];
 
-    if (existingIndex !== -1) { //Replace
+    if (myCollectionIndex !== -1) { //Replace
+      const updated = { ...this.myCollection()[myCollectionIndex], ...newCollectionItem };
       myUpdatedCollection = [...this.myCollection()];
-      myUpdatedCollection[existingIndex] = newCollectionItem;
+      myUpdatedCollection[myCollectionIndex] = updated;
     } else { // Add new
       myUpdatedCollection = [...this.myCollection(), newCollectionItem];
     }
     this.myCollection.set(myUpdatedCollection);
 
-    const myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
+
+    const myWishlist = this.myCollection().findIndex(
+      (item: CollectionItem) => item.id === newCollectionItem.id
+    );
+    let myUpdatedWishlist: CollectionItem[];
+
+    if (myWishlist !== -1) { //Replace
+      const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
+      myUpdatedWishlist = [...this.myWishlist()];
+      myUpdatedWishlist[myWishlist] = updated;
+    } else { // Add new
+      myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
+    }
     this.myWishlist.set(myUpdatedWishlist);
 
     // upsert myWishlist
     console.log(this.myCollection())
-
-    // if (owned) {
-    //   const myUpdatedCollection = [...this.myCollection()];
-    //   const updatedCollectionItem = myUpdatedCollection.find(
-    //     (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
-    //   ) as CollectionItem;
-    //   const MyCollectionLanguageVersion = updatedCollectionItem.languageVersions.find(
-    //     languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
-    //   ) as LanguageVersion;
-    //   Object.assign(MyCollectionLanguageVersion, updatedLanguageVersion);
-
-    //   this.myCollection.set(myUpdatedCollection);
-    // }
-
-    // if (wishlist) {
-    //   const myUpdatedWishlist = [...this.myWishlist()];
-    //   const updatedWishlistItem = myUpdatedWishlist.find(
-    //     (item: CollectionItem) => item.id === updatedLanguageVersion.cardId
-    //   ) as CollectionItem;
-    //   console.log("updated wishlist Item :", updatedWishlistItem);
-    //   if (updatedWishlistItem) {
-    //   }
-    //   const MyWishlistLanguageVersion = updatedWishlistItem.languageVersions.find(
-    //     languageVersion => languageVersion.languageCode === updatedLanguageVersion.languageCode
-    //   ) as LanguageVersion;
-    //   Object.assign(MyWishlistLanguageVersion, updatedLanguageVersion);
-
-    //   this.myWishlist.set(myUpdatedWishlist);
-    // }
   }
 
   updateMyCollectionFilters(newFilters: Partial<CardFilters>) {
