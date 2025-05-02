@@ -105,15 +105,29 @@ class MyCollectionView(SlidingAuthBaseView):
             params["search"] = f"%{filters['search']}%"
 
         if filters.get("owned_only") and filters["owned_only"] == "true":
-            where_clauses.append("ucc.quantity_owned >= 1")
+            base_sql += """
+                INNER JOIN (
+                    SELECT DISTINCT card_id
+                    FROM card_collections_usercardcollection
+                    WHERE user_id = %(user_id)s AND quantity_owned >= 1
+                ) owned_cards
+                ON owned_cards.card_id = c.id
+            """
 
         if filters.get("wishlist_only") and filters["wishlist_only"] == "true":
-            where_clauses.append("ucc.desired_quantity >= 1")
+            base_sql += """
+                INNER JOIN (
+                    SELECT DISTINCT card_id
+                    FROM card_collections_usercardcollection
+                    WHERE user_id = %(user_id)s AND desired_quantity >= 1
+                ) owned_cards
+                ON owned_cards.card_id = c.id
+            """
 
         if where_clauses:
             base_sql += " WHERE " + " AND ".join(where_clauses)
 
-        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number "  # TODO : remove the limit and implement pagination
+        base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number "
 
         return base_sql, params
 

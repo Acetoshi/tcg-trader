@@ -79,7 +79,6 @@ export class CollectionService {
     // if (!isPlatformBrowser(this.platformId)) return false;
     return this.http.patch<CollectionItem>(`${this.apiUrl}/user/collection`, data).pipe(
       tap(newCollectionItem => {
-        console.log("new varsion received:", newCollectionItem);
         this.upsertCollectionItem(newCollectionItem);
       })
     );
@@ -87,37 +86,33 @@ export class CollectionService {
 
   upsertCollectionItem(newCollectionItem: CollectionItem): void {
     // upsert myCollection
-    const myCollectionIndex = this.myCollection().findIndex(
-      (item: CollectionItem) => item.id === newCollectionItem.id
-    );
+    const myCollectionIndex = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
     let myUpdatedCollection: CollectionItem[];
 
-    if (myCollectionIndex !== -1) { //Replace
+    if (myCollectionIndex !== -1) {
+      //Replace
       const updated = { ...this.myCollection()[myCollectionIndex], ...newCollectionItem };
       myUpdatedCollection = [...this.myCollection()];
       myUpdatedCollection[myCollectionIndex] = updated;
-    } else { // Add new
+    } else {
+      // Add new
       myUpdatedCollection = [...this.myCollection(), newCollectionItem];
     }
     this.myCollection.set(myUpdatedCollection);
 
-
-    const myWishlist = this.myCollection().findIndex(
-      (item: CollectionItem) => item.id === newCollectionItem.id
-    );
+    const myWishlist = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
     let myUpdatedWishlist: CollectionItem[];
 
-    if (myWishlist !== -1) { //Replace
+    if (myWishlist !== -1) {
+      //Replace
       const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
       myUpdatedWishlist = [...this.myWishlist()];
       myUpdatedWishlist[myWishlist] = updated;
-    } else { // Add new
+    } else {
+      // Add new
       myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
     }
     this.myWishlist.set(myUpdatedWishlist);
-
-    // upsert myWishlist
-    console.log(this.myCollection())
   }
 
   updateMyCollectionFilters(newFilters: Partial<CardFilters>) {

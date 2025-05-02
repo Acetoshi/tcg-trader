@@ -13,4 +13,6 @@
 @if (noResults()) {
   <app-no-results />
 }
+
+<app-end-of-data [isVisible]="true" [message]="endOfDataMessage" />
 <app-scroll-listener (reachedBottom)="this.collectionService.fetchMyCollectionNextPage()" />
