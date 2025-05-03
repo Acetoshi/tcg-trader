@@ -31,7 +31,21 @@
 </mat-accordion>
 
 @if (noResults()) {
-  <app-no-results />
-  <!-- TODO : add a CTA to go to smart matcher -->
+  <app-no-results>
+    <p>
+      You haven't received any trade offer.
+      <br />
+      Try adding more cards to your
+      <a routerLink="/my-collection/wishlist">wishlist</a>
+      or
+      <a routerLink="/my-collection/owned">collection</a>
+      so others can find you.
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>No other received offer to show you</p>
+  </app-end-of-data>
 }
+
 <app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />
