@@ -14,6 +14,12 @@ dev-restart-backend:
 	@echo "Starting the backend container..."
 	@docker compose -f docker-compose.dev.yml start backend
 
+dev-restart-frontend:
+	@echo "Stopping the frontend container..."
+	@docker compose -f docker-compose.dev.yml stop frontend
+	@echo "Starting the frontend container..."
+	@docker compose -f docker-compose.dev.yml start frontend
+
 lint:
 	@cd backend && venv/bin/pre-commit run --all-files
 	@cd frontend && npm run format+lint:fix
