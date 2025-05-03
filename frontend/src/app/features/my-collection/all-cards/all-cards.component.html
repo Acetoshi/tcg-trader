@@ -1,0 +1,22 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.allCardsFilters()"
+  (filterChange)="this.collectionService.updateAllCardsFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (collectionItem of this.collectionService.allCards(); track collectionItem.id) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results>
+    <p>We couldn't find any cards that match your filters.</p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>There's no more cards to show you with these filters</p>
+  </app-end-of-data>
+}
+
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchAllCardsNextPage()" />

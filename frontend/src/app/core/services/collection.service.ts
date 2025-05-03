@@ -16,6 +16,10 @@ export class CollectionService {
   loading = computed(() => this._loading());
 
   // Signal for myCollection data
+  allCards = signal<CollectionItem[]>([]);
+  allCardsFilters = signal<CardFilters>(defaultFilters);
+  allCardsPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+
   myCollection = signal<CollectionItem[]>([]);
   myCollectionFilters = signal<CardFilters>(defaultFilters);
   myCollectionPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
@@ -178,5 +182,44 @@ export class CollectionService {
     // Otherwise i'd get a weird behaviour when toggling filters
     this.myWishlistFilters.set({ ...this.myWishlistFilters(), ...newFilters });
     this.fetchMyWishlist(this.myWishlistFilters());
+  }
+
+  // ALL CARDS
+  fetchAllCards(filters: CardFilters): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    let params = new HttpParams();
+    if (filters.search) params = params.set("search", filters.search);
+    if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
+    if (filters.rarityCodes.length) params = params.set("rarity", filters.rarityCodes.join(","));
+    if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
+    if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
+    if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
+
+    this.http
+      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
+      .subscribe(response => {
+        this.allCardsPagination.set({ next: response.next, previous: response.previous });
+        this.allCards.set(response.results);
+        console.log("all cards", this.allCards());
+      });
+  }
+
+  fetchAllCardsNextPage(): void {
+    if (this.allCardsPagination().next) {
+      this.http
+        .get<PaginatedResponse<CollectionItem>>(this.allCardsPagination().next as string)
+        .subscribe(response => {
+          this.allCardsPagination.set({ next: response.next, previous: response.previous });
+          this.allCards.set([...this.myCollection(), ...response.results]);
+        });
+    }
+  }
+
+  updateAllCardsFilters(newFilters: Partial<CardFilters>) {
+    //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
+    // Otherwise i'd get a weird behaviour when toggling filters
+    this.allCardsFilters.set({ ...this.allCardsFilters(), ...newFilters });
+    this.fetchAllCards(this.allCardsFilters());
   }
 }

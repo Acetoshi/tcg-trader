@@ -35,7 +35,8 @@ export const routes: Routes = [
     component: MyCollectionDashboardComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: "owned", component: MyCollectionDashboardComponent }, //This looks stupid but is needed to route to mat-tabs
+      { path: "all-cards", component: MyCollectionDashboardComponent }, //This looks stupid but is needed to route to mat-tabs
+      { path: "owned", component: MyCollectionDashboardComponent },
       { path: "wishlist", component: MyCollectionDashboardComponent },
     ],
   },

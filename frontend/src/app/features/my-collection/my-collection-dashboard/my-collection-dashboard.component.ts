@@ -7,18 +7,19 @@ import { MatTabChangeEvent, MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
 import { MyCollectionComponent } from "../my-collection/my-collection.component";
 import { MyWishlistComponent } from "../my-wishlist/my-wishlist.component";
+import { AllCardsComponent } from "../all-cards/all-cards.component";
 
 @Component({
   selector: "app-my-collection-dashboard",
   templateUrl: "./my-collection-dashboard.component.html",
   styleUrls: ["./my-collection-dashboard.component.scss"],
-  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, MyCollectionComponent, MyWishlistComponent],
+  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, AllCardsComponent, MyCollectionComponent, MyWishlistComponent],
 })
 export class MyCollectionDashboardComponent implements OnInit {
   selectedTabIndex = 0;
 
   // map index → child route
-  private tabs = ["owned", "wishlist"];
+  private tabs = ["all-cards", "owned", "wishlist"];
 
   constructor(
     private router: Router,
