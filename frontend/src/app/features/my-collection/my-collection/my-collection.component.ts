@@ -22,7 +22,6 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
 })
 export class MyCollectionComponent implements OnInit {
   noResults = computed(() => this.collectionService.myCollection().length === 0);
-  endOfDataMessage = "There's no more cards to show you with these filters";
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {

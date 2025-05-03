@@ -29,7 +29,20 @@
 </mat-accordion>
 
 @if (noResults()) {
-  <app-no-results />
-  <!-- TODO : add a CTA to go to smart matcher -->
+  <app-no-results>
+    <p>
+      You don't have any ongoing trade at the moment.
+      <br />
+      Check your
+      <a routerLink="/trades/received">received offers</a>
+      or use the
+      <a routerLink="/trades/find">smart trade finder</a>.
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>You don't have other ongoing trades</p>
+  </app-end-of-data>
 }
+
 <app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

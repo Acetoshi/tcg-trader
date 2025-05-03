@@ -7,6 +7,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
 import { SentTradeOfferComponent } from "../sent-trade-offer/sent-trade-offer.component";
+import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
   selector: "app-sent-trade-offers",
@@ -20,6 +21,7 @@ import { SentTradeOfferComponent } from "../sent-trade-offer/sent-trade-offer.co
     SentTradeOfferComponent,
     ScrollListenerComponent,
     NoResultsComponent,
+    EndOfDataComponent
   ],
 })
 export class SentTradeOffersComponent implements OnInit {

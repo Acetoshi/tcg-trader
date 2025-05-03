@@ -7,6 +7,7 @@ import { TradeOpportunityComponent } from "../trade-opportunity/trade-opportunit
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
+import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
   selector: "app-trade-opportunities",
@@ -20,6 +21,7 @@ import { MatIcon } from "@angular/material/icon";
     TradeOpportunityComponent,
     ScrollListenerComponent,
     NoResultsComponent,
+    EndOfDataComponent
   ],
 })
 export class TradeOpportunitiesComponent implements OnInit {

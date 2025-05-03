@@ -18,10 +18,18 @@ import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
+import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
   selector: "app-cards-list",
-  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, CardFilterBarComponent, NoResultsComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    CardFilterBarComponent,
+    NoResultsComponent,
+    EndOfDataComponent,
+  ],
   templateUrl: "./cards-list.component.html",
   styleUrl: "./cards-list.component.scss",
 })

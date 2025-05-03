@@ -6,6 +6,7 @@ import { TradeService } from "../../../core/services/trade.service";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
 import { ReceivedTradeOfferComponent } from "../received-trade-offer/received-trade-offer.component";
+import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
   selector: "app-received-trade-offers",
@@ -18,6 +19,7 @@ import { ReceivedTradeOfferComponent } from "../received-trade-offer/received-tr
     ReceivedTradeOfferComponent,
     ScrollListenerComponent,
     NoResultsComponent,
+    EndOfDataComponent
   ],
 })
 export class ReceivedTadeOffersComponent implements OnInit {
