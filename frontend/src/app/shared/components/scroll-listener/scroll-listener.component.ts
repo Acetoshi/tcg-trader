@@ -28,7 +28,7 @@ export class ScrollListenerComponent implements OnInit {
           this.reachedBottom.emit();
         }
       },
-      { root: null, rootMargin: "100px", threshold: 0.1 }
+      { root: null, rootMargin: "800px", threshold: 0 }
     );
 
     observer.observe(this.scrollAnchor.nativeElement);
