@@ -31,7 +31,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: "my-collection",
+    path: "collection",
     component: MyCollectionDashboardComponent,
     canActivate: [AuthGuard],
     children: [
