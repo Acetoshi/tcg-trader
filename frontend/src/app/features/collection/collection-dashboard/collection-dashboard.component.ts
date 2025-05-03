@@ -10,9 +10,9 @@ import { MyWishlistComponent } from "../my-wishlist/my-wishlist.component";
 import { AllCardsComponent } from "../all-cards/all-cards.component";
 
 @Component({
-  selector: "app-my-collection-dashboard",
-  templateUrl: "./my-collection-dashboard.component.html",
-  styleUrls: ["./my-collection-dashboard.component.scss"],
+  selector: "app-collection-dashboard",
+  templateUrl: "./collection-dashboard.component.html",
+  styleUrls: ["./collection-dashboard.component.scss"],
   imports: [
     CommonModule,
     TranslateModule,
@@ -23,7 +23,7 @@ import { AllCardsComponent } from "../all-cards/all-cards.component";
     MyWishlistComponent,
   ],
 })
-export class MyCollectionDashboardComponent implements OnInit {
+export class CollectionDashboardComponent implements OnInit {
   selectedTabIndex = 0;
 
   // map index → child route

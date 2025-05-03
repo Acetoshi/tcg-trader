@@ -4,7 +4,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem, LanguageVersion } from "../../features/my-collection/models/collection-item.model";
+import { CollectionItem, LanguageVersion } from "../../features/collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
 
 @Injectable({
