@@ -14,11 +14,22 @@
 </ul>
 @if (noResults()) {
   <app-no-results>
-    <p>We couldn't find any cards in your collection that match your filters.</p>
+    <p>
+      @if (this.collectionService.hasActiveMyCollectionFilters()) {
+        We couldn't find any cards in your collection with the current filters
+      } @else {
+        Your collection is empty, try <a routerLink="/collection/all-cards">adding some cards</a>
+      }
+    </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
-    <p>There's no more cards in your collection to show you with these filters</p>
+    <p>
+      There's no more cards in your collection
+      @if (this.collectionService.hasActiveMyCollectionFilters()) {
+        that match the current filters
+      }
+    </p>
   </app-end-of-data>
 }
 

@@ -6,6 +6,7 @@ import { CollectionItemComponent } from "../collection-item/collection-item.comp
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-my-wishlist",
@@ -18,6 +19,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,
+    RouterLink,
   ],
 })
 export class MyWishlistComponent implements OnInit {

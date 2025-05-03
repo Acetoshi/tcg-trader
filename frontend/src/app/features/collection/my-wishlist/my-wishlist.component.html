@@ -14,11 +14,22 @@
 </ul>
 @if (noResults()) {
   <app-no-results>
-    <p>We couldn't find any cards in your wishlist that match your filters.</p>
+    <p>
+      @if (this.collectionService.hasActiveWishlistFilters()) {
+        We couldn't find any cards in your wishlist with the current filters
+      } @else {
+        Your wishlist is empty, try <a routerLink="/collection/all-cards">adding some cards</a>
+      }
+    </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
-    <p>There's no more cards in your wishlist to show you with these filters</p>
+    <p>
+      There's no more cards in your wishlist
+      @if (this.collectionService.hasActiveWishlistFilters()) {
+        that match the current filters
+      }
+    </p>
   </app-end-of-data>
 }
 <app-scroll-listener (reachedBottom)="this.collectionService.fetchMyWishlistNextPage()" />

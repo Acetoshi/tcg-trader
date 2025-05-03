@@ -24,11 +24,13 @@ export class CollectionService {
   myCollectionFilters = signal<CardFilters>(defaultFilters);
   myCollectionPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
   myCollectionCount = computed(() => this.myCollection().length);
+  hasActiveMyCollectionFilters = computed(() => this.hasActiveFilters(this.myCollectionFilters()));
 
   myWishlist = signal<CollectionItem[]>([]);
   myWishlistFilters = signal<CardFilters>(defaultFilters);
   myWishlistPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
   myWishlistCount = computed(() => this.myWishlist().length);
+  hasActiveWishlistFilters = computed(() => this.hasActiveFilters(this.myWishlistFilters()));
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
@@ -224,5 +226,17 @@ export class CollectionService {
     // Otherwise i'd get a weird behaviour when toggling filters
     this.allCardsFilters.set({ ...this.allCardsFilters(), ...newFilters });
     this.fetchAllCards(this.allCardsFilters());
+  }
+
+  // Method to know wether any filter is currently active
+  hasActiveFilters(filters: CardFilters): boolean {
+    return (
+      filters.search.trim() !== "" ||
+      filters.setCodes.length > 0 ||
+      filters.rarityCodes.length > 0 ||
+      filters.cardTypeCodes.length > 0 ||
+      filters.colorCodes.length > 0 ||
+      filters.weaknessCodes.length > 0
+    );
   }
 }
