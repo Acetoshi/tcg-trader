@@ -14,7 +14,13 @@
   </ul>
 
   @if (noResults()) {
-    <app-no-results />
+    <app-no-results>
+      <p>We couldn't find any cards that match your filters.</p>
+    </app-no-results>
+  } @else {
+    <app-end-of-data>
+      <p>There's no more cards to show you with these filters</p>
+    </app-end-of-data>
   }
 
   <div #scrollAnchor class="scroll-anchor">

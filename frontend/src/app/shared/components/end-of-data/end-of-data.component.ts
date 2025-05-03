@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, ContentChildren, ElementRef, input, QueryList } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { MatIconModule } from "@angular/material/icon";
@@ -10,7 +10,4 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrls: ["./end-of-data.component.scss"],
   imports: [CommonModule, TranslateModule, MatIconModule],
 })
-export class EndOfDataComponent {
-  message = input<string>();
-  isVisible = input<boolean>();
-}
+export class EndOfDataComponent {}
