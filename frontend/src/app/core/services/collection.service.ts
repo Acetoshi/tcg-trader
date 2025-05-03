@@ -4,7 +4,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
-import { CollectionItem } from "../../features/my-collection/models/collection-item.model";
+import { CollectionItem, LanguageVersion } from "../../features/my-collection/models/collection-item.model";
 import { PaginatedResponse } from "./pagination.model";
 
 @Injectable({
@@ -87,13 +87,22 @@ export class CollectionService {
   upsertCollectionItem(newCollectionItem: CollectionItem): void {
     // upsert myCollection
     const myCollectionIndex = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
+    const totalOwned = newCollectionItem.languageVersions.reduce(
+      (acc: number, item: LanguageVersion) => acc + item.owned,
+      0
+    );
     let myUpdatedCollection: CollectionItem[];
 
     if (myCollectionIndex !== -1) {
-      //Replace
-      const updated = { ...this.myCollection()[myCollectionIndex], ...newCollectionItem };
-      myUpdatedCollection = [...this.myCollection()];
-      myUpdatedCollection[myCollectionIndex] = updated;
+      if (totalOwned === 0) {
+        // Remove
+        myUpdatedCollection = this.myCollection().filter((item: CollectionItem) => item.id !== newCollectionItem.id);
+      } else {
+        //Replace
+        const updated = { ...this.myCollection()[myCollectionIndex], ...newCollectionItem };
+        myUpdatedCollection = [...this.myCollection()];
+        myUpdatedCollection[myCollectionIndex] = updated;
+      }
     } else {
       // Add new
       myUpdatedCollection = [...this.myCollection(), newCollectionItem];
@@ -101,13 +110,22 @@ export class CollectionService {
     this.myCollection.set(myUpdatedCollection);
 
     const myWishlist = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
+    const totalWishlisted = newCollectionItem.languageVersions.reduce(
+      (acc: number, item: LanguageVersion) => acc + item.wishlist,
+      0
+    );
     let myUpdatedWishlist: CollectionItem[];
 
     if (myWishlist !== -1) {
-      //Replace
-      const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
-      myUpdatedWishlist = [...this.myWishlist()];
-      myUpdatedWishlist[myWishlist] = updated;
+      if (totalWishlisted === 0) {
+        // Remove
+        myUpdatedWishlist = this.myWishlist().filter((item: CollectionItem) => item.id !== newCollectionItem.id);
+      } else {
+        //Replace
+        const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
+        myUpdatedWishlist = [...this.myWishlist()];
+        myUpdatedWishlist[myWishlist] = updated;
+      }
     } else {
       // Add new
       myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
