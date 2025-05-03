@@ -6,6 +6,7 @@ import { TradeService } from "../../../core/services/trade.service";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
 import { OngoingTradeComponent } from "../ongoing-trade/ongoing-trade.component";
+import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
   selector: "app-ongoing-trades",
@@ -18,6 +19,7 @@ import { OngoingTradeComponent } from "../ongoing-trade/ongoing-trade.component"
     OngoingTradeComponent,
     ScrollListenerComponent,
     NoResultsComponent,
+    EndOfDataComponent
   ],
 })
 export class OngoingTradesComponent implements OnInit {
