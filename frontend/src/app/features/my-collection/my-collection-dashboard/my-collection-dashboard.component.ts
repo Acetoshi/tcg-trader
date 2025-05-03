@@ -13,7 +13,15 @@ import { AllCardsComponent } from "../all-cards/all-cards.component";
   selector: "app-my-collection-dashboard",
   templateUrl: "./my-collection-dashboard.component.html",
   styleUrls: ["./my-collection-dashboard.component.scss"],
-  imports: [CommonModule, TranslateModule, MatTabsModule, MatIcon, AllCardsComponent, MyCollectionComponent, MyWishlistComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatTabsModule,
+    MatIcon,
+    AllCardsComponent,
+    MyCollectionComponent,
+    MyWishlistComponent,
+  ],
 })
 export class MyCollectionDashboardComponent implements OnInit {
   selectedTabIndex = 0;

@@ -19,7 +19,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     ReceivedTradeOfferComponent,
     ScrollListenerComponent,
     NoResultsComponent,
-    EndOfDataComponent
+    EndOfDataComponent,
   ],
 })
 export class ReceivedTadeOffersComponent implements OnInit {

@@ -3,7 +3,10 @@
   (filterChange)="this.collectionService.updateAllCardsFilters($event)"
   class="app-card-filter-bar" />
 <ul class="collection-items-list">
-  @for (collectionItem of this.collectionService.allCards(); track collectionItem.id) {
+  @for (
+    collectionItem of this.collectionService.allCards();
+    track "all-cards-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
     <li>
       <app-collection-item [collectionItem]="collectionItem" />
     </li>

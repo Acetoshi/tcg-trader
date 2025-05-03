@@ -25,6 +25,6 @@ export class MyWishlistComponent implements OnInit {
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters(), wishlist: true });
+    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters() });
   }
 }

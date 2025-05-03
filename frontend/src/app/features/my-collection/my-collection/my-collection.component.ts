@@ -25,6 +25,6 @@ export class MyCollectionComponent implements OnInit {
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
+    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters() });
   }
 }

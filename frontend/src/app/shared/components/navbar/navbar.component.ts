@@ -49,8 +49,8 @@ export class NavbarComponent implements OnInit {
     this.tradeService.fetchReceivedTradeOffers();
     this.tradeService.fetchOngoingTrades();
 
-    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
-    this.collectionService.fetchMyWishlist({ ...this.collectionService.myCollectionFilters(), wishlist: true });
+    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters() });
+    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters() });
 
     this.myWishlistCount = this.collectionService.myWishlistCount;
     this.myCollectionCount = this.collectionService.myCollectionCount;

@@ -40,14 +40,13 @@ export class CollectionService {
     if (!isPlatformBrowser(this.platformId)) return;
 
     let params = new HttpParams();
+    params = params.set("owned", "true");
     if (filters.search) params = params.set("search", filters.search);
     if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
     if (filters.rarityCodes.length) params = params.set("rarity", filters.rarityCodes.join(","));
     if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
     if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
     if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
-    if (filters.owned) params = params.set("owned", "true");
-    if (filters.wishlist) params = params.set("wishlist", "true");
 
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
@@ -113,28 +112,36 @@ export class CollectionService {
     }
     this.myCollection.set(myUpdatedCollection);
 
-    const myWishlist = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
+    //upsert myWishlist
+    const myWishlistIndex = this.myCollection().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
     const totalWishlisted = newCollectionItem.languageVersions.reduce(
       (acc: number, item: LanguageVersion) => acc + item.wishlist,
       0
     );
     let myUpdatedWishlist: CollectionItem[];
 
-    if (myWishlist !== -1) {
+    if (myWishlistIndex !== -1) {
       if (totalWishlisted === 0) {
         // Remove
         myUpdatedWishlist = this.myWishlist().filter((item: CollectionItem) => item.id !== newCollectionItem.id);
       } else {
         //Replace
-        const updated = { ...this.myWishlist()[myWishlist], ...newCollectionItem };
+        const updated = { ...this.myWishlist()[myWishlistIndex], ...newCollectionItem };
         myUpdatedWishlist = [...this.myWishlist()];
-        myUpdatedWishlist[myWishlist] = updated;
+        myUpdatedWishlist[myWishlistIndex] = updated;
       }
     } else {
       // Add new
       myUpdatedWishlist = [...this.myWishlist(), newCollectionItem];
     }
     this.myWishlist.set(myUpdatedWishlist);
+
+    //upsert allCards
+    const allCardsIndex = this.allCards().findIndex((item: CollectionItem) => item.id === newCollectionItem.id);
+    const updated = { ...this.allCards()[allCardsIndex], ...newCollectionItem };
+    const allCardsUpdated = [...this.allCards()];
+    allCardsUpdated[allCardsIndex] = updated;
+    this.allCards.set(allCardsUpdated);
   }
 
   updateMyCollectionFilters(newFilters: Partial<CardFilters>) {
@@ -149,14 +156,13 @@ export class CollectionService {
     if (!isPlatformBrowser(this.platformId)) return;
 
     let params = new HttpParams();
+    params = params.set("wishlist", "true");
     if (filters.search) params = params.set("search", filters.search);
     if (filters.setCodes.length) params = params.set("set", filters.setCodes.join(","));
     if (filters.rarityCodes.length) params = params.set("rarity", filters.rarityCodes.join(","));
     if (filters.cardTypeCodes.length) params = params.set("type", filters.cardTypeCodes.join(","));
     if (filters.colorCodes.length) params = params.set("color", filters.colorCodes.join(","));
     if (filters.weaknessCodes.length) params = params.set("weakness", filters.weaknessCodes.join(","));
-    if (filters.owned) params = params.set("owned", "true");
-    if (filters.wishlist) params = params.set("wishlist", "true");
 
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
@@ -201,18 +207,15 @@ export class CollectionService {
       .subscribe(response => {
         this.allCardsPagination.set({ next: response.next, previous: response.previous });
         this.allCards.set(response.results);
-        console.log("all cards", this.allCards());
       });
   }
 
   fetchAllCardsNextPage(): void {
     if (this.allCardsPagination().next) {
-      this.http
-        .get<PaginatedResponse<CollectionItem>>(this.allCardsPagination().next as string)
-        .subscribe(response => {
-          this.allCardsPagination.set({ next: response.next, previous: response.previous });
-          this.allCards.set([...this.myCollection(), ...response.results]);
-        });
+      this.http.get<PaginatedResponse<CollectionItem>>(this.allCardsPagination().next as string).subscribe(response => {
+        this.allCardsPagination.set({ next: response.next, previous: response.previous });
+        this.allCards.set([...this.allCards(), ...response.results]);
+      });
     }
   }
 

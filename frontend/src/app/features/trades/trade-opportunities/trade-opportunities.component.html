@@ -10,7 +10,6 @@
   </div>
 }
 
-
 <mat-accordion multi="true">
   @for (partnerOpps of tradeService.opportunities(); track partnerOpps.partnerUsername) {
     <mat-expansion-panel [expanded]="true">
@@ -57,7 +56,8 @@
   </app-no-results>
 } @else {
   <app-end-of-data>
-    <p>These are all the available trade opportunities at the moment.
+    <p>
+      These are all the available trade opportunities at the moment.
       <br />
       Try adding more cards to your
       <a routerLink="/my-collection/wishlist">wishlist</a>
@@ -65,7 +65,8 @@
       <a routerLink="/my-collection/owned">collection</a>
       for more.
       <br />
-      You can also share the app with a friend to find more partners.</p>
+      You can also share the app with a friend to find more partners.
+    </p>
   </app-end-of-data>
 }
 <app-scroll-listener (reachedBottom)="tradeService.fetchTradeOpportunitiesNextPage()" />

@@ -25,6 +25,6 @@ export class AllCardsComponent implements OnInit {
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchAllCards({ ...this.collectionService.allCardsFilters()});
+    this.collectionService.fetchAllCards({ ...this.collectionService.allCardsFilters() });
   }
 }
