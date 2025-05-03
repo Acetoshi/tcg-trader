@@ -23,10 +23,6 @@ img.card-image {
   border-radius: 5%/3.5%;
 }
 
-.unobtained {
-  filter: grayscale(100%);
-}
-
 form.quantities-form {
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr 1fr;

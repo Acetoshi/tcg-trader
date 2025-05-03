@@ -6,11 +6,12 @@ import { CollectionItemComponent } from "../collection-item/collection-item.comp
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
+import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: "app-my-collection",
-  templateUrl: "./my-collection.component.html",
-  styleUrls: ["./my-collection.component.scss"],
+  selector: "app-my-wishlist",
+  templateUrl: "./my-wishlist.component.html",
+  styleUrls: ["./my-wishlist.component.scss"],
   imports: [
     CommonModule,
     CardFilterBarComponent,
@@ -18,13 +19,14 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,
+    RouterLink,
   ],
 })
-export class MyCollectionComponent implements OnInit {
-  noResults = computed(() => this.collectionService.myCollection().length === 0);
+export class MyWishlistComponent implements OnInit {
+  noResults = computed(() => this.collectionService.myWishlist().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchMyCollection({ ...this.collectionService.myCollectionFilters(), owned: true });
+    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters() });
   }
 }

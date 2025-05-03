@@ -9,7 +9,7 @@ import { TradingDashboardComponent } from "./features/trades/trading-dashboard/t
 import { AccountComponent } from "./features/my-account/account.component";
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
 import { AuthGuard } from "./core/guards/auth.guard";
-import { MyCollectionDashboardComponent } from "./features/my-collection/my-collection-dashboard/my-collection-dashboard.component";
+import { CollectionDashboardComponent } from "./features/collection/collection-dashboard/collection-dashboard.component";
 
 export const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -31,12 +31,13 @@ export const routes: Routes = [
     ],
   },
   {
-    path: "my-collection",
-    component: MyCollectionDashboardComponent,
+    path: "collection",
+    component: CollectionDashboardComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: "owned", component: MyCollectionDashboardComponent }, //This looks stupid but is needed to route to mat-tabs
-      { path: "wishlist", component: MyCollectionDashboardComponent },
+      { path: "all-cards", component: CollectionDashboardComponent }, //This looks stupid but is needed to route to mat-tabs
+      { path: "owned", component: CollectionDashboardComponent },
+      { path: "wishlist", component: CollectionDashboardComponent },
     ],
   },
   { path: "my-account", component: AccountComponent, canActivate: [AuthGuard] },

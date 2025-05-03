@@ -21,7 +21,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     TradeOpportunityComponent,
     ScrollListenerComponent,
     NoResultsComponent,
-    EndOfDataComponent
+    EndOfDataComponent,
   ],
 })
 export class TradeOpportunitiesComponent implements OnInit {

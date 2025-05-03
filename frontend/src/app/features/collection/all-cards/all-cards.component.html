@@ -1,10 +1,12 @@
 <app-card-filter-bar
-  [filters]="this.collectionService.myCollectionFilters()"
-  (filterChange)="this.collectionService.updateMyCollectionFilters($event)"
-  [ownedFilter]="true"
+  [filters]="this.collectionService.allCardsFilters()"
+  (filterChange)="this.collectionService.updateAllCardsFilters($event)"
   class="app-card-filter-bar" />
 <ul class="collection-items-list">
-  @for (collectionItem of this.collectionService.myCollection(); track collectionItem.id) {
+  @for (
+    collectionItem of this.collectionService.allCards();
+    track "all-cards-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
     <li>
       <app-collection-item [collectionItem]="collectionItem" />
     </li>
@@ -20,4 +22,4 @@
   </app-end-of-data>
 }
 
-<app-scroll-listener (reachedBottom)="this.collectionService.fetchMyCollectionNextPage()" />
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchAllCardsNextPage()" />

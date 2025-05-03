@@ -6,12 +6,12 @@
       {{ "navbar.home" | translate }}
     </a>
 
-    <a mat-button routerLink="cards">
-      <mat-icon>content_copy</mat-icon>
-      {{ "navbar.cards" | translate }}
-    </a>
-
     @if (!isAuthenticated()) {
+      <a mat-button routerLink="cards">
+        <mat-icon>content_copy</mat-icon>
+        {{ "navbar.cards" | translate }}
+      </a>
+
       <a mat-button routerLink="register">
         <mat-icon>how_to_reg</mat-icon>
         {{ "navbar.register" | translate }}
@@ -36,9 +36,14 @@
         >
       </button>
       <mat-menu #myCollectionMenu="matMenu">
+        <a mat-menu-item routerLink="collection/all-cards">
+          <mat-icon>content_copy</mat-icon>
+          {{ "myCollectionDashboard.allCards" | translate }}
+        </a>
+
         <a
           mat-menu-item
-          routerLink="my-collection"
+          routerLink="collection/owned"
           matTooltip="Your collection is empty, you need cards to trade"
           [matTooltipDisabled]="myCollectionCount() !== 0">
           <mat-icon>inventory_2</mat-icon>
@@ -54,7 +59,7 @@
 
         <a
           mat-menu-item
-          routerLink="/my-collection/wishlist"
+          routerLink="/collection/wishlist"
           matTooltip="Your wishlist is empty, you need it to trade"
           [matTooltipDisabled]="myWishlistCount() !== 0">
           <mat-icon>star</mat-icon>

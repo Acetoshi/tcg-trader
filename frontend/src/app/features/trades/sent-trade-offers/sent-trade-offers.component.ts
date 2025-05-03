@@ -5,7 +5,6 @@ import { NoResultsComponent } from "../../../shared/components/no-results/no-res
 import { TradeService } from "../../../core/services/trade.service";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { RouterLink } from "@angular/router";
-import { MatIcon } from "@angular/material/icon";
 import { SentTradeOfferComponent } from "../sent-trade-offer/sent-trade-offer.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
@@ -16,12 +15,11 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   imports: [
     CommonModule,
     MatExpansionModule,
-    MatIcon,
     RouterLink,
     SentTradeOfferComponent,
     ScrollListenerComponent,
     NoResultsComponent,
-    EndOfDataComponent
+    EndOfDataComponent,
   ],
 })
 export class SentTradeOffersComponent implements OnInit {

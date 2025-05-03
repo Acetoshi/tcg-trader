@@ -8,9 +8,9 @@ import { NoResultsComponent } from "../../../shared/components/no-results/no-res
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
 @Component({
-  selector: "app-my-wishlist",
-  templateUrl: "./my-wishlist.component.html",
-  styleUrls: ["./my-wishlist.component.scss"],
+  selector: "app-all-cards",
+  templateUrl: "./all-cards.component.html",
+  styleUrls: ["./all-cards.component.scss"],
   imports: [
     CommonModule,
     CardFilterBarComponent,
@@ -20,11 +20,11 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     EndOfDataComponent,
   ],
 })
-export class MyWishlistComponent implements OnInit {
-  noResults = computed(() => this.collectionService.myWishlist().length === 0);
+export class AllCardsComponent implements OnInit {
+  noResults = computed(() => this.collectionService.myCollection().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchMyWishlist({ ...this.collectionService.myWishlistFilters(), wishlist: true });
+    this.collectionService.fetchAllCards({ ...this.collectionService.allCardsFilters() });
   }
 }

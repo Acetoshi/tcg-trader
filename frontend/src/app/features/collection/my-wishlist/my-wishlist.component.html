@@ -1,0 +1,35 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.myWishlistFilters()"
+  (filterChange)="this.collectionService.updateMyWishListFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (
+    collectionItem of this.collectionService.myWishlist();
+    track "wishlist-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results>
+    <p>
+      @if (this.collectionService.hasActiveWishlistFilters()) {
+        We couldn't find any cards in your wishlist with the current filters
+      } @else {
+        Your wishlist is empty, try <a routerLink="/collection/all-cards">adding some cards</a>
+      }
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>
+      There's no more cards in your wishlist
+      @if (this.collectionService.hasActiveWishlistFilters()) {
+        that match the current filters
+      }
+    </p>
+  </app-end-of-data>
+}
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchMyWishlistNextPage()" />

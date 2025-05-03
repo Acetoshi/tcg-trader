@@ -3,7 +3,7 @@
     mat-card-image
     [src]="fileServerBaseUrl + version().imageUrl"
     alt="version().name"
-    [ngClass]="{ unobtained: version().owned === 0, 'card-image': true }"
+    class="card-image"
     loading="lazy" />
   <mat-card-content>
     <form class="quantities-form" [formGroup]="collectionItemForm">

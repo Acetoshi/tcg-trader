@@ -66,7 +66,7 @@ export class AuthService {
     try {
       await firstValueFrom(this.http.post(`${this.apiUrl}/auth/login`, data));
       await this.getUser();
-      this.router.navigate(["/my-collection/owned"]);
+      this.router.navigate(["/collection/owned"]);
       return true;
     } catch {
       return false;
