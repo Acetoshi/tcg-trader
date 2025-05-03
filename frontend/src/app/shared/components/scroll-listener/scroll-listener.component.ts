@@ -4,6 +4,7 @@ import { isPlatformBrowser } from "@angular/common";
 @Component({
   selector: "app-scroll-listener",
   template: '<div #scrollAnchor class="scroll-anchor"></div>',
+  styleUrl: "./scroll-listener.component.scss",
 })
 export class ScrollListenerComponent implements OnInit {
   @ViewChild("scrollAnchor") scrollAnchor: ElementRef | undefined;
