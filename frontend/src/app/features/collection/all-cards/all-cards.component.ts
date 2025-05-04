@@ -23,7 +23,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   ],
 })
 export class AllCardsComponent implements OnInit {
-  noResults = computed(() => this.collectionService.myCollection().length === 0);
+  noResults = computed(() => this.collectionService.allCards().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {

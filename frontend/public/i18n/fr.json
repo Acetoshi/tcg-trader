@@ -166,7 +166,7 @@
   },
   "allCards": {
     "noResultsWithFilters": "Aucune carte correspondant à vos filtres.",
-    "noMoreCardsWithFilters": "Il n'y a pas plus de cartes à vous montrer avec ces filtres"
+    "noMoreCardsWithFilters": "Il n'y a pas plus de cartes correspondant à vos filtres."
   },
   "myCollectionDashboard": {
     "allCards": "Toutes les cartes",
