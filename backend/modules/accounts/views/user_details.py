@@ -20,7 +20,7 @@ class UserDetailsView(SlidingAuthBaseView):
                 "email": user.email,
                 "tcgpId": user.tcgp_id,
                 "bio": user.bio,
-                "avatarUrl": user.avatarUrl,
+                "avatarUrl": user.avatar_url,
             }
 
             return Response(user_data, status=status.HTTP_200_OK)

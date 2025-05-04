@@ -8,7 +8,7 @@
       <form [formGroup]="publicInfoForm" (ngSubmit)="onSubmit()" class="public-info-panel-content">
         <div class="avatar-section">
           <img
-            [src]="'https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/002.png'"
+            [src]="this.avatarUrl()"
             [alt]="'account.avatar.alt' | translate"
             class="avatar-preview" />
           <button mat-stroked-button color="primary" [disabled] (click)="openAvatarSelectionDialog($event)">Change Avatar</button>

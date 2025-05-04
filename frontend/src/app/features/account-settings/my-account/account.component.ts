@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormBuilder, FormGroup } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -37,12 +37,19 @@ export class AccountComponent implements OnInit {
   publicInfoForm: FormGroup;
   userNameUnicityError = false;
 
+  avatarUrl = computed(() => {
+    const user = this.authService.user();
+    if (!user) return "";
+    if (user.avatarUrl) return user.avatarUrl;
+    return "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/001.png";
+  });
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.publicInfoForm = this.fb.group({
       username: [""],
@@ -75,28 +82,42 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  async onSubmit() {
-    const { username, tcgpId, bio } = this.publicInfoForm.value;
-
-    const { success, message } = await this.authService.updateUser(username, tcgpId, bio);
-    if (success) {
-      this.toastService.showSuccess(message);
-      this.resetForm();
-    } else {
-      this.toastService.showError(message);
-    }
+  onSubmit() {
+    this.authService.updateUser(this.publicInfoForm.value).subscribe({
+      next: () => {
+        this.toastService.showSuccess("Profile updated with success");
+        this.resetForm();
+      },
+      error: error => {
+        console.error("Error updating your profile:", error);
+        this.toastService.showError(this.translateService.instant("accountSettings.errors.updateUser"));
+      },
+    });
   }
 
   openAvatarSelectionDialog(e: MouseEvent) {
     e.preventDefault();
     console.log("Opening avatar selection dialog");
-      const dialogRef = this.dialog.open(SelectAvatarDialogComponent, {
-        maxWidth: "95vw",
-        autoFocus: false,
-        backdropClass: "blurred-dialog-backdrop",
-      });
+    const dialogRef = this.dialog.open(SelectAvatarDialogComponent, {
+      maxWidth: "95vw",
+      autoFocus: false,
+      backdropClass: "blurred-dialog-backdrop",
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("Dialog closed with result:", result);
-    })}
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Avatar selected:", result);
+      if (!result) return; // user cancelled the dialog
+      this.authService.updateUser({avatarUrl:result}).subscribe({
+        next: () => {
+          this.toastService.showSuccess("Avatar updated with success");
+          this.resetForm();
+        },
+        error: error => {
+          console.error("Error updating your avatar:", error);
+          this.toastService.showError(this.translateService.instant("accountSettings.errors.updateUser"));
+        },
+      });
+      console.log("Avatar updated successfully", this.authService.user());
+    });
+  }
 }

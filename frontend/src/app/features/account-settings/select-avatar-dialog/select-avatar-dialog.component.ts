@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { MatIcon } from "@angular/material/icon";
+import { debounceTime } from "rxjs";
 
 @Component({
   selector: "app-select-avatar-dialog",
@@ -51,10 +52,19 @@ export class SelectAvatarDialogComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.fetchPokemons();
+
+    // Debounce the input and fetch pokemons
+    // when the user types in the search field
+    this.searchForm
+      .get("search")
+      ?.valueChanges.pipe(debounceTime(600))
+      .subscribe(() => {
+        this.fetchPokemons(this.searchForm.get("search")?.value);
+      });
   }
 
   confirm() {
-    this.dialogRef.close(true);
+    this.dialogRef.close(this.selectedAvatarUrl());
   }
 
   cancel() {
