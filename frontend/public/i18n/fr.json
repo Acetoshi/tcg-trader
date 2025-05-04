@@ -164,6 +164,23 @@
       "fetchColors": "Erreur lors de la récupération des couleurs"
     }
   },
+  "myCollectionDashboard": {
+    "allCards": "Toutes les cartes",
+    "myCollection": "Ma collection",
+    "wishlist": "Liste de souhaits"
+  },
+  "collectionItem": {
+    "owned": "Obtenues",
+    "forTrade": "Échange",
+    "wishlist": "Souhaits"
+  },
+  "myCollection": {
+    "noResultsWithFilters": "Aucune carte dans votre collection avec les filtres actuels",
+    "noResultsWithoutFiltersStart": "Votre collection est vide, essayez ",
+    "noResultsWithoutFiltersLink": "d'ajouter des cartes",
+    "noMoreCards": "Il n'y a pas plus de cartes dans votre collection",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
   "home": {
     "heroTitle": "Collectionnez, échangez, discutez — Au même endroit",
     "heroSubtitle": "Découvrez les cartes, gérez votre collection et échangez dans le monde entier.",
@@ -213,16 +230,6 @@
     "avatar": {
       "alt": "votre avatar"
     }
-  },
-  "collectionItem": {
-    "owned": "Obtenues",
-    "forTrade": "Échange",
-    "wishlist": "Souhaits"
-  },
-  "myCollectionDashboard": {
-    "allCards": "Toutes les cartes",
-    "myCollection": "Ma collection",
-    "wishlist": "Liste de souhaits"
   },
   "tradingDashboard": {
     "find": "Rechercher",

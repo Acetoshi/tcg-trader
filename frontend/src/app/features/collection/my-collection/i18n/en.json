@@ -1,0 +1,9 @@
+{
+    "myCollection": {
+      "noResultsWithFilters": "We couldn't find any cards in your collection with the current filters",
+      "noResultsWithoutFiltersStart": "Your collection is empty, try",
+      "noResultsWithoutFiltersLink": "adding some cards",
+      "noMoreCards": "There's no more cards in your collection",
+      "noMoreCardsWithFilters": "that match the current filters"
+    }
+  }

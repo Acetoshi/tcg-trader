@@ -164,6 +164,23 @@
       "fetchColors": "Error fetching colors"
     }
   },
+  "myCollectionDashboard": {
+    "allCards": "All Cards",
+    "myCollection": "My Collection",
+    "wishlist": "Wishlist"
+  },
+  "collectionItem": {
+    "owned": "Owned",
+    "forTrade": "For trade",
+    "wishlist": "Wishlist"
+  },
+  "myCollection": {
+    "noResultsWithFilters": "We couldn't find any cards in your collection with the current filters",
+    "noResultsWithoutFiltersStart": "Your collection is empty, try",
+    "noResultsWithoutFiltersLink": "adding some cards",
+    "noMoreCards": "There's no more cards in your collection",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
   "home": {
     "heroTitle": "Collect, Trade, Connect — All in One Place",
     "heroSubtitle": "Discover new cards, manage your collection, and trade worldwide.",
@@ -213,16 +230,6 @@
     "avatar": {
       "alt": "your avatar"
     }
-  },
-  "collectionItem": {
-    "owned": "Owned",
-    "forTrade": "For trade",
-    "wishlist": "Wishlist"
-  },
-  "myCollectionDashboard": {
-    "allCards": "All Cards",
-    "myCollection": "My Collection",
-    "wishlist": "Wishlist"
   },
   "tradingDashboard": {
     "find": "Find",
