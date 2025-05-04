@@ -1,8 +1,8 @@
 {
   "tradeOpportunities": {
     "smartMatchingIntro": "These are smart trade suggestions based on matches between",
-    "yourWishlist": "your wishlist",
-    "yourCollection": "your collection",
+    "yourWishlist": "wishlist",
+    "yourCollection": "collection",
     "andCardsOthersWant": "and cards in",
     "othersWant": "others want.",
 
@@ -12,6 +12,7 @@
 
     "noResultsTitle": "No trade opportunity for now.",
     "noResultsAction": "Try adding more cards to your",
+    "noResultsActionOr": "or to your",
     "noResultsHint": "so others can find you.",
     "shareApp": "You can also share the app with a friend to find more partners.",
 
