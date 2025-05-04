@@ -1,7 +1,7 @@
 <h2 mat-dialog-title id="dialog-title">Choose your favorite pokémon as your avatar</h2>
 
 <mat-dialog-content role="dialog" aria-labelledby="dialog-title">
-  <form (ngSubmit)="onSubmit($event)" [formGroup]="searchForm" >
+  <form (ngSubmit)="onSubmit($event)" [formGroup]="searchForm">
     <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
       <mat-label>Search by name</mat-label>
       <input matInput formControlName="search" />

@@ -107,7 +107,7 @@ export class AccountComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("Avatar selected:", result);
       if (!result) return; // user cancelled the dialog
-      this.authService.updateUser({avatarUrl:result}).subscribe({
+      this.authService.updateUser({ avatarUrl: result }).subscribe({
         next: () => {
           this.toastService.showSuccess("Avatar updated with success");
           this.resetForm();

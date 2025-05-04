@@ -4,8 +4,6 @@ export interface PokedexEntry {
   imageUrl: string;
 }
 
-type MultiLangEntry<T>= {
-  [code in LanguageCode]: T;
-};
+type MultiLangEntry<T> = Record<LanguageCode, T>;
 
-type LanguageCode = "EN" | "FR"
+type LanguageCode = "EN" | "FR";

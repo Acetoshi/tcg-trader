@@ -180,7 +180,7 @@ export class AuthService {
   updateUser(data: UserUpdate): Observable<UpdatedUserResponse> {
     return this.http.patch<UpdatedUserResponse>(`${this.apiUrl}/auth/user`, data).pipe(
       tap(newUserData => {
-        const currentUser = this._user() as User // current user won't be null here because the endpoint is authenticated
+        const currentUser = this._user() as User; // current user won't be null here because the endpoint is authenticated
         this._user.set({ ...currentUser, ...newUserData });
       })
     );

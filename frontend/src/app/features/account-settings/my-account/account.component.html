@@ -7,11 +7,10 @@
       </mat-expansion-panel-header>
       <form [formGroup]="publicInfoForm" (ngSubmit)="onSubmit()" class="public-info-panel-content">
         <div class="avatar-section">
-          <img
-            [src]="this.avatarUrl()"
-            [alt]="'account.avatar.alt' | translate"
-            class="avatar-preview" />
-          <button mat-stroked-button color="primary" [disabled] (click)="openAvatarSelectionDialog($event)">Change Avatar</button>
+          <img [src]="this.avatarUrl()" [alt]="'account.avatar.alt' | translate" class="avatar-preview" />
+          <button mat-stroked-button color="primary" [disabled] (click)="openAvatarSelectionDialog($event)">
+            Change Avatar
+          </button>
         </div>
 
         <div class="public-info-section">
