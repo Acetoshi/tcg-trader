@@ -26,9 +26,9 @@ class PokedexView(SlidingAuthBaseView):
     def build_get_collection_query(self, filters):
         base_sql = """
             SELECT
-                p.pokedex_number AS pokedexNumber,
-                p.image_url AS imgUrl,
-                jsonb_object_agg(l.code, pt.name) AS name
+                p.pokedex_number AS "pokedexNumber",
+                p.image_url AS "imageUrl",
+                jsonb_object_agg(l.code, pt.name) AS "name"
             FROM cards_pokemon p
             INNER JOIN cards_pokemontranslation pt
                 ON p.id = pt.pokemon_id

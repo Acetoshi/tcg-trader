@@ -1,0 +1,21 @@
+ul.avatar-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  & li > figure {
+    margin: 0px;
+    & figcaption {
+      text-align: center;
+    }
+    &img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}

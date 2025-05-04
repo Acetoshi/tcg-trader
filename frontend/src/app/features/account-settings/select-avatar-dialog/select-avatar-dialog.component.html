@@ -1,0 +1,20 @@
+<h2 mat-dialog-title id="dialog-title">Choose your favorite pokémon as your avatar</h2>
+
+<mat-dialog-content role="dialog" aria-labelledby="dialog-title">
+  <ul class="avatar-list">
+    @for (pokemon of pokemons(); track pokemon) {
+      <!-- [ngClass]="{ selected: selectedAvatar === pokemon }" -->
+      <li>
+        <figure>
+          <img [src]="pokemon.imageUrl" alt="" />
+          <figcaption>#{{ pokemon.pokedexNumber }} {{ pokemon.name.EN }}</figcaption>
+        </figure>
+      </li>
+    }
+  </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="confirm()">Choose</button>
+</mat-dialog-actions>

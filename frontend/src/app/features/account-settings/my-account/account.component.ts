@@ -13,6 +13,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { AuthService } from "../../../core/services/auth.service";
 import { ToastService } from "../../../core/services/toast.service";
+import { SelectAvatarDialogComponent } from "../select-avatar-dialog/select-avatar-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-account",
@@ -39,7 +41,8 @@ export class AccountComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private dialog: MatDialog,
   ) {
     this.publicInfoForm = this.fb.group({
       username: [""],
@@ -83,4 +86,17 @@ export class AccountComponent implements OnInit {
       this.toastService.showError(message);
     }
   }
+
+  openAvatarSelectionDialog(e: MouseEvent) {
+    e.preventDefault();
+    console.log("Opening avatar selection dialog");
+      const dialogRef = this.dialog.open(SelectAvatarDialogComponent, {
+        maxWidth: "95vw",
+        autoFocus: false,
+        backdropClass: "blurred-dialog-backdrop",
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("Dialog closed with result:", result);
+    })}
 }
