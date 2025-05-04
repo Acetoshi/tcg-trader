@@ -12,13 +12,18 @@
     </li>
   }
 </ul>
+
 @if (noResults()) {
   <app-no-results>
-    <p>We couldn't find any cards that match your filters.</p>
+    <p>
+      {{ "allCards.noResultsWithFilters" | translate }}
+    </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
-    <p>There's no more cards to show you with these filters</p>
+    <p>
+      {{ "allCards.noMoreCardsWithFilters" | translate }}
+    </p>
   </app-end-of-data>
 }
 

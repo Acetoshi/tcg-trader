@@ -164,6 +164,10 @@
       "fetchColors": "Erreur lors de la récupération des couleurs"
     }
   },
+  "allCards": {
+    "noResultsWithFilters": "Aucune carte correspondant à vos filtres.",
+    "noMoreCardsWithFilters": "Il n'y a pas plus de cartes à vous montrer avec ces filtres"
+  },
   "myCollectionDashboard": {
     "allCards": "Toutes les cartes",
     "myCollection": "Ma collection",
