@@ -58,6 +58,7 @@ download-assets:
 	@docker exec -it tcg-trader-backend python manage.py download_rarity_images
 	@docker exec -it tcg-trader-backend python manage.py download_pokemon_images
 
+
 # chown is needed here because it is root inside the docker that generates the files.
 db-make-migrations:
 	docker exec -it tcg-trader-backend python manage.py makemigrations
@@ -83,6 +84,7 @@ db-seed:
 	@docker exec -it tcg-trader-backend python manage.py card_seeder
 	@docker exec -it tcg-trader-backend python manage.py card_seeder_fr
 	@docker exec -it tcg-trader-backend python manage.py statuses_seeder
+	@docker exec -it tcg-trader-backend python manage.py update_pokemon_image_url
 
 db-reset:
 	@echo "Stopping the backend container..."
