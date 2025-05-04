@@ -8,28 +8,48 @@ import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: "app-select-avatar-dialog",
   templateUrl: "./select-avatar-dialog.component.html",
   styleUrls: ["./select-avatar-dialog.component.scss"],
-  imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule, ScrollListenerComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIcon,
+    MatInput,
+    ScrollListenerComponent,
+    ReactiveFormsModule,
+  ],
 })
 export class SelectAvatarDialogComponent implements OnInit {
   fileServerBaseUrl = environment.fileServerUrl;
   private apiUrl = environment.apiUrl;
 
+  searchForm!: FormGroup;
+
   pokemons = signal<PokedexEntry[]>([]);
   pokemonsPagination = signal<PaginationObject>(PaginationDefault);
 
-  selectedAvatarUrl = signal<string>('https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/003.png');
+  selectedAvatarUrl = signal<string>(
+    "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/003.png"
+  );
 
   constructor(
     public dialogRef: MatDialogRef<SelectAvatarDialogComponent>,
-    private http: HttpClient
+    private http: HttpClient,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.createForm();
     this.fetchPokemons();
   }
 
@@ -39,6 +59,14 @@ export class SelectAvatarDialogComponent implements OnInit {
 
   cancel() {
     this.dialogRef.close(false);
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault();
+  }
+
+  createForm() {
+    this.searchForm = this.fb.group({ search: "" });
   }
 
   fetchPokemons(search?: string): void {

@@ -6,19 +6,18 @@ ul.avatar-list {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-
   & li {
     border-radius: 16px;
     cursor: pointer;
     border: 2px solid transparent;
-    &figure {
+    & figure {
       margin: 0px;
       & figcaption {
         text-align: center;
       }
       &img {
-        width: 100px;
-        height: 100px;
+        width: 75px;
+        height: 75px;
         border-radius: 50%;
         object-fit: cover;
         cursor: pointer;
@@ -30,4 +29,12 @@ ul.avatar-list {
 
 li.selected {
   border: 2px solid var(--mat-sys-primary) !important;
+}
+
+.search-input {
+  background-color: var(--mat-sys-surface);
+  margin: 8px 0px 16px 0px;
+  width: 100%;
+  position: sticky;
+  top: 8px;
 }

@@ -1,19 +1,27 @@
 <h2 mat-dialog-title id="dialog-title">Choose your favorite pokémon as your avatar</h2>
 
 <mat-dialog-content role="dialog" aria-labelledby="dialog-title">
-  <ul class="avatar-list">
-    @for (pokemon of pokemons(); track pokemon) {
-      <li
-        [ngClass]="{ selected: selectedAvatarUrl() === pokemon.imageUrl }"
-        (click)="selectedAvatarUrl.set(pokemon.imageUrl)">
-        <figure>
-          <img [src]="pokemon.imageUrl" alt="" />
-          <figcaption>#{{ pokemon.pokedexNumber }} {{ pokemon.name.EN }}</figcaption>
-        </figure>
-      </li>
-    }
-  </ul>
-  <app-scroll-listener (reachedBottom)="fetchPokemonsNextPage()" />
+  <form (ngSubmit)="onSubmit($event)" [formGroup]="searchForm" >
+    <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
+      <mat-label>Search by name</mat-label>
+      <input matInput formControlName="search" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <ul class="avatar-list">
+      @for (pokemon of pokemons(); track pokemon) {
+        <li
+          [ngClass]="{ selected: selectedAvatarUrl() === pokemon.imageUrl }"
+          (click)="selectedAvatarUrl.set(pokemon.imageUrl)">
+          <figure>
+            <img [src]="pokemon.imageUrl" alt="" />
+            <figcaption>#{{ pokemon.pokedexNumber }} {{ pokemon.name.EN }}</figcaption>
+          </figure>
+        </li>
+      }
+    </ul>
+    <app-scroll-listener (reachedBottom)="fetchPokemonsNextPage()" />
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
