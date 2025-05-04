@@ -2,19 +2,18 @@ import { Component, Inject, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { environment } from "../../../../environments/environment";
+import { PaginatedResponse, PaginationDefault, PaginationObject } from "../../../core/services/pagination.model";
+import { PokedexEntry } from "./pokedex.models";
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { PaginatedResponse, PaginationDefault, PaginationObject } from "../../../core/services/pagination.model";
-import { PokedexEntry } from "./pokedex.models";
-
-
+import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 
 @Component({
   selector: "app-select-avatar-dialog",
   templateUrl: "./select-avatar-dialog.component.html",
   styleUrls: ["./select-avatar-dialog.component.scss"],
-  imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule, ScrollListenerComponent],
 })
 export class SelectAvatarDialogComponent implements OnInit {
   fileServerBaseUrl = environment.fileServerUrl;
@@ -25,7 +24,7 @@ export class SelectAvatarDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SelectAvatarDialogComponent>,
-    private http: HttpClient,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -40,15 +39,22 @@ export class SelectAvatarDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  fetchPokemons(search?: string) : void{
+  fetchPokemons(search?: string): void {
     let params = new HttpParams();
     if (search) params = params.set("search", search);
 
-    this.http
-      .get<PaginatedResponse<PokedexEntry>>(`${this.apiUrl}/pokedex`, { params })
-      .subscribe(response => {
+    this.http.get<PaginatedResponse<PokedexEntry>>(`${this.apiUrl}/pokedex`, { params }).subscribe(response => {
+      this.pokemonsPagination.set({ next: response.next, previous: response.previous });
+      this.pokemons.set(response.results);
+    });
+  }
+
+  fetchPokemonsNextPage(): void {
+    if (this.pokemonsPagination().next) {
+      this.http.get<PaginatedResponse<PokedexEntry>>(this.pokemonsPagination().next as string).subscribe(response => {
         this.pokemonsPagination.set({ next: response.next, previous: response.previous });
-        this.pokemons.set(response.results);
+        this.pokemons.set([...this.pokemons(), ...response.results]);
       });
+    }
   }
 }
