@@ -6,7 +6,7 @@ import { ForgottenPasswordComponent } from "./features/auth/forgotten-password/f
 import { ResetPasswordComponent } from "./features/auth/reset-password/reset-password.component";
 import { VerifyEmailComponent } from "./features/auth/verify-email/verify-email.component";
 import { TradingDashboardComponent } from "./features/trades/trading-dashboard/trading-dashboard.component";
-import { AccountComponent } from "./features/my-account/account.component";
+import { AccountComponent } from "./features/account-settings/my-account/account.component";
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
 import { AuthGuard } from "./core/guards/auth.guard";
 import { CollectionDashboardComponent } from "./features/collection/collection-dashboard/collection-dashboard.component";

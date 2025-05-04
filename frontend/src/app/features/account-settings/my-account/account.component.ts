@@ -11,8 +11,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
-import { AuthService } from "../../core/services/auth.service";
-import { ToastService } from "../../core/services/toast.service";
+import { AuthService } from "../../../core/services/auth.service";
+import { ToastService } from "../../../core/services/toast.service";
 
 @Component({
   selector: "app-account",
