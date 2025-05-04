@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, signal } from "@angular/core";
+import { Component, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { environment } from "../../../../environments/environment";

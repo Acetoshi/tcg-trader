@@ -15,6 +15,7 @@ import { AuthService } from "../../../core/services/auth.service";
 import { ToastService } from "../../../core/services/toast.service";
 import { SelectAvatarDialogComponent } from "../select-avatar-dialog/select-avatar-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: "app-account",
@@ -36,6 +37,8 @@ import { MatDialog } from "@angular/material/dialog";
 export class AccountComponent implements OnInit {
   publicInfoForm: FormGroup;
   userNameUnicityError = false;
+
+  fileServerBaseUrl = environment.fileServerUrl;
 
   avatarUrl = computed(() => {
     const user = this.authService.user();
@@ -97,7 +100,6 @@ export class AccountComponent implements OnInit {
 
   openAvatarSelectionDialog(e: MouseEvent) {
     e.preventDefault();
-    console.log("Opening avatar selection dialog");
     const dialogRef = this.dialog.open(SelectAvatarDialogComponent, {
       maxWidth: "95vw",
       autoFocus: false,
@@ -105,7 +107,6 @@ export class AccountComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("Avatar selected:", result);
       if (!result) return; // user cancelled the dialog
       this.authService.updateUser({ avatarUrl: result }).subscribe({
         next: () => {
@@ -117,7 +118,6 @@ export class AccountComponent implements OnInit {
           this.toastService.showError(this.translateService.instant("accountSettings.errors.updateUser"));
         },
       });
-      console.log("Avatar updated successfully", this.authService.user());
     });
   }
 }
