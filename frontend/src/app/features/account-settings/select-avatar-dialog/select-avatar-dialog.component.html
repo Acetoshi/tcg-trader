@@ -3,7 +3,6 @@
 <mat-dialog-content role="dialog" aria-labelledby="dialog-title">
   <ul class="avatar-list">
     @for (pokemon of pokemons(); track pokemon) {
-      <!-- [ngClass]="{ selected: selectedAvatar === pokemon }" -->
       <li
         [ngClass]="{ selected: selectedAvatarUrl() === pokemon.imageUrl }"
         (click)="selectedAvatarUrl.set(pokemon.imageUrl)">

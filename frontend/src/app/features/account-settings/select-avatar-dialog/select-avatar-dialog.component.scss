@@ -1,11 +1,13 @@
 ul.avatar-list {
   list-style: none;
+  margin: 0px;
+  padding: 0px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 
   & li {
-    overflow: hidden;
     border-radius: 16px;
     cursor: pointer;
     border: 2px solid transparent;
