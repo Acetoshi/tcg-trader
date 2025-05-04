@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "modules.cards",
     "modules.card_collections",
     "modules.trades",
+    "modules.pokedex",
 ]
 
 MIDDLEWARE = [

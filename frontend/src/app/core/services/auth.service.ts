@@ -1,9 +1,9 @@
 import { Injectable, signal, computed, Inject, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
-import { User } from "./auth.models";
+import { UpdatedUserResponse, User, UserUpdate } from "./auth.models";
 import { HttpClient } from "@angular/common/http";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -177,32 +177,12 @@ export class AuthService {
     }
   }
 
-  async updateUser(username: string, tcgpId: string, bio: string): Promise<{ success: boolean; message: string }> {
-    try {
-      const response = await fetch(`${this.apiUrl}/auth/user`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          tcgpId,
-          bio,
-        }),
-      });
-      if (response.ok) {
-        this._user.set({ ...(this._user() as User), username, tcgpId, bio });
-        return { success: true, message: "Account info successfully updated" };
-      } else {
-        const errors = await response.json();
-        let message = "";
-        if (errors?.username) {
-          message += errors.username.join("");
-        }
-        return { success: false, message };
-      }
-    } catch {
-      return { success: false, message: "An error occured" };
-    }
+  updateUser(data: UserUpdate): Observable<UpdatedUserResponse> {
+    return this.http.patch<UpdatedUserResponse>(`${this.apiUrl}/auth/user`, data).pipe(
+      tap(newUserData => {
+        const currentUser = this._user() as User; // current user won't be null here because the endpoint is authenticated
+        this._user.set({ ...currentUser, ...newUserData });
+      })
+    );
   }
 }

@@ -79,10 +79,11 @@ class ForgottenPasswordSerializer(serializers.Serializer):
 
 class UserDetailsSerializer(AutoSanitizingSerializer):
     tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
+    avatarUrl = serializers.CharField(source="avatar_url", allow_blank=True)
 
     class Meta:
         model = User
-        fields = ["username", "bio", "tcgpId"]
+        fields = ["username", "bio", "tcgpId", "avatarUrl"]
 
     def validate_username(self, value):
         user = self.instance or self.context["request"].user

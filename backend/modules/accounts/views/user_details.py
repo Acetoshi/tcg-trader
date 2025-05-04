@@ -20,7 +20,7 @@ class UserDetailsView(SlidingAuthBaseView):
                 "email": user.email,
                 "tcgpId": user.tcgp_id,
                 "bio": user.bio,
-                "avatarUrl": user.avatarUrl,
+                "avatarUrl": user.avatar_url,
             }
 
             return Response(user_data, status=status.HTTP_200_OK)
@@ -33,7 +33,7 @@ class UserDetailsView(SlidingAuthBaseView):
                 {"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    def put(self, request):
+    def patch(self, request):
         user = request.user
         serializer = UserDetailsSerializer(
             user, data=request.data, context={"request": request}, partial=True
@@ -45,7 +45,7 @@ class UserDetailsView(SlidingAuthBaseView):
         try:
             serializer.save()
 
-            return Response(status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         except AttributeError:
             return Response(status=status.HTTP_401_UNAUTHORIZED)

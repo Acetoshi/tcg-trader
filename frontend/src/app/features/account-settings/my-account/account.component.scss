@@ -13,7 +13,14 @@
 .avatar-section {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
+
+  & img {
+    width: 250px;
+    height: 250px;
+  }
 }
 
 .public-info-section {

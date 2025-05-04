@@ -5,7 +5,7 @@ import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
 import { CollectionItem, LanguageVersion } from "./collection.models";
-import { PaginatedResponse } from "./pagination.model";
+import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 
 @Injectable({
   providedIn: "root",
@@ -18,17 +18,17 @@ export class CollectionService {
   // Signal for myCollection data
   allCards = signal<CollectionItem[]>([]);
   allCardsFilters = signal<CardFilters>(defaultFilters);
-  allCardsPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+  allCardsPagination = signal<PaginationObject>(PaginationDefault);
 
   myCollection = signal<CollectionItem[]>([]);
   myCollectionFilters = signal<CardFilters>(defaultFilters);
-  myCollectionPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+  myCollectionPagination = signal<PaginationObject>(PaginationDefault);
   myCollectionCount = computed(() => this.myCollection().length);
   hasActiveMyCollectionFilters = computed(() => this.hasActiveFilters(this.myCollectionFilters()));
 
   myWishlist = signal<CollectionItem[]>([]);
   myWishlistFilters = signal<CardFilters>(defaultFilters);
-  myWishlistPagination = signal<{ next: string | null; previous: string | null }>({ next: null, previous: null });
+  myWishlistPagination = signal<PaginationObject>(PaginationDefault);
   myWishlistCount = computed(() => this.myWishlist().length);
   hasActiveWishlistFilters = computed(() => this.hasActiveFilters(this.myWishlistFilters()));
 
