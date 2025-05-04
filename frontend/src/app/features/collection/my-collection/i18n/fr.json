@@ -1,9 +1,9 @@
 {
-    "myCollection": {
-      "noResultsWithFilters": "Aucune carte dans votre collection avec les filtres actuels",
-      "noResultsWithoutFiltersStart": "Votre collection est vide, essayez ",
-      "noResultsWithoutFiltersLink": "d'ajouter des cartes",
-      "noMoreCards": "Il n'y a pas plus de cartes dans votre collection",
-      "noMoreCardsWithFilters": "correspondant aux filtres actuels"
-    }
+  "myCollection": {
+    "noResultsWithFilters": "Aucune carte dans votre collection avec les filtres actuels",
+    "noResultsWithoutFiltersStart": "Votre collection est vide, essayez ",
+    "noResultsWithoutFiltersLink": "d'ajouter des cartes",
+    "noMoreCards": "Il n'y a pas plus de cartes dans votre collection",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
   }
+}

@@ -16,18 +16,21 @@
   <app-no-results>
     <p>
       @if (this.collectionService.hasActiveWishlistFilters()) {
-        We couldn't find any cards in your wishlist with the current filters
+        {{ "myWishlist.noResultsWithFilters" | translate }}
       } @else {
-        Your wishlist is empty, try <a routerLink="/collection/all-cards">adding some cards</a>
+        {{ "myWishlist.noResultsWithoutFiltersStart" | translate }}
+        <a routerLink="/collection/all-cards">
+          {{ "myWishlist.noResultsWithoutFiltersLink" | translate }}
+        </a>
       }
     </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
     <p>
-      There's no more cards in your wishlist
+      {{ "myWishlist.noMoreCards" | translate }}
       @if (this.collectionService.hasActiveWishlistFilters()) {
-        that match the current filters
+        {{ "myWishlist.noMoreCardsWithFilters" | translate }}
       }
     </p>
   </app-end-of-data>

@@ -181,6 +181,13 @@
     "noMoreCards": "There's no more cards in your collection",
     "noMoreCardsWithFilters": "that match the current filters"
   },
+  "myWishlist": {
+    "noResultsWithFilters": "We couldn't find any cards in your wishlist with the current filters",
+    "noResultsWithoutFiltersStart": "Your wishlist is empty, try",
+    "noResultsWithoutFiltersLink": "adding some cards",
+    "noMoreCards": "There's no more cards in your wishlist",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
   "home": {
     "heroTitle": "Collect, Trade, Connect — All in One Place",
     "heroSubtitle": "Discover new cards, manage your collection, and trade worldwide.",
