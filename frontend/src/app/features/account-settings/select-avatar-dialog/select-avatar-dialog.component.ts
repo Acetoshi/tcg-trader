@@ -22,6 +22,8 @@ export class SelectAvatarDialogComponent implements OnInit {
   pokemons = signal<PokedexEntry[]>([]);
   pokemonsPagination = signal<PaginationObject>(PaginationDefault);
 
+  selectedAvatarUrl = signal<string>('https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/003.png');
+
   constructor(
     public dialogRef: MatDialogRef<SelectAvatarDialogComponent>,
     private http: HttpClient

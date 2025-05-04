@@ -4,7 +4,9 @@
   <ul class="avatar-list">
     @for (pokemon of pokemons(); track pokemon) {
       <!-- [ngClass]="{ selected: selectedAvatar === pokemon }" -->
-      <li>
+      <li
+        [ngClass]="{ selected: selectedAvatarUrl() === pokemon.imageUrl }"
+        (click)="selectedAvatarUrl.set(pokemon.imageUrl)">
         <figure>
           <img [src]="pokemon.imageUrl" alt="" />
           <figcaption>#{{ pokemon.pokedexNumber }} {{ pokemon.name.EN }}</figcaption>
