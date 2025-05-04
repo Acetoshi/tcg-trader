@@ -259,6 +259,10 @@
     "endOfDataTitle": "Voici toutes les opportunités d'échange disponibles pour le moment.",
     "endOfDataAction": "pour en voir plus."
   },
+  "tradePreview": {
+    "youGive": "Vous donnez",
+    "youReceive": "Vous recevez"
+  },
   "tradingDashboard": {
     "find": "Rechercher",
     "incoming": "Propositions reçues",

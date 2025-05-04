@@ -259,6 +259,10 @@
     "endOfDataTitle": "These are all the available trade opportunities at the moment.",
     "endOfDataAction": "for more."
   },
+  "tradePreview": {
+    "youGive": "You give",
+    "youReceive": "You receive"
+  },
   "tradingDashboard": {
     "find": "Find",
     "incoming": "Incoming",
