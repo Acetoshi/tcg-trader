@@ -1,5 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 import { environment } from "../../../../environments/environment";
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatIcon } from "@angular/material/icon";
@@ -25,7 +26,7 @@ interface CardInfo {
   selector: "app-confirm-trade-action-dialog",
   templateUrl: "./confirm-trade-action-dialog.component.html",
   styleUrls: ["./confirm-trade-action-dialog.component.scss"],
-  imports: [CommonModule, MatDialogModule, MatIcon, MatButtonModule],
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatIcon, MatButtonModule],
 })
 export class ConfirmTradeActionDialogComponent {
   fileServerBaseUrl = environment.fileServerUrl;

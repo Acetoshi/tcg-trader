@@ -7,14 +7,14 @@
 
   <div class="trade-preview">
     <figure>
-      <figcaption>You give #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
+      <figcaption>{{ "tradePreview.youGive" | translate }} #{{ data.myCard.cardRef }} ({{ data.myCard.languageCode }})</figcaption>
       <img [src]="fileServerBaseUrl + data.myCard.imgUrl" alt="" />
     </figure>
 
     <mat-icon class="icon-xl">swap_horiz</mat-icon>
 
     <figure>
-      <figcaption>You receive #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
+      <figcaption>{{ "tradePreview.youReceive" | translate }} #{{ data.theirCard.cardRef }} ({{ data.theirCard.languageCode }})</figcaption>
       <img [src]="fileServerBaseUrl + data.theirCard.imgUrl" alt="" />
     </figure>
   </div>
