@@ -242,6 +242,22 @@
       "alt": "votre avatar"
     }
   },
+  "tradeOpportunities": {
+    "smartMatchingIntro": "Voici des suggestions d'échange intelligentes basées sur des correspondances entre",
+    "yourWishlist": "votre liste de souhaits",
+    "yourCollection": "votre collection",
+    "andCardsOthersWant": "et les cartes dans",
+    "othersWant": "que d'autres recherchent.",
+    "opportunitySingular": "opportunité d'échange",
+    "opportunityPlural": "opportunités d'échange",
+    "with": "avec",
+    "noResultsTitle": "Aucune opportunité d'échange pour le moment.",
+    "noResultsAction": "Essayez d'ajouter plus de cartes à votre",
+    "noResultsHint": "afin que d'autres puissent vous trouver.",
+    "shareApp": "Vous pouvez aussi partager l'application avec un ami pour trouver plus de partenaires.",
+    "endOfDataTitle": "Voici toutes les opportunités d'échange disponibles pour le moment.",
+    "endOfDataAction": "pour en voir plus."
+  },
   "tradingDashboard": {
     "find": "Rechercher",
     "incoming": "Propositions reçues",

@@ -242,6 +242,22 @@
       "alt": "your avatar"
     }
   },
+  "tradeOpportunities": {
+    "smartMatchingIntro": "These are smart trade suggestions based on matches between",
+    "yourWishlist": "your wishlist",
+    "yourCollection": "your collection",
+    "andCardsOthersWant": "and cards in",
+    "othersWant": "others want.",
+    "opportunitySingular": "trade opportunity",
+    "opportunityPlural": "trade opportunities",
+    "with": "with",
+    "noResultsTitle": "No trade opportunity for now.",
+    "noResultsAction": "Try adding more cards to your",
+    "noResultsHint": "so others can find you.",
+    "shareApp": "You can also share the app with a friend to find more partners.",
+    "endOfDataTitle": "These are all the available trade opportunities at the moment.",
+    "endOfDataAction": "for more."
+  },
   "tradingDashboard": {
     "find": "Find",
     "incoming": "Incoming",
