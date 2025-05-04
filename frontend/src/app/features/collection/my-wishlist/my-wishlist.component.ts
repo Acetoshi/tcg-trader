@@ -1,5 +1,6 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
 import { CollectionItemComponent } from "../collection-item/collection-item.component";
@@ -14,6 +15,7 @@ import { RouterLink } from "@angular/router";
   styleUrls: ["./my-wishlist.component.scss"],
   imports: [
     CommonModule,
+    TranslateModule,
     CardFilterBarComponent,
     CollectionItemComponent,
     ScrollListenerComponent,

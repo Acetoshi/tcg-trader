@@ -1,5 +1,6 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { TradeService } from "../../../core/services/trade.service";
@@ -15,6 +16,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   styleUrls: ["./trade-opportunities.component.scss"],
   imports: [
     CommonModule,
+    TranslateModule,
     MatExpansionModule,
     MatIcon,
     RouterLink,

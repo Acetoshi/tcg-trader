@@ -1,5 +1,6 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
 import { CollectionItemComponent } from "../collection-item/collection-item.component";
@@ -13,6 +14,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   styleUrls: ["./all-cards.component.scss"],
   imports: [
     CommonModule,
+    TranslateModule,
     CardFilterBarComponent,
     CollectionItemComponent,
     ScrollListenerComponent,
@@ -21,7 +23,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   ],
 })
 export class AllCardsComponent implements OnInit {
-  noResults = computed(() => this.collectionService.myCollection().length === 0);
+  noResults = computed(() => this.collectionService.allCards().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
 import { CollectionItemComponent } from "../collection-item/collection-item.component";
@@ -14,6 +15,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
   styleUrls: ["./my-collection.component.scss"],
   imports: [
     CommonModule,
+    TranslateModule,
     CardFilterBarComponent,
     CollectionItemComponent,
     ScrollListenerComponent,

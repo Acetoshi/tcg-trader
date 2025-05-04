@@ -6,7 +6,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { LanguageService } from "../../../core/services/language.service";
 import { environment } from "../../../../environments/environment";
-import { CollectionItem } from "../models/collection-item.model";
+import { CollectionItem } from "../../../core/services/collection.models";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";

@@ -164,6 +164,34 @@
       "fetchColors": "Error fetching colors"
     }
   },
+  "allCards": {
+    "noResultsWithFilters": "We couldn't find any cards that match your filters.",
+    "noMoreCardsWithFilters": "There's no more cards to show you with these filters"
+  },
+  "myCollectionDashboard": {
+    "allCards": "All Cards",
+    "myCollection": "My Collection",
+    "wishlist": "Wishlist"
+  },
+  "collectionItem": {
+    "owned": "Owned",
+    "forTrade": "For trade",
+    "wishlist": "Wishlist"
+  },
+  "myCollection": {
+    "noResultsWithFilters": "We couldn't find any cards in your collection with the current filters",
+    "noResultsWithoutFiltersStart": "Your collection is empty, try",
+    "noResultsWithoutFiltersLink": "adding some cards",
+    "noMoreCards": "There's no more cards in your collection",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
+  "myWishlist": {
+    "noResultsWithFilters": "We couldn't find any cards in your wishlist with the current filters",
+    "noResultsWithoutFiltersStart": "Your wishlist is empty, try",
+    "noResultsWithoutFiltersLink": "adding some cards",
+    "noMoreCards": "There's no more cards in your wishlist",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
   "home": {
     "heroTitle": "Collect, Trade, Connect — All in One Place",
     "heroSubtitle": "Discover new cards, manage your collection, and trade worldwide.",
@@ -214,15 +242,26 @@
       "alt": "your avatar"
     }
   },
-  "collectionItem": {
-    "owned": "Owned",
-    "forTrade": "For trade",
-    "wishlist": "Wishlist"
+  "tradeOpportunities": {
+    "smartMatchingIntro": "These are smart trade suggestions based on matches between",
+    "yourWishlist": "wishlist",
+    "yourCollection": "collection",
+    "andCardsOthersWant": "and cards in",
+    "othersWant": "others want.",
+    "opportunitySingular": "trade opportunity",
+    "opportunityPlural": "trade opportunities",
+    "with": "with",
+    "noResultsTitle": "No trade opportunity for now.",
+    "noResultsAction": "Try adding more cards to your",
+    "noResultsActionOr": "or to your",
+    "noResultsHint": "so others can find you.",
+    "shareApp": "You can also share the app with a friend to find more partners.",
+    "endOfDataTitle": "These are all the available trade opportunities at the moment.",
+    "endOfDataAction": "for more."
   },
-  "myCollectionDashboard": {
-    "allCards": "All Cards",
-    "myCollection": "My Collection",
-    "wishlist": "Wishlist"
+  "tradePreview": {
+    "youGive": "You give",
+    "youReceive": "You receive"
   },
   "tradingDashboard": {
     "find": "Find",
@@ -240,9 +279,5 @@
     "collection": "Collection",
     "accountSettings": "Account Settings",
     "logout": "Logout"
-  },
-  "noResults": {
-    "title": "No results found.",
-    "suggestion": "Try adjusting your filters."
   }
 }

@@ -1,6 +1,6 @@
 <div class="trade-preview">
   <figure>
-    <span>You give</span>
+    <span>{{ "tradePreview.youGive" | translate }}</span>
     <img mat-card-image [src]="fileServerBaseUrl + myCard().imgUrl" alt="" />
     <figcaption>#{{ myCard().cardRef }} ({{ myCard().languageCode }})</figcaption>
   </figure>
@@ -8,7 +8,7 @@
     <mat-icon class="icon-xl">swap_horiz</mat-icon>
   </span>
   <figure>
-    <span>You receive</span>
+    <span>{{ "tradePreview.youReceive" | translate }}</span>
     <img mat-card-image [src]="fileServerBaseUrl + theirCard().imgUrl" alt="" />
     <figcaption>#{{ theirCard().cardRef }} ({{ theirCard().languageCode }})</figcaption>
   </figure>

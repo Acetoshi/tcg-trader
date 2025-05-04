@@ -3,9 +3,15 @@
   <div class="smart-matching-info">
     <mat-icon color="primary" class="info-icon">info</mat-icon>
     <span>
-      These are smart trade suggestions based on matches between
-      <a routerLink="/collection/wishlist"> your wishlist</a> and cards in
-      <a routerLink="/collection/owned"> your collection</a> others want.
+      {{ "tradeOpportunities.smartMatchingIntro" | translate }}
+      <a routerLink="/collection/wishlist">
+        {{ "tradeOpportunities.yourWishlist" | translate }}
+      </a>
+      {{ "tradeOpportunities.andCardsOthersWant" | translate }}
+      <a routerLink="/collection/owned">
+        {{ "tradeOpportunities.yourCollection" | translate }}
+      </a>
+      {{ "tradeOpportunities.othersWant" | translate }}
     </span>
   </div>
 }
@@ -15,18 +21,18 @@
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span
-            >{{ partnerOpps.opportunities.length }}
-            @if (partnerOpps.opportunities.length > 1) {
-              trade opportunities
-            } @else {
-              trade opportunity
-            }
-            with&nbsp;
+          <span>
+            {{ partnerOpps.opportunities.length }}
+            {{
+              partnerOpps.opportunities.length > 1
+                ? ("tradeOpportunities.opportunityPlural" | translate)
+                : ("tradeOpportunities.opportunitySingular" | translate)
+            }}
+            {{ "tradeOpportunities.with" | translate }}
             <a routerLink="/profiles/{{ partnerOpps.partnerUsername }}">
               {{ partnerOpps.partnerUsername }}
-            </a></span
-          >
+            </a>
+          </span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ul class="collection-items-list">
@@ -43,29 +49,29 @@
 @if (noResults()) {
   <app-no-results>
     <p>
-      No trade opportunity for now.
-      <br />
-      Try adding more cards to your
-      <a routerLink="/collection/wishlist">wishlist</a>
-      or
-      <a routerLink="/collection/owned">collection</a>
-      so others can find you.
-      <br />
-      You can also share the app with a friend to find more partners.
+      {{ "tradeOpportunities.noResultsTitle" | translate }}<br />
+      {{ "tradeOpportunities.noResultsAction" | translate }}
+      <a routerLink="/collection/wishlist">
+        {{ "tradeOpportunities.yourWishlist" | translate }}
+      </a>
+      {{ "tradeOpportunities.noResultsHint" | translate }}<br />
+      {{ "tradeOpportunities.shareApp" | translate }}
     </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
     <p>
-      These are all the available trade opportunities at the moment.
-      <br />
-      Try adding more cards to your
-      <a routerLink="/collection/wishlist">wishlist</a>
-      or
-      <a routerLink="/collection/owned">collection</a>
-      for more.
-      <br />
-      You can also share the app with a friend to find more partners.
+      {{ "tradeOpportunities.endOfDataTitle" | translate }}<br />
+      {{ "tradeOpportunities.noResultsAction" | translate }}
+      <a routerLink="/collection/wishlist">
+        {{ "tradeOpportunities.yourWishlist" | translate }}
+      </a>
+      {{ "tradeOpportunities.noResultsActionOr" | translate }}
+      <a routerLink="/collection/owned">
+        {{ "tradeOpportunities.yourCollection" | translate }}
+      </a>
+      {{ "tradeOpportunities.endOfDataAction" | translate }}<br />
+      {{ "tradeOpportunities.shareApp" | translate }}
     </p>
   </app-end-of-data>
 }

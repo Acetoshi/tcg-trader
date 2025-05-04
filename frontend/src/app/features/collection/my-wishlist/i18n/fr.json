@@ -1,0 +1,9 @@
+{
+  "myWishlist": {
+    "noResultsWithFilters": "Aucune carte dans votre liste de souhaits avec les filtres actuels",
+    "noResultsWithoutFiltersStart": "Votre liste de souhaits est vide, essayez",
+    "noResultsWithoutFiltersLink": "d'ajouter des cartes",
+    "noMoreCards": "Il n'y a pas plus de cartes dans votre liste de souhaits",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  }
+}

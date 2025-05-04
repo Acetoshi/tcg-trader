@@ -16,18 +16,21 @@
   <app-no-results>
     <p>
       @if (this.collectionService.hasActiveMyCollectionFilters()) {
-        We couldn't find any cards in your collection with the current filters
+        {{ "myCollection.noResultsWithFilters" | translate }}
       } @else {
-        Your collection is empty, try <a routerLink="/collection/all-cards">adding some cards</a>
+        {{ "myCollection.noResultsWithoutFiltersStart" | translate }}
+        <a routerLink="/collection/all-cards">
+          {{ "myCollection.noResultsWithoutFiltersLink" | translate }}
+        </a>
       }
     </p>
   </app-no-results>
 } @else {
   <app-end-of-data>
     <p>
-      There's no more cards in your collection
+      {{ "myCollection.noMoreCards" | translate }}
       @if (this.collectionService.hasActiveMyCollectionFilters()) {
-        that match the current filters
+        {{ "myCollection.noMoreCardsWithFilters" | translate }}
       }
     </p>
   </app-end-of-data>

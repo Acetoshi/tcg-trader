@@ -164,6 +164,34 @@
       "fetchColors": "Erreur lors de la récupération des couleurs"
     }
   },
+  "allCards": {
+    "noResultsWithFilters": "Aucune carte correspondant à vos filtres.",
+    "noMoreCardsWithFilters": "Il n'y a pas plus de cartes correspondant à vos filtres."
+  },
+  "myCollectionDashboard": {
+    "allCards": "Toutes les cartes",
+    "myCollection": "Ma collection",
+    "wishlist": "Liste de souhaits"
+  },
+  "collectionItem": {
+    "owned": "Obtenues",
+    "forTrade": "Échange",
+    "wishlist": "Souhaits"
+  },
+  "myCollection": {
+    "noResultsWithFilters": "Aucune carte dans votre collection avec les filtres actuels",
+    "noResultsWithoutFiltersStart": "Votre collection est vide, essayez ",
+    "noResultsWithoutFiltersLink": "d'ajouter des cartes",
+    "noMoreCards": "Il n'y a pas plus de cartes dans votre collection",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
+  "myWishlist": {
+    "noResultsWithFilters": "Aucune carte dans votre liste de souhaits avec les filtres actuels",
+    "noResultsWithoutFiltersStart": "Votre liste de souhaits est vide, essayez",
+    "noResultsWithoutFiltersLink": "d'ajouter des cartes",
+    "noMoreCards": "Il n'y a pas plus de cartes dans votre liste de souhaits",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
   "home": {
     "heroTitle": "Collectionnez, échangez, discutez — Au même endroit",
     "heroSubtitle": "Découvrez les cartes, gérez votre collection et échangez dans le monde entier.",
@@ -214,15 +242,26 @@
       "alt": "votre avatar"
     }
   },
-  "collectionItem": {
-    "owned": "Obtenues",
-    "forTrade": "Échange",
-    "wishlist": "Souhaits"
+  "tradeOpportunities": {
+    "smartMatchingIntro": "Voici des suggestions d'échange intelligentes basées sur des correspondances entre",
+    "yourWishlist": "liste de souhaits",
+    "yourCollection": "collection",
+    "andCardsOthersWant": "et les cartes dans",
+    "othersWant": "que d'autres recherchent.",
+    "opportunitySingular": "opportunité d'échange",
+    "opportunityPlural": "opportunités d'échange",
+    "with": "avec",
+    "noResultsTitle": "Aucune opportunité d'échange pour le moment.",
+    "noResultsAction": "Essayez d'ajouter plus de cartes à votre",
+    "noResultsActionOr": "ou à votre",
+    "noResultsHint": "afin que d'autres puissent vous trouver.",
+    "shareApp": "Vous pouvez aussi partager l'application avec un ami pour trouver plus de partenaires.",
+    "endOfDataTitle": "Voici toutes les opportunités d'échange disponibles pour le moment.",
+    "endOfDataAction": "pour en voir plus."
   },
-  "myCollectionDashboard": {
-    "allCards": "Toutes les cartes",
-    "myCollection": "Ma collection",
-    "wishlist": "Liste de souhaits"
+  "tradePreview": {
+    "youGive": "Vous donnez",
+    "youReceive": "Vous recevez"
   },
   "tradingDashboard": {
     "find": "Rechercher",
@@ -240,9 +279,5 @@
     "collection": "Collection",
     "accountSettings": "Paramètres du compte",
     "logout": "Déconnexion"
-  },
-  "noResults": {
-    "title": "Aucun résultat trouvé.",
-    "suggestion": "Essayez d'ajuster vos filtres."
   }
 }
