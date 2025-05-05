@@ -4,8 +4,23 @@ img.avatar {
   border-radius: 50%;
 }
 
-mat-card-title-group{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+mat-card-title-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+span.trainer-id {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.username{
+    font-size: xx-large;
+}
+
+p.bio {
+    font-style: italic;
 }

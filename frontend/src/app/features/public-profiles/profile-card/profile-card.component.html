@@ -1,4 +1,4 @@
-<mat-card class="profile-card" appearance="outlined">
+<mat-card class="profile-card">
   <mat-card-header>
     <mat-card-title-group>
       <img class="avatar" [src]="fileServerUrl + userInfo().avatarUrl" alt="{{ userInfo().username }}'s avatar" />
@@ -9,7 +9,7 @@
 
   <mat-card-content>
     @if (userInfo().tcgpId) {
-      <span class="tcgp-id">
+      <span class="trainer-id">
         Trainer ID : {{ userInfo().tcgpId  }}
         <button mat-icon-button aria-label="Copy Trainer ID" (click)="copyTrainerId()">
           <mat-icon>{{ copyTrainerIdIcon() }}</mat-icon>
