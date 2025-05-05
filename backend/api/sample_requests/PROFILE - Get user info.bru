@@ -1,0 +1,19 @@
+meta {
+  name: PROFILE / Get user info
+  type: http
+  seq: 16
+}
+
+get {
+  url: http://localhost:5000/api/pokedex?search=pika
+  body: none
+  auth: inherit
+}
+
+params:query {
+  search: pika
+}
+
+headers {
+  Set-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzYzODM2MzctMDEwOC00ZTc2LTlhZDItNDRkMWJhMjQwNjA3IiwiZXhwIjoxNzQ2MDc1MDk3LCJpYXQiOjE3NDU5NDU0OTd9.kSKJ8lrnc-_x3XwLNTl1sC11AXHBv7Xjs9ctYVKAtGw; expires=Thu, 01 May 2025 04:51:37 GMT; HttpOnly; Max-Age=129600; Path=/; SameSite=Strict
+}
