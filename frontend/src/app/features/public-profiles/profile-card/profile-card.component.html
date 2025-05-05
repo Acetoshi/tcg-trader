@@ -1,1 +1,26 @@
-<h2>THIS THIS THE PUBLIC CARD OF {{ username() }}</h2>
+<mat-card class="profile-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title-group>
+      <img class="avatar" [src]="fileServerUrl + userInfo().avatarUrl" alt="{{ userInfo().username }}'s avatar" />
+
+      <mat-card-title class="username">{{ userInfo().username }}</mat-card-title>
+    </mat-card-title-group>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (userInfo().tcgpId) {
+      <span class="tcgp-id">
+        Trainer ID : {{ userInfo().tcgpId  }}
+        <button mat-icon-button aria-label="Copy Trainer ID" (click)="copyTrainerId()">
+          <mat-icon>{{ copyTrainerIdIcon() }}</mat-icon>
+        </button></span
+      >
+    } @else {
+      <span class="tcgp-id">
+        Trainer ID : This user hasn’t entered his pokemon pocket id yet.
+    </span>
+    }
+
+    <p class="bio">{{ userInfo().bio || "This user hasn’t written a bio yet." }}</p>
+  </mat-card-content>
+</mat-card>

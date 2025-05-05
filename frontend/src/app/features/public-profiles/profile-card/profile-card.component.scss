@@ -1,0 +1,11 @@
+img.avatar {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+
+mat-card-title-group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
