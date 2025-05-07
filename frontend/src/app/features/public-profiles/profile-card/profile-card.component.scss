@@ -1,19 +1,29 @@
 img.avatar {
+  position: absolute;
+  top: -50px;
+  left: 16px;
   width: 150px;
   height: auto;
   border-radius: 50%;
+  background-color: var(--mat-sys-surface);
+  border: 1px solid var(--mat-sys-outline);
 }
 
-mat-card-title-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+mat-card-title {
+  margin: 16px 0px 58px 166px;
+  font-size: xx-large;
+  text-align: center;
+}
+
+mat-card {
+  margin-top: 100px;
+  position: relative;
 }
 
 span.trainer-id {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 
