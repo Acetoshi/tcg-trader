@@ -1,4 +1,33 @@
 {
+  "account": {
+    "panels": {
+      "publicProfile": "Public profile",
+      "credentials": "Credentials"
+    },
+    "form": {
+      "username": {
+        "label": "Username",
+        "hint": "For your privacy, avoid using personal information in your username."
+      },
+      "tcgpId": {
+        "label": "Pokemon TCG Pocket trainer ID",
+        "hint": "Your 16-digits ID in the Pokemon TCG Online game."
+      },
+      "bio": {
+        "label": "Bio"
+      }
+    },
+    "buttons": {
+      "save": "SAVE",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "comingSoon": "Soon you'll be able to change your email or password here"
+    },
+    "avatar": {
+      "alt": "your avatar"
+    }
+  },
   "forgottenPassword": {
     "title": "Forgotten password ?",
     "instructions": "Enter the email address associated with your account, and we'll send you a link to",
@@ -213,34 +242,6 @@
     "finalCtaTitle": "Join BulbaTrade Today and Transform Your Card Trading Experience",
     "signUpFree": "Sign Up for Free",
     "browseCatalog": "Browse the Card Catalog"
-  },
-  "account": {
-    "panels": {
-      "publicProfile": "Public profile",
-      "credentials": "Credentials"
-    },
-    "form": {
-      "username": {
-        "label": "Username",
-        "hint": "For your privacy, avoid using personal information in your username."
-      },
-      "tcgpId": {
-        "label": "Pokemon TCG Pocket trainer ID"
-      },
-      "bio": {
-        "label": "Bio"
-      }
-    },
-    "buttons": {
-      "save": "SAVE",
-      "cancel": "Cancel"
-    },
-    "messages": {
-      "comingSoon": "Soon you'll be able to change your email or password here"
-    },
-    "avatar": {
-      "alt": "your avatar"
-    }
   },
   "tradeOpportunities": {
     "smartMatchingIntro": "These are smart trade suggestions based on matches between",

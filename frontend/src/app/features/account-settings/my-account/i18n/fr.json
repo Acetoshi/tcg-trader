@@ -10,7 +10,8 @@
         "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles dans votre nom d'utilisateur."
       },
       "tcgpId": {
-        "label": "ID dresseur Pokemon TCG Pocket"
+        "label": "ID dresseur Pokemon TCG Pocket",
+        "hint": "16 chiffres, disponible dans votre profil dans le jeu."
       },
       "bio": {
         "label": "Biographie"
