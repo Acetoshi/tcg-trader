@@ -1,18 +1,22 @@
 @use "global-variables" as *;
 
 ul.avatar-list {
+  min-width: 45vw;
   list-style: none;
   margin: 0px;
   padding: 0px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display:grid;
+  grid-template-columns : repeat(auto-fit, minmax(150px,1fr));
   gap: 8px;
   & li {
     border-radius: 16px;
     cursor: pointer;
     border: 2px solid transparent;
     & figure {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       margin: 0px;
       & figcaption {
         text-align: center;
@@ -38,6 +42,11 @@ li.selected {
 }
 
 @media screen and (max-width: #{$breakpoint}) {
+
+  ul.avatar-list {
+    grid-template-columns : repeat(auto-fit, minmax(90px,1fr));
+  }
+
   ul.avatar-list > li {
     border-radius: 8px;
   }
