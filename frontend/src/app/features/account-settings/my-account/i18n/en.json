@@ -14,7 +14,8 @@
         "hint": "Your 16-digits ID in the Pokemon TCG Online game."
       },
       "bio": {
-        "label": "Bio"
+        "label": "Bio",
+        "maxlengthError": "Bio must under 200 characters."
       }
     },
     "buttons": {

@@ -32,6 +32,11 @@
           <mat-form-field class="full-width-form-field">
             <mat-label>{{ "account.form.bio.label" | translate }}</mat-label>
             <textarea matInput formControlName="bio"></textarea>
+            @if (publicInfoForm.get("bio")?.hasError("maxlength")) {
+              <mat-error>
+                {{ "account.form.bio.maxlengthError" | translate }}
+              </mat-error>
+            }
           </mat-form-field>
 
           <!-- <mat-slide-toggle> Show my collection to others </mat-slide-toggle> -->

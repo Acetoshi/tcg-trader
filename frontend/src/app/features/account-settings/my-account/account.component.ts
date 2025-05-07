@@ -1,6 +1,6 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule, FormBuilder, FormGroup } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 // Angular Material Modules
@@ -55,9 +55,9 @@ export class AccountComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.publicInfoForm = this.fb.group({
-      username: [""],
-      tcgpId: [""],
-      bio: [""],
+      username: ["",[Validators.minLength(4), Validators.maxLength(20)]],
+      tcgpId: ["",[Validators.minLength(19)]], // 16 digits + 3 dashes
+      bio: ["",[Validators.maxLength(200)]],
     });
   }
 
