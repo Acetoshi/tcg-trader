@@ -16,8 +16,9 @@ mat-card-title {
 }
 
 mat-card {
-  margin-top: 100px;
+  margin-top: 51px;
   position: relative;
+  max-width: 450px;
 }
 
 span.trainer-id {
@@ -27,10 +28,10 @@ span.trainer-id {
   gap: 8px;
 }
 
-.username{
-    font-size: xx-large;
+.username {
+  font-size: xx-large;
 }
 
 p.bio {
-    font-style: italic;
+  font-style: italic;
 }
