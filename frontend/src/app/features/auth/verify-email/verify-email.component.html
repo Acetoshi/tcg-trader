@@ -11,7 +11,7 @@
       @if (!waitingForResponse && verificationStatus) {
         <mat-icon class="icon-xl success-color">check_circle</mat-icon>
         <p>{{ "verifyEmail.success.message" | translate }}</p>
-        <button mat-flat-button color="primary" routerLink="/my-collection">
+        <button mat-flat-button color="primary" routerLink="/collection/all-cards">
           <mat-icon>chevron_right</mat-icon> {{ "verifyEmail.success.myCollection" | translate }}
         </button>
       }

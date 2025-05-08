@@ -37,8 +37,6 @@ export class ProfileCardComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    console.log("PublicProfilePageComponent initialized, username :", this.username);
-
     this.http.get<UserPublicProfile>(`${this.apiUrl}/users/${this.username()}/info`).subscribe({
       next: data => {
         this.userInfo.set(data);
