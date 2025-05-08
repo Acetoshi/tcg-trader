@@ -35,7 +35,7 @@ class UserDetailsView(SlidingAuthBaseView):
     def patch(self, request):
         user = request.user
         serializer = UpdateUserInfoSerializer(
-            user, data=request.data, context={"request": request}, partial=True
+            user, data=request.data, context={"user": request.user}, partial=True
         )
 
         if not serializer.is_valid():
