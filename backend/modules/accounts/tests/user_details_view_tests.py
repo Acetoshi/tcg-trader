@@ -26,52 +26,53 @@ def authenticated_client(db, enable_unaccent_extension):
 
 
 # username
-def test_patch_user_details_invalid_username(authenticated_client):
+@pytest.mark.parametrize(
+    "username,expected_status",
+    [
+        ("a" * 10, 200),
+        ("a" * 25, 400),
+        ("ok", 400),  # too short if you require 3+ chars
+        ("valid_user", 200),
+    ],
+)
+def test_patch_username(authenticated_client, username, expected_status):
     client, _ = authenticated_client
     url = reverse("user-details")
-    bad_data = {"username": "aaaaaaaaaaaaaaaaaaaaa"}
+    data = {"username": username}
 
-    response = client.patch(url, bad_data, format="json")
-
-    assert response.status_code == 400
-
-
-def test_patch_user_details_valid_username(authenticated_client):
-    client, _ = authenticated_client
-    url = reverse("user-details")
-    good_data = {"username": "aaaaaaaaaa"}
-
-    response = client.patch(url, good_data, format="json")
-
-    assert response.status_code == 200
-    assert response.data["username"] == "aaaaaaaaaa"
+    response = client.patch(url, data, format="json")
+    assert response.status_code == expected_status
 
 
 # tcgp_id
-def test_patch_user_details_invalid_tcgp_id(authenticated_client):
+@pytest.mark.parametrize(
+    "tcgp_id,expected_status",
+    [
+        ("1234-5678-9012-3456", 200),
+        ("1234-5678-bad-format", 400),
+        ("abcd-1234-5678-0000", 400),  # edge case with letters
+        ("1234567890123456", 400),  # no dashes
+    ],
+)
+def test_patch_tcgp_id(authenticated_client, tcgp_id, expected_status):
     client, _ = authenticated_client
     url = reverse("user-details")
-    bad_data = {"tcgpId": "1234-5678-bad-format"}
+    data = {"tcgpId": tcgp_id}
 
-    response = client.patch(url, bad_data, format="json")
-
-    assert response.status_code == 400
-    assert "tcgpId" in response.data
-
-
-def test_patch_user_details_valid_tcgp_id(authenticated_client):
-    client, _ = authenticated_client
-    url = reverse("user-details")
-    good_data = {"tcgpId": "1234-5678-9012-3456"}
-
-    response = client.patch(url, good_data, format="json")
-
-    assert response.status_code == 200
-    assert response.data["tcgpId"] == "1234-5678-9012-3456"
+    response = client.patch(url, data, format="json")
+    assert response.status_code == expected_status
 
 
 # bio
-def test_patch_user_details_invalid_bio(authenticated_client):
+@pytest.mark.parametrize(
+    "bio,expected_status",
+    [
+        ("hello", 200),
+        ("hello" * 100, 400),  # too long
+        ([1, 2, 3], 400),
+    ],
+)
+def test_patch_user_details_invalid_bio(authenticated_client, bio, expected_status):
     client, _ = authenticated_client
     url = reverse("user-details")
     bad_data = {"bio": "hello" * 100}
