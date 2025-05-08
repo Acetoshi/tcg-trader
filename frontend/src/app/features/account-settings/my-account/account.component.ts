@@ -55,9 +55,9 @@ export class AccountComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.publicInfoForm = this.fb.group({
-      username: ["",[Validators.minLength(4), Validators.maxLength(20)]],
-      tcgpId: ["",[Validators.minLength(19)]], // 16 digits + 3 dashes
-      bio: ["",[Validators.maxLength(200)]],
+      username: ["", [Validators.minLength(4), Validators.maxLength(20)]],
+      tcgpId: ["", [Validators.minLength(19)]], // 16 digits + 3 dashes
+      bio: ["", [Validators.maxLength(200)]],
     });
   }
 
@@ -71,7 +71,6 @@ export class AccountComponent implements OnInit {
       });
     }
     this.filterTrainerIdInput();
-
   }
 
   get user() {

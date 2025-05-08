@@ -1,22 +1,18 @@
 import re
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from api.security_utils.xss_safe_serializer import AutoSanitizingSerializer
-from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
-class CreateUserSerializer(AutoSanitizingSerializer):
-    password = serializers.CharField(write_only=True, min_length=12)
+class UpdateUserInfoSerializer(AutoSanitizingSerializer):
+    tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
+    avatarUrl = serializers.CharField(source="avatar_url", allow_blank=True)
 
     class Meta:
         model = User
-        fields = ["username", "email", "password"]
-
-    def validate_email(self, value):
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("This email is not available.")
-        return value
+        fields = ["username", "bio", "tcgpId", "avatarUrl"]
 
     def validate_username(self, value):
         if value.length < 3:
@@ -26,6 +22,22 @@ class CreateUserSerializer(AutoSanitizingSerializer):
         if User.objects.filter(username__unaccent__iexact=value).exists():
             raise serializers.ValidationError("This username is not available.")
         return value
+
+    def validate_bio(self, value):
+        if len(value) > 200:
+            raise serializers.ValidationError("Bio must be at most 200 characters long.")
+        return value
+
+    def validate_tcgpId(self, value):
+        if not re.match(r"^\d{4}-\d{4}-\d{4}-\d{4}$", value):
+            raise serializers.ValidationError("tcgpId must be in the format 1234-5678-9012-3456")
+        return value
+
+
+class UpdateUserPasswordSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    token = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
     def validate_password(self, value):
         if len(value) < 12:
@@ -45,11 +57,3 @@ class CreateUserSerializer(AutoSanitizingSerializer):
                 "Password must contain at least one special character."
             )
         return value
-
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data["email"],
-            email=validated_data["email"],
-            password=validated_data["password"],
-        )
-        return user

@@ -5,8 +5,8 @@ ul.avatar-list {
   list-style: none;
   margin: 0px;
   padding: 0px;
-  display:grid;
-  grid-template-columns : repeat(auto-fit, minmax(150px,1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 8px;
   & li {
     border-radius: 16px;
@@ -42,9 +42,8 @@ li.selected {
 }
 
 @media screen and (max-width: #{$breakpoint}) {
-
   ul.avatar-list {
-    grid-template-columns : repeat(auto-fit, minmax(90px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
 
   ul.avatar-list > li {

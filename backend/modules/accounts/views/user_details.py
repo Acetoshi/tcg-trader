@@ -2,11 +2,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 from rest_framework.permissions import IsAuthenticated
-from modules.accounts.serializers.legacy_serializers import UserDetailsSerializer
-
-# View to return the authenticated user's details.
+from modules.accounts.serializers.update_user import UpdateUserInfoSerializer
 
 
+# View to return or update the authenticated user's details.
 class UserDetailsView(SlidingAuthBaseView):
     permission_classes = [IsAuthenticated]
 
@@ -35,7 +34,7 @@ class UserDetailsView(SlidingAuthBaseView):
 
     def patch(self, request):
         user = request.user
-        serializer = UserDetailsSerializer(
+        serializer = UpdateUserInfoSerializer(
             user, data=request.data, context={"request": request}, partial=True
         )
 
