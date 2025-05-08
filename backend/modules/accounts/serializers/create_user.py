@@ -1,4 +1,5 @@
 import re
+import random
 from rest_framework import serializers
 from api.security_utils.xss_safe_serializer import AutoSanitizingSerializer
 from django.contrib.auth import get_user_model
@@ -47,9 +48,53 @@ class CreateUserSerializer(AutoSanitizingSerializer):
         return value
 
     def create(self, validated_data):
+
+        # give the user a random starter avatar
+        starters = [
+            "pikachu",
+            "eevee",
+            "snorlax",
+            "mew",
+            "mewtwo",
+            "charizard",
+            "gengar",
+            "bulbasaur",
+            "charmander",
+            "squirtle",
+            "chikorita",
+            "cyndaquil",
+            "totodile",
+            "treecko",
+            "torchic",
+            "mudkip",
+            "turtwig",
+            "chimchar",
+            "piplup",
+            "snivy",
+            "tepig",
+            "oshawott",
+            "chespin",
+            "fennekin",
+            "froakie",
+            "rowlet",
+            "litten",
+            "popplio",
+            "grookey",
+            "scorbunny",
+            "sobble",
+            "sprigatito",
+            "fuecoco",
+            "quaxly",
+        ]
+
+        random_pokemon = random.choice(starters)
+        random_avatar_url = f"/images/pokemon/{random_pokemon}.webp"
+
         user = User.objects.create_user(
-            username=validated_data["email"],
+            username=validated_data["username"],
             email=validated_data["email"],
             password=validated_data["password"],
+            avatar_url=random_avatar_url,
+            is_active=False,  # Deactivate account until email verification
         )
         return user
