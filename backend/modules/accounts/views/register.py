@@ -17,18 +17,13 @@ User = get_user_model()
 
 class RegisterView(APIView):
 
-    @transaction.atomic  # Ensures atomicity
     def post(self, request):
         serializer = CreateUserSerializer(data=request.data)
 
         if serializer.is_valid():
             try:
                 with transaction.atomic():  # Start a transaction
-                    userData = serializer.validated_data
-                    password = userData.pop("password")
-                    user = User.objects.create_user(password=password, **userData)
-                    user.is_active = False  # Deactivate account until email verification
-                    user.save()
+                    user = serializer.save()
 
                     # Generate email verification token
                     token = default_token_generator.make_token(user)

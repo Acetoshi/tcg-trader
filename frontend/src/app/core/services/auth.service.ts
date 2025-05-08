@@ -178,7 +178,13 @@ export class AuthService {
   }
 
   updateUser(data: UserUpdate): Observable<UpdatedUserResponse> {
-    return this.http.patch<UpdatedUserResponse>(`${this.apiUrl}/auth/user`, data).pipe(
+    const dataToUpdate: UserUpdate = {};
+    if (data.username) dataToUpdate.username = data.username;
+    if (data.tcgpId) dataToUpdate.tcgpId = data.tcgpId;
+    if (data.bio) dataToUpdate.bio = data.bio;
+    if (data.avatarUrl) dataToUpdate.avatarUrl = data.avatarUrl;
+
+    return this.http.patch<UpdatedUserResponse>(`${this.apiUrl}/auth/user`, dataToUpdate).pipe(
       tap(newUserData => {
         const currentUser = this._user() as User; // current user won't be null here because the endpoint is authenticated
         this._user.set({ ...currentUser, ...newUserData });
