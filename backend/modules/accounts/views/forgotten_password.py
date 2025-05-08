@@ -9,7 +9,7 @@ from django.utils.encoding import force_bytes
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from modules.accounts.serializers import ForgottenPasswordSerializer
+from modules.accounts.serializers.legacy_serializers import ForgottenPasswordSerializer
 
 
 User = get_user_model()

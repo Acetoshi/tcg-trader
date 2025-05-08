@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseView
 from rest_framework.permissions import IsAuthenticated
-from modules.accounts.serializers import UserDetailsSerializer
+from modules.accounts.serializers.legacy_serializers import UserDetailsSerializer
 
 # View to return the authenticated user's details.
 

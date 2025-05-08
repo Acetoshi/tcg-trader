@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from modules.accounts.serializers import RegisterSerializer
+from modules.accounts.serializers.create_user import CreateUserSerializer
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -19,7 +19,7 @@ class RegisterView(APIView):
 
     @transaction.atomic  # Ensures atomicity
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
+        serializer = CreateUserSerializer(data=request.data)
 
         if serializer.is_valid():
             try:
