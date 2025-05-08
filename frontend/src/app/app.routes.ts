@@ -10,6 +10,7 @@ import { AccountComponent } from "./features/account-settings/my-account/account
 import { CardsListComponent } from "./features/cards/cards-list/cards-list.component";
 import { AuthGuard } from "./core/guards/auth.guard";
 import { CollectionDashboardComponent } from "./features/collection/collection-dashboard/collection-dashboard.component";
+import { PublicProfilePageComponent } from "./features/public-profiles/public-profile-page/public-profile-page.component";
 
 export const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -42,4 +43,5 @@ export const routes: Routes = [
   },
   { path: "my-account", component: AccountComponent, canActivate: [AuthGuard] },
   { path: "cards", component: CardsListComponent },
+  { path: "profiles/:username", component: PublicProfilePageComponent },
 ];

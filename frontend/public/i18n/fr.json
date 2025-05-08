@@ -1,4 +1,34 @@
 {
+  "account": {
+    "panels": {
+      "publicProfile": "Profil public",
+      "credentials": "Identifiants"
+    },
+    "form": {
+      "username": {
+        "label": "Nom d'utilisateur",
+        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles dans votre nom d'utilisateur."
+      },
+      "tcgpId": {
+        "label": "ID dresseur Pokemon TCG Pocket",
+        "hint": "16 chiffres, disponible dans votre profil dans le jeu."
+      },
+      "bio": {
+        "label": "Description",
+        "maxlengthError": "Votre description doit faire moins de 200 caractères."
+      }
+    },
+    "buttons": {
+      "save": "ENREGISTRER",
+      "cancel": "Annuler"
+    },
+    "messages": {
+      "comingSoon": "Bientôt, vous pourrez modifier votre email ou mot de passe ici"
+    },
+    "avatar": {
+      "alt": "votre avatar"
+    }
+  },
   "forgottenPassword": {
     "title": "Mot de passe oublié ?",
     "instructions": "Entrez l'adresse e-mail associée à votre compte, et nous vous enverrons un lien pour",
@@ -213,34 +243,6 @@
     "finalCtaTitle": "Rejoignez BulbaTrade aujourd'hui et transformez votre façon de collectionner",
     "signUpFree": "Inscrivez-vous gratuitement",
     "browseCatalog": "Parcourir le catalogue de cartes"
-  },
-  "account": {
-    "panels": {
-      "publicProfile": "Profil public",
-      "credentials": "Identifiants"
-    },
-    "form": {
-      "username": {
-        "label": "Nom d'utilisateur",
-        "hint": "Pour votre confidentialité, évitez d'utiliser des informations personnelles dans votre nom d'utilisateur."
-      },
-      "tcgpId": {
-        "label": "ID dresseur Pokemon TCG Pocket"
-      },
-      "bio": {
-        "label": "Biographie"
-      }
-    },
-    "buttons": {
-      "save": "ENREGISTRER",
-      "cancel": "Annuler"
-    },
-    "messages": {
-      "comingSoon": "Bientôt, vous pourrez modifier votre email ou mot de passe ici"
-    },
-    "avatar": {
-      "alt": "votre avatar"
-    }
   },
   "tradeOpportunities": {
     "smartMatchingIntro": "Voici des suggestions d'échange intelligentes basées sur des correspondances entre",

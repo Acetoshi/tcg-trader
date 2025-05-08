@@ -10,13 +10,13 @@ from modules.accounts.views.reset_password import ResetPasswordView
 urlpatterns = [
     path("login", LoginView.as_view(), name="login"),
     path("register", RegisterView.as_view(), name="register"),
-    path("forgotten-password", ForgottenPasswordView.as_view(), name="register"),
-    path("reset-password", ResetPasswordView.as_view(), name="reset_password"),
+    path("forgotten-password", ForgottenPasswordView.as_view(), name="forgotten-password"),
+    path("reset-password", ResetPasswordView.as_view(), name="reset-password"),
     path(
         "verify-email/<uidb64>/<token>",  # TODO : change this to body of the request
         VerifyEmailView.as_view(),
-        name="verify_email",
+        name="verify-email",
     ),
-    path("user", UserDetailsView.as_view(), name="get_user_details"),
-    path("logout", LogoutView.as_view(), name="log_out"),
+    path("user", UserDetailsView.as_view(), name="user-details"),
+    path("logout", LogoutView.as_view(), name="logout"),
 ]

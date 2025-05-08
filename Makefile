@@ -20,10 +20,6 @@ dev-restart-frontend:
 	@echo "Starting the frontend container..."
 	@docker compose -f docker-compose.dev.yml start frontend
 
-lint:
-	@cd backend && venv/bin/pre-commit run --all-files
-	@cd frontend && npm run format+lint:fix
-
 staged:
 	docker compose -f docker-compose.staged.yml up --build
 
@@ -109,3 +105,18 @@ api-admin:
 
 i18n-merge:
 	@cd frontend && npm run merge:i18n
+
+
+##################
+# Tests commands #
+##################
+
+test-backend:
+	@docker exec -it tcg-trader-backend pytest
+
+test:
+	make test-backend
+
+lint:
+	@cd backend && venv/bin/pre-commit run --all-files
+	@cd frontend && npm run format+lint:fix

@@ -18,6 +18,7 @@ class PokedexView(SlidingAuthBaseView):
             results = self.dict_fetchall(cursor)
 
             paginator = PageNumberPagination()
+            paginator.page_size = 40
             paginated_page = paginator.paginate_queryset(results, request)
 
         return paginator.get_paginated_response(paginated_page)

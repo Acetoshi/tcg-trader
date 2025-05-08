@@ -4,7 +4,7 @@ from rest_framework import status
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth import get_user_model
-from modules.accounts.serializers import ResetPasswordSerializer
+from modules.accounts.serializers.update_user import UpdateUserPasswordSerializer
 from modules.accounts.auth_utils.cookie import attach_jwt_cookie
 
 User = get_user_model()
@@ -13,7 +13,7 @@ User = get_user_model()
 class ResetPasswordView(APIView):
 
     def post(self, request):
-        serializer = ResetPasswordSerializer(data=request.data)
+        serializer = UpdateUserPasswordSerializer(data=request.data)
 
         if not serializer.is_valid():
             return Response(status=status.HTTP_400_BAD_REQUEST)

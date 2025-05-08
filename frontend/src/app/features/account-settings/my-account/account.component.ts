@@ -1,6 +1,6 @@
 import { Component, computed, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule, FormBuilder, FormGroup } from "@angular/forms";
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 // Angular Material Modules
@@ -55,9 +55,9 @@ export class AccountComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.publicInfoForm = this.fb.group({
-      username: [""],
-      tcgpId: [""],
-      bio: [""],
+      username: ["", [Validators.minLength(4), Validators.maxLength(20)]],
+      tcgpId: ["", [Validators.minLength(19)]], // 16 digits + 3 dashes
+      bio: ["", [Validators.maxLength(200)]],
     });
   }
 
@@ -70,6 +70,7 @@ export class AccountComponent implements OnInit {
         bio: user?.bio ?? "",
       });
     }
+    this.filterTrainerIdInput();
   }
 
   get user() {
@@ -95,6 +96,18 @@ export class AccountComponent implements OnInit {
         console.error("Error updating your profile:", error);
         this.toastService.showError(this.translateService.instant("accountSettings.errors.updateUser"));
       },
+    });
+  }
+
+  filterTrainerIdInput() {
+    this.publicInfoForm.get("tcgpId")?.valueChanges.subscribe(value => {
+      if (value) {
+        const digitsOnly = value.replace(/\D/g, "").slice(0, 16);
+        const formatted = digitsOnly.match(/.{1,4}/g)?.join("-") || "";
+        if (formatted !== value) {
+          this.publicInfoForm.get("tcgpId")?.setValue(formatted);
+        }
+      }
     });
   }
 

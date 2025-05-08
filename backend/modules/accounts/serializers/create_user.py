@@ -1,26 +1,12 @@
-from django.contrib.auth.models import Group
-from django.contrib.auth import get_user_model
+import re
 from rest_framework import serializers
 from api.security_utils.xss_safe_serializer import AutoSanitizingSerializer
-import re
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ["url", "username", "email", "groups"]
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ["url", "name"]
-
-
-class RegisterSerializer(AutoSanitizingSerializer):
+class CreateUserSerializer(AutoSanitizingSerializer):
     password = serializers.CharField(write_only=True, min_length=12)
 
     class Meta:
@@ -33,13 +19,15 @@ class RegisterSerializer(AutoSanitizingSerializer):
         return value
 
     def validate_username(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError("Username must be at least 3 characters long.")
+        if len(value) > 20:
+            raise serializers.ValidationError("Username must be at most 20 characters long.")
         if User.objects.filter(username__unaccent__iexact=value).exists():
             raise serializers.ValidationError("This username is not available.")
         return value
 
-    def validate_password(
-        self, value
-    ):  # TODO : put this in the general password validator in settings
+    def validate_password(self, value):
         if len(value) < 12:
             raise serializers.ValidationError("Password must be at least 12 characters long.")
         if not any(char.islower() for char in value):
@@ -65,28 +53,3 @@ class RegisterSerializer(AutoSanitizingSerializer):
             password=validated_data["password"],
         )
         return user
-
-
-class ResetPasswordSerializer(serializers.Serializer):
-    id = serializers.CharField()
-    token = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-
-
-class ForgottenPasswordSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-
-
-class UserDetailsSerializer(AutoSanitizingSerializer):
-    tcgpId = serializers.CharField(source="tcgp_id", allow_blank=True)
-    avatarUrl = serializers.CharField(source="avatar_url", allow_blank=True)
-
-    class Meta:
-        model = User
-        fields = ["username", "bio", "tcgpId", "avatarUrl"]
-
-    def validate_username(self, value):
-        user = self.instance or self.context["request"].user
-        if User.objects.exclude(pk=user.pk).filter(username=value).exists():
-            raise serializers.ValidationError("This username is not available.")
-        return value

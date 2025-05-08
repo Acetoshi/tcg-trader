@@ -20,6 +20,9 @@
   & img {
     width: 250px;
     height: 250px;
+    border-radius: 50%;
+    background-color: var(--mat-sys-surface);
+    border: 1px solid var(--mat-sys-outline);
   }
 }
 
