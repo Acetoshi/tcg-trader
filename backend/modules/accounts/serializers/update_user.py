@@ -15,9 +15,9 @@ class UpdateUserInfoSerializer(AutoSanitizingSerializer):
         fields = ["username", "bio", "tcgpId", "avatarUrl"]
 
     def validate_username(self, value):
-        if value.length < 3:
+        if len(value) < 3:
             raise serializers.ValidationError("Username must be at least 3 characters long.")
-        if value.length > 20:
+        if len(value) > 20:
             raise serializers.ValidationError("Username must be at most 20 characters long.")
         if User.objects.filter(username__unaccent__iexact=value).exists():
             raise serializers.ValidationError("This username is not available.")
