@@ -1,3 +1,8 @@
+-- This query isn't used anywhere for the moment.
+-- It is meant to replace the collection_query_builder in the future.
+-- It is more maintainable and easier to read.
+
+
 WITH card_info AS (
     SELECT
         c.id AS id,
