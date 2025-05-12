@@ -280,6 +280,7 @@
     "trades": "Échanges",
     "collection": "Collection",
     "accountSettings": "Paramètres du compte",
+    "publicProfile": "Profil public",
     "logout": "Déconnexion"
   }
 }

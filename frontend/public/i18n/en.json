@@ -280,6 +280,7 @@
     "trades": "Trades",
     "collection": "Collection",
     "accountSettings": "Account Settings",
+    "publicProfile": "Public profile",
     "logout": "Logout"
   }
 }
