@@ -1,3 +1,23 @@
 <main class="justify-start">
   <app-profile-card [username]="username()" />
+
+  <mat-tab-group
+    class="dashboard-tab-group">
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
+        collection
+      </ng-template>
+      <h1> the user's collection </h1>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon-margin-right-8px">star</mat-icon>
+        wishlist
+      </ng-template>
+      <h1> the user's wishlist </h1>
+    </mat-tab>
+  </mat-tab-group>
 </main>
