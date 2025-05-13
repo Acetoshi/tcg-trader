@@ -12,16 +12,13 @@
     </li>
   }
 </ul>
-<!-- @if (noResults()) {
+@if (noResults()) {
   <app-no-results>
     <p>
       @if (this.collectionService.hasActiveTargetUserCollectionFilters()) {
         {{ "targetUserCollection.noResultsWithFilters" | translate }}
       } @else {
-        {{ "targetUserCollection.noResultsWithoutFiltersStart" | translate }}
-        <a routerLink="/collection/all-cards">
-          {{ "targetUserCollection.noResultsWithoutFiltersLink" | translate }}
-        </a>
+        {{ "targetUserCollection.noResultsWithoutFilters" | translate }}
       }
     </p>
   </app-no-results>
@@ -34,6 +31,6 @@
       }
     </p>
   </app-end-of-data>
-} -->
+}
 
 <app-scroll-listener (reachedBottom)="this.collectionService.fetchTargetUserCollectionNextPage()" />

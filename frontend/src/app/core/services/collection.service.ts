@@ -230,6 +230,7 @@ export class CollectionService {
   targetUserCollection = signal<CollectionItem[]>([]);
   targetUserCollectionFilters = signal<CardFilters>(defaultFilters);
   targetUserCollectionPagination = signal<PaginationObject>(PaginationDefault);
+  hasActiveTargetUserCollectionFilters = computed(() => this.hasActiveFilters(this.targetUserCollectionFilters()));
 
   fetchTargetUserCollection(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
