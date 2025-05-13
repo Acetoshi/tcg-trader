@@ -1,9 +1,9 @@
-@use 'dashboard-shared';
+@use "dashboard-shared";
 
 main {
   margin-top: 16px;
   display: grid; // TODO : this needs to be adapted for mobile
   grid-template-columns: 450px 1fr;
   align-items: start;
-  gap:16px;
+  gap: 16px;
 }

@@ -4,12 +4,13 @@ import { ActivatedRoute } from "@angular/router";
 import { ProfileCardComponent } from "../profile-card/profile-card.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatIcon } from "@angular/material/icon";
+import { PublicCollectionComponent } from "../public-collection/public-collection.component";
 
 @Component({
   selector: "app-public-profile-page",
   templateUrl: "./public-profile-page.component.html",
   styleUrls: ["./public-profile-page.component.scss"],
-  imports: [CommonModule, MatTabsModule, MatIcon, ProfileCardComponent],
+  imports: [CommonModule, MatTabsModule, MatIcon, ProfileCardComponent, PublicCollectionComponent],
 })
 export class PublicProfilePageComponent implements OnInit {
   username = signal<string | null>(null);
