@@ -1,6 +1,5 @@
 import { Component, computed, input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../cards/card-filter-bar/card-filter-bar.component";
@@ -21,7 +20,6 @@ import { CollectionItemComponent } from "../../collection/collection-item/collec
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,
-    RouterLink,
   ],
 })
 export class PublicCollectionComponent implements OnInit {
