@@ -2,12 +2,13 @@
   <app-profile-card [username]="username()" />
 
   <mat-tab-group class="dashboard-tab-group">
+
     <mat-tab>
       <ng-template mat-tab-label>
-        <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
-        collection
+        <mat-icon class="icon-margin-right-8px">swap_horiz</mat-icon>
+        cards for trade
       </ng-template>
-      <app-public-collection [username]="username()" />
+      <app-public-cards-for-trade [username]="username()" />
     </mat-tab>
 
     <mat-tab>
@@ -17,5 +18,14 @@
       </ng-template>
       <app-public-wishlist [username]="username()" />
     </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
+        collection
+      </ng-template>
+      <app-public-collection [username]="username()" />
+    </mat-tab>
+
   </mat-tab-group>
 </main>

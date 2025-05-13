@@ -1,0 +1,36 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.targetUserCardsForTradeFilters()"
+  (filterChange)="this.collectionService.updateTargetUserCardsForTradeFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (
+    collectionItem of this.collectionService.targetUserCardsForTrade();
+    track "my-collection-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results>
+    <p>
+      @if (this.collectionService.hasActiveTargetUserCardsForTradeFilters()) {
+        {{ "targetUserCardsForTrade.noResultsWithFilters" | translate }}
+      } @else {
+        {{ "targetUserCardsForTrade.noResultsWithoutFilters" | translate }}
+      }
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>
+      {{ "targetUserCardsForTrade.noMoreCards" | translate }}
+      @if (this.collectionService.hasActiveTargetUserCardsForTradeFilters()) {
+        {{ "targetUserCardsForTrade.noMoreCardsWithFilters" | translate }}
+      }
+    </p>
+  </app-end-of-data>
+}
+
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchTargetUserCardsForTradeNextPage()" />

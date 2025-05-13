@@ -1,0 +1,8 @@
+{
+  "targetUserWishlist": {
+    "noResultsWithFilters": "Aucune carte dans la liste de souhaits de cet utilisateur avec les filtres actuels",
+    "noResultsWithoutFilters": "La liste de souhaits de cet utilisateur ne contient aucune carte",
+    "noMoreCards": "Il n'y a pas plus de cartes dans cette liste de souhaits",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  }
+}
