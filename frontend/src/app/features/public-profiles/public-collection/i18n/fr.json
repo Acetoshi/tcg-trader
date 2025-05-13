@@ -1,6 +1,6 @@
 {
   "targetUserCollection": {
-    "noResultsWithFilters": "Aucune carte dans la collection de cet utilisateur collection avec les filtres actuels",
+    "noResultsWithFilters": "Aucune carte dans la collection de cet utilisateur avec les filtres actuels",
     "noResultsWithoutFilters": "La collection de cet utilisateur ne contient aucune carte",
     "noMoreCards": "Il n'y a pas plus de cartes dans cette collection",
     "noMoreCardsWithFilters": "correspondant aux filtres actuels"
