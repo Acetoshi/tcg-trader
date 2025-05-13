@@ -250,6 +250,12 @@
     "noMoreCards": "Il n'y a pas plus de cartes dans cette collection",
     "noMoreCardsWithFilters": "correspondant aux filtres actuels"
   },
+  "targetUserWishlist": {
+    "noResultsWithFilters": "Aucune carte dans la liste de souhaits de cet utilisateur avec les filtres actuels",
+    "noResultsWithoutFilters": "La liste de souhaits de cet utilisateur ne contient aucune carte",
+    "noMoreCards": "Il n'y a pas plus de cartes dans cette liste de souhaits",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
   "tradeOpportunities": {
     "smartMatchingIntro": "Voici des suggestions d'échange intelligentes basées sur des correspondances entre",
     "yourWishlist": "liste de souhaits",

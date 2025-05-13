@@ -10,9 +10,9 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
 import { CollectionItemComponent } from "../../collection/collection-item/collection-item.component";
 
 @Component({
-  selector: "app-public-collection",
-  templateUrl: "./public-collection.component.html",
-  styleUrls: ["./public-collection.component.scss"],
+  selector: "app-public-wishlist",
+  templateUrl: "./public-wishlist.component.html",
+  styleUrls: ["./public-wishlist.component.scss"],
   imports: [
     CommonModule,
     TranslateModule,
@@ -24,15 +24,15 @@ import { CollectionItemComponent } from "../../collection/collection-item/collec
     RouterLink,
   ],
 })
-export class PublicCollectionComponent implements OnInit {
+export class PublicWishlistComponent implements OnInit {
   username = input<string | null>(null);
 
-  noResults = computed(() => this.collectionService.targetUserCollection().length === 0);
+  noResults = computed(() => this.collectionService.targetUserWishlist().length === 0);
   constructor(public collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.collectionService.fetchTargetUserCollection(this.username() as string, {
-      ...this.collectionService.targetUserCollectionFilters(),
+    this.collectionService.fetchTargetUserWishlist(this.username() as string, {
+      ...this.collectionService.targetUserWishlistFilters(),
     });
   }
 }

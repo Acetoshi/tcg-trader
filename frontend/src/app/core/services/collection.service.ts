@@ -270,6 +270,7 @@ export class CollectionService {
   targetUserWishlist = signal<CollectionItem[]>([]);
   targetUserWishlistFilters = signal<CardFilters>(defaultFilters);
   targetUserWishlistPagination = signal<PaginationObject>(PaginationDefault);
+  hasActiveTargetUserWishlistFilters = computed(() => this.hasActiveFilters(this.targetUserWishlistFilters()));
 
   fetchTargetUserWishlist(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
