@@ -127,7 +127,7 @@ export class CollectionService {
     }
   }
 
-  updateMyWishListFilters(newFilters: Partial<CardFilters>) {
+  updateMyWishlistFilters(newFilters: Partial<CardFilters>) {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
     this.myWishlistFilters.set({ ...this.myWishlistFilters(), ...newFilters });
@@ -235,7 +235,7 @@ export class CollectionService {
   fetchTargetUserCollection(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const params = this.buildHttpParams(filters, { owned: "true" });
+    const params = this.buildHttpParams(filters);
 
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/collection`, { params })
@@ -275,10 +275,10 @@ export class CollectionService {
   fetchTargetUserWishlist(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const params = this.buildHttpParams(filters, { wishlist: "true" });
+    const params = this.buildHttpParams(filters);
 
     this.http
-      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/collection`, { params })
+      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/wishlist`, { params })
       .subscribe(response => {
         this.targetUserWishlistPagination.set({ next: response.next, previous: response.previous });
         this.targetUserWishlist.set(response.results);
@@ -297,11 +297,51 @@ export class CollectionService {
     }
   }
 
-  updateTargetUserWishListFilters(newFilters: Partial<CardFilters>) {
+  updateTargetUserWishlistFilters(newFilters: Partial<CardFilters>) {
     //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
     // Otherwise i'd get a weird behaviour when toggling filters
     this.targetUserWishlistFilters.set({ ...this.targetUserWishlistFilters(), ...newFilters });
     this.fetchTargetUserWishlist(this.targetUsername(), this.targetUserWishlistFilters());
+  }
+
+  /***********************************************************
+   *         TARGER USER'S CARDS FOR TRADE                   *
+   ***********************************************************/
+  targetUserCardsForTrade = signal<CollectionItem[]>([]);
+  targetUserCardsForTradeFilters = signal<CardFilters>(defaultFilters);
+  targetUserCardsForTradePagination = signal<PaginationObject>(PaginationDefault);
+  hasActiveTargetUserCardsForTradeFilters = computed(() => this.hasActiveFilters(this.targetUserCardsForTradeFilters()));
+
+  fetchTargetUserCardsForTrade(targetUsername: string, filters: CardFilters): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const params = this.buildHttpParams(filters);
+
+    this.http
+      .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/for-trade`, { params })
+      .subscribe(response => {
+        this.targetUserCardsForTradePagination.set({ next: response.next, previous: response.previous });
+        this.targetUserCardsForTrade.set(response.results);
+        this.targetUsername.set(targetUsername);
+      });
+  }
+
+  fetchTargetUserCardsForTradeNextPage(): void {
+    if (this.targetUserCardsForTradePagination().next) {
+      this.http
+        .get<PaginatedResponse<CollectionItem>>(this.targetUserCardsForTradePagination().next as string)
+        .subscribe(response => {
+          this.targetUserCardsForTradePagination.set({ next: response.next, previous: response.previous });
+          this.targetUserCardsForTrade.set([...this.targetUserCardsForTrade(), ...response.results]);
+        });
+    }
+  }
+
+  updateTargetUserCardsForTradeFilters(newFilters: Partial<CardFilters>) {
+    //TODO : i need to perfomr a deep comparison here to know wether i need to refetch or not.
+    // Otherwise i'd get a weird behaviour when toggling filters
+    this.targetUserCardsForTradeFilters.set({ ...this.targetUserCardsForTradeFilters(), ...newFilters });
+    this.fetchTargetUserCardsForTrade(this.targetUsername(), this.targetUserCardsForTradeFilters());
   }
 
   // Method to build HTTP parameters for API requests
