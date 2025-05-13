@@ -18,11 +18,9 @@ class ReadUserCollection(serializers.Serializer):
             raise serializers.ValidationError("This user doesn't exist")
         return attrs
 
-    def read_user_collection(self):
+    def read_user_collection(self, view_mode):
         user = self.validated_data["user"]
         query_params = self.validated_data.get("query_params", {})
-
-        print("Query Params:", query_params)
 
         with connection.cursor() as cursor:
             sql_request, params = build_get_collection_query(
@@ -34,8 +32,9 @@ class ReadUserCollection(serializers.Serializer):
                     "card_type_codes": query_params.get("type"),
                     "color_codes": query_params.get("color"),
                     "weakness_codes": query_params.get("weakness"),
-                    "owned_only": query_params.get("owned"),
-                    "wishlist_only": query_params.get("wishlist"),
+                    "owned_only": view_mode == "owned",
+                    "wishlist_only": view_mode == "wishlist",
+                    "for_trade_only": view_mode == "for_trade",
                 }
             )
             cursor.execute(sql_request, params)

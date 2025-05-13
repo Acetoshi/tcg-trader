@@ -5,7 +5,7 @@ from modules.accounts.auth_utils.silding_auth_base_view import SlidingAuthBaseVi
 from modules.card_collections.serializers.read_user_collection import ReadUserCollection
 
 
-class UserCollectionView(SlidingAuthBaseView):
+class UserForTradeView(SlidingAuthBaseView):
 
     def get(self, request, **kwargs):
         target_username = kwargs["target_username"]
@@ -19,7 +19,7 @@ class UserCollectionView(SlidingAuthBaseView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        user_collection = serializer.read_user_collection("owned")
+        user_collection = serializer.read_user_collection("for_trade")
 
         paginator = PageNumberPagination()
         paginated_page = paginator.paginate_queryset(user_collection, request)

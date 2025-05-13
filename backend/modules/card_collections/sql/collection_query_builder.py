@@ -64,7 +64,7 @@ def build_get_collection_query(filters):
         where_clauses.append("unaccent(name_trans.name) ILIKE unaccent(%(search)s)")
         params["search"] = f"%{filters['search']}%"
 
-    if filters.get("owned_only") and filters["owned_only"] == "true":
+    if filters.get("owned_only") and (filters["owned_only"] == "true" or filters["owned_only"]):
         base_sql += """
             INNER JOIN (
                 SELECT DISTINCT card_id
@@ -73,8 +73,10 @@ def build_get_collection_query(filters):
             ) owned_cards
             ON owned_cards.card_id = c.id
         """
-
-    if filters.get("wishlist_only") and filters["wishlist_only"] == "true":
+    # TODO : clean this condition after my_collection has been refactored
+    if filters.get("wishlist_only") and (
+        filters["wishlist_only"] == "true" or filters["wishlist_only"]
+    ):
         base_sql += """
             INNER JOIN (
                 SELECT DISTINCT card_id
@@ -83,6 +85,17 @@ def build_get_collection_query(filters):
             ) owned_cards
             ON owned_cards.card_id = c.id
         """
+
+    if filters.get("for_trade_only") and filters["for_trade_only"]:
+        base_sql += """
+            INNER JOIN (
+                SELECT DISTINCT card_id
+                FROM card_collections_usercardcollection
+                WHERE user_id = %(user_id)s AND quantity_for_trade >= 1
+            ) owned_cards
+            ON owned_cards.card_id = c.id
+        """
+
     if where_clauses:
         base_sql += " WHERE " + " AND ".join(where_clauses)
     base_sql += " GROUP BY c.id, c.number, c.set_id, set.code ORDER BY c.set_id, c.number "
