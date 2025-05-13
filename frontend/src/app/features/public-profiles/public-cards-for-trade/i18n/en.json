@@ -1,8 +1,7 @@
 {
-  "targetUserWishlist": {
-    "noResultsWithFilters": "We couldn't find any cards in the user's wishlist with the current filters",
-    "noResultsWithoutFilters": "This user doesn't have any cards in their wishlist",
-    "noMoreCards": "There's no more cards this user's wishlist",
-    "noMoreCardsWithFilters": "that match the current filters"
+  "targetUserCardsForTrade": {
+    "noResults": "This user doesn't have any card for trade",
+    "noMoreCards": "This user's has no other cards for trade",
+    "nothingWithFilters": "that match the current filters"
   }
 }

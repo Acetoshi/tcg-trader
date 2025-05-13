@@ -15,10 +15,9 @@
 @if (noResults()) {
   <app-no-results>
     <p>
+      {{ "targetUserCardsForTrade.noResults" | translate }}
       @if (this.collectionService.hasActiveTargetUserCardsForTradeFilters()) {
-        {{ "targetUserCardsForTrade.noResultsWithFilters" | translate }}
-      } @else {
-        {{ "targetUserCardsForTrade.noResultsWithoutFilters" | translate }}
+        {{ "targetUserCardsForTrade.nothingWithFilters" | translate }}
       }
     </p>
   </app-no-results>
@@ -27,7 +26,7 @@
     <p>
       {{ "targetUserCardsForTrade.noMoreCards" | translate }}
       @if (this.collectionService.hasActiveTargetUserCardsForTradeFilters()) {
-        {{ "targetUserCardsForTrade.noMoreCardsWithFilters" | translate }}
+        {{ "targetUserCardsForTrade.nothingWithFilters" | translate }}
       }
     </p>
   </app-end-of-data>

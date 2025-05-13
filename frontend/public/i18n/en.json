@@ -244,6 +244,11 @@
     "signUpFree": "Sign Up for Free",
     "browseCatalog": "Browse the Card Catalog"
   },
+  "targetUserCardsForTrade": {
+    "noResults": "This user doesn't have any card for trade",
+    "noMoreCards": "This user's has no other cards for trade",
+    "nothingWithFilters": "that match the current filters"
+  },
   "targetUserCollection": {
     "noResultsWithFilters": "We couldn't find any cards in the user's collection with the current filters",
     "noResultsWithoutFilters": "This user doesn't have any cards in their collection",

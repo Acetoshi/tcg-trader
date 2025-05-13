@@ -244,6 +244,11 @@
     "signUpFree": "Inscrivez-vous gratuitement",
     "browseCatalog": "Parcourir le catalogue de cartes"
   },
+  "targetUserCardsForTrade": {
+    "noResults": "Cet utilisateur n'a aucune carte disponible à l'échange",
+    "noMoreCards": "Cet utilisateur n'a pas d'autres cartes disponible à l'échange",
+    "nothingWithFilters": "correspondant aux filtres actuels"
+  },
   "targetUserCollection": {
     "noResultsWithFilters": "Aucune carte dans la collection de cet utilisateur avec les filtres actuels",
     "noResultsWithoutFilters": "La collection de cet utilisateur ne contient aucune carte",
