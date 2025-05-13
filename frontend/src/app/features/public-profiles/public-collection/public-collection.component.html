@@ -1,0 +1,36 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.targetUserCollectionFilters()"
+  (filterChange)="this.collectionService.updateTargetUserCollectionFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (
+    collectionItem of this.collectionService.targetUserCollection();
+    track "my-collection-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results>
+    <p>
+      @if (this.collectionService.hasActiveTargetUserCollectionFilters()) {
+        {{ "targetUserCollection.noResultsWithFilters" | translate }}
+      } @else {
+        {{ "targetUserCollection.noResultsWithoutFilters" | translate }}
+      }
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>
+      {{ "targetUserCollection.noMoreCards" | translate }}
+      @if (this.collectionService.hasActiveTargetUserCollectionFilters()) {
+        {{ "targetUserCollection.noMoreCardsWithFilters" | translate }}
+      }
+    </p>
+  </app-end-of-data>
+}
+
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchTargetUserCollectionNextPage()" />

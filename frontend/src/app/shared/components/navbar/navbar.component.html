@@ -131,6 +131,11 @@
         {{ user?.username }}<mat-icon>person</mat-icon>
       </button>
       <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="profiles/{{ user?.username }}">
+          <mat-icon>person</mat-icon>
+          {{ "navbar.publicProfile" | translate }}
+        </button>
+
         <button mat-menu-item routerLink="my-account">
           <mat-icon>settings</mat-icon>
           {{ "navbar.accountSettings" | translate }}

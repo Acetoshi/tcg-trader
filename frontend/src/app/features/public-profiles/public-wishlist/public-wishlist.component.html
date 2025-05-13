@@ -1,0 +1,36 @@
+<app-card-filter-bar
+  [filters]="this.collectionService.targetUserWishlistFilters()"
+  (filterChange)="this.collectionService.updateTargetUserWishlistFilters($event)"
+  class="app-card-filter-bar" />
+<ul class="collection-items-list">
+  @for (
+    collectionItem of this.collectionService.targetUserWishlist();
+    track "my-collection-" + collectionItem.setCode + "-" + collectionItem.setNumber
+  ) {
+    <li>
+      <app-collection-item [collectionItem]="collectionItem" />
+    </li>
+  }
+</ul>
+@if (noResults()) {
+  <app-no-results>
+    <p>
+      @if (this.collectionService.hasActiveTargetUserWishlistFilters()) {
+        {{ "targetUserWishlist.noResultsWithFilters" | translate }}
+      } @else {
+        {{ "targetUserWishlist.noResultsWithoutFilters" | translate }}
+      }
+    </p>
+  </app-no-results>
+} @else {
+  <app-end-of-data>
+    <p>
+      {{ "targetUserWishlist.noMoreCards" | translate }}
+      @if (this.collectionService.hasActiveTargetUserWishlistFilters()) {
+        {{ "targetUserWishlist.noMoreCardsWithFilters" | translate }}
+      }
+    </p>
+  </app-end-of-data>
+}
+
+<app-scroll-listener (reachedBottom)="this.collectionService.fetchTargetUserWishlistNextPage()" />

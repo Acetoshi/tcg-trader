@@ -1,0 +1,7 @@
+{
+  "targetUserCardsForTrade": {
+    "noResults": "Cet utilisateur n'a aucune carte disponible à l'échange",
+    "noMoreCards": "Cet utilisateur n'a pas d'autres cartes disponible à l'échange",
+    "nothingWithFilters": "correspondant aux filtres actuels"
+  }
+}

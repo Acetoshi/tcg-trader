@@ -244,6 +244,28 @@
     "signUpFree": "Sign Up for Free",
     "browseCatalog": "Browse the Card Catalog"
   },
+  "targetUserCardsForTrade": {
+    "noResults": "This user doesn't have any card for trade",
+    "noMoreCards": "This user has no other cards for trade",
+    "nothingWithFilters": "that match the current filters"
+  },
+  "targetUserCollection": {
+    "noResultsWithFilters": "We couldn't find any cards in the user's collection with the current filters",
+    "noResultsWithoutFilters": "This user doesn't have any cards in their collection",
+    "noMoreCards": "There's no more cards this user's collection",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
+  "publicProfile": {
+    "cardsForTrade": "Cards for trade",
+    "collection": "Collection",
+    "wishlist": "Wishlist"
+  },
+  "targetUserWishlist": {
+    "noResultsWithFilters": "We couldn't find any cards in the user's wishlist with the current filters",
+    "noResultsWithoutFilters": "This user doesn't have any cards in their wishlist",
+    "noMoreCards": "There's no more cards this user's wishlist",
+    "noMoreCardsWithFilters": "that match the current filters"
+  },
   "tradeOpportunities": {
     "smartMatchingIntro": "These are smart trade suggestions based on matches between",
     "yourWishlist": "wishlist",
@@ -280,6 +302,7 @@
     "trades": "Trades",
     "collection": "Collection",
     "accountSettings": "Account Settings",
+    "publicProfile": "Public profile",
     "logout": "Logout"
   }
 }

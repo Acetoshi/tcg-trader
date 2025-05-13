@@ -244,6 +244,28 @@
     "signUpFree": "Inscrivez-vous gratuitement",
     "browseCatalog": "Parcourir le catalogue de cartes"
   },
+  "targetUserCardsForTrade": {
+    "noResults": "Cet utilisateur n'a aucune carte disponible à l'échange",
+    "noMoreCards": "Cet utilisateur n'a pas d'autres cartes disponible à l'échange",
+    "nothingWithFilters": "correspondant aux filtres actuels"
+  },
+  "targetUserCollection": {
+    "noResultsWithFilters": "Aucune carte dans la collection de cet utilisateur avec les filtres actuels",
+    "noResultsWithoutFilters": "La collection de cet utilisateur ne contient aucune carte",
+    "noMoreCards": "Il n'y a pas plus de cartes dans cette collection",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
+  "publicProfile": {
+    "cardsForTrade": "Cartes à échanger",
+    "collection": "Collection",
+    "wishlist": "Liste de souhaits"
+  },
+  "targetUserWishlist": {
+    "noResultsWithFilters": "Aucune carte dans la liste de souhaits de cet utilisateur avec les filtres actuels",
+    "noResultsWithoutFilters": "La liste de souhaits de cet utilisateur ne contient aucune carte",
+    "noMoreCards": "Il n'y a pas plus de cartes dans cette liste de souhaits",
+    "noMoreCardsWithFilters": "correspondant aux filtres actuels"
+  },
   "tradeOpportunities": {
     "smartMatchingIntro": "Voici des suggestions d'échange intelligentes basées sur des correspondances entre",
     "yourWishlist": "liste de souhaits",
@@ -280,6 +302,7 @@
     "trades": "Échanges",
     "collection": "Collection",
     "accountSettings": "Paramètres du compte",
+    "publicProfile": "Profil public",
     "logout": "Déconnexion"
   }
 }
