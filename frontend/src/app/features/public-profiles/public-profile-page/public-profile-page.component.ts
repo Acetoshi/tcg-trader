@@ -11,7 +11,14 @@ import { PublicCollectionComponent } from "../public-collection/public-collectio
   selector: "app-public-profile-page",
   templateUrl: "./public-profile-page.component.html",
   styleUrls: ["./public-profile-page.component.scss"],
-  imports: [CommonModule, MatTabsModule, MatIcon, ProfileCardComponent, PublicCollectionComponent, PublicWishlistComponent],
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    MatIcon,
+    ProfileCardComponent,
+    PublicCollectionComponent,
+    PublicWishlistComponent,
+  ],
 })
 export class PublicProfilePageComponent implements OnInit {
   username = signal<string | null>(null);

@@ -310,7 +310,9 @@ export class CollectionService {
   targetUserCardsForTrade = signal<CollectionItem[]>([]);
   targetUserCardsForTradeFilters = signal<CardFilters>(defaultFilters);
   targetUserCardsForTradePagination = signal<PaginationObject>(PaginationDefault);
-  hasActiveTargetUserCardsForTradeFilters = computed(() => this.hasActiveFilters(this.targetUserCardsForTradeFilters()));
+  hasActiveTargetUserCardsForTradeFilters = computed(() =>
+    this.hasActiveFilters(this.targetUserCardsForTradeFilters())
+  );
 
   fetchTargetUserCardsForTrade(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
