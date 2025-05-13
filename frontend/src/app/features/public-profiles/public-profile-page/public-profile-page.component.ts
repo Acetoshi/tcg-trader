@@ -7,6 +7,7 @@ import { ProfileCardComponent } from "../profile-card/profile-card.component";
 import { PublicWishlistComponent } from "../public-wishlist/public-wishlist.component";
 import { PublicCollectionComponent } from "../public-collection/public-collection.component";
 import { PublicCardsForTradeComponent } from "../public-cards-for-trade/public-cards-for-trade.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
   selector: "app-public-profile-page",
@@ -14,6 +15,7 @@ import { PublicCardsForTradeComponent } from "../public-cards-for-trade/public-c
   styleUrls: ["./public-profile-page.component.scss"],
   imports: [
     CommonModule,
+    TranslateModule,
     MatTabsModule,
     MatIcon,
     ProfileCardComponent,

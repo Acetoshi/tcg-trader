@@ -1,7 +1,7 @@
 {
   "targetUserCardsForTrade": {
     "noResults": "This user doesn't have any card for trade",
-    "noMoreCards": "This user's has no other cards for trade",
+    "noMoreCards": "This user has no other cards for trade",
     "nothingWithFilters": "that match the current filters"
   }
 }

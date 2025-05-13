@@ -246,7 +246,7 @@
   },
   "targetUserCardsForTrade": {
     "noResults": "This user doesn't have any card for trade",
-    "noMoreCards": "This user's has no other cards for trade",
+    "noMoreCards": "This user has no other cards for trade",
     "nothingWithFilters": "that match the current filters"
   },
   "targetUserCollection": {
@@ -254,6 +254,11 @@
     "noResultsWithoutFilters": "This user doesn't have any cards in their collection",
     "noMoreCards": "There's no more cards this user's collection",
     "noMoreCardsWithFilters": "that match the current filters"
+  },
+  "publicProfile": {
+    "cardsForTrade": "Cards for trade",
+    "collection": "Collection",
+    "wishlist": "Wishlist"
   },
   "targetUserWishlist": {
     "noResultsWithFilters": "We couldn't find any cards in the user's wishlist with the current filters",
