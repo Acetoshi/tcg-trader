@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit, signal, OnChanges } from "@angular/core";
+import { Component, computed, input, OnInit, signal, OnChanges, effect } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
@@ -14,12 +14,12 @@ import { ToastService } from "../../../core/services/toast.service";
 
 @Component({
   standalone: true,
-  selector: "app-collection-item",
-  templateUrl: "./collection-item.component.html",
-  styleUrls: ["./collection-item.component.scss"],
+  selector: "app-collection-card",
+  templateUrl: "./collection-card.component.html",
+  styleUrls: ["./collection-card.component.scss"],
   imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
 })
-export class CollectionItemComponent implements OnInit, OnChanges {
+export class CollectionCardComponent implements OnInit, OnChanges {
   collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;
@@ -41,11 +41,16 @@ export class CollectionItemComponent implements OnInit, OnChanges {
     private collectionService: CollectionService,
     private toastService: ToastService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    // React to language changes
+    effect(() => {
+      this.selectedLanguageCode.set(this.languageService.currentLang());
+      this.collectionItemForm.get("languageCode")?.setValue(this.languageService.currentLang().toUpperCase());
+    });
+  }
 
   ngOnInit() {
     //display cards in the user's language if possible
-    // TODO : it feels like i need to pipe this somehow both to currentLang AND to the languages avaible, when the view is filtered
     this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
@@ -71,8 +76,12 @@ export class CollectionItemComponent implements OnInit, OnChanges {
     // TODO : decide if this is a dark pattern or not, forcing people to list their cards for trade ?
     this.collectionItemForm.get("owned")?.valueChanges.subscribe(owned => {
       const forTrade = this.collectionItemForm.get("forTrade")?.value as number;
-      if (owned !== forTrade) {
-        this.collectionItemForm.patchValue({ forTrade: owned });
+      if (owned > forTrade) {
+        if (owned > 2) {
+          this.collectionItemForm.patchValue({ forTrade: owned - 2 });
+        } else if (owned <= 2) {
+          this.collectionItemForm.patchValue({ forTrade: 0 });
+        }
       }
     });
 

@@ -8,6 +8,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MyCollectionComponent } from "../my-collection/my-collection.component";
 import { MyWishlistComponent } from "../my-wishlist/my-wishlist.component";
 import { AllCardsComponent } from "../all-cards/all-cards.component";
+import { CollectionService } from "../../../core/services/collection.service";
 
 @Component({
   selector: "app-collection-dashboard",
@@ -31,7 +32,8 @@ export class CollectionDashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public collectionService: CollectionService
   ) {}
 
   ngOnInit() {

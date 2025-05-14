@@ -1,0 +1,44 @@
+<mat-card class="collection-item high-density">
+  <img
+    mat-card-image
+    [src]="fileServerBaseUrl + version().imageUrl"
+    alt="version().name"
+    class="card-image"
+    loading="lazy" />
+  <mat-card-content>
+    <form class="quantities-form" [formGroup]="collectionItemForm">
+      <span class="card-name">
+        <strong>#{{ collectionItem().setCode }}-{{ collectionItem().setNumber.toString().padStart(3, "0") }}</strong> -
+        {{ version().name }}
+        @if (displayMode() === "for-trade") {
+          (x{{ collectionItemForm.get("forTrade")?.value }})
+        }
+        @if (displayMode() === "wishlist") {
+          (x{{ collectionItemForm.get("wishlist")?.value }})
+        }
+        @if (displayMode() === "owned") {
+          (x{{ collectionItemForm.get("owned")?.value }})
+        }
+      </span>
+      <mat-form-field appearance="outline" class="language-code-select" subscriptSizing="dynamic">
+        <mat-select formControlName="languageCode">
+          @for (languageCode of availableLanguageCodes(); track languageCode) {
+            <mat-option [value]="languageCode">{{ languageCode }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (displayMode() === "for-trade") {
+        <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('forTrade')?.value">
+          Offer trade
+        </button>
+      }
+
+      @if (displayMode() === "wishlist") {
+        <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('wishlist')?.value">
+          Offer trade
+        </button>
+      }
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -41,7 +41,7 @@
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>{{ "cardFilterBar.advancedFilters.set.label" | translate }}</mat-label>
             <mat-select multiple formControlName="setCodes">
-              @for (set of sets(); track set) {
+              @for (set of this.cardFiltersService.sets(); track set) {
                 <mat-option [value]="set.code">{{ set.name }}</mat-option>
               }
             </mat-select>
@@ -50,7 +50,7 @@
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>{{ "cardFilterBar.advancedFilters.rarity.label" | translate }}</mat-label>
             <mat-select multiple formControlName="rarityCodes">
-              @for (rarity of rarities(); track rarity) {
+              @for (rarity of this.cardFiltersService.rarities(); track rarity) {
                 <mat-option [value]="rarity.code">
                   <div class="tcg-card-rarity-option">
                     <img alt="" [src]="fileServerBaseUrl + rarity.imageUrl" />
@@ -64,7 +64,7 @@
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>{{ "cardFilterBar.advancedFilters.type.label" | translate }}</mat-label>
             <mat-select multiple formControlName="cardTypeCodes">
-              @for (cardType of cardTypes(); track cardType) {
+              @for (cardType of this.cardFiltersService.cardTypes(); track cardType) {
                 <mat-option [value]="cardType.code">
                   {{ cardType.name }}
                 </mat-option>
@@ -75,7 +75,7 @@
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>{{ "cardFilterBar.advancedFilters.color.label" | translate }}</mat-label>
             <mat-select multiple formControlName="colorCodes">
-              @for (color of colors(); track color) {
+              @for (color of this.cardFiltersService.colors(); track color) {
                 <mat-option [value]="color.code">
                   <div class="tcg-card-rarity-option">
                     <img alt="" [src]="fileServerBaseUrl + color.imageUrl" />
@@ -89,7 +89,7 @@
           <mat-form-field appearance="outline" subscriptSizing="dynamic">
             <mat-label>{{ "cardFilterBar.advancedFilters.weakness.label" | translate }}</mat-label>
             <mat-select multiple formControlName="weaknessCodes">
-              @for (color of colors(); track color) {
+              @for (color of this.cardFiltersService.colors(); track color) {
                 <mat-option [value]="color.code">
                   <div class="tcg-card-rarity-option">
                     <img alt="" [src]="fileServerBaseUrl + color.imageUrl" />

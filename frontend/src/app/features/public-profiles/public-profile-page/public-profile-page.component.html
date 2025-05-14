@@ -5,7 +5,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">swap_horiz</mat-icon>
-        {{ "publicProfile.cardsForTrade" | translate }}
+        <span>
+          {{ "publicProfile.cardsForTrade" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.targetUserCardsForTradeCount() }})</span>
+        </span>
       </ng-template>
       <app-public-cards-for-trade [username]="username()" />
     </mat-tab>
@@ -13,7 +16,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">star</mat-icon>
-        {{ "publicProfile.wishlist" | translate }}
+        <span>
+          {{ "publicProfile.wishlist" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.targetUserWishlistCount() }})</span>
+        </span>
       </ng-template>
       <app-public-wishlist [username]="username()" />
     </mat-tab>
@@ -21,7 +27,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
-        {{ "publicProfile.collection" | translate }}
+        <span>
+          {{ "publicProfile.collection" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.targetUserCollectionCount() }})</span>
+        </span>
       </ng-template>
       <app-public-collection [username]="username()" />
     </mat-tab>

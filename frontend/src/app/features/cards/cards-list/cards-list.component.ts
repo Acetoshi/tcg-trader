@@ -12,11 +12,11 @@ import {
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../../environments/environment";
 import { LanguageService } from "../../../core/services/language.service";
-import { CardFilters, defaultFilters } from "../models/cards-filters.model";
+import { CardFilters, defaultFilters } from "../../../shared/components/card-filter-bar/card-filters.model";
 import { Card } from "../models/card.model";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { CardFilterBarComponent } from "../card-filter-bar/card-filter-bar.component";
+import { CardFilterBarComponent } from "../../../shared/components/card-filter-bar/card-filter-bar.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
