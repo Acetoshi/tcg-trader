@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { CardFilters, defaultFilters } from "../../features/cards/models/cards-filters.model";
+import { CardFilters, defaultFilters } from "../../shared/components/card-filter-bar/card-filters.model";
 import { CollectionItem, LanguageVersion } from "./collection.models";
 import { PaginatedResponse, PaginationDefault, PaginationObject } from "./pagination.model";
 

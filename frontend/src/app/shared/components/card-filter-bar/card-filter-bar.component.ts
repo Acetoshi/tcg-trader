@@ -7,11 +7,8 @@ import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { LanguageService } from "../../../core/services/language.service";
 import { environment } from "../../../../environments/environment";
 // Models
-import { CardFilters, defaultFilters } from "../models/cards-filters.model";
-import { Set } from "../models/set.model";
-import { Rarity } from "../models/rarity.model";
-import { CardType } from "../models/card-type.model";
-import { Color } from "../models/color.model";
+import { CardFilters, defaultFilters, Rarity, Color, Set, CardType } from "./card-filters.model";
+
 // UI
 import { MatInput } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
