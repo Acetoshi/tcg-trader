@@ -1,25 +1,31 @@
 import { Component, computed, input, OnInit, signal, OnChanges, effect } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { debounceTime } from "rxjs";
 import { TranslateModule } from "@ngx-translate/core";
-import { CollectionService } from "../../../core/services/collection.service";
 import { LanguageService } from "../../../core/services/language.service";
 import { environment } from "../../../../environments/environment";
 import { CollectionItem } from "../../../core/services/collection.models";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { ToastService } from "../../../core/services/toast.service";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   standalone: true,
-  selector: "app-collection-card",
-  templateUrl: "./collection-card.component.html",
-  styleUrls: ["./collection-card.component.scss"],
-  imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
+  selector: "app-public-collection-card",
+  templateUrl: "./public-collection-card.component.html",
+  styleUrls: ["./public-collection-card.component.scss"],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    TranslateModule,
+  ],
 })
-export class CollectionCardComponent implements OnInit, OnChanges {
+export class PulbicCollectionCardComponent implements OnInit, OnChanges {
   collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;
@@ -38,8 +44,6 @@ export class CollectionCardComponent implements OnInit, OnChanges {
 
   constructor(
     private languageService: LanguageService,
-    private collectionService: CollectionService,
-    private toastService: ToastService,
     private fb: FormBuilder
   ) {
     // React to language changes
@@ -54,10 +58,7 @@ export class CollectionCardComponent implements OnInit, OnChanges {
     this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
-    // Debounce input
-    ["owned", "forTrade", "wishlist"].forEach(controlName => {
-      this.debounceFormControl(controlName);
-    });
+
     // Change the language version when the language select changes value
     this.collectionItemForm.get("languageCode")?.valueChanges.subscribe(code => {
       this.selectedLanguageCode.set(code);
@@ -71,27 +72,6 @@ export class CollectionCardComponent implements OnInit, OnChanges {
         { emitEvent: false }
       );
     });
-
-    // make sure owned card is for trade by default
-    // TODO : decide if this is a dark pattern or not, forcing people to list their cards for trade ?
-    this.collectionItemForm.get("owned")?.valueChanges.subscribe(owned => {
-      const forTrade = this.collectionItemForm.get("forTrade")?.value as number;
-      if (owned > forTrade) {
-        if (owned > 2) {
-          this.collectionItemForm.patchValue({ forTrade: owned - 2 });
-        } else if (owned <= 2) {
-          this.collectionItemForm.patchValue({ forTrade: 0 });
-        }
-      }
-    });
-
-    // make sure the user doesn't list cards for trade he doesn't have
-    this.collectionItemForm.get("forTrade")?.valueChanges.subscribe(forTrade => {
-      const owned = this.collectionItemForm.get("owned")?.value as number;
-      if (forTrade > owned) {
-        this.collectionItemForm.patchValue({ owned: forTrade });
-      }
-    });
   }
 
   createForm() {
@@ -103,27 +83,9 @@ export class CollectionCardComponent implements OnInit, OnChanges {
     });
   }
 
-  private debounceFormControl(controlName: string): void {
-    this.collectionItemForm
-      .get(controlName)
-      ?.valueChanges.pipe(debounceTime(600))
-      .subscribe(() => {
-        this.collectionService
-          .updateCollectionItem({
-            cardId: this.collectionItem().id,
-            languageCode: this.collectionItemForm.value.languageCode,
-            owned: this.collectionItemForm.value.owned,
-            forTrade: this.collectionItemForm.value.forTrade,
-            wishlist: this.collectionItemForm.value.wishlist,
-          })
-          .subscribe({
-            error: () => {
-              this.toastService.showError(
-                "There was an error updating your collection, refresh the page and try again"
-              );
-            },
-          });
-      });
+  openTradeDialog() {
+    // TODO : open a dialog to trade the card
+    window.alert("Soon you'll be able to propose a trade from here");
   }
 
   ngOnChanges() {
