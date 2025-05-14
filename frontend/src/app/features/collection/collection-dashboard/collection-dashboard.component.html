@@ -6,7 +6,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">content_copy</mat-icon>
-        {{ "myCollectionDashboard.allCards" | translate }}
+        <span>
+          {{ "myCollectionDashboard.allCards" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.allCardsCount() }})</span>
+        </span>
       </ng-template>
       <app-all-cards />
     </mat-tab>
@@ -14,7 +17,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">inventory_2</mat-icon>
-        {{ "myCollectionDashboard.myCollection" | translate }}
+        <span>
+          {{ "myCollectionDashboard.myCollection" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.myCollectionCount() }})</span>
+        </span>
       </ng-template>
       <app-my-collection />
     </mat-tab>
@@ -22,7 +28,10 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">star</mat-icon>
-        {{ "myCollectionDashboard.wishlist" | translate }}
+        <span>
+          {{ "myCollectionDashboard.wishlist" | translate }}
+          <span class="low-emphasis"> ({{ this.collectionService.myWishlistCount() }})</span>
+        </span>
       </ng-template>
       <app-my-wishlist />
     </mat-tab>

@@ -24,6 +24,7 @@ export class CollectionService {
    *                       ALL CARDS                         *
    ***********************************************************/
   allCards = signal<CollectionItem[]>([]);
+  allCardsCount = signal<number>(0);
   allCardsFilters = signal<CardFilters>(defaultFilters);
   allCardsPagination = signal<PaginationObject>(PaginationDefault);
 
@@ -34,6 +35,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
       .subscribe(response => {
+        this.allCardsCount.set(response.count);
         this.allCardsPagination.set({ next: response.next, previous: response.previous });
         this.allCards.set(response.results);
       });
