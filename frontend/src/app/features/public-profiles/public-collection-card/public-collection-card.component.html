@@ -9,8 +9,17 @@
     <form class="quantities-form" [formGroup]="collectionItemForm">
       <span class="card-name">
         <strong>#{{ collectionItem().setCode }}-{{ collectionItem().setNumber.toString().padStart(3, "0") }}</strong> -
-        {{ version().name }}</span
-      >
+        {{ version().name }}
+        @if (displayMode() === "for-trade") {
+          (x{{ collectionItemForm.get("forTrade")?.value }})
+        }
+        @if (displayMode() === "wishlist") {
+          (x{{ collectionItemForm.get("wishlist")?.value }})
+        }
+        @if (displayMode() === "owned") {
+          (x{{ collectionItemForm.get("owned")?.value }})
+        }
+      </span>
       <mat-form-field appearance="outline" class="language-code-select" subscriptSizing="dynamic">
         <mat-select formControlName="languageCode">
           @for (languageCode of availableLanguageCodes(); track languageCode) {
@@ -20,14 +29,12 @@
       </mat-form-field>
 
       @if (displayMode() === "for-trade") {
-        <span>{{ collectionItemForm.get("forTrade")?.value }} for trade</span>
         <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('forTrade')?.value">
           Offer trade
         </button>
       }
 
       @if (displayMode() === "wishlist") {
-        <span>{{ collectionItemForm.get("wishlist")?.value }} wanted</span>
         <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('wishlist')?.value">
           Offer trade
         </button>
