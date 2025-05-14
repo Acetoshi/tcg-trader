@@ -230,6 +230,7 @@ export class CollectionService {
   targetUserCollection = signal<CollectionItem[]>([]);
   targetUserCollectionFilters = signal<CardFilters>(defaultFilters);
   targetUserCollectionPagination = signal<PaginationObject>(PaginationDefault);
+  targetUserCollectionCount = signal<number>(0);
   hasActiveTargetUserCollectionFilters = computed(() => this.hasActiveFilters(this.targetUserCollectionFilters()));
 
   fetchTargetUserCollection(targetUsername: string, filters: CardFilters): void {
@@ -240,6 +241,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/collection`, { params })
       .subscribe(response => {
+        this.targetUserCollectionCount.set(response.count);
         this.targetUserCollectionPagination.set({ next: response.next, previous: response.previous });
         this.targetUserCollection.set(response.results);
         this.targetUsername.set(targetUsername);
@@ -271,6 +273,7 @@ export class CollectionService {
   targetUserWishlistFilters = signal<CardFilters>(defaultFilters);
   targetUserWishlistPagination = signal<PaginationObject>(PaginationDefault);
   hasActiveTargetUserWishlistFilters = computed(() => this.hasActiveFilters(this.targetUserWishlistFilters()));
+  targetUserWishlistCount = signal<number>(0);
 
   fetchTargetUserWishlist(targetUsername: string, filters: CardFilters): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -280,6 +283,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/wishlist`, { params })
       .subscribe(response => {
+        this.targetUserWishlistCount.set(response.count);
         this.targetUserWishlistPagination.set({ next: response.next, previous: response.previous });
         this.targetUserWishlist.set(response.results);
         this.targetUsername.set(targetUsername);
@@ -308,6 +312,7 @@ export class CollectionService {
    *         TARGER USER'S CARDS FOR TRADE                   *
    ***********************************************************/
   targetUserCardsForTrade = signal<CollectionItem[]>([]);
+  targetUserCardsForTradeCount = signal<number>(0);
   targetUserCardsForTradeFilters = signal<CardFilters>(defaultFilters);
   targetUserCardsForTradePagination = signal<PaginationObject>(PaginationDefault);
   hasActiveTargetUserCardsForTradeFilters = computed(() =>
@@ -333,6 +338,7 @@ export class CollectionService {
       this.http
         .get<PaginatedResponse<CollectionItem>>(this.targetUserCardsForTradePagination().next as string)
         .subscribe(response => {
+          this.targetUserCardsForTradeCount.set(response.count);
           this.targetUserCardsForTradePagination.set({ next: response.next, previous: response.previous });
           this.targetUserCardsForTrade.set([...this.targetUserCardsForTrade(), ...response.results]);
         });

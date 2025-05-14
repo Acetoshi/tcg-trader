@@ -8,6 +8,7 @@ import { PublicWishlistComponent } from "../public-wishlist/public-wishlist.comp
 import { PublicCollectionComponent } from "../public-collection/public-collection.component";
 import { PublicCardsForTradeComponent } from "../public-cards-for-trade/public-cards-for-trade.component";
 import { TranslateModule } from "@ngx-translate/core";
+import { CollectionService } from "../../../core/services/collection.service";
 
 @Component({
   selector: "app-public-profile-page",
@@ -27,7 +28,10 @@ import { TranslateModule } from "@ngx-translate/core";
 export class PublicProfilePageComponent implements OnInit {
   username = signal<string | null>(null);
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    public collectionService: CollectionService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
