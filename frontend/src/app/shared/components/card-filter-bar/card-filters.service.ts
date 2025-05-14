@@ -1,4 +1,4 @@
-import { computed, Inject, Injectable, PLATFORM_ID, signal } from "@angular/core";
+import { computed, effect, Inject, Injectable, PLATFORM_ID, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { isPlatformBrowser } from "@angular/common";
 import { environment } from "../../../../environments/environment";
@@ -9,7 +9,7 @@ import { PaginatedResponse } from "../../../core/services/pagination.model";
 @Injectable({
   providedIn: "root",
 })
-export class CardFiltersService{
+export class CardFiltersService {
   private apiUrl = environment.apiUrl;
   private _loading = signal(false);
   loading = computed(() => this._loading());
@@ -23,7 +23,15 @@ export class CardFiltersService{
     @Inject(PLATFORM_ID) private platformId: object,
     private http: HttpClient,
     private languageService: LanguageService
-  ) {}
+  ) {
+    // React to language changes
+    effect(() => {
+      const lang = this.languageService.currentLang();
+      if (isPlatformBrowser(this.platformId)) {
+        this.fetchFiltersData();
+      }
+    });
+  }
 
   fetchFiltersData() {
     this.fetchSets();
