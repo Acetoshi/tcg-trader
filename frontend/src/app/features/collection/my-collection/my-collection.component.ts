@@ -4,7 +4,7 @@ import { RouterLink } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
 import { CardFilterBarComponent } from "../../../shared/components/card-filter-bar/card-filter-bar.component";
-import { CollectionItemComponent } from "../collection-item/collection-item.component";
+import { CollectionCardComponent } from "../collection-card/collection-card.component";
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
@@ -17,7 +17,7 @@ import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-o
     CommonModule,
     TranslateModule,
     CardFilterBarComponent,
-    CollectionItemComponent,
+    CollectionCardComponent,
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,

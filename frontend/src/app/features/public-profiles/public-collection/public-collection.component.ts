@@ -5,8 +5,8 @@ import { CollectionService } from "../../../core/services/collection.service";
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
-import { CollectionItemComponent } from "../../collection/collection-item/collection-item.component";
 import { CardFilterBarComponent } from "../../../shared/components/card-filter-bar/card-filter-bar.component";
+import { CollectionCardComponent } from "../../collection/collection-card/collection-card.component";
 
 @Component({
   selector: "app-public-collection",
@@ -16,7 +16,7 @@ import { CardFilterBarComponent } from "../../../shared/components/card-filter-b
     CommonModule,
     TranslateModule,
     CardFilterBarComponent,
-    CollectionItemComponent,
+    CollectionCardComponent,
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,

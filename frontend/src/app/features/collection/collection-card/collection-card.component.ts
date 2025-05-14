@@ -14,12 +14,12 @@ import { ToastService } from "../../../core/services/toast.service";
 
 @Component({
   standalone: true,
-  selector: "app-collection-item",
-  templateUrl: "./collection-item.component.html",
-  styleUrls: ["./collection-item.component.scss"],
+  selector: "app-collection-card",
+  templateUrl: "./collection-card.component.html",
+  styleUrls: ["./collection-card.component.scss"],
   imports: [CommonModule, MatCardModule, MatInputModule, MatSelectModule, ReactiveFormsModule, TranslateModule],
 })
-export class CollectionItemComponent implements OnInit, OnChanges {
+export class CollectionCardComponent implements OnInit, OnChanges {
   collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;
@@ -44,7 +44,6 @@ export class CollectionItemComponent implements OnInit, OnChanges {
   ) {
     // React to language changes
     effect(() => {
-      console.log("Language changed");
       this.selectedLanguageCode.set(this.languageService.currentLang());
       this.collectionItemForm.get("languageCode")?.setValue(this.languageService.currentLang().toUpperCase());
     });
@@ -77,8 +76,13 @@ export class CollectionItemComponent implements OnInit, OnChanges {
     // TODO : decide if this is a dark pattern or not, forcing people to list their cards for trade ?
     this.collectionItemForm.get("owned")?.valueChanges.subscribe(owned => {
       const forTrade = this.collectionItemForm.get("forTrade")?.value as number;
-      if (owned !== forTrade) {
-        this.collectionItemForm.patchValue({ forTrade: owned });
+      if (owned > forTrade) {
+        if (owned > 2) {
+          this.collectionItemForm.patchValue({ forTrade: owned - 2 });
+        } else if (owned <= 2) {
+          console.log("owned is less than 2");
+          this.collectionItemForm.patchValue({ forTrade: 0 });
+        }
       }
     });
 
