@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit, signal, OnChanges } from "@angular/core";
+import { Component, computed, input, OnInit, signal, OnChanges, effect } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
@@ -41,11 +41,17 @@ export class CollectionItemComponent implements OnInit, OnChanges {
     private collectionService: CollectionService,
     private toastService: ToastService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    // React to language changes
+    effect(() => {
+      console.log("Language changed");
+      this.selectedLanguageCode.set(this.languageService.currentLang());
+      this.collectionItemForm.get("languageCode")?.setValue(this.languageService.currentLang().toUpperCase());
+    });
+  }
 
   ngOnInit() {
     //display cards in the user's language if possible
-    // TODO : it feels like i need to pipe this somehow both to currentLang AND to the languages avaible, when the view is filtered
     this.selectedLanguageCode.set(this.languageService.currentLang());
 
     this.createForm();
