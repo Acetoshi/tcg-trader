@@ -8,7 +8,6 @@ import { ScrollListenerComponent } from "../../../shared/components/scroll-liste
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
 
-
 @Component({
   selector: "app-all-cards",
   templateUrl: "./all-cards.component.html",

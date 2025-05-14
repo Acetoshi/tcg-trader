@@ -7,7 +7,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { CardFiltersService } from "./card-filters.service";
 import { environment } from "../../../../environments/environment";
 // Models
-import { CardFilters, defaultFilters, Rarity, Color, Set, CardType } from "./card-filters.model";
+import { CardFilters, defaultFilters } from "./card-filters.model";
 // UI
 import { MatInput } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";

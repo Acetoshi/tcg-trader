@@ -26,7 +26,7 @@ export class CardFiltersService {
   ) {
     // React to language changes
     effect(() => {
-      const lang = this.languageService.currentLang();
+      this.languageService.currentLang();
       if (isPlatformBrowser(this.platformId)) {
         this.fetchFiltersData();
       }
