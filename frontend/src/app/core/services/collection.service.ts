@@ -59,9 +59,9 @@ export class CollectionService {
    *                       MY COLLECTION                     *
    ***********************************************************/
   myCollection = signal<CollectionItem[]>([]);
+  myCollectionCount = signal<number>(0);
   myCollectionFilters = signal<CardFilters>(defaultFilters);
   myCollectionPagination = signal<PaginationObject>(PaginationDefault);
-  myCollectionCount = computed(() => this.myCollection().length);
   hasActiveMyCollectionFilters = computed(() => this.hasActiveFilters(this.myCollectionFilters()));
 
   fetchMyCollection(filters: CardFilters): void {
@@ -71,6 +71,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
       .subscribe(response => {
+        this.myCollectionCount.set(response.count);
         this.myCollectionPagination.set({ next: response.next, previous: response.previous });
         this.myCollection.set(response.results);
       });
@@ -98,9 +99,9 @@ export class CollectionService {
    *                       MY WISHLIST                       *
    ***********************************************************/
   myWishlist = signal<CollectionItem[]>([]);
+  myWishlistCount = signal<number>(0);
   myWishlistFilters = signal<CardFilters>(defaultFilters);
   myWishlistPagination = signal<PaginationObject>(PaginationDefault);
-  myWishlistCount = computed(() => this.myWishlist().length);
   hasActiveWishlistFilters = computed(() => this.hasActiveFilters(this.myWishlistFilters()));
 
   fetchMyWishlist(filters: CardFilters): void {
@@ -111,6 +112,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/user/collection`, { params })
       .subscribe(response => {
+        this.myWishlistCount.set(response.count);
         this.myWishlistPagination.set({ next: response.next, previous: response.previous });
         this.myWishlist.set(response.results);
       });
@@ -228,9 +230,9 @@ export class CollectionService {
   targetUsername = signal<string>(""); // used as memoisation of the target username for the service
 
   targetUserCollection = signal<CollectionItem[]>([]);
+  targetUserCollectionCount = signal<number>(0);
   targetUserCollectionFilters = signal<CardFilters>(defaultFilters);
   targetUserCollectionPagination = signal<PaginationObject>(PaginationDefault);
-  targetUserCollectionCount = signal<number>(0);
   hasActiveTargetUserCollectionFilters = computed(() => this.hasActiveFilters(this.targetUserCollectionFilters()));
 
   fetchTargetUserCollection(targetUsername: string, filters: CardFilters): void {
@@ -327,6 +329,7 @@ export class CollectionService {
     this.http
       .get<PaginatedResponse<CollectionItem>>(`${this.apiUrl}/users/${targetUsername}/for-trade`, { params })
       .subscribe(response => {
+        this.targetUserCardsForTradeCount.set(response.count);
         this.targetUserCardsForTradePagination.set({ next: response.next, previous: response.previous });
         this.targetUserCardsForTrade.set(response.results);
         this.targetUsername.set(targetUsername);
