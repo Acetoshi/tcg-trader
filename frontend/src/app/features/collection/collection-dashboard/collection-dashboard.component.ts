@@ -25,10 +25,9 @@ import { CollectionService } from "../../../core/services/collection.service";
   ],
 })
 export class CollectionDashboardComponent implements OnInit {
-  selectedTabIndex = 0;
-
   // map index → child route
   private tabs = ["all-cards", "owned", "wishlist"];
+  selectedTabIndex = 0;
 
   constructor(
     private router: Router,
