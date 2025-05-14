@@ -1,14 +1,13 @@
-import { Component, OnInit, signal, PLATFORM_ID, Inject, Input, Output, EventEmitter } from "@angular/core";
-import { CommonModule, isPlatformBrowser } from "@angular/common";
+import { Component, OnInit, signal, Input, Output, EventEmitter } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { debounceTime } from "rxjs";
 // Services
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { LanguageService } from "../../../core/services/language.service";
+import { TranslateModule } from "@ngx-translate/core";
+import { CardFiltersService } from "./card-filters.service";
 import { environment } from "../../../../environments/environment";
 // Models
 import { CardFilters, defaultFilters, Rarity, Color, Set, CardType } from "./card-filters.model";
-
 // UI
 import { MatInput } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
@@ -42,20 +41,12 @@ export class CardFilterBarComponent implements OnInit {
   // UI preferences
   showMoreFilters = signal(false);
 
-  private apiUrl = environment.apiUrl;
   fileServerBaseUrl = environment.fileServerUrl;
   loading = signal(false);
 
-  sets = signal<Set[]>([]);
-  rarities = signal<Rarity[]>([]);
-  cardTypes = signal<CardType[]>([]);
-  colors = signal<Color[]>([]);
-
   constructor(
-    private languageService: LanguageService,
     private fb: FormBuilder,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private translateService: TranslateService
+    public cardFiltersService: CardFiltersService
   ) {}
 
   ngOnInit() {
@@ -64,58 +55,6 @@ export class CardFilterBarComponent implements OnInit {
     Object.keys(defaultFilters).forEach(controlName => {
       this.debounceFormControl(controlName);
     });
-    // Fetch filters data
-    this.fetchSets();
-    this.fetchRarities();
-    this.fetchCardTypes();
-    this.fetchColors();
-  }
-
-  async fetchSets() {
-    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
-    try {
-      this.loading.set(true);
-      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/sets`);
-      const data = await response.json();
-      this.sets.set(data.results);
-    } catch {
-      console.error(this.translateService.instant("cardFilterBar.errors.fetchSets"));
-    } finally {
-      this.loading.set(false);
-    }
-  }
-
-  async fetchRarities() {
-    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
-    try {
-      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/rarities`);
-      const data = await response.json();
-      this.rarities.set(data.results);
-    } catch {
-      console.error(this.translateService.instant("cardFilterBar.errors.fetchRarities"));
-    }
-  }
-
-  async fetchCardTypes() {
-    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
-    try {
-      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/card-types`);
-      const data = await response.json();
-      this.cardTypes.set(data.results);
-    } catch {
-      console.error(this.translateService.instant("cardFilterBar.errors.fetchCardTypes"));
-    }
-  }
-
-  async fetchColors() {
-    if (!isPlatformBrowser(this.platformId)) return; // don't do anything in SSR
-    try {
-      const response = await fetch(`${this.apiUrl}/${this.languageService.currentLang()}/colors`);
-      const data = await response.json();
-      this.colors.set(data.results);
-    } catch {
-      console.error(this.translateService.instant("cardFilterBar.errors.fetchColors"));
-    }
   }
 
   onSubmit(event: Event) {
