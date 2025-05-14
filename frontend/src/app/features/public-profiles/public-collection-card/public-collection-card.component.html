@@ -19,10 +19,19 @@
         </mat-select>
       </mat-form-field>
 
-      <span> For trade : {{ collectionItemForm.get("forTrade")?.value }}</span>
-      <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('forTrade')?.value">
-        Offer trade
-      </button>
+      @if (displayMode() === "for-trade") {
+        <span>{{ collectionItemForm.get("forTrade")?.value }} for trade</span>
+        <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('forTrade')?.value">
+          Offer trade
+        </button>
+      }
+
+      @if (displayMode() === "wishlist") {
+        <span>{{ collectionItemForm.get("wishlist")?.value }} wanted</span>
+        <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('wishlist')?.value">
+          Offer trade
+        </button>
+      }
     </form>
   </mat-card-content>
 </mat-card>

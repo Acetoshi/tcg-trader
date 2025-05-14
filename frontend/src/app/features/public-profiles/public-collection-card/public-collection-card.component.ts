@@ -25,7 +25,9 @@ import { MatButtonModule } from "@angular/material/button";
     TranslateModule,
   ],
 })
-export class PulbicCollectionCardComponent implements OnInit, OnChanges {
+export class PublicCollectionCardComponent implements OnInit, OnChanges {
+  displayMode = input<"for-trade" | "wishlist" | "owned">("owned");
+
   collectionItem = input.required<CollectionItem>();
 
   collectionItemForm!: FormGroup;

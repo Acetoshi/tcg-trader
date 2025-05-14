@@ -6,7 +6,7 @@ import { CardFilterBarComponent } from "../../../shared/components/card-filter-b
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
-import { CollectionCardComponent } from "../../collection/collection-card/collection-card.component";
+import { PublicCollectionCardComponent } from "../public-collection-card/public-collection-card.component";
 
 @Component({
   selector: "app-public-wishlist",
@@ -16,7 +16,7 @@ import { CollectionCardComponent } from "../../collection/collection-card/collec
     CommonModule,
     TranslateModule,
     CardFilterBarComponent,
-    CollectionCardComponent,
+    PublicCollectionCardComponent,
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,

@@ -6,7 +6,7 @@ import { CardFilterBarComponent } from "../../../shared/components/card-filter-b
 import { ScrollListenerComponent } from "../../../shared/components/scroll-listener/scroll-listener.component";
 import { NoResultsComponent } from "../../../shared/components/no-results/no-results.component";
 import { EndOfDataComponent } from "../../../shared/components/end-of-data/end-of-data.component";
-import { PulbicCollectionCardComponent } from "../public-collection-card/public-collection-card.component";
+import { PublicCollectionCardComponent } from "../public-collection-card/public-collection-card.component";
 
 @Component({
   selector: "app-public-cards-for-trade",
@@ -16,7 +16,7 @@ import { PulbicCollectionCardComponent } from "../public-collection-card/public-
     CommonModule,
     TranslateModule,
     CardFilterBarComponent,
-    PulbicCollectionCardComponent,
+    PublicCollectionCardComponent,
     ScrollListenerComponent,
     NoResultsComponent,
     EndOfDataComponent,
