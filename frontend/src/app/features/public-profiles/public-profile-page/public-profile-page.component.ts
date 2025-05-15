@@ -42,20 +42,26 @@ export class PublicProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.username.set(params.get("username"));
-    });
+    this.setUsernameFromUrl();
 
     //on hard refresh, show the right tab
     this.setTabFromUrl();
 
     // when the child route changes, set selectedTabIndex
-    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => this.setTabFromUrl());
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+      this.setTabFromUrl();
+    });
   }
 
   setTabFromUrl() {
     const child = this.route.firstChild?.snapshot.url[2]?.path;
     this.selectedTabIndex = this.tabs.indexOf(child || "");
+  }
+
+  setUsernameFromUrl() {
+    this.route.paramMap.subscribe(params => {
+      this.username.set(params.get("username"));
+    });
   }
 
   onTabChange(event: MatTabChangeEvent) {
