@@ -152,60 +152,18 @@
       "message": "Your email couldn't be verified, check your link."
     }
   },
-  "cardFilterBar": {
-    "search": {
-      "label": "Search for a card",
-      "placeholder": "Ex. Pikachu, Red ..."
-    },
-    "filters": {
-      "toggle": {
-        "show": "Show more filters",
-        "hide": "Hide filters"
-      },
-      "reset": "Reset filters"
-    },
-    "advancedFilters": {
-      "set": {
-        "label": "Set"
-      },
-      "rarity": {
-        "label": "Rarity"
-      },
-      "type": {
-        "label": "Type"
-      },
-      "color": {
-        "label": "Color"
-      },
-      "weakness": {
-        "label": "Weakness",
-        "noWeakness": "No weakness"
-      }
-    },
-    "collectionFilters": {
-      "allCards": "All cards",
-      "owned": "Owned Only",
-      "wishlist": "Wishlist Only"
-    },
-    "errors": {
-      "fetchSets": "Error fetching Sets",
-      "fetchRarities": "Error fetching Rarities",
-      "fetchCardTypes": "Error fetching card types",
-      "fetchColors": "Error fetching colors"
-    }
-  },
   "allCards": {
     "noResultsWithFilters": "We couldn't find any cards that match your filters.",
     "noMoreCardsWithFilters": "There's no more cards to show you with these filters"
   },
-  "myCollectionDashboard": {
-    "allCards": "All Cards",
-    "myCollection": "My Collection",
-    "wishlist": "Wishlist"
-  },
   "collectionItem": {
     "owned": "Owned",
     "forTrade": "For trade",
+    "wishlist": "Wishlist"
+  },
+  "myCollectionDashboard": {
+    "allCards": "All Cards",
+    "myCollection": "My Collection",
     "wishlist": "Wishlist"
   },
   "myCollection": {
@@ -255,6 +213,9 @@
     "noMoreCards": "There's no more cards this user's collection",
     "noMoreCardsWithFilters": "that match the current filters"
   },
+  "publicCollectionCard": {
+    "openTradeDialog": "MAKE AN OFFER"
+  },
   "publicProfile": {
     "cardsForTrade": "Cards for trade",
     "collection": "Collection",
@@ -293,6 +254,48 @@
     "sent": "Sent",
     "ongoing": "Ongoing",
     "history": "History"
+  },
+  "cardFilterBar": {
+    "search": {
+      "label": "Search for a card",
+      "placeholder": "Ex. Pikachu, Red ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Show more filters",
+        "hide": "Hide filters"
+      },
+      "reset": "Reset filters"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Set"
+      },
+      "rarity": {
+        "label": "Rarity"
+      },
+      "type": {
+        "label": "Type"
+      },
+      "color": {
+        "label": "Color"
+      },
+      "weakness": {
+        "label": "Weakness",
+        "noWeakness": "No weakness"
+      }
+    },
+    "collectionFilters": {
+      "allCards": "All cards",
+      "owned": "Owned Only",
+      "wishlist": "Wishlist Only"
+    },
+    "errors": {
+      "fetchSets": "Error fetching Sets",
+      "fetchRarities": "Error fetching Rarities",
+      "fetchCardTypes": "Error fetching card types",
+      "fetchColors": "Error fetching colors"
+    }
   },
   "navbar": {
     "home": "Home",

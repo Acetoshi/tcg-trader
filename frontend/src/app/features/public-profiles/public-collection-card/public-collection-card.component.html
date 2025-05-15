@@ -30,13 +30,13 @@
 
       @if (displayMode() === "for-trade") {
         <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('forTrade')?.value">
-          Offer trade
+          {{ "publicCollectionCard.openTradeDialog" | translate }} <mat-icon>call_made</mat-icon>
         </button>
       }
 
       @if (displayMode() === "wishlist") {
         <button mat-flat-button (click)="openTradeDialog()" [disabled]="!collectionItemForm.get('wishlist')?.value">
-          Offer trade
+          {{ "publicCollectionCard.openTradeDialog" | translate }} <mat-icon>call_made</mat-icon>
         </button>
       }
     </form>

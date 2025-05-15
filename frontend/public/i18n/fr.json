@@ -152,61 +152,19 @@
       "message": "Votre e-mail n'a pas pu être vérifié, vérifiez votre lien."
     }
   },
-  "cardFilterBar": {
-    "search": {
-      "label": "Rechercher une carte",
-      "placeholder": "Ex. Pikachu, Red ..."
-    },
-    "filters": {
-      "toggle": {
-        "show": "Afficher plus de filtres",
-        "hide": "Masquer les filtres"
-      },
-      "reset": "Réinitialiser les filtres"
-    },
-    "advancedFilters": {
-      "set": {
-        "label": "Extension"
-      },
-      "rarity": {
-        "label": "Rareté"
-      },
-      "type": {
-        "label": "Type de carte"
-      },
-      "color": {
-        "label": "Type"
-      },
-      "weakness": {
-        "label": "Faiblesse",
-        "noWeakness": "Aucune faiblesse"
-      }
-    },
-    "collectionFilters": {
-      "allCards": "Toutes les cartes",
-      "owned": "Seulement ma collection",
-      "wishlist": "Seulement mes souhaits"
-    },
-    "errors": {
-      "fetchSets": "Erreur lors de la récupération des extensions",
-      "fetchRarities": "Erreur lors de la récupération des raretés",
-      "fetchCardTypes": "Erreur lors de la récupération des types de cartes",
-      "fetchColors": "Erreur lors de la récupération des couleurs"
-    }
-  },
   "allCards": {
     "noResultsWithFilters": "Aucune carte correspondant à vos filtres.",
     "noMoreCardsWithFilters": "Il n'y a pas plus de cartes correspondant à vos filtres."
-  },
-  "myCollectionDashboard": {
-    "allCards": "Toutes les cartes",
-    "myCollection": "Ma collection",
-    "wishlist": "Liste de souhaits"
   },
   "collectionItem": {
     "owned": "Obtenues",
     "forTrade": "Échange",
     "wishlist": "Souhaits"
+  },
+  "myCollectionDashboard": {
+    "allCards": "Toutes les cartes",
+    "myCollection": "Ma collection",
+    "wishlist": "Liste de souhaits"
   },
   "myCollection": {
     "noResultsWithFilters": "Aucune carte dans votre collection avec les filtres actuels",
@@ -255,6 +213,9 @@
     "noMoreCards": "Il n'y a pas plus de cartes dans cette collection",
     "noMoreCardsWithFilters": "correspondant aux filtres actuels"
   },
+  "publicCollectionCard": {
+    "openTradeDialog": "FAIRE UNE OFFRE"
+  },
   "publicProfile": {
     "cardsForTrade": "Cartes à échanger",
     "collection": "Collection",
@@ -293,6 +254,48 @@
     "sent": "Propositions envoyées",
     "ongoing": "En cours",
     "history": "Historique"
+  },
+  "cardFilterBar": {
+    "search": {
+      "label": "Rechercher une carte",
+      "placeholder": "Ex. Pikachu, Red ..."
+    },
+    "filters": {
+      "toggle": {
+        "show": "Afficher plus de filtres",
+        "hide": "Masquer les filtres"
+      },
+      "reset": "Réinitialiser les filtres"
+    },
+    "advancedFilters": {
+      "set": {
+        "label": "Extension"
+      },
+      "rarity": {
+        "label": "Rareté"
+      },
+      "type": {
+        "label": "Type de carte"
+      },
+      "color": {
+        "label": "Type"
+      },
+      "weakness": {
+        "label": "Faiblesse",
+        "noWeakness": "Aucune faiblesse"
+      }
+    },
+    "collectionFilters": {
+      "allCards": "Toutes les cartes",
+      "owned": "Seulement ma collection",
+      "wishlist": "Seulement mes souhaits"
+    },
+    "errors": {
+      "fetchSets": "Erreur lors de la récupération des extensions",
+      "fetchRarities": "Erreur lors de la récupération des raretés",
+      "fetchCardTypes": "Erreur lors de la récupération des types de cartes",
+      "fetchColors": "Erreur lors de la récupération des couleurs"
+    }
   },
   "navbar": {
     "home": "Accueil",

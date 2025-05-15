@@ -1,7 +1,5 @@
 {
-  "collectionItem": {
-    "owned": "Owned",
-    "forTrade": "For trade",
-    "wishlist": "Wishlist"
+  "publicCollectionCard": {
+    "openTradeDialog": "MAKE AN OFFER"
   }
 }
