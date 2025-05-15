@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from "@angular/core";
+import { Component, effect, input, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
@@ -19,7 +19,7 @@ interface UserPublicProfile {
   styleUrls: ["./profile-card.component.scss"],
   imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
 })
-export class ProfileCardComponent implements OnInit {
+export class ProfileCardComponent {
   username = input<string | null>(null);
 
   private apiUrl = environment.apiUrl;
@@ -34,10 +34,15 @@ export class ProfileCardComponent implements OnInit {
     avatarUrl: "loading ...",
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    effect(() => {
+      this.fetchUserInfo(this.username());
+    });
+  }
 
-  ngOnInit(): void {
-    this.http.get<UserPublicProfile>(`${this.apiUrl}/users/${this.username()}/info`).subscribe({
+  fetchUserInfo(username: string | null) {
+    if (!username) return;
+    this.http.get<UserPublicProfile>(`${this.apiUrl}/users/${username}/info`).subscribe({
       next: data => {
         this.userInfo.set(data);
       },

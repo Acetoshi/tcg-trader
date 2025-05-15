@@ -1,7 +1,10 @@
 <main class="justify-start">
   <app-profile-card [username]="username()" />
 
-  <mat-tab-group class="dashboard-tab-group">
+  <mat-tab-group
+    class="dashboard-tab-group"
+    [selectedIndex]="selectedTabIndex"
+    (selectedTabChange)="onTabChange($event)">
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="icon-margin-right-8px">swap_horiz</mat-icon>

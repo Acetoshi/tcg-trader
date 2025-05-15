@@ -9,6 +9,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   standalone: true,
@@ -17,6 +18,7 @@ import { MatButtonModule } from "@angular/material/button";
   styleUrls: ["./public-collection-card.component.scss"],
   imports: [
     CommonModule,
+    MatIcon,
     MatCardModule,
     MatInputModule,
     MatSelectModule,
