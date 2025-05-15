@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit } from "@angular/core";
+import { Component, computed, effect, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
@@ -22,13 +22,18 @@ import { PublicCollectionCardComponent } from "../public-collection-card/public-
     EndOfDataComponent,
   ],
 })
-export class PublicWishlistComponent implements OnInit {
+export class PublicWishlistComponent {
   username = input<string | null>(null);
 
   noResults = computed(() => this.collectionService.targetUserWishlist().length === 0);
-  constructor(public collectionService: CollectionService) {}
+  constructor(public collectionService: CollectionService) {
+    effect(() => {
+      this.fetchTargetUserWishlist(this.username());
+    });
+  }
 
-  ngOnInit(): void {
+  fetchTargetUserWishlist(username: string | null): void {
+    if (!username) return;
     this.collectionService.fetchTargetUserWishlist(this.username() as string, {
       ...this.collectionService.targetUserWishlistFilters(),
     });

@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit } from "@angular/core";
+import { Component, computed, effect, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { CollectionService } from "../../../core/services/collection.service";
@@ -22,13 +22,18 @@ import { PublicCollectionCardComponent } from "../public-collection-card/public-
     EndOfDataComponent,
   ],
 })
-export class PublicCardsForTradeComponent implements OnInit {
+export class PublicCardsForTradeComponent {
   username = input<string | null>(null);
 
   noResults = computed(() => this.collectionService.targetUserCardsForTrade().length === 0);
-  constructor(public collectionService: CollectionService) {}
+  constructor(public collectionService: CollectionService) {
+    effect(() => {
+      this.fetchUserCardsForTrade(this.username());
+    });
+  }
 
-  ngOnInit(): void {
+  fetchUserCardsForTrade(username: string | null): void {
+    if (!username) return;
     this.collectionService.fetchTargetUserCardsForTrade(this.username() as string, {
       ...this.collectionService.targetUserCardsForTradeFilters(),
     });
