@@ -114,8 +114,12 @@ i18n-merge:
 test-backend:
 	@docker exec -it tcg-trader-backend pytest
 
+test-e2e:
+	@cd e2e-tests && npm run test
+
 test:
 	make test-backend
+	make test-e2e
 
 lint:
 	@cd backend && venv/bin/pre-commit run --all-files
