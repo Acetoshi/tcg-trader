@@ -23,6 +23,9 @@ dev-restart-frontend:
 staging:
 	docker compose -f docker-compose.staging.yml up --build
 
+testing:
+	docker compose -f docker-compose.test.yml up --build
+
 prod:
 	docker compose -f docker-compose.prod.yml up
 
