@@ -3,21 +3,23 @@ import { Page } from "@playwright/test";
 export class HomePage {
   constructor(private page: Page) {}
 
-  headerHomeLink() {
+  navbarHomeLink() {
     return this.page.getByRole("link", {
       name: /home/i,
     });
   }
 
-  headerLoginLink() {
+  navbarLoginLink() {
     return this.page.getByRole("link", {
       name: /login/i,
     });
   }
 
-//   headerLoginLink() {
-//     return this.page.getByText("Login");
-//   }
+  navbarRegisterLink() {
+    return this.page.getByRole("link", {
+      name: /register/i,
+    });
+  }
 
   async go() {
     await this.page.goto("/");
