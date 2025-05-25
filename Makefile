@@ -20,8 +20,8 @@ dev-restart-frontend:
 	@echo "Starting the frontend container..."
 	@docker compose -f docker-compose.dev.yml start frontend
 
-staged:
-	docker compose -f docker-compose.staged.yml up --build
+staging:
+	docker compose -f docker-compose.staging.yml up --build
 
 prod:
 	docker compose -f docker-compose.prod.yml up

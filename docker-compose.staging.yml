@@ -22,7 +22,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.staging
     container_name: tcg-trader-frontend
     networks:
       app-network:
